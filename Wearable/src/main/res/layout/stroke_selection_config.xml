@@ -6,7 +6,8 @@
     android:background="@color/dark_grey"
     tools:context="zir.teq.wearable.watchface.config.StrokeSelectionActivity">
 
-    <android.support.wearable.view.WearableRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.wearable.view.WearableRecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/wearable_recycler_view"
         android:layout_width="match_parent"

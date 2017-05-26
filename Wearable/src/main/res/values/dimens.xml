@@ -4,7 +4,9 @@
     <dimen name="activity_config_padding">21dp</dimen>
 
     <dimen name="color_picker_size">55dp</dimen>
+    <dimen name="stroke_picker_size">55dp</dimen>
     <dimen name="config_color_picker_item_margin">13dp</dimen>
+    <dimen name="config_stroke_picker_item_margin">13dp</dimen>
 
     <dimen name="full_circle">34dp</dimen>
 
