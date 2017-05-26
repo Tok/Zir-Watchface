@@ -2,13 +2,16 @@ package zir.teq.wearable.watchface.config
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
+import zir.teq.wearable.watchface.config.select.holder.ZirPickerViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.util.ActivityHelper
 
 class ZirWatchConfigActivity : Activity() {
@@ -27,12 +30,17 @@ class ZirWatchConfigActivity : Activity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             UPDATE_COLORS_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
-                Log.i(TAG, "extra: " + data?.extras?.get(ColorSelectionActivity.EXTRA_SHARED_COLOR))
+                val col = Col.findActive(applicationContext) //TODO pass with intent extra?
+                val cf = Col.createFilter(applicationContext, col)
+                val res = applicationContext.resources
+                res.getDrawable(R.drawable.icon_color, null).setColorFilter(cf)
+                res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(cf)
+                res.getDrawable(R.drawable.icon_theme, null).setColorFilter(cf)
+                Log.d(TAG, "Color changed. col: $col")
             }
             //UPDATE_STROKE_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
             //UPDATE_THEME_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
         }
-        Log.d(TAG, "onActivityResult data.dataString: " + data?.dataString)
     }
 
     companion object {

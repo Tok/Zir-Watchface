@@ -1,7 +1,10 @@
 package zir.teq.wearable.watchface.model.data
 
 import android.content.Context
+import android.graphics.ColorFilter
 import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.Config
@@ -87,6 +90,10 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             paint.strokeCap = Paint.Cap.ROUND
             paint.color = ctx.getColor(colorId)
             return paint
+        }
+
+        fun createFilter(ctx: Context, col: Col): ColorFilter {
+            return PorterDuffColorFilter(ctx.getColor(col.lightId), PorterDuff.Mode.MULTIPLY)
         }
 
         fun findActive(ctx: Context): Col {

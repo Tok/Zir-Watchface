@@ -7,6 +7,7 @@ import android.view.View
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
 import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
+import zir.teq.wearable.watchface.model.data.Col
 
 class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
     private var mActivity: Class<ColorSelectionActivity>? = null
@@ -21,7 +22,12 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
         Log.d(TAG, "onClick() position: " + position)
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
+
+            val col = Col.findActive(view.context)
+            Log.d(TAG, "Color changed to $col")
+            launchIntent.putExtra("color", col.name)
             launchIntent.putExtra(ColorSelectionActivity.EXTRA_SHARED_COLOR, mSharedPrefString)
+
             val activity = view.context as Activity
             activity.startActivityForResult(
                     launchIntent,
