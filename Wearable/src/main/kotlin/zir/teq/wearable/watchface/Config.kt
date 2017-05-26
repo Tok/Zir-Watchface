@@ -6,10 +6,6 @@ import java.util.concurrent.TimeUnit
 data class Config(val drawCircle: Boolean,
                   val drawActiveCircles: Boolean, val drawHands: Boolean, val drawTriangle: Boolean,
                   val drawText: Boolean, val drawPoints: Boolean) {
-    enum class PaintType {
-        TEXT, HAND, HAND_AMB, SHAPE, SHAPE_AMB, CIRCLE, CIRCLE_AMB, POINT
-    }
-
     val isStayActive = false //TODO reimplement
     val isFastUpdate = false //TODO reimplement
 

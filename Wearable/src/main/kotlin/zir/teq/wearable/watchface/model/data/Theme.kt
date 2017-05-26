@@ -1,6 +1,5 @@
 package zir.teq.wearable.watchface.model.data
 
-import android.content.Intent
 import zir.teq.wearable.watchface.R
 
 data class Theme(val name: String,

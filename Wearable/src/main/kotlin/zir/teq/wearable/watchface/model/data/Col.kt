@@ -6,6 +6,10 @@ import zir.teq.wearable.watchface.R
 import zir.watchface.Config
 
 data class Col(val name: String, val darkId: Int, val lightId: Int) {
+    enum class PaintType {
+        TEXT, HAND, HAND_AMB, SHAPE, SHAPE_AMB, CIRCLE, CIRCLE_AMB, POINT
+    }
+
     companion object {
         val WHITE = Col("White", R.color.white_dark, R.color.white_light)
         val RED = Col("Red", R.color.red_dark, R.color.red_light)
@@ -25,16 +29,16 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createPaint(ctx: Context, type: Config.PaintType, col: Col, stroke: Stroke): Paint {
+        fun createPaint(ctx: Context, type: PaintType, col: Col, stroke: Stroke): Paint {
             val paint = when (type) {
-                Config.PaintType.HAND -> prepareLinePaint(ctx, col.lightId)
-                Config.PaintType.HAND_AMB -> prepareLinePaint(ctx, col.darkId)
-                Config.PaintType.SHAPE -> prepareShapePaint(ctx, col.lightId)
-                Config.PaintType.SHAPE_AMB -> prepareShapePaint(ctx, col.darkId)
-                Config.PaintType.CIRCLE -> prepareCirclePaint(ctx, col.darkId)
-                Config.PaintType.CIRCLE_AMB -> prepareCirclePaint(ctx, col.lightId)
-                Config.PaintType.TEXT -> prepareTextPaint(ctx, R.color.text)
-                Config.PaintType.POINT -> preparePointPaint(ctx, R.color.points)
+                PaintType.HAND -> prepareLinePaint(ctx, col.lightId)
+                PaintType.HAND_AMB -> prepareLinePaint(ctx, col.darkId)
+                PaintType.SHAPE -> prepareShapePaint(ctx, col.lightId)
+                PaintType.SHAPE_AMB -> prepareShapePaint(ctx, col.darkId)
+                PaintType.CIRCLE -> prepareCirclePaint(ctx, col.darkId)
+                PaintType.CIRCLE_AMB -> prepareCirclePaint(ctx, col.lightId)
+                PaintType.TEXT -> prepareTextPaint(ctx, R.color.text)
+                PaintType.POINT -> preparePointPaint(ctx, R.color.points)
                 else -> {
                     val msg = "Ignoring paintType: " + type
                     throw IllegalArgumentException(msg)

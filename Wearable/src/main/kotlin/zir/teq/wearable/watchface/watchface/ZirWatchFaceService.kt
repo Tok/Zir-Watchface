@@ -41,7 +41,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
         private var mCol: Col = Col.defaultColor
-        private var mStroke: Stroke = Stroke.createStroke(ctx, Stroke.Companion.defaultName)
+        private var mStroke: Stroke = Stroke.createStroke(ctx, Stroke.default.name)
         private var mTheme: Theme = Theme.Companion.defaultTheme
 
         private var mBackgroundPaint: Paint = Col.prep(mBackgroundColor)
@@ -100,7 +100,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             Log.d(TAG, "loaded saved color... mCol: $mCol")
 
             val strokeResourceName = ctx.getString(R.string.saved_stroke_name)
-            val mStrokeName = mSharedPref.getString(strokeResourceName, Stroke.Companion.defaultName)
+            val mStrokeName = mSharedPref.getString(strokeResourceName, Stroke.default.name)
             mStroke = Stroke.createStroke(ctx, mStrokeName)
             Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
 
