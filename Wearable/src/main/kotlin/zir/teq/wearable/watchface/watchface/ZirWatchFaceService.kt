@@ -1,0 +1,245 @@
+package zir.teq.wearable.watchface.watchface
+
+import android.content.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.support.wearable.watchface.CanvasWatchFaceService
+import android.support.wearable.watchface.WatchFaceService
+import android.support.wearable.watchface.WatchFaceStyle
+import android.util.Log
+import android.view.SurfaceHolder
+import zir.teq.wearable.watchface.Col
+import zir.teq.wearable.watchface.R
+import zir.watchface.Config
+import zir.watchface.DrawUtil
+import java.util.*
+import java.util.concurrent.TimeUnit
+
+class ZirWatchFaceService : CanvasWatchFaceService() {
+    override fun onCreateEngine(): Engine {
+        return Engine()
+    }
+
+    inner class Engine : CanvasWatchFaceService.Engine() {
+        private val MSG_UPDATE_TIME = 0
+
+        val ctx = applicationContext
+        val drawer = DrawUtil()
+
+        internal var mInteractiveUpdateRateMs = Config.FAST_UPDATE_RATE_MS //TODO move elsewhere
+
+        private var mCalendar: Calendar = Calendar.getInstance()
+        private var mMuteMode: Boolean = false
+        private var mRegisteredTimeZoneReceiver = false
+
+        private var mCol: Col = Config.WHITE
+        private var mBackgroundColor: Int = ctx.getColor(R.color.black)
+
+        private var mBackgroundPaint: Paint = Config.prep(mBackgroundColor)
+        private var mDarkPaint: Paint = Config.prep(mCol.darkId)
+        private var mLightPaint: Paint = Config.prep(mCol.lightId)
+
+        private var mAmbient: Boolean = false
+        private var mLowBitAmbient: Boolean = false
+        private var mBurnInProtection: Boolean = false
+
+        internal lateinit var mSharedPref: SharedPreferences
+        private val mTimeZoneReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                mCalendar.timeZone = TimeZone.getDefault()
+                invalidate()
+            }
+        }
+
+        internal val mUpdateTimeHandler: Handler = object : Handler() {
+            val msgUpdateTime = 0
+            override fun handleMessage(message: Message) {
+                when (message.what) {
+                    msgUpdateTime -> {
+                        invalidate()
+                        if (shouldTimerBeRunning()) {
+                            val timeMs = System.currentTimeMillis()
+                            val delayMs = mInteractiveUpdateRateMs - timeMs % mInteractiveUpdateRateMs
+                            this.sendEmptyMessageDelayed(msgUpdateTime, delayMs)
+                        }
+                    }
+                }
+            }
+        }
+
+        override fun onCreate(holder: SurfaceHolder?) {
+            Log.d(TAG, "onCreate")
+            super.onCreate(holder)
+            val ctx = applicationContext
+            mSharedPref = ctx.getSharedPreferences(
+                    getString(R.string.zir_watch_preference_file_key),
+                    Context.MODE_PRIVATE)
+            setWatchFaceStyle(
+                    WatchFaceStyle.Builder(this@ZirWatchFaceService).setAcceptsTapEvents(true).build()
+            )
+            loadSavedPreferences()
+            initializeStyles()
+        }
+
+        private fun loadSavedPreferences() {
+            val backgroundColorResourceName = ctx.getString(R.string.saved_background_color)
+            mBackgroundColor = mSharedPref.getInt(backgroundColorResourceName, Color.BLACK)
+
+            val colResourceName = ctx.getString(R.string.saved_color_name)
+            val mColName = mSharedPref.getString(colResourceName, Config.WHITE.name)
+            mCol = Config.getColorByName(mColName)
+            Log.d(TAG, "loaded saved color... mCol: $mCol")
+
+            updateWatchPaintStyles()
+        }
+
+        private fun initializeStyles() {
+            Log.d(TAG, "initializeStyles()")
+            mBackgroundPaint = Paint()
+            mBackgroundPaint.color = mBackgroundColor
+            mDarkPaint.color = mCol.darkId
+            mLightPaint.color = mCol.lightId
+            setActiveComplications(0)
+        }
+
+        override fun onDestroy() {
+            mUpdateTimeHandler.removeMessages(MSG_UPDATE_TIME)
+            super.onDestroy()
+        }
+
+        override fun onPropertiesChanged(properties: Bundle?) {
+            super.onPropertiesChanged(properties)
+            Log.d(TAG, "onPropertiesChanged: low-bit ambient = " + mLowBitAmbient)
+            mLowBitAmbient = properties!!.getBoolean(WatchFaceService.PROPERTY_LOW_BIT_AMBIENT, false)
+            mBurnInProtection = properties.getBoolean(WatchFaceService.PROPERTY_BURN_IN_PROTECTION, false)
+        }
+
+        override fun onTapCommand(tapType: Int, x: Int, y: Int, eventTime: Long) {
+            Log.d(TAG, "OnTapCommand()")
+        }
+
+        override fun onTimeTick() {
+            super.onTimeTick()
+            invalidate()
+        }
+
+        override fun onAmbientModeChanged(inAmbientMode: Boolean) {
+            super.onAmbientModeChanged(inAmbientMode)
+            Log.d(TAG, "onAmbientModeChanged: " + inAmbientMode)
+            if (mAmbient != inAmbientMode) {
+                mAmbient = inAmbientMode
+                invalidate()
+            }
+            updateTimer()
+        }
+
+        override fun onInterruptionFilterChanged(interruptionFilter: Int) {
+            super.onInterruptionFilterChanged(interruptionFilter)
+            val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
+            val isFastUpdate = true //FIXME
+            val rate = if (inMuteMode) Config.activeUpdateRateMs(isFastUpdate) else Config.updateRateMs(isFastUpdate)
+            setInteractiveUpdateRateMs(rate)
+            if (mMuteMode != inMuteMode) { //dim display in mute mode.
+                mMuteMode = inMuteMode
+                mDarkPaint.alpha = if (inMuteMode) 100 else 255
+                mLightPaint.alpha = if (inMuteMode) 100 else 255
+                invalidate()
+            }
+        }
+
+        override fun onVisibilityChanged(visible: Boolean) {
+            super.onVisibilityChanged(visible)
+            if (visible) {
+                loadSavedPreferences()
+                updateWatchPaintStyles()
+                registerReceiver()
+                mCalendar.timeZone = TimeZone.getDefault()
+                invalidate()
+            } else {
+                unregisterReceiver()
+            }
+            updateTimer()
+        }
+
+        override fun onDraw(canvas: Canvas, bounds: Rect?) {
+            mCalendar.timeInMillis = System.currentTimeMillis()
+            val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
+            val bgPaint = if (makeDarkBackground) mBackgroundPaint else Config.prep(ctx.getColor(R.color.black))
+            drawer.drawBackground(canvas, bgPaint)
+            drawer.draw(ctx, mCol, canvas, bounds!!, mAmbient, mCalendar)
+            //drawer.drawText(canvas, bounds, isInAmbient, mCalendar);
+        }
+
+        private fun updateWatchPaintStyles() {
+            mBackgroundPaint.color = if (mAmbient) Color.BLACK else mBackgroundColor
+
+            mDarkPaint.color = if (mAmbient) Color.BLACK else mCol.darkId
+            mDarkPaint.isAntiAlias = !mAmbient
+
+            mLightPaint.color = if (mAmbient) Color.WHITE else mCol.lightId
+            mLightPaint.isAntiAlias = !mAmbient
+
+            setShadows(mAmbient)
+        }
+
+        private fun setShadows(mAmbient: Boolean) {
+            val drawShadows = false //TODO activate?
+            if (drawShadows && mAmbient) {
+                mDarkPaint.clearShadowLayer()
+                mLightPaint.clearShadowLayer()
+            } else {
+                val shadowRadius = 3F
+                val shadowColor = Color.WHITE
+                mDarkPaint.setShadowLayer(shadowRadius, 0F, 0F, shadowColor)
+            }
+        }
+
+        private fun setInteractiveUpdateRateMs(updateRateMs: Long) {
+            if (updateRateMs == mInteractiveUpdateRateMs) {
+                return
+            }
+            mInteractiveUpdateRateMs = updateRateMs
+            if (shouldTimerBeRunning()) {
+                updateTimer()
+            }
+        }
+
+        private fun registerReceiver() {
+            if (mRegisteredTimeZoneReceiver) {
+                return
+            }
+            mRegisteredTimeZoneReceiver = true
+            val filter = IntentFilter(Intent.ACTION_TIMEZONE_CHANGED)
+            this@ZirWatchFaceService.registerReceiver(mTimeZoneReceiver, filter)
+        }
+
+        private fun unregisterReceiver() {
+            if (!mRegisteredTimeZoneReceiver) {
+                return
+            }
+            mRegisteredTimeZoneReceiver = false
+            this@ZirWatchFaceService.unregisterReceiver(mTimeZoneReceiver)
+        }
+
+        private fun updateTimer() {
+            mUpdateTimeHandler.removeMessages(MSG_UPDATE_TIME)
+            if (shouldTimerBeRunning()) {
+                mUpdateTimeHandler.sendEmptyMessage(MSG_UPDATE_TIME)
+            }
+        }
+
+        private fun shouldTimerBeRunning(): Boolean {
+            return isVisible && !mAmbient //when active
+        }
+    }
+
+    companion object {
+        private val TAG = ZirWatchFaceService::class.java.simpleName
+        private val INTERACTIVE_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1)
+    }
+}

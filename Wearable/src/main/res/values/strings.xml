@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zir Watch Face</string>
+    <string name="zir_watch">Zir Watch</string>
+    <string name="zir_watch_preference_file_key">zir.teq.wearable.watchface.ZIR_WATCH_PREFERENCE_FILE_KEY</string>
+
+    <string name="saved_background_color">saved_background_color</string>
+    <string name="saved_color_name">saved_color_name</string>
+
+    <string name="config_marker_color_label">Color</string>
+    <string name="config_background_color_label">Background\nColor</string>
+    <string name="zir_watch_config">Zir Watch Config</string>
+</resources>

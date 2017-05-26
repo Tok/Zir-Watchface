@@ -1,0 +1,9 @@
+.gradle/
+.idea/
+build/
+captures/
+hooks/
+info/exclude
+local.properties
+HEAD
+config

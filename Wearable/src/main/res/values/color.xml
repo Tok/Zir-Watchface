@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_item_circle_border_color">#000000</color>
+    <color name="config_activity_background">#424242</color>
+    <color name="config_activity_color_item_label_color">#ffffff</color>
+    <color name="config_activity_color_item_circle_border_color">#ffffff</color>
+
+    <color name="background">#000000</color>
+    <color name="text">#ffffff</color>
+    <color name="points">#dddddd</color>
+
+    <color name="white_dark">#aaaaaa</color>
+    <color name="white_light">#ffffff</color>
+    <color name="red_dark">#770000</color>
+    <color name="red_light">#ff0000</color>
+    <color name="orange_dark">#995500</color>
+    <color name="orange_light">#ff7700</color>
+    <color name="yellow_dark">#aaaa00</color>
+    <color name="yellow_light">#ffff00</color>
+    <color name="green_dark">#007700</color>
+    <color name="green_light">#00ff00</color>
+    <color name="blue_dark">#000077</color>
+    <color name="blue_light">#0000ff</color>
+    <color name="purple_dark">#550077</color>
+    <color name="purple_light">#7700ff</color>
+    <color name="pink_dark">#770077</color>
+    <color name="pink_light">#ff00ff</color>
+</resources>
