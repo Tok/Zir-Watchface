@@ -36,14 +36,14 @@ class ColorSelectionAdapter(
     }
 
     inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        private val mColorCircleImageView: CircledImageView
+        private val mView: CircledImageView
         init {
-            mColorCircleImageView = view.findViewById(R.id.color) as CircledImageView
+            mView = view.findViewById(R.id.color) as CircledImageView
             view.setOnClickListener(this)
         }
 
         fun setItemDisplayColor(ctx: Context, col: Col) {
-            mColorCircleImageView.setCircleColor(ctx.getColor(col.lightId))
+            mView.setCircleColor(ctx.getColor(col.lightId))
         }
 
         override fun onClick(view: View) {

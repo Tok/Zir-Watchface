@@ -24,13 +24,17 @@ class ZirWatchConfigActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == UPDATE_COLORS_CONFIG_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Log.d(TAG, "ZirWatchConfigActivity onActivityResult data.dataString: " + data?.dataString)
+        when (requestCode) {
+            //TODO implement
+            //UPDATE_COLORS_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
+            //UPDATE_STROKE_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
         }
+        Log.d(TAG, "ZirWatchConfigActivity onActivityResult data.dataString: " + data?.dataString)
     }
 
     companion object {
         private val TAG = ZirWatchConfigActivity::class.java.simpleName
         internal val UPDATE_COLORS_CONFIG_REQUEST_CODE = 1002
+        internal val UPDATE_STROKE_CONFIG_REQUEST_CODE = 1003
     }
 }

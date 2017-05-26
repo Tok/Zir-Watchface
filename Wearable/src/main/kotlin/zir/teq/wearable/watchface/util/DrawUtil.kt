@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.util.Log
 import zir.teq.wearable.watchface.Col
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Stroke
 import java.util.*
 
 
@@ -27,16 +28,13 @@ class DrawUtil() {
         return Triple(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND))
     }
 
-    fun draw(ctx: Context, col: Col, can: Canvas, bounds: Rect, isAmbient: Boolean, calendar: Calendar) {
+    fun draw(ctx: Context, col: Col, stroke: Stroke, can: Canvas, bounds: Rect, isAmbient: Boolean, calendar: Calendar) {
         Log.d(TAG, "draw(): " + col)
         val (hh, mm, ss) = createTime(calendar)
         val unit = bounds.width() / 2F
         val center = PointF(unit, unit)
         val ref = Ref(can, unit, center)
-
-        //val stroke = cfg.stroke
-        //val distFromBorder = can.height / (can.height + 2F * stroke)
-        val distFromBorder = can.height / (can.height + 2F * 3F) //FIXME
+        val distFromBorder = can.height / (can.height + 2F * stroke.dim)
 
         val minRot: Float = (mm + (ss / 60F)) / 30F * PI
         val hrRot: Float = (hh + (mm / 60F)) / 6F * PI
@@ -58,17 +56,17 @@ class DrawUtil() {
             val ccCenter = calcCircumcenter(center, hr, min)
             val ccRadius = calcDistance(min, ccCenter)
             if (drawCircle) {
-                val paint = Config.findPaint(ctx, Config.PaintType.CIRCLE_AMB, col)
+                val paint = Config.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
                 can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, paint)
             }
             if (drawHands) {
-                val paint = Config.findPaint(ctx, Config.PaintType.SHAPE_AMB, col)
+                val paint = Config.createPaint(ctx, Config.PaintType.SHAPE_AMB, col, stroke)
                 drawHand(ref, paint, hour)
                 drawHand(ref, paint, minute)
                 can.drawLine(min.x, min.y, hr.x, hr.y, paint)
             }
             if (drawPoints) {
-                val paint = Config.findPaint(ctx, Config.PaintType.POINT, col)
+                val paint = Config.createPaint(ctx, Config.PaintType.POINT, col, stroke)
                 can.drawPoint(center.x, center.y, paint)
                 can.drawPoint(min.x, min.y, paint)
                 can.drawPoint(hr.x, hr.y, paint)
@@ -90,7 +88,7 @@ class DrawUtil() {
             val minute = HandData(min, minRot, minExtended)
             val second = HandData(sec, secRot, secExtended)
             if (drawHands) {
-                val paint = Config.findPaint(ctx, Config.PaintType.HAND, col)
+                val paint = Config.createPaint(ctx, Config.PaintType.HAND, col, stroke)
                 drawHands(ref, paint, hour, minute, second)
             }
             if (drawPoints && !drawActiveCircles) {
@@ -98,10 +96,10 @@ class DrawUtil() {
                 can.drawPoint(center.x, center.y, paint)
             }
             if (drawTriangle) {
-                drawTriangle(ctx, can, hour, minute, second, col)
+                drawTriangle(ctx, can, hour, minute, second, col, stroke)
             }
             if (drawActiveCircles) {
-                val paint = Config.findPaint(ctx, Config.PaintType.CIRCLE_AMB, col)
+                val paint = Config.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
                 drawCircleLine(ref, paint, hrRot, secRot, hr, sec)
                 drawCircleLine(ref, paint, minRot, secRot, min, sec)
             }
@@ -110,7 +108,7 @@ class DrawUtil() {
                 can.drawPoint(sec.x, sec.y, paint)
             }
             if (drawActiveCircles) {
-                val paint = Config.findPaint(ctx, Config.PaintType.CIRCLE, col)
+                val paint = Config.createPaint(ctx, Config.PaintType.CIRCLE, col, stroke)
                 drawCircleLine(ref, paint, hrRot, minRot, hr, min)
             }
             if (drawPoints) {
@@ -148,8 +146,8 @@ class DrawUtil() {
         drawHand(ref, paint, minute)
     }
 
-    private fun drawTriangle(ctx: Context, can: Canvas, hr: HandData, min: HandData, sec: HandData, col: Col) {
-        val paint = Config.findPaint(ctx, Config.PaintType.SHAPE, col)
+    private fun drawTriangle(ctx: Context, can: Canvas, hr: HandData, min: HandData, sec: HandData, col: Col, stroke: Stroke) {
+        val paint = Config.createPaint(ctx, Config.PaintType.SHAPE, col, stroke)
         can.drawLine(sec.p.x, sec.p.y, min.p.x, min.p.y, paint)
         can.drawLine(sec.p.x, sec.p.y, hr.p.x, hr.p.y, paint)
         can.drawLine(min.p.x, min.p.y, hr.p.x, hr.p.y, paint)

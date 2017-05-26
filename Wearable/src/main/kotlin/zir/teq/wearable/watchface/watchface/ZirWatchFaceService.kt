@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.Col
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Stroke
 import zir.watchface.Config
 import zir.watchface.DrawUtil
 import java.util.*
@@ -37,8 +38,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mMuteMode: Boolean = false
         private var mRegisteredTimeZoneReceiver = false
 
-        private var mCol: Col = Config.WHITE
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
+        private var mCol: Col = Config.WHITE
+        private var mStroke: Stroke = Stroke.createStroke(ctx, Stroke.Companion.defaultName)
 
         private var mBackgroundPaint: Paint = Config.prep(mBackgroundColor)
         private var mDarkPaint: Paint = Config.prep(mCol.darkId)
@@ -95,6 +97,11 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             mCol = Config.getColorByName(mColName)
             Log.d(TAG, "loaded saved color... mCol: $mCol")
 
+            val strokeResourceName = ctx.getString(R.string.saved_stroke_name)
+            val mStrokeName = mSharedPref.getString(strokeResourceName, Stroke.Companion.defaultName)
+            mStroke = Stroke.createStroke(ctx, mStrokeName)
+            Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
+
             updateWatchPaintStyles()
         }
 
@@ -103,7 +110,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             mBackgroundPaint = Paint()
             mBackgroundPaint.color = mBackgroundColor
             mDarkPaint.color = mCol.darkId
+            mDarkPaint.strokeWidth = mStroke.dim
             mLightPaint.color = mCol.lightId
+            mLightPaint.strokeWidth = mStroke.dim
             setActiveComplications(0)
         }
 
@@ -171,7 +180,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
             val bgPaint = if (makeDarkBackground) mBackgroundPaint else Config.prep(ctx.getColor(R.color.black))
             drawer.drawBackground(canvas, bgPaint)
-            drawer.draw(ctx, mCol, canvas, bounds!!, mAmbient, mCalendar)
+            drawer.draw(ctx, mCol, mStroke, canvas, bounds!!, mAmbient, mCalendar)
             //drawer.drawText(canvas, bounds, isInAmbient, mCalendar);
         }
 
@@ -180,9 +189,11 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
             mDarkPaint.color = if (mAmbient) Color.BLACK else mCol.darkId
             mDarkPaint.isAntiAlias = !mAmbient
+            mDarkPaint.strokeWidth = mStroke.dim
 
             mLightPaint.color = if (mAmbient) Color.WHITE else mCol.lightId
             mLightPaint.isAntiAlias = !mAmbient
+            mLightPaint.strokeWidth = mStroke.dim
 
             setShadows(mAmbient)
         }

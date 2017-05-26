@@ -6,14 +6,13 @@ import android.graphics.Typeface
 import android.util.Log
 import zir.teq.wearable.watchface.Col
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Stroke
 import java.util.concurrent.TimeUnit
 
-data class Config(val strokeType: StrokeType, val drawCircle: Boolean,
+data class Config(val drawCircle: Boolean,
                   val drawActiveCircles: Boolean, val drawHands: Boolean, val drawTriangle: Boolean,
                   val drawText: Boolean, val drawPoints: Boolean) {
-    enum class StrokeType {
-        THINNER, THIN, NORMAL, THICK, THICKER, FAT, FATTER, FATTEST, ULTRA
-    }
+
 
     enum class PaintType {
         TEXT, HAND, HAND_AMB, SHAPE, SHAPE_AMB, CIRCLE, CIRCLE_AMB, POINT
@@ -27,25 +26,6 @@ data class Config(val strokeType: StrokeType, val drawCircle: Boolean,
     val isFastUpdate = false //TODO reimplement
     val yOffset: Float = 98F
     var xOffset: Float = 0.toFloat()
-
-    private fun getStroke(ctx: Context): Float {
-        val res = ctx.getResources()
-        return when (strokeType) {
-            StrokeType.THINNER -> res.getDimension(R.dimen.dim_thinner)
-            StrokeType.THIN -> res.getDimension(R.dimen.dim_thin)
-            StrokeType.NORMAL -> res.getDimension(R.dimen.dim_normal)
-            StrokeType.THICK -> res.getDimension(R.dimen.dim_thick)
-            StrokeType.THICKER -> res.getDimension(R.dimen.dim_thicker)
-            StrokeType.FAT -> res.getDimension(R.dimen.dim_fat)
-            StrokeType.FATTER -> res.getDimension(R.dimen.dim_fatter)
-            StrokeType.FATTEST -> res.getDimension(R.dimen.dim_fattest)
-            StrokeType.ULTRA -> res.getDimension(R.dimen.dim_ultra)
-            else -> {
-                Log.e(TAG, "Ignoring unknown strokeType: " + strokeType)
-                res.getDimension(R.dimen.dim_normal)
-            }
-        }
-    }
 
     companion object {
         val PHI = 1.618033988F
@@ -72,10 +52,10 @@ data class Config(val strokeType: StrokeType, val drawCircle: Boolean,
         fun getColorOptions() = ALL_COLORS.toCollection(ArrayList())
         fun getColorByName(name: String): Col = ALL_COLORS.find { c -> c.name.equals(name) } ?: WHITE
 
-        private val plain = Config(StrokeType.NORMAL, true, true, true, false, false, false)
-        private val fields = Config(StrokeType.NORMAL, true, false, true, true, false, false)
-        private val circles = Config(StrokeType.THICKER, true, true, false, false, false, false)
-        private val geometry = Config(StrokeType.THINNER, true, false, true, true, false, false)
+        private val plain = Config(true, true, true, false, false, false)
+        private val fields = Config(true, false, true, true, false, false)
+        private val circles = Config(true, true, false, false, false, false)
+        private val geometry = Config(true, false, true, true, false, false)
 
         fun getDefault(): Config = getDefault(Type.PLAIN)
         fun getDefault(type: Type): Config {
@@ -122,24 +102,28 @@ data class Config(val strokeType: StrokeType, val drawCircle: Boolean,
             return paint
         }
 
-        fun findPaint(ctx: Context, type: PaintType, col: Col): Paint {
-            return when (type) {
+        fun createPaint(ctx: Context, type: PaintType, col: Col, stroke: Stroke): Paint {
+            val paint = when (type) {
                 PaintType.HAND -> prepareLinePaint(ctx, col.lightId)
                 PaintType.HAND_AMB -> prepareLinePaint(ctx, col.darkId)
                 PaintType.SHAPE -> prepareShapePaint(ctx, col.lightId)
                 PaintType.SHAPE_AMB -> prepareShapePaint(ctx, col.darkId)
                 PaintType.CIRCLE -> prepareCirclePaint(ctx, col.darkId)
                 PaintType.CIRCLE_AMB -> prepareCirclePaint(ctx, col.lightId)
+                PaintType.TEXT -> prepareTextPaint(ctx, R.color.text)
+                PaintType.POINT -> preparePointPaint(ctx, R.color.points)
                 else -> {
                     val msg = "Ignoring paintType: " + type
                     throw IllegalArgumentException(msg)
                 }
             }
+            paint.strokeWidth = stroke.dim
+            return paint
         }
 
         fun prepareTextPaint(ctx: Context, colorId: Int): Paint {
             val paint = prep()
-            paint.typeface = Config.NORMAL_TYPEFACE
+            paint.typeface = NORMAL_TYPEFACE
             paint.isFakeBoldText = true
             paint.color = ctx.getColor(colorId)
             return paint
