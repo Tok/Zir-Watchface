@@ -6,4 +6,4 @@
     android:layout_height="match_parent"
     android:minHeight="34dp"
     style="@style/ThemeButtonConfigurationStyle"
-    android:text="Color"/>
+    android:text="Theme"/>

@@ -1,36 +1,44 @@
 package zir.teq.wearable.watchface.config.select
 
+import android.app.Activity
+import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.support.wearable.view.CircledImageView
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Theme
 
 class ThemeSelectionAdapter(
         private val mSharedPrefString: String?,
-        private val mThemeOptionsDataSet: java.util.ArrayList<Theme>) : android.support.v7.widget.RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mThemeOptionsDataSet: ArrayList<Theme>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): android.support.v7.widget.RecyclerView.ViewHolder {
-        android.util.Log.d(zir.teq.wearable.watchface.config.select.ThemeSelectionAdapter.Companion.TAG, "onCreateViewHolder(): viewType: " + viewType)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        android.util.Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
         val viewHolder = ThemeViewHolder(
-                android.view.LayoutInflater.from(parent.context).inflate(zir.teq.wearable.watchface.R.layout.theme_config_list_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.theme_config_list_item, parent, false)
         )
         return viewHolder
     }
 
-    override fun onBindViewHolder(viewHolder: android.support.v7.widget.RecyclerView.ViewHolder, position: Int) {
-        android.util.Log.d(zir.teq.wearable.watchface.config.select.ThemeSelectionAdapter.Companion.TAG, "onBindViewHolder() Element $position set.")
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
         val theme = mThemeOptionsDataSet[position]
-        val themeViewHolder = viewHolder as zir.teq.wearable.watchface.config.select.ThemeSelectionAdapter.ThemeViewHolder
+        val themeViewHolder = viewHolder as ThemeSelectionAdapter.ThemeViewHolder
         val ctx = viewHolder.itemView.context
-        themeViewHolder.setItemDisplayColor(ctx.getColor(zir.teq.wearable.watchface.R.color.white))
+        themeViewHolder.setItemDisplayColor(ctx.getColor(R.color.white))
     }
 
     override fun getItemCount(): Int {
         return mThemeOptionsDataSet.size
     }
 
-    inner class ThemeViewHolder(view: android.view.View) : android.support.v7.widget.RecyclerView.ViewHolder(view), android.view.View.OnClickListener {
-        private val mView: android.support.wearable.view.CircledImageView
+    inner class ThemeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+        private val mView: CircledImageView
         init {
-            mView = view.findViewById(zir.teq.wearable.watchface.R.id.theme) as android.support.wearable.view.CircledImageView
+            mView = view.findViewById(R.id.theme) as CircledImageView
             view.setOnClickListener(this)
         }
 
@@ -41,12 +49,12 @@ class ThemeSelectionAdapter(
         override fun onClick(view: android.view.View) {
             val position = adapterPosition
             val theme = mThemeOptionsDataSet[position]
-            android.util.Log.d(zir.teq.wearable.watchface.config.select.ThemeSelectionAdapter.Companion.TAG, "Theme: $theme onClick() position: $position sharedPrefString: $mSharedPrefString")
-            val activity = view.context as android.app.Activity
+            Log.d(TAG, "Theme: $theme onClick() position: $position sharedPrefString: $mSharedPrefString")
+            val activity = view.context as Activity
             if (mSharedPrefString != null && !mSharedPrefString.isEmpty()) {
                 val sharedPref = activity.getSharedPreferences(
-                        activity.getString(zir.teq.wearable.watchface.R.string.zir_watch_preference_file_key),
-                        android.content.Context.MODE_PRIVATE)
+                        activity.getString(R.string.zir_watch_preference_file_key),
+                        Context.MODE_PRIVATE)
                 val editor = sharedPref.edit()
                 editor.putString(mSharedPrefString, theme.name)
                 editor.commit()
@@ -57,6 +65,6 @@ class ThemeSelectionAdapter(
     }
 
     companion object {
-        private val TAG = zir.teq.wearable.watchface.config.select.ThemeSelectionAdapter::class.java.simpleName
+        private val TAG = ThemeSelectionAdapter::class.java.simpleName
     }
 }
