@@ -2,9 +2,9 @@ package zir.teq.wearable.watchface.model
 
 import android.content.Context
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.ColorSelectionActivity
-import zir.teq.wearable.watchface.config.StrokeSelectionActivity
-import zir.teq.wearable.watchface.config.ThemeSelectionActivity
+import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
+import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity
+import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
 import zir.teq.wearable.watchface.config.ZirWatchConfigAdapter
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
 import java.util.*

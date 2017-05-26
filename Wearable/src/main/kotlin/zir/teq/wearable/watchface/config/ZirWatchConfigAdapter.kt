@@ -13,9 +13,12 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.ColorSelectionActivity.Companion.EXTRA_SHARED_COLOR
-import zir.teq.wearable.watchface.config.StrokeSelectionActivity.Companion.EXTRA_SHARED_STROKE
-import zir.teq.wearable.watchface.config.ThemeSelectionActivity.Companion.EXTRA_SHARED_THEME
+import zir.teq.wearable.watchface.config.select.ColorSelectionActivity.Companion.EXTRA_SHARED_COLOR
+import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity.Companion.EXTRA_SHARED_STROKE
+import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity.Companion.EXTRA_SHARED_THEME
+import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
+import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity
+import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import java.util.*
 
