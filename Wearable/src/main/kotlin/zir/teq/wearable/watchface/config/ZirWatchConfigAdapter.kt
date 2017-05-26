@@ -23,6 +23,9 @@ import zir.teq.wearable.watchface.config.select.holder.ColorPickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.StrokePickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.ThemePickerViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.item.ColorConfigItem
+import zir.teq.wearable.watchface.model.item.StrokeConfigItem
+import zir.teq.wearable.watchface.model.item.ThemeConfigItem
 import java.util.*
 
 class ZirWatchConfigAdapter(
@@ -55,7 +58,7 @@ class ZirWatchConfigAdapter(
         when (viewHolder.itemViewType) {
             TYPE_COLOR_CONFIG -> {
                 val mViewHolder = viewHolder as ColorPickerViewHolder
-                val item = configItemType as ConfigData.ColorConfigItem
+                val item = configItemType as ColorConfigItem
                 val iconResourceId = item.iconResourceId
                 val name = item.name
                 val sharedPrefString = item.sharedPrefString
@@ -67,7 +70,7 @@ class ZirWatchConfigAdapter(
             }
             TYPE_STROKE_CONFIG -> {
                 val mViewHolder = viewHolder as StrokePickerViewHolder
-                val item = configItemType as ConfigData.StrokeConfigItem
+                val item = configItemType as StrokeConfigItem
                 val iconResourceId = item.iconResourceId
                 val name = item.name
                 val sharedPrefString = item.sharedPrefString
@@ -79,7 +82,7 @@ class ZirWatchConfigAdapter(
             }
             TYPE_THEME_CONFIG -> {
                 val mViewHolder = viewHolder as ThemePickerViewHolder
-                val item = configItemType as ConfigData.ThemeConfigItem
+                val item = configItemType as ThemeConfigItem
                 val iconResourceId = item.iconResourceId
                 val name = item.name
                 val sharedPrefString = item.sharedPrefString
