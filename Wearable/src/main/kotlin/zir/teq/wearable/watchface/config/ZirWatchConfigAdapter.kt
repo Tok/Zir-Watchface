@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.ColorPickerViewHolder
@@ -33,14 +32,9 @@ class ZirWatchConfigAdapter(
                 Context.MODE_PRIVATE)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
-        Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
-        when (viewType) {
-            ConfigItem.TYPE_COLOR_CONFIG -> return ColorPickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.config_list_color_item, parent, false))
-            ConfigItem.TYPE_STROKE_CONFIG -> return StrokePickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.config_list_stroke_item, parent, false))
-            ConfigItem.TYPE_THEME_CONFIG -> return ThemePickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.config_list_theme_item, parent, false))
-            else -> return null
-        }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+        Log.d(TAG, "onCreateViewHolder(): viewGroup: $viewGroup, viewType: $viewType")
+        return ConfigItem.createViewHolder(viewGroup, viewType)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, pos: Int) {
