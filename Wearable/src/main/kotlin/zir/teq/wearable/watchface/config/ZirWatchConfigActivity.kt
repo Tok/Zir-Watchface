@@ -28,6 +28,7 @@ class ZirWatchConfigActivity : Activity() {
             //TODO implement
             //UPDATE_COLORS_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
             //UPDATE_STROKE_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
+            //UPDATE_THEME_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
         }
         Log.d(TAG, "ZirWatchConfigActivity onActivityResult data.dataString: " + data?.dataString)
     }

@@ -19,6 +19,9 @@ import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity.Companion
 import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
 import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity
 import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
+import zir.teq.wearable.watchface.config.select.holder.ColorPickerViewHolder
+import zir.teq.wearable.watchface.config.select.holder.StrokePickerViewHolder
+import zir.teq.wearable.watchface.config.select.holder.ThemePickerViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import java.util.*
 
@@ -100,126 +103,6 @@ class ZirWatchConfigAdapter(
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
         super.onDetachedFromRecyclerView(recyclerView)
-    }
-
-    inner class ColorPickerViewHolder(view: View) : RecyclerView.ViewHolder(view), OnClickListener {
-        private val mAppearanceButton: Button = view.findViewById(R.id.color_picker_button) as Button
-        private var mSharedPrefResourceString: String? = null
-        private var mLaunchActivityToSelectColor: Class<ColorSelectionActivity>? = null
-        init {
-            view.setOnClickListener(this)
-        }
-
-        fun setName(name: String) {
-            mAppearanceButton.text = name
-        }
-
-        fun setIcon(resourceId: Int) {
-            val context = mAppearanceButton.context
-            mAppearanceButton.setCompoundDrawablesWithIntrinsicBounds(
-                    context.getDrawable(resourceId), null, null, null)
-        }
-
-        fun setSharedPrefString(sharedPrefString: String) {
-            mSharedPrefResourceString = sharedPrefString
-        }
-
-        fun setLaunchActivityToSelectColor(activity: Class<ColorSelectionActivity>) {
-            mLaunchActivityToSelectColor = activity
-        }
-
-        override fun onClick(view: View) {
-            val position = adapterPosition
-            Log.d(TAG, "onClick() position: " + position)
-            if (mLaunchActivityToSelectColor != null) {
-                val launchIntent = Intent(view.context, mLaunchActivityToSelectColor)
-                launchIntent.putExtra(EXTRA_SHARED_COLOR, mSharedPrefResourceString)
-                val activity = view.context as Activity
-                activity.startActivityForResult(
-                        launchIntent,
-                        ZirWatchConfigActivity.UPDATE_COLORS_CONFIG_REQUEST_CODE)
-            }
-        }
-    }
-
-    inner class StrokePickerViewHolder(view: View) : RecyclerView.ViewHolder(view), OnClickListener {
-        private val mAppearanceButton: Button = view.findViewById(R.id.color_picker_button) as Button
-        private var mSharedPrefResourceString: String? = null
-        private var mLaunchActivityToSelectStroke: Class<StrokeSelectionActivity>? = null
-        init {
-            view.setOnClickListener(this)
-        }
-
-        fun setName(name: String) {
-            mAppearanceButton.text = name
-        }
-
-        fun setIcon(resourceId: Int) {
-            val context = mAppearanceButton.context
-            mAppearanceButton.setCompoundDrawablesWithIntrinsicBounds(
-                    context.getDrawable(resourceId), null, null, null)
-        }
-
-        fun setSharedPrefString(sharedPrefString: String) {
-            mSharedPrefResourceString = sharedPrefString
-        }
-
-        fun setLaunchActivityToSelectStroke(activity: Class<StrokeSelectionActivity>) {
-            mLaunchActivityToSelectStroke = activity
-        }
-
-        override fun onClick(view: View) {
-            val position = adapterPosition
-            Log.d(TAG, "onClick() position: " + position)
-            if (mLaunchActivityToSelectStroke != null) {
-                val launchIntent = Intent(view.context, mLaunchActivityToSelectStroke)
-                launchIntent.putExtra(EXTRA_SHARED_STROKE, mSharedPrefResourceString)
-                val activity = view.context as Activity
-                activity.startActivityForResult(
-                        launchIntent,
-                        ZirWatchConfigActivity.UPDATE_STROKE_CONFIG_REQUEST_CODE)
-            }
-        }
-    }
-
-    inner class ThemePickerViewHolder(view: View) : RecyclerView.ViewHolder(view), OnClickListener {
-        private val mAppearanceButton: Button = view.findViewById(R.id.theme_picker_button) as Button
-        private var mSharedPrefResourceString: String? = null
-        private var mLaunchActivityToSelectTheme: Class<ThemeSelectionActivity>? = null
-        init {
-            view.setOnClickListener(this)
-        }
-
-        fun setName(name: String) {
-            mAppearanceButton.text = name
-        }
-
-        fun setIcon(resourceId: Int) {
-            val context = mAppearanceButton.context
-            mAppearanceButton.setCompoundDrawablesWithIntrinsicBounds(
-                    context.getDrawable(resourceId), null, null, null)
-        }
-
-        fun setSharedPrefString(sharedPrefString: String) {
-            mSharedPrefResourceString = sharedPrefString
-        }
-
-        fun setLaunchActivityToSelectTheme(activity: Class<ThemeSelectionActivity>) {
-            mLaunchActivityToSelectTheme = activity
-        }
-
-        override fun onClick(view: View) {
-            val position = adapterPosition
-            Log.d(TAG, "onClick() position: " + position)
-            if (mLaunchActivityToSelectTheme != null) {
-                val launchIntent = Intent(view.context, mLaunchActivityToSelectTheme)
-                launchIntent.putExtra(EXTRA_SHARED_THEME, mSharedPrefResourceString)
-                val activity = view.context as Activity
-                activity.startActivityForResult(
-                        launchIntent,
-                        ZirWatchConfigActivity.UPDATE_THEME_CONFIG_REQUEST_CODE)
-            }
-        }
     }
 
     companion object {
