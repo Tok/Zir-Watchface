@@ -15,10 +15,10 @@ import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.data.types.StrokeType
-import zir.watchface.Config
 import zir.watchface.DrawUtil
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -34,7 +34,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         val ctx = applicationContext
         val drawer = DrawUtil()
 
-        internal var mInteractiveUpdateRateMs = Config.FAST_UPDATE_RATE_MS //TODO move elsewhere
+        internal var mInteractiveUpdateRateMs = ConfigData.FAST_UPDATE_RATE_MS //TODO move elsewhere
 
         private var mCalendar: Calendar = Calendar.getInstance()
         private var mMuteMode: Boolean = false
@@ -159,7 +159,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             super.onInterruptionFilterChanged(interruptionFilter)
             val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
             val isFastUpdate = true //FIXME
-            val rate = if (inMuteMode) Config.activeUpdateRateMs(isFastUpdate) else Config.updateRateMs(isFastUpdate)
+            val rate = if (inMuteMode) ConfigData.activeUpdateRateMs(isFastUpdate) else ConfigData.updateRateMs(isFastUpdate)
             setInteractiveUpdateRateMs(rate)
             if (mMuteMode != inMuteMode) { //dim display in mute mode.
                 mMuteMode = inMuteMode
