@@ -7,19 +7,14 @@ import android.util.Log
 import zir.teq.wearable.watchface.Col
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Stroke
+import zir.teq.wearable.watchface.Theme
 import java.util.concurrent.TimeUnit
 
 data class Config(val drawCircle: Boolean,
                   val drawActiveCircles: Boolean, val drawHands: Boolean, val drawTriangle: Boolean,
                   val drawText: Boolean, val drawPoints: Boolean) {
-
-
     enum class PaintType {
         TEXT, HAND, HAND_AMB, SHAPE, SHAPE_AMB, CIRCLE, CIRCLE_AMB, POINT
-    }
-
-    enum class Type {
-        PLAIN, FIELDS, CIRCLES, GEOMETRY;
     }
 
     val isStayActive = false //TODO reimplement
@@ -48,26 +43,10 @@ data class Config(val drawCircle: Boolean,
         val BLUE = Col("Blue", R.color.blue_dark, R.color.blue_light)
         val PURPLE = Col("Purple", R.color.purple_dark, R.color.purple_light)
         val PINK = Col("Pink", R.color.pink_dark, R.color.pink_light)
+        val defaultColor = WHITE
         val ALL_COLORS = listOf(WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, PINK)
         fun getColorOptions() = ALL_COLORS.toCollection(ArrayList())
-        fun getColorByName(name: String): Col = ALL_COLORS.find { c -> c.name.equals(name) } ?: WHITE
-
-        private val plain = Config(true, true, true, false, false, false)
-        private val fields = Config(true, false, true, true, false, false)
-        private val circles = Config(true, true, false, false, false, false)
-        private val geometry = Config(true, false, true, true, false, false)
-
-        fun getDefault(): Config = getDefault(Type.PLAIN)
-        fun getDefault(type: Type): Config {
-            return when (type) {
-                Type.PLAIN -> plain
-                Type.FIELDS -> fields
-                Type.CIRCLES -> circles
-                Type.GEOMETRY -> geometry
-                else -> plain
-            }
-        }
-
+        fun getColorByName(name: String): Col = ALL_COLORS.find { it.name.equals(name) } ?: defaultColor
         fun prep(color: Int): Paint {
             val paint = prep()
             paint.color = color
