@@ -1,5 +1,6 @@
 package zir.teq.wearable.watchface.model
 
+import android.content.Context
 import zir.teq.wearable.watchface.R
 
 data class Col(val name: String, val darkId: Int, val lightId: Int) {
@@ -22,7 +23,7 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createPaint(ctx: android.content.Context, type: zir.watchface.Config.PaintType, col: zir.teq.wearable.watchface.model.Col, stroke: Stroke): android.graphics.Paint {
+        fun createPaint(ctx: Context, type: zir.watchface.Config.PaintType, col: zir.teq.wearable.watchface.model.Col, stroke: Stroke): android.graphics.Paint {
             val paint = when (type) {
                 zir.watchface.Config.PaintType.HAND -> zir.teq.wearable.watchface.model.Col.Companion.prepareLinePaint(ctx, col.lightId)
                 zir.watchface.Config.PaintType.HAND_AMB -> zir.teq.wearable.watchface.model.Col.Companion.prepareLinePaint(ctx, col.darkId)
@@ -47,21 +48,21 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun prepareLinePaint(ctx: android.content.Context, colorId: Int): android.graphics.Paint {
+        fun prepareLinePaint(ctx: Context, colorId: Int): android.graphics.Paint {
             val paint = zir.teq.wearable.watchface.model.Col.Companion.prep()
             paint.strokeCap = android.graphics.Paint.Cap.ROUND
             paint.color = ctx.getColor(colorId)
             return paint
         }
 
-        fun prepareShapePaint(ctx: android.content.Context, colorId: Int): android.graphics.Paint {
+        fun prepareShapePaint(ctx: Context, colorId: Int): android.graphics.Paint {
             val paint = zir.teq.wearable.watchface.model.Col.Companion.prep()
             paint.strokeCap = android.graphics.Paint.Cap.ROUND
             paint.color = ctx.getColor(colorId)
             return paint
         }
 
-        fun prepareCirclePaint(ctx: android.content.Context, colorId: Int): android.graphics.Paint {
+        fun prepareCirclePaint(ctx: Context, colorId: Int): android.graphics.Paint {
             val paint = zir.teq.wearable.watchface.model.Col.Companion.prep()
             paint.style = android.graphics.Paint.Style.STROKE
             paint.strokeCap = android.graphics.Paint.Cap.ROUND
@@ -69,7 +70,7 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun prepareTextPaint(ctx: android.content.Context, colorId: Int): android.graphics.Paint {
+        fun prepareTextPaint(ctx: Context, colorId: Int): android.graphics.Paint {
             val paint = zir.teq.wearable.watchface.model.Col.Companion.prep()
             paint.typeface = zir.watchface.Config.Companion.NORMAL_TYPEFACE
             paint.isFakeBoldText = true
@@ -77,7 +78,7 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun preparePointPaint(ctx: android.content.Context, colorId: Int): android.graphics.Paint {
+        fun preparePointPaint(ctx: Context, colorId: Int): android.graphics.Paint {
             val paint = zir.teq.wearable.watchface.model.Col.Companion.prep()
             paint.style = android.graphics.Paint.Style.STROKE
             paint.strokeCap = android.graphics.Paint.Cap.ROUND

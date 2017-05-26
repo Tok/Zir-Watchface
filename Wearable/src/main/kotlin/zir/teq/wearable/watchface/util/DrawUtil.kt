@@ -1,10 +1,7 @@
 package zir.watchface
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.PointF
-import android.graphics.Rect
+import android.graphics.*
 import android.util.Log
 import zir.teq.wearable.watchface.model.Col
 import zir.teq.wearable.watchface.R
@@ -47,8 +44,8 @@ class DrawUtil() {
         val drawActiveCircles = true //FIXME
 
         if (isAmbient) {
-            val minLength = unit * distFromBorder / Config.PHI
-            val hrLength = minLength / Config.PHI
+            val minLength = unit * distFromBorder / PHI
+            val hrLength = minLength / PHI
             val hr = calcPosition(hrRot, hrLength, unit)
             val min = calcPosition(minRot, minLength, unit)
             val hour = HandData(hr, hrRot, center)
@@ -75,8 +72,8 @@ class DrawUtil() {
             val ms = calendar.get(Calendar.MILLISECOND)
             val secRot = (ss + ms / 1000F) / 30F * PI
             val secLength = unit * distFromBorder
-            val minLength = secLength / Config.PHI
-            val hrLength = minLength / Config.PHI
+            val minLength = secLength / PHI
+            val hrLength = minLength / PHI
             val hr = calcPosition(hrRot, hrLength, unit)
             val min = calcPosition(minRot, minLength, unit)
             val sec = calcPosition(secRot, secLength, unit)
@@ -223,9 +220,12 @@ class DrawUtil() {
 
     companion object {
         private val TAG = DrawUtil::class.java.simpleName
+        val PHI = 1.618033988F
         val PI = Math.PI.toFloat() //180 Degree
         val TAU = PI * 2F //180 Degree
         val ONE_MINUTE_AS_RAD = PI / 30F
         val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
+        val yOffset: Float = 98F
+        var xOffset: Float = 0.toFloat()
     }
 }
