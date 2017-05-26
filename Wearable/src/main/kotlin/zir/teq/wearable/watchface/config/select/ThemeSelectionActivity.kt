@@ -1,24 +1,29 @@
 package zir.teq.wearable.watchface.config.select
 
+import android.app.Activity
+import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
+import android.support.wearable.view.WearableRecyclerView
+import android.util.Log
+import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Theme
+import zir.teq.wearable.watchface.util.ActivityHelper
 
-
-class ThemeSelectionActivity : android.app.Activity() {
-    private var mConfigView: android.support.wearable.view.WearableRecyclerView? = null
+class ThemeSelectionActivity : Activity() {
+    private var mConfigView: WearableRecyclerView? = null
     private var mAdapter: ThemeSelectionAdapter? = null
-    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(zir.teq.wearable.watchface.R.layout.theme_selection_config)
-        val sharedThemeName = intent.getStringExtra(zir.teq.wearable.watchface.config.select.ThemeSelectionActivity.Companion.EXTRA_SHARED_THEME)
-        android.util.Log.d(zir.teq.wearable.watchface.config.select.ThemeSelectionActivity.Companion.TAG, "sharedThemeName:" + sharedThemeName)
+        setContentView(R.layout.theme_selection_config)
+        val sharedThemeName = intent.getStringExtra(EXTRA_SHARED_THEME)
+        Log.d(TAG, "sharedThemeName:" + sharedThemeName)
         mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.Companion.createThemeOptions())
-        mConfigView = findViewById(zir.teq.wearable.watchface.R.id.wearable_recycler_view) as android.support.wearable.view.WearableRecyclerView
-        zir.teq.wearable.watchface.util.ActivityHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
+        mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
+        ActivityHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 
     companion object {
-        private val TAG = zir.teq.wearable.watchface.config.select.ThemeSelectionActivity::class.java.simpleName
+        private val TAG = ThemeSelectionActivity::class.java.simpleName
         internal val EXTRA_SHARED_THEME = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_THEME"
     }
 }
