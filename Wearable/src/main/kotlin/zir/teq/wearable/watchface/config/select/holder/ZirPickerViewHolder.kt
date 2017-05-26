@@ -1,13 +1,12 @@
 package zir.teq.wearable.watchface.config.select.holder
 
-import android.graphics.Color
-import android.graphics.ColorFilter
+import android.content.Context
 import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
-import android.graphics.PorterDuffColorFilter
-import zir.teq.wearable.watchface.R
 
 
 open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,11 +24,15 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun setIcon(resourceId: Int, tintColorId: Int?) {
         val ctx = mButton!!.context
         val drawable = ctx.getDrawable(resourceId)
-        if (tintColorId != null) {
-            val cf = PorterDuffColorFilter(ctx.getColor(tintColorId), PorterDuff.Mode.MULTIPLY)
+        setFilterColor(ctx, drawable, tintColorId)
+        mButton!!.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+    }
+
+    fun setFilterColor(ctx: Context, drawable: Drawable, colorId: Int?) {
+        if (colorId != null) {
+            val cf = PorterDuffColorFilter(ctx.getColor(colorId), PorterDuff.Mode.MULTIPLY)
             drawable.setColorFilter(cf)
         }
-        mButton!!.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
     }
 
     fun setSharedPrefString(sharedPrefString: String) {
