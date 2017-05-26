@@ -17,7 +17,7 @@ class ThemeSelectionActivity : Activity() {
         setContentView(R.layout.theme_selection_config)
         val sharedThemeName = intent.getStringExtra(EXTRA_SHARED_THEME)
         Log.d(TAG, "sharedThemeName:" + sharedThemeName)
-        mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.Companion.createThemeOptions())
+        mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.createThemeOptions())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ActivityHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }

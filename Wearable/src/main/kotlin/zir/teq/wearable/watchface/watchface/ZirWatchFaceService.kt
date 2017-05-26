@@ -43,7 +43,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
         private var mCol: Col = Col.defaultColor
         private var mStroke: Stroke = Stroke.createStroke(ctx, StrokeType.default.name)
-        private var mTheme: Theme = Theme.Companion.defaultTheme
+        private var mTheme: Theme = Theme.defaultTheme
 
         private var mBackgroundPaint: Paint = Col.prep(mBackgroundColor)
         private var mDarkPaint: Paint = Col.prep(mCol.darkId)
