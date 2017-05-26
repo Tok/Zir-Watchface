@@ -28,7 +28,7 @@ class ThemeSelectionAdapter(
         val theme = mThemeOptionsDataSet[position]
         val themeViewHolder = viewHolder as ThemeSelectionAdapter.ThemeViewHolder
         val ctx = viewHolder.itemView.context
-        themeViewHolder.setItemDisplayColor(ctx.getColor(R.color.white))
+        themeViewHolder.setIcon(theme)
     }
 
     override fun getItemCount(): Int {
@@ -42,8 +42,8 @@ class ThemeSelectionAdapter(
             view.setOnClickListener(this)
         }
 
-        fun setItemDisplayColor(color: Int) {
-            mView.setCircleColor(color)
+        fun setIcon(theme: Theme) {
+            mView.setImageResource(theme.iconId)
         }
 
         override fun onClick(view: android.view.View) {
