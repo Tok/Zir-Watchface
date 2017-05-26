@@ -5,7 +5,6 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
 import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity
 import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
-import zir.teq.wearable.watchface.config.ZirWatchConfigAdapter
 import zir.teq.wearable.watchface.model.item.ColorConfigItem
 import zir.teq.wearable.watchface.model.item.StrokeConfigItem
 import zir.teq.wearable.watchface.model.item.ThemeConfigItem
