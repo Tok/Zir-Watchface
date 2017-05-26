@@ -3,9 +3,9 @@ package zir.watchface
 import android.content.Context
 import android.graphics.*
 import android.util.Log
-import zir.teq.wearable.watchface.model.Col
+import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.model.Stroke
+import zir.teq.wearable.watchface.model.data.Stroke
 import java.util.*
 
 

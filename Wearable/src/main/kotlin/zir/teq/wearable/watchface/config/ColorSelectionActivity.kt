@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
-import zir.teq.wearable.watchface.model.Col
+import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.util.ActivityHelper
 

@@ -13,9 +13,9 @@ import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.util.Log
 import android.view.SurfaceHolder
-import zir.teq.wearable.watchface.model.Col
+import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.model.Stroke
+import zir.teq.wearable.watchface.model.data.Stroke
 import zir.watchface.Config
 import zir.watchface.DrawUtil
 import java.util.*
