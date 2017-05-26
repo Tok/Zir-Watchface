@@ -2,15 +2,13 @@ package zir.teq.wearable.watchface.config.select.holder
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
 import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
 
-class ColorPickerViewHolder(view: View) : ZirViewHolder(view), View.OnClickListener {
+class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
     private var mActivity: Class<ColorSelectionActivity>? = null
 
     init {

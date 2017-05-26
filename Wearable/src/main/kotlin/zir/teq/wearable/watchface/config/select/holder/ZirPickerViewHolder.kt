@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 
-open class ZirViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var mButton: Button? = null
     var mSharedPrefString: String? = null
 
@@ -26,6 +26,6 @@ open class ZirViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-        private val TAG = ZirViewHolder::class.java.simpleName
+        private val TAG = ZirPickerViewHolder::class.java.simpleName
     }
 }

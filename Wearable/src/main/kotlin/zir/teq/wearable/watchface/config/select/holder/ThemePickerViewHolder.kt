@@ -9,7 +9,7 @@ import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
 import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
 import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity.Companion.EXTRA_SHARED_THEME
 
-class ThemePickerViewHolder(view: View) : ZirViewHolder(view), View.OnClickListener {
+class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
     private var mActivity: Class<ThemeSelectionActivity>? = null
 
     init {

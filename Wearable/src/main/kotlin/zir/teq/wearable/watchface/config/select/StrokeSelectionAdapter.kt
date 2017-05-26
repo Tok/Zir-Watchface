@@ -46,6 +46,7 @@ class StrokeSelectionAdapter(
         fun setItemDisplayColor(color: Int) {
             mView.setCircleColor(color)
         }
+
         fun setItemDisplayRadius(radius: Float) {
             mView.circleRadius = radius
         }

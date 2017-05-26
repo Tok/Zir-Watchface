@@ -42,10 +42,6 @@ class ColorSelectionAdapter(
             view.setOnClickListener(this)
         }
 
-        fun setItemDisplayColor(ctx: Context, col: Col) {
-            mView.setCircleColor(ctx.getColor(col.lightId))
-        }
-
         override fun onClick(view: View) {
             val position = adapterPosition
             val color = mColorOptionsDataSet[position]
@@ -61,6 +57,10 @@ class ColorSelectionAdapter(
                 activity.setResult(Activity.RESULT_OK) //triggers config activity
             }
             activity.finish()
+        }
+
+        fun setItemDisplayColor(ctx: Context, col: Col) {
+            mView.setCircleColor(ctx.getColor(col.lightId))
         }
     }
 

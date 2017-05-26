@@ -8,7 +8,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
 import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity
 
-class StrokePickerViewHolder(view: View) : ZirViewHolder(view), View.OnClickListener {
+class StrokePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
     private var mActivity: Class<StrokeSelectionActivity>? = null
 
     init {
