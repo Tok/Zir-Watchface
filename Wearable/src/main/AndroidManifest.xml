@@ -53,5 +53,6 @@
         </activity>
         <activity android:name="zir.teq.wearable.watchface.config.ColorSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.StrokeSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.ThemeSelectionActivity" />
     </application>
 </manifest>

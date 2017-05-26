@@ -36,5 +36,6 @@ class ZirWatchConfigActivity : Activity() {
         private val TAG = ZirWatchConfigActivity::class.java.simpleName
         internal val UPDATE_COLORS_CONFIG_REQUEST_CODE = 1002
         internal val UPDATE_STROKE_CONFIG_REQUEST_CODE = 1003
+        internal val UPDATE_THEME_CONFIG_REQUEST_CODE = 1004
     }
 }

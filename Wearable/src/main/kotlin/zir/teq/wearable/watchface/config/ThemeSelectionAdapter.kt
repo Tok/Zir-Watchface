@@ -9,59 +9,55 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.Theme
 import java.util.*
 
 class ThemeSelectionAdapter(
         private val mSharedPrefString: String?,
-        private val mStrokeOptionsDataSet: ArrayList<Stroke>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mThemeOptionsDataSet: ArrayList<Theme>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
-        val viewHolder = StrokeViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.stroke_config_list_item, parent, false)
+        val viewHolder = ThemeViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.theme_config_list_item, parent, false)
         )
         return viewHolder
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder() Element $position set.")
-        val stroke = mStrokeOptionsDataSet[position]
-        val strokeViewHolder = viewHolder as StrokeViewHolder
+        val theme = mThemeOptionsDataSet[position]
+        val themeViewHolder = viewHolder as ThemeViewHolder
         val ctx = viewHolder.itemView.context
-        strokeViewHolder.setItemDisplayColor(ctx.getColor(R.color.white))
-        strokeViewHolder.setItemDisplayRadius(stroke.dim)
+        themeViewHolder.setItemDisplayColor(ctx.getColor(R.color.white))
     }
 
     override fun getItemCount(): Int {
-        return mStrokeOptionsDataSet.size
+        return mThemeOptionsDataSet.size
     }
 
-    inner class StrokeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ThemeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private val mView: CircledImageView
         init {
-            mView = view.findViewById(R.id.stroke) as CircledImageView
+            mView = view.findViewById(R.id.theme) as CircledImageView
             view.setOnClickListener(this)
         }
 
         fun setItemDisplayColor(color: Int) {
             mView.setCircleColor(color)
         }
-        fun setItemDisplayRadius(radius: Float) {
-            mView.circleRadius = radius
-        }
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val stroke = mStrokeOptionsDataSet[position]
-            Log.d(TAG, "Stroke: $stroke onClick() position: $position sharedPrefString: $mSharedPrefString")
+            val theme = mThemeOptionsDataSet[position]
+            Log.d(TAG, "Theme: $theme onClick() position: $position sharedPrefString: $mSharedPrefString")
             val activity = view.context as Activity
             if (mSharedPrefString != null && !mSharedPrefString.isEmpty()) {
                 val sharedPref = activity.getSharedPreferences(
                         activity.getString(R.string.zir_watch_preference_file_key),
                         Context.MODE_PRIVATE)
                 val editor = sharedPref.edit()
-                editor.putString(mSharedPrefString, stroke.name)
+                editor.putString(mSharedPrefString, theme.name)
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK) //triggers config activity
             }
@@ -70,6 +66,6 @@ class ThemeSelectionAdapter(
     }
 
     companion object {
-        private val TAG = StrokeSelectionAdapter::class.java.simpleName
+        private val TAG = ThemeSelectionAdapter::class.java.simpleName
     }
 }

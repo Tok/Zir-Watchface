@@ -12,5 +12,8 @@
     <string name="saved_stroke_name">saved_stroke_name</string>
     <string name="config_marker_stroke_label">Stroke</string>
 
+    <string name="saved_theme_name">saved_theme_name</string>
+    <string name="config_marker_theme_label">Theme</string>
+
     <string name="zir_watch_config">Zir Watch Config</string>
 </resources>
