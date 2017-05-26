@@ -3,13 +3,10 @@ package zir.teq.wearable.watchface.model.data
 import android.content.Context
 import android.graphics.Paint
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.Config
 
 data class Col(val name: String, val darkId: Int, val lightId: Int) {
-    enum class PaintType {
-        TEXT, HAND, HAND_AMB, SHAPE, SHAPE_AMB, CIRCLE, CIRCLE_AMB, POINT
-    }
-
     companion object {
         val WHITE = Col("White", R.color.white_dark, R.color.white_light)
         val RED = Col("Red", R.color.red_dark, R.color.red_light)

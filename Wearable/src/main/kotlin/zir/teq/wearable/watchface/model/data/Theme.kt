@@ -19,6 +19,5 @@ data class Theme(val name: String,
         val ALL_THEMES = listOf(PLAIN, FIELDS, CIRCLES, GEOMETRY)
         fun createThemeOptions() = ALL_THEMES.toCollection(ArrayList())
         fun getThemeByName(name: String): Theme = ALL_THEMES.find { it.name.equals(name) } ?: defaultTheme
-
     }
 }

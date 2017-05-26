@@ -17,6 +17,7 @@ import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
+import zir.teq.wearable.watchface.model.data.types.StrokeType
 import zir.watchface.Config
 import zir.watchface.DrawUtil
 import java.util.*
@@ -41,7 +42,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
         private var mCol: Col = Col.defaultColor
-        private var mStroke: Stroke = Stroke.createStroke(ctx, Stroke.default.name)
+        private var mStroke: Stroke = Stroke.createStroke(ctx, StrokeType.default.name)
         private var mTheme: Theme = Theme.Companion.defaultTheme
 
         private var mBackgroundPaint: Paint = Col.prep(mBackgroundColor)
@@ -100,12 +101,12 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             Log.d(TAG, "loaded saved color... mCol: $mCol")
 
             val strokeResourceName = ctx.getString(R.string.saved_stroke_name)
-            val mStrokeName = mSharedPref.getString(strokeResourceName, Stroke.default.name)
+            val mStrokeName = mSharedPref.getString(strokeResourceName, StrokeType.default.name)
             mStroke = Stroke.createStroke(ctx, mStrokeName)
             Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
 
             val themeResourceName = ctx.getString(R.string.saved_theme_name)
-            val mThemeName = mSharedPref.getString(themeResourceName, Theme.Companion.defaultTheme.name)
+            val mThemeName = mSharedPref.getString(themeResourceName, Theme.defaultTheme.name)
             mTheme = Theme.getThemeByName(mThemeName)
             Log.d(TAG, "loaded saved theme... mTheme: $mTheme")
 

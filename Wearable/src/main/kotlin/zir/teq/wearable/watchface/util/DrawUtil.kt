@@ -8,6 +8,7 @@ import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
+import zir.teq.wearable.watchface.model.data.types.PaintType
 import java.util.*
 
 
@@ -67,7 +68,7 @@ class DrawUtil() {
         val minute = HandData(min, data.minRot, minExtended)
         val second = HandData(sec, secRot, secExtended)
         if (theme.drawHands) {
-            val paint = Col.createPaint(ctx, Col.PaintType.HAND, col, stroke)
+            val paint = Col.createPaint(ctx, PaintType.HAND, col, stroke)
             drawHands(data.getRef(can), paint, hour, minute, second)
         }
         if (theme.drawPoints && !theme.drawActiveCircles) {
@@ -78,7 +79,7 @@ class DrawUtil() {
             drawTriangle(ctx, can, hour, minute, second, col, stroke)
         }
         if (theme.drawActiveCircles) {
-            val paint = Col.createPaint(ctx, Col.PaintType.CIRCLE_AMB, col, stroke)
+            val paint = Col.createPaint(ctx, PaintType.CIRCLE_AMB, col, stroke)
             drawCircleLine(data.getRef(can), paint, data.hrRot, secRot, hr, sec)
             drawCircleLine(data.getRef(can), paint, data.minRot, secRot, min, sec)
         }
@@ -87,7 +88,7 @@ class DrawUtil() {
             can.drawPoint(sec.x, sec.y, paint)
         }
         if (theme.drawActiveCircles) {
-            val paint = Col.createPaint(ctx, Col.PaintType.CIRCLE, col, stroke)
+            val paint = Col.createPaint(ctx, PaintType.CIRCLE, col, stroke)
             drawCircleLine(data.getRef(can), paint, data.hrRot, data.minRot, hr, min)
         }
         if (theme.drawPoints) {
@@ -110,17 +111,17 @@ class DrawUtil() {
         val ccCenter = calcCircumcenter(data.center, hr, min)
         val ccRadius = calcDistance(min, ccCenter)
         if (theme.drawCircle) {
-            val paint = Col.createPaint(ctx, Col.PaintType.CIRCLE_AMB, col, stroke)
+            val paint = Col.createPaint(ctx, PaintType.CIRCLE_AMB, col, stroke)
             can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, paint)
         }
         if (theme.drawHands) {
-            val paint = Col.createPaint(ctx, Col.PaintType.SHAPE_AMB, col, stroke)
+            val paint = Col.createPaint(ctx, PaintType.SHAPE_AMB, col, stroke)
             drawHand(data.getRef(can), paint, hour)
             drawHand(data.getRef(can), paint, minute)
             can.drawLine(min.x, min.y, hr.x, hr.y, paint)
         }
         if (theme.drawPoints) {
-            val paint = Col.createPaint(ctx, Col.PaintType.POINT, col, stroke)
+            val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
             can.drawPoint(data.center.x, data.center.y, paint)
             can.drawPoint(min.x, min.y, paint)
             can.drawPoint(hr.x, hr.y, paint)
@@ -149,7 +150,7 @@ class DrawUtil() {
     }
 
     private fun drawTriangle(ctx: Context, can: Canvas, hr: HandData, min: HandData, sec: HandData, col: Col, stroke: Stroke) {
-        val paint = Col.createPaint(ctx, Col.PaintType.SHAPE, col, stroke)
+        val paint = Col.createPaint(ctx, PaintType.SHAPE, col, stroke)
         can.drawLine(sec.p.x, sec.p.y, min.p.x, min.p.y, paint)
         can.drawLine(sec.p.x, sec.p.y, hr.p.x, hr.p.y, paint)
         can.drawLine(min.p.x, min.p.y, hr.p.x, hr.p.y, paint)
