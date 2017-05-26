@@ -56,17 +56,17 @@ class DrawUtil() {
             val ccCenter = calcCircumcenter(center, hr, min)
             val ccRadius = calcDistance(min, ccCenter)
             if (drawCircle) {
-                val paint = Config.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
+                val paint = Col.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
                 can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, paint)
             }
             if (drawHands) {
-                val paint = Config.createPaint(ctx, Config.PaintType.SHAPE_AMB, col, stroke)
+                val paint = Col.createPaint(ctx, Config.PaintType.SHAPE_AMB, col, stroke)
                 drawHand(ref, paint, hour)
                 drawHand(ref, paint, minute)
                 can.drawLine(min.x, min.y, hr.x, hr.y, paint)
             }
             if (drawPoints) {
-                val paint = Config.createPaint(ctx, Config.PaintType.POINT, col, stroke)
+                val paint = Col.createPaint(ctx, Config.PaintType.POINT, col, stroke)
                 can.drawPoint(center.x, center.y, paint)
                 can.drawPoint(min.x, min.y, paint)
                 can.drawPoint(hr.x, hr.y, paint)
@@ -88,31 +88,31 @@ class DrawUtil() {
             val minute = HandData(min, minRot, minExtended)
             val second = HandData(sec, secRot, secExtended)
             if (drawHands) {
-                val paint = Config.createPaint(ctx, Config.PaintType.HAND, col, stroke)
+                val paint = Col.createPaint(ctx, Config.PaintType.HAND, col, stroke)
                 drawHands(ref, paint, hour, minute, second)
             }
             if (drawPoints && !drawActiveCircles) {
-                val paint = Config.prepareTextPaint(ctx, R.color.points)
+                val paint = Col.prepareTextPaint(ctx, R.color.points)
                 can.drawPoint(center.x, center.y, paint)
             }
             if (drawTriangle) {
                 drawTriangle(ctx, can, hour, minute, second, col, stroke)
             }
             if (drawActiveCircles) {
-                val paint = Config.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
+                val paint = Col.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
                 drawCircleLine(ref, paint, hrRot, secRot, hr, sec)
                 drawCircleLine(ref, paint, minRot, secRot, min, sec)
             }
             if (drawPoints) {
-                val paint = Config.prepareTextPaint(ctx, R.color.points)
+                val paint = Col.prepareTextPaint(ctx, R.color.points)
                 can.drawPoint(sec.x, sec.y, paint)
             }
             if (drawActiveCircles) {
-                val paint = Config.createPaint(ctx, Config.PaintType.CIRCLE, col, stroke)
+                val paint = Col.createPaint(ctx, Config.PaintType.CIRCLE, col, stroke)
                 drawCircleLine(ref, paint, hrRot, minRot, hr, min)
             }
             if (drawPoints) {
-                val paint = Config.prepareTextPaint(ctx, R.color.points)
+                val paint = Col.prepareTextPaint(ctx, R.color.points)
                 can.drawPoint(hr.x, hr.y, paint)
                 can.drawPoint(min.x, min.y, paint)
                 if (drawActiveCircles) {
@@ -134,7 +134,7 @@ class DrawUtil() {
             val ss = calendar.get(Calendar.SECOND)
             String.format("%02d:%02d:%02d", hh, mm, ss)
         }
-        val paint = Config.prepareTextPaint(ctx, R.color.text)
+        val paint = Col.prepareTextPaint(ctx, R.color.text)
         val yOffset = ctx.resources.getDimension(R.dimen.y_offset)
         val xOffset = ctx.resources.getDimension(R.dimen.x_offset)
         can.drawText(text, xOffset, yOffset, paint)
@@ -147,7 +147,7 @@ class DrawUtil() {
     }
 
     private fun drawTriangle(ctx: Context, can: Canvas, hr: HandData, min: HandData, sec: HandData, col: Col, stroke: Stroke) {
-        val paint = Config.createPaint(ctx, Config.PaintType.SHAPE, col, stroke)
+        val paint = Col.createPaint(ctx, Config.PaintType.SHAPE, col, stroke)
         can.drawLine(sec.p.x, sec.p.y, min.p.x, min.p.y, paint)
         can.drawLine(sec.p.x, sec.p.y, hr.p.x, hr.p.y, paint)
         can.drawLine(min.p.x, min.p.y, hr.p.x, hr.p.y, paint)

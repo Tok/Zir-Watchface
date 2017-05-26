@@ -39,12 +39,12 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mRegisteredTimeZoneReceiver = false
 
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
-        private var mCol: Col = Config.WHITE
+        private var mCol: Col = Col.defaultColor
         private var mStroke: Stroke = Stroke.createStroke(ctx, Stroke.Companion.defaultName)
 
-        private var mBackgroundPaint: Paint = Config.prep(mBackgroundColor)
-        private var mDarkPaint: Paint = Config.prep(mCol.darkId)
-        private var mLightPaint: Paint = Config.prep(mCol.lightId)
+        private var mBackgroundPaint: Paint = Col.prep(mBackgroundColor)
+        private var mDarkPaint: Paint = Col.prep(mCol.darkId)
+        private var mLightPaint: Paint = Col.prep(mCol.lightId)
 
         private var mAmbient: Boolean = false
         private var mLowBitAmbient: Boolean = false
@@ -93,8 +93,8 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             mBackgroundColor = mSharedPref.getInt(backgroundColorResourceName, Color.BLACK)
 
             val colResourceName = ctx.getString(R.string.saved_color_name)
-            val mColName = mSharedPref.getString(colResourceName, Config.WHITE.name)
-            mCol = Config.getColorByName(mColName)
+            val mColName = mSharedPref.getString(colResourceName, Col.WHITE.name)
+            mCol = Col.getColorByName(mColName)
             Log.d(TAG, "loaded saved color... mCol: $mCol")
 
             val strokeResourceName = ctx.getString(R.string.saved_stroke_name)
@@ -178,7 +178,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onDraw(canvas: Canvas, bounds: Rect?) {
             mCalendar.timeInMillis = System.currentTimeMillis()
             val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
-            val bgPaint = if (makeDarkBackground) mBackgroundPaint else Config.prep(ctx.getColor(R.color.black))
+            val bgPaint = if (makeDarkBackground) mBackgroundPaint else Col.prep(ctx.getColor(R.color.black))
             drawer.drawBackground(canvas, bgPaint)
             drawer.draw(ctx, mCol, mStroke, canvas, bounds!!, mAmbient, mCalendar)
             //drawer.drawText(canvas, bounds, isInAmbient, mCalendar);
