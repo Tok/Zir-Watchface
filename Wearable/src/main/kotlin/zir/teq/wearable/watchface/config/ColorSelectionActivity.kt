@@ -12,15 +12,15 @@ import zir.teq.wearable.watchface.util.ActivityHelper
 
 class ColorSelectionActivity : Activity() {
     private var mConfigView: WearableRecyclerView? = null
-    private var mColorSelectionAdapter: ColorSelectionAdapter? = null
+    private var mAdapter: ColorSelectionAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.color_selection_config)
         val sharedColorName = intent.getStringExtra(EXTRA_SHARED_COLOR)
         Log.d(TAG, "sharedColorName:" + sharedColorName)
-        mColorSelectionAdapter = ColorSelectionAdapter(sharedColorName, Col.getColorOptions())
+        mAdapter = ColorSelectionAdapter(sharedColorName, Col.getColorOptions())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
-        ActivityHelper.initView(mConfigView, mColorSelectionAdapter, CurvedChildLayoutManager(this))
+        ActivityHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 
     companion object {
