@@ -6,6 +6,7 @@ import android.util.Log
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.Theme
 import java.util.*
 
 
@@ -25,7 +26,7 @@ class DrawUtil() {
         return Triple(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND))
     }
 
-    fun draw(ctx: Context, col: Col, stroke: Stroke, can: Canvas, bounds: Rect, isAmbient: Boolean, calendar: Calendar) {
+    fun draw(ctx: Context, col: Col, stroke: Stroke, theme: Theme, can: Canvas, bounds: Rect, isAmbient: Boolean, calendar: Calendar) {
         Log.d(TAG, "draw(): " + col)
         val (hh, mm, ss) = createTime(calendar)
         val unit = bounds.width() / 2F
@@ -36,13 +37,6 @@ class DrawUtil() {
         val minRot: Float = (mm + (ss / 60F)) / 30F * PI
         val hrRot: Float = (hh + (mm / 60F)) / 6F * PI
 
-        val drawCircle = true //TODO
-        val drawHands = true
-        val drawPoints = true
-        val drawTriangle = true
-        val drawText = true
-        val drawActiveCircles = true //FIXME
-
         if (isAmbient) {
             val minLength = unit * distFromBorder / PHI
             val hrLength = minLength / PHI
@@ -52,17 +46,17 @@ class DrawUtil() {
             val minute = HandData(min, minRot, center)
             val ccCenter = calcCircumcenter(center, hr, min)
             val ccRadius = calcDistance(min, ccCenter)
-            if (drawCircle) {
+            if (theme.drawCircle) {
                 val paint = Col.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
                 can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, paint)
             }
-            if (drawHands) {
+            if (theme.drawHands) {
                 val paint = Col.createPaint(ctx, Config.PaintType.SHAPE_AMB, col, stroke)
                 drawHand(ref, paint, hour)
                 drawHand(ref, paint, minute)
                 can.drawLine(min.x, min.y, hr.x, hr.y, paint)
             }
-            if (drawPoints) {
+            if (theme.drawPoints) {
                 val paint = Col.createPaint(ctx, Config.PaintType.POINT, col, stroke)
                 can.drawPoint(center.x, center.y, paint)
                 can.drawPoint(min.x, min.y, paint)
@@ -77,47 +71,47 @@ class DrawUtil() {
             val hr = calcPosition(hrRot, hrLength, unit)
             val min = calcPosition(minRot, minLength, unit)
             val sec = calcPosition(secRot, secLength, unit)
-            val hrExtended = if (drawActiveCircles) calcPosition(hrRot, secLength, unit) else hr
-            val minExtended = if (drawActiveCircles) calcPosition(minRot, secLength, unit) else min
-            val secExtended = if (drawActiveCircles) calcPosition(secRot, secLength, unit) else sec
+            val hrExtended = if (theme.drawActiveCircles) calcPosition(hrRot, secLength, unit) else hr
+            val minExtended = if (theme.drawActiveCircles) calcPosition(minRot, secLength, unit) else min
+            val secExtended = if (theme.drawActiveCircles) calcPosition(secRot, secLength, unit) else sec
             Log.d(TAG, "hr(): " + hrExtended + " min(): " + minExtended + " sec(): " + secExtended + " ms: " + ms)
             val hour = HandData(hr, hrRot, hrExtended)
             val minute = HandData(min, minRot, minExtended)
             val second = HandData(sec, secRot, secExtended)
-            if (drawHands) {
+            if (theme.drawHands) {
                 val paint = Col.createPaint(ctx, Config.PaintType.HAND, col, stroke)
                 drawHands(ref, paint, hour, minute, second)
             }
-            if (drawPoints && !drawActiveCircles) {
+            if (theme.drawPoints && !theme.drawActiveCircles) {
                 val paint = Col.prepareTextPaint(ctx, R.color.points)
                 can.drawPoint(center.x, center.y, paint)
             }
-            if (drawTriangle) {
+            if (theme.drawTriangle) {
                 drawTriangle(ctx, can, hour, minute, second, col, stroke)
             }
-            if (drawActiveCircles) {
+            if (theme.drawActiveCircles) {
                 val paint = Col.createPaint(ctx, Config.PaintType.CIRCLE_AMB, col, stroke)
                 drawCircleLine(ref, paint, hrRot, secRot, hr, sec)
                 drawCircleLine(ref, paint, minRot, secRot, min, sec)
             }
-            if (drawPoints) {
+            if (theme.drawPoints) {
                 val paint = Col.prepareTextPaint(ctx, R.color.points)
                 can.drawPoint(sec.x, sec.y, paint)
             }
-            if (drawActiveCircles) {
+            if (theme.drawActiveCircles) {
                 val paint = Col.createPaint(ctx, Config.PaintType.CIRCLE, col, stroke)
                 drawCircleLine(ref, paint, hrRot, minRot, hr, min)
             }
-            if (drawPoints) {
+            if (theme.drawPoints) {
                 val paint = Col.prepareTextPaint(ctx, R.color.points)
                 can.drawPoint(hr.x, hr.y, paint)
                 can.drawPoint(min.x, min.y, paint)
-                if (drawActiveCircles) {
+                if (theme.drawActiveCircles) {
                     can.drawPoint(center.x, center.y, paint)
                 }
             }
         }
-        if (drawText) {
+        if (theme.drawText) {
             drawText(ctx, can, isAmbient, calendar)
         }
     }

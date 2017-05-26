@@ -16,6 +16,7 @@ import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.Theme
 import zir.watchface.Config
 import zir.watchface.DrawUtil
 import java.util.*
@@ -41,6 +42,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
         private var mCol: Col = Col.defaultColor
         private var mStroke: Stroke = Stroke.createStroke(ctx, Stroke.Companion.defaultName)
+        private var mTheme: Theme = Theme.Companion.defaultTheme
 
         private var mBackgroundPaint: Paint = Col.prep(mBackgroundColor)
         private var mDarkPaint: Paint = Col.prep(mCol.darkId)
@@ -101,6 +103,11 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val mStrokeName = mSharedPref.getString(strokeResourceName, Stroke.Companion.defaultName)
             mStroke = Stroke.createStroke(ctx, mStrokeName)
             Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
+
+            val themeResourceName = ctx.getString(R.string.saved_theme_name)
+            val mThemeName = mSharedPref.getString(themeResourceName, Theme.Companion.defaultTheme.name)
+            mTheme = Theme.getThemeByName(mThemeName)
+            Log.d(TAG, "loaded saved theme... mTheme: $mTheme")
 
             updateWatchPaintStyles()
         }
@@ -180,8 +187,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
             val bgPaint = if (makeDarkBackground) mBackgroundPaint else Col.prep(ctx.getColor(R.color.black))
             drawer.drawBackground(canvas, bgPaint)
-            drawer.draw(ctx, mCol, mStroke, canvas, bounds!!, mAmbient, mCalendar)
-            //drawer.drawText(canvas, bounds, isInAmbient, mCalendar);
+            drawer.draw(ctx, mCol, mStroke, mTheme, canvas, bounds!!, mAmbient, mCalendar)
         }
 
         private fun updateWatchPaintStyles() {
