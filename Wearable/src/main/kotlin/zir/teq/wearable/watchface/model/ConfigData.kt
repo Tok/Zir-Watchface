@@ -6,6 +6,9 @@ import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
 import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity
 import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
 import zir.teq.wearable.watchface.config.ZirWatchConfigAdapter
+import zir.teq.wearable.watchface.model.item.ColorConfigItem
+import zir.teq.wearable.watchface.model.item.StrokeConfigItem
+import zir.teq.wearable.watchface.model.item.ThemeConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
 import java.util.*
 
@@ -41,26 +44,5 @@ object ConfigData {
         settingsConfigData.add(themeConfigItem)
 
         return settingsConfigData
-    }
-
-    class ColorConfigItem internal constructor(val name: String,
-                                               val iconResourceId: Int,
-                                               val sharedPrefString: String,
-                                               val activityToChoosePreference: Class<ColorSelectionActivity>) : ConfigItemType {
-        override val configType: Int get() = ZirWatchConfigAdapter.TYPE_COLOR_CONFIG
-    }
-
-    class StrokeConfigItem internal constructor(val name: String,
-                                                val iconResourceId: Int,
-                                                val sharedPrefString: String,
-                                                val activityToChoosePreference: Class<StrokeSelectionActivity>) : ConfigItemType {
-        override val configType: Int get() = ZirWatchConfigAdapter.TYPE_STROKE_CONFIG
-    }
-
-    class ThemeConfigItem internal constructor(val name: String,
-                                                val iconResourceId: Int,
-                                                val sharedPrefString: String,
-                                                val activityToChoosePreference: Class<ThemeSelectionActivity>) : ConfigItemType {
-        override val configType: Int get() = ZirWatchConfigAdapter.TYPE_THEME_CONFIG
     }
 }
