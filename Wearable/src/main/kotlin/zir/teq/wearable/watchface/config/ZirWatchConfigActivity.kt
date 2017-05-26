@@ -7,6 +7,7 @@ import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.util.ActivityHelper
 
@@ -25,12 +26,13 @@ class ZirWatchConfigActivity : Activity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            //TODO implement
-            //UPDATE_COLORS_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
+            UPDATE_COLORS_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
+                Log.i(TAG, "extra: " + data?.extras?.get(ColorSelectionActivity.EXTRA_SHARED_COLOR))
+            }
             //UPDATE_STROKE_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
             //UPDATE_THEME_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
         }
-        Log.d(TAG, "ZirWatchConfigActivity onActivityResult data.dataString: " + data?.dataString)
+        Log.d(TAG, "onActivityResult data.dataString: " + data?.dataString)
     }
 
     companion object {

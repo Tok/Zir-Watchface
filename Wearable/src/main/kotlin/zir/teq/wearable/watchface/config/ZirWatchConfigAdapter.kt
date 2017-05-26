@@ -3,15 +3,18 @@ package zir.teq.wearable.watchface.config
 import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.ColorPickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.StrokePickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.ThemePickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.ZirPickerViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.model.item.ColorConfigItem
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.model.item.StrokeConfigItem
@@ -63,7 +66,8 @@ class ZirWatchConfigAdapter(
     }
 
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {
-        holder.setIcon(item.iconId)
+        val col = Col.findActive(holder.itemView.context)
+        holder.setIcon(item.iconId, col.lightId)
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
     }

@@ -52,7 +52,7 @@ class ColorSelectionAdapter(
                         activity.getString(R.string.zir_watch_preference_file_key),
                         Context.MODE_PRIVATE)
                 val editor = sharedPref.edit()
-                editor.putString(mSharedPrefString, color.name)
+                editor.putString(mSharedPrefString, color.name) //pref = saved_color_name
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK) //triggers config activity
             }

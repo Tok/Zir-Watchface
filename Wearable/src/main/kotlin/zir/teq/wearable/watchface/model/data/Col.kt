@@ -88,5 +88,14 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             paint.color = ctx.getColor(colorId)
             return paint
         }
+
+        fun findActive(ctx: Context): Col {
+            val shared = ctx.getSharedPreferences(
+                    ctx.getString(R.string.zir_watch_preference_file_key),
+                    Context.MODE_PRIVATE)
+            val colRes = ctx.resources.getString(R.string.saved_color_name)
+            val colName = shared.getString(colRes, Col.WHITE.name)
+            return Col.getColorByName(colName)
+        }
     }
 }
