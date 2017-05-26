@@ -1,13 +1,6 @@
 package zir.watchface
 
-import android.content.Context
-import android.graphics.Paint
 import android.graphics.Typeface
-import android.util.Log
-import zir.teq.wearable.watchface.Col
-import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.Stroke
-import zir.teq.wearable.watchface.Theme
 import java.util.concurrent.TimeUnit
 
 data class Config(val drawCircle: Boolean,

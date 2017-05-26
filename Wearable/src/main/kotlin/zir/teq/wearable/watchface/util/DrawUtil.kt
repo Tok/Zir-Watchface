@@ -6,9 +6,9 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.graphics.Rect
 import android.util.Log
-import zir.teq.wearable.watchface.Col
+import zir.teq.wearable.watchface.model.Col
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.Stroke
+import zir.teq.wearable.watchface.model.Stroke
 import java.util.*
 
 

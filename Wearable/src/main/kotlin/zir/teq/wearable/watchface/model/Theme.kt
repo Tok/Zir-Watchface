@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface
+package zir.teq.wearable.watchface.model
 
 data class Theme(val name: String,
                  val drawCircle: Boolean,
