@@ -4,9 +4,10 @@ import zir.teq.wearable.watchface.config.ZirWatchConfigAdapter
 import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
 import zir.teq.wearable.watchface.model.ConfigData
 
-class ThemeConfigItem internal constructor(val name: String,
-                                           val iconResourceId: Int,
-                                           val sharedPrefString: String,
-                                           val activityToChoosePreference: Class<ThemeSelectionActivity>) : ConfigData.ConfigItemType {
+
+class ThemeConfigItem internal constructor(name: String,
+                                            iconId: Int,
+                                            pref: String,
+                                            val activity: Class<ThemeSelectionActivity>) : ConfigItem(name, iconId, pref), ConfigData.ConfigItemType {
     override val configType: Int get() = ZirWatchConfigAdapter.TYPE_THEME_CONFIG
 }

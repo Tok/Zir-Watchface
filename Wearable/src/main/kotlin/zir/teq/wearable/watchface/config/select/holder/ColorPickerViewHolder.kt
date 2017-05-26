@@ -29,7 +29,7 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
         }
     }
 
-    fun setLaunchActivityToSelectColor(activity: Class<ColorSelectionActivity>) {
+    fun setLaunchActivity(activity: Class<ColorSelectionActivity>) {
         mActivity = activity
     }
 
