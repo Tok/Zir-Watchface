@@ -8,7 +8,6 @@ import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Theme
-import zir.teq.wearable.watchface.model.data.types.StrokeType
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class ThemeSelectionActivity : Activity() {
