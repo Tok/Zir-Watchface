@@ -106,28 +106,22 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.defaultTheme.name)
             val savedTheme = Theme.getThemeByName(savedThemeName)
             Log.d(TAG, "loaded saved theme... savedTheme: $savedTheme")
-
-            val isHand = prefs.getBoolean(ctx.getString(R.string.saved_draw_hands_active), savedTheme.hands.active)
-            val isAmbHand = prefs.getBoolean(ctx.getString(R.string.saved_draw_hands_ambient), savedTheme.hands.ambient)
-
-            val isTri = prefs.getBoolean(ctx.getString(R.string.saved_draw_triangles_active), savedTheme.triangles.active)
-            val isAmbTri = prefs.getBoolean(ctx.getString(R.string.saved_draw_triangles_ambient), savedTheme.triangles.ambient)
-
-            val isCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_circles_active), savedTheme.circles.active)
-            val isAmbCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_circles_ambient), savedTheme.circles.ambient)
-
-            val isPoints = prefs.getBoolean(ctx.getString(R.string.saved_draw_points_active), savedTheme.points.active)
-            val isAmbPoints = prefs.getBoolean(ctx.getString(R.string.saved_draw_points_ambient), savedTheme.points.ambient)
-
-            val isText = prefs.getBoolean(ctx.getString(R.string.saved_draw_text_active), savedTheme.text.active)
-            val isAmbText = prefs.getBoolean(ctx.getString(R.string.saved_draw_text_ambient), savedTheme.text.ambient)
-
-            mTheme = Theme(savedTheme.name, savedTheme.iconId,
-                    Theme.Companion.Setting(isHand, isAmbHand),
-                    Theme.Companion.Setting(isTri, isAmbTri),
-                    Theme.Companion.Setting(isCirc, isAmbCirc),
-                    Theme.Companion.Setting(isPoints, isAmbPoints),
-                    Theme.Companion.Setting(isText, isAmbText))
+            val isHand = Theme.Companion.Setting(
+                    prefs.getBoolean(ctx.getString(R.string.saved_hands_act), savedTheme.hands.active),
+                    prefs.getBoolean(ctx.getString(R.string.saved_hands_amb), savedTheme.hands.ambient))
+            val isTri = Theme.Companion.Setting(
+                    prefs.getBoolean(ctx.getString(R.string.saved_triangles_act), savedTheme.triangles.active),
+                    prefs.getBoolean(ctx.getString(R.string.saved_triangles_amb), savedTheme.triangles.ambient))
+            val isCirc = Theme.Companion.Setting(
+                    prefs.getBoolean(ctx.getString(R.string.saved_circles_act), savedTheme.circles.active),
+                    prefs.getBoolean(ctx.getString(R.string.saved_circles_amb), savedTheme.circles.ambient))
+            val isPoints = Theme.Companion.Setting(
+                    prefs.getBoolean(ctx.getString(R.string.saved_points_act), savedTheme.points.active),
+                    prefs.getBoolean(ctx.getString(R.string.saved_points_amb), savedTheme.points.ambient))
+            val isText = Theme.Companion.Setting(
+                    prefs.getBoolean(ctx.getString(R.string.saved_text_act), savedTheme.text.active),
+                    prefs.getBoolean(ctx.getString(R.string.saved_text_amb), savedTheme.text.ambient))
+            mTheme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText)
 
             Log.d(TAG, "theme updated... mTheme: $mTheme")
 
