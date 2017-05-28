@@ -10,6 +10,9 @@
     <string name="saved_theme">saved_theme</string>
     <string name="saved_color">saved_color</string>
     <string name="saved_stroke">saved_stroke</string>
+
+    <string name="saved_fast_update">saved_fast_update</string>
+
     <string name="saved_hands_act">saved_hands_act</string>
     <string name="saved_hands_amb">saved_hands_amb</string>
     <string name="saved_triangles_act">saved_triangles_act</string>
@@ -24,6 +27,9 @@
     <string name="label_theme">Theme</string>
     <string name="label_color">Color</string>
     <string name="label_stroke">Stroke</string>
+
+    <string name="label_fast_update">Fast Update</string>
+
     <string name="label_hands_act">Hands</string>
     <string name="label_hands_amb">Ambient Hands</string>
     <string name="label_circles_act">Circles</string>

@@ -21,7 +21,6 @@ import zir.teq.wearable.watchface.model.data.types.StrokeType
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.watchface.DrawUtil
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class ZirWatchFaceService : CanvasWatchFaceService() {
     override fun onCreateEngine(): Engine {
@@ -34,11 +33,10 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         val ctx = applicationContext
         val drawer = DrawUtil()
 
-        internal var mInteractiveUpdateRateMs = ConfigItem.FAST_UPDATE_RATE_MS //TODO move elsewhere
-
         private var mCalendar: Calendar = Calendar.getInstance()
         private var mMuteMode: Boolean = false
         private var mRegisteredTimeZoneReceiver = false
+
 
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
         private var mCol: Col = Col.defaultColor
@@ -52,6 +50,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mAmbient: Boolean = false
         private var mLowBitAmbient: Boolean = false
         private var mBurnInProtection: Boolean = false
+        private var mUpdateRateMs = ConfigItem.updateRateMs(mAmbient, mTheme.isFastUpdate)
 
         internal lateinit var prefs: SharedPreferences
         private val mTimeZoneReceiver = object : BroadcastReceiver() {
@@ -69,7 +68,8 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                         invalidate()
                         if (shouldTimerBeRunning()) {
                             val timeMs = System.currentTimeMillis()
-                            val delayMs = mInteractiveUpdateRateMs - timeMs % mInteractiveUpdateRateMs
+                            mUpdateRateMs = ConfigItem.updateRateMs(mAmbient, mTheme.isFastUpdate)
+                            val delayMs = mUpdateRateMs - timeMs % mUpdateRateMs
                             this.sendEmptyMessageDelayed(msgUpdateTime, delayMs)
                         }
                     }
@@ -106,6 +106,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.defaultTheme.name)
             val savedTheme = Theme.getThemeByName(savedThemeName)
             Log.d(TAG, "loaded saved theme... savedTheme: $savedTheme")
+            val isFastUpdate = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), savedTheme.isFastUpdate)
             val isHand = Theme.Companion.Setting(
                     prefs.getBoolean(ctx.getString(R.string.saved_hands_act), savedTheme.hands.active),
                     prefs.getBoolean(ctx.getString(R.string.saved_hands_amb), savedTheme.hands.ambient))
@@ -121,7 +122,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val isText = Theme.Companion.Setting(
                     prefs.getBoolean(ctx.getString(R.string.saved_text_act), savedTheme.text.active),
                     prefs.getBoolean(ctx.getString(R.string.saved_text_amb), savedTheme.text.ambient))
-            mTheme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText)
+            mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText)
 
             Log.d(TAG, "theme updated... mTheme: $mTheme")
 
@@ -232,10 +233,10 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun setInteractiveUpdateRateMs(updateRateMs: Long) {
-            if (updateRateMs == mInteractiveUpdateRateMs) {
+            if (updateRateMs == mUpdateRateMs) {
                 return
             }
-            mInteractiveUpdateRateMs = updateRateMs
+            mUpdateRateMs = updateRateMs
             if (shouldTimerBeRunning()) {
                 updateTimer()
             }
@@ -272,6 +273,5 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
     companion object {
         private val TAG = this::class.java.simpleName
-        private val INTERACTIVE_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1)
     }
 }

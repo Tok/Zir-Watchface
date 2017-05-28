@@ -19,7 +19,7 @@ import java.util.*
 class DrawUtil() {
     data class HandData(val p: PointF, val radians: Float, val maybeExtended: PointF)
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
-    class FrameData(val cal: Calendar, val bounds: Rect) {
+    class FrameData(cal: Calendar, bounds: Rect) {
         val hh = cal.get(Calendar.HOUR_OF_DAY)
         val mm = cal.get(Calendar.MINUTE)
         val ss = cal.get(Calendar.SECOND)
