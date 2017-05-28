@@ -51,8 +51,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="zir.teq.wearable.watchface.config.select.ThemeSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.ColorSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.StrokeSelectionActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.ThemeSelectionActivity" />
     </application>
 </manifest>

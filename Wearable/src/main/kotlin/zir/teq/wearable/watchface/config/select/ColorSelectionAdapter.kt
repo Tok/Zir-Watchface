@@ -19,7 +19,7 @@ class ColorSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
         val viewHolder = ColorViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.color_config_list_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_color, parent, false)
         )
         return viewHolder
     }

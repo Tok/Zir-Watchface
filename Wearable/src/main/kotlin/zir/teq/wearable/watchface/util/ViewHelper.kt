@@ -48,7 +48,7 @@ object ViewHelper {
     }
 
     private fun createCheckboxViewHolder(viewGroup: ViewGroup, labelId: Int): ZirPickerViewHolder {
-        return createViewHolder(viewGroup, labelId, R.layout.checkbox_list_item)
+        return createViewHolder(viewGroup, labelId, R.layout.list_item_checkbox)
     }
 
     private fun createViewHolder(viewGroup: ViewGroup, labelId: Int, layoutId: Int): ZirPickerViewHolder {
@@ -59,6 +59,4 @@ object ViewHelper {
         holder.setName(name)
         return holder
     }
-
-
 }

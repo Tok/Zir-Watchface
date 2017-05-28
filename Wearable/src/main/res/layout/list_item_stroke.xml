@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.CircledImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/stroke"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    app:circle_border_color="@color/stroke_item_circle_border_color"
-    app:circle_radius="@dimen/stroke_picker_size"
-    app:circle_border_width="5dp"
     android:padding="8dp"
-    android:layout_marginTop="21dp"
-    android:layout_marginBottom="21dp"/>
+    app:circle_border_color="@color/stroke_item_circle_border_color"
+    app:circle_border_width="5dp"
+    app:circle_radius="@dimen/stroke_picker_size" />

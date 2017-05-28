@@ -14,7 +14,7 @@ class StrokeSelectionActivity : Activity() {
     private var mAdapter: StrokeSelectionAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.stroke_selection_config)
+        setContentView(R.layout.selection_stroke)
         val sharedStrokeName = intent.getStringExtra(EXTRA_SHARED_STROKE)
         android.util.Log.d(TAG, "sharedStrokeName:" + sharedStrokeName)
         val ctx = applicationContext

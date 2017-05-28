@@ -18,7 +18,7 @@ class ThemeSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         android.util.Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
         val viewHolder = ThemeViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.theme_config_list_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_theme, parent, false)
         )
         return viewHolder
     }

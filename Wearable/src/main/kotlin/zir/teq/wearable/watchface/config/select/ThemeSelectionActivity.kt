@@ -14,7 +14,7 @@ class ThemeSelectionActivity : Activity() {
     private var mAdapter: ThemeSelectionAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.theme_selection_config)
+        setContentView(R.layout.selection_theme)
         val sharedThemeName = intent.getStringExtra(EXTRA_SHARED_THEME)
         Log.d(TAG, "sharedThemeName:" + sharedThemeName)
         mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.createThemeOptions())

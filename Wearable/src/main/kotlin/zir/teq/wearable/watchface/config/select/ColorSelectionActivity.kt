@@ -14,7 +14,7 @@ class ColorSelectionActivity : Activity() {
     private var mAdapter: ColorSelectionAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.color_selection_config)
+        setContentView(R.layout.selection_color)
         val sharedColorName = intent.getStringExtra(EXTRA_SHARED_COLOR)
         android.util.Log.d(TAG, "sharedColorName:" + sharedColorName)
         mAdapter = ColorSelectionAdapter(sharedColorName, Col.getColorOptions())

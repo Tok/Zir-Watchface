@@ -18,7 +18,7 @@ class StrokeSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
         val viewHolder = StrokeViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.stroke_config_list_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_stroke, parent, false)
         )
         return viewHolder
     }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/stroke_picker_button"
+    style="@style/ButtonConfigurationStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:minHeight="34dp"
-    style="@style/StrokeButtonConfigurationStyle"
-    android:text="Stroke"/>
+    android:text="Stroke" />

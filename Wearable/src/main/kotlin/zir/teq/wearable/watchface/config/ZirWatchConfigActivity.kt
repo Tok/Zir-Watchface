@@ -16,7 +16,7 @@ class ZirWatchConfigActivity : Activity() {
     private var mAdapter: ZirWatchConfigAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.zir_watch_config_activity)
+        setContentView(R.layout.zir_config)
         mAdapter = ZirWatchConfigAdapter(applicationContext,
                 ConfigData.watchFaceServiceClass,
                 ConfigData.getDataToPopulateAdapter(this))
