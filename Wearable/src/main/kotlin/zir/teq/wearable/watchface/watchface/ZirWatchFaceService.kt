@@ -53,7 +53,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mLowBitAmbient: Boolean = false
         private var mBurnInProtection: Boolean = false
 
-        internal lateinit var mSharedPref: SharedPreferences
+        internal lateinit var prefs: SharedPreferences
         private val mTimeZoneReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 mCalendar.timeZone = TimeZone.getDefault()
@@ -81,7 +81,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             Log.d(TAG, "onCreate")
             super.onCreate(holder)
             val ctx = applicationContext
-            mSharedPref = ctx.getSharedPreferences(
+            prefs = ctx.getSharedPreferences(
                     getString(R.string.zir_watch_preference_file_key),
                     Context.MODE_PRIVATE)
             setWatchFaceStyle(
@@ -93,22 +93,28 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
         private fun loadSavedPreferences() {
             val backgroundColorResourceName = ctx.getString(R.string.saved_background_color)
-            mBackgroundColor = mSharedPref.getInt(backgroundColorResourceName, Color.BLACK)
+            mBackgroundColor = prefs.getInt(backgroundColorResourceName, Color.BLACK)
 
-            val colResourceName = ctx.getString(R.string.saved_color)
-            val mColName = mSharedPref.getString(colResourceName, Col.WHITE.name)
+            val mColName = prefs.getString(ctx.getString(R.string.saved_color), Col.WHITE.name)
             mCol = Col.getColorByName(mColName)
             Log.d(TAG, "loaded saved color... mCol: $mCol")
 
-            val strokeResourceName = ctx.getString(R.string.saved_stroke)
-            val mStrokeName = mSharedPref.getString(strokeResourceName, StrokeType.default.name)
+            val mStrokeName = prefs.getString(ctx.getString(R.string.saved_stroke), StrokeType.default.name)
             mStroke = Stroke.createStroke(ctx, mStrokeName)
             Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
 
-            val themeResourceName = ctx.getString(R.string.saved_theme)
-            val mThemeName = mSharedPref.getString(themeResourceName, Theme.defaultTheme.name)
-            mTheme = Theme.getThemeByName(mThemeName)
-            Log.d(TAG, "loaded saved theme... mTheme: $mTheme")
+            val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.defaultTheme.name)
+            val savedTheme = Theme.getThemeByName(savedThemeName)
+            Log.d(TAG, "loaded saved theme... savedTheme: $savedTheme")
+
+            val isCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_circles), savedTheme.drawCircle)
+            val isActCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_active_hands), savedTheme.drawActiveCircles) //FIXME
+            val isHands = prefs.getBoolean(ctx.getString(R.string.saved_draw_hands), savedTheme.drawHands)
+            val isTriang = prefs.getBoolean(ctx.getString(R.string.saved_draw_triangles), savedTheme.drawTriangle)
+            val isText = prefs.getBoolean(ctx.getString(R.string.saved_draw_text), savedTheme.drawText)
+            val isPoints = prefs.getBoolean(ctx.getString(R.string.saved_draw_points), savedTheme.drawPoints)
+            mTheme = Theme(savedTheme.name, savedTheme.iconId, isCirc, isActCirc, isHands, isTriang, isText, isPoints)
+            Log.d(TAG, "theme updated... mTheme: $mTheme")
 
             updateWatchPaintStyles()
         }
@@ -121,7 +127,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             mDarkPaint.strokeWidth = mStroke.dim
             mLightPaint.color = mCol.lightId
             mLightPaint.strokeWidth = mStroke.dim
-            setActiveComplications(0)
         }
 
         override fun onDestroy() {

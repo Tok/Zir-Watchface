@@ -12,8 +12,8 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Theme
 
 class ThemeSelectionAdapter(
-        private val mSharedPrefString: String?,
-        private val mThemeOptionsDataSet: ArrayList<Theme>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mPrefString: String?,
+        private val mOptions: ArrayList<Theme>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         android.util.Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
@@ -25,13 +25,13 @@ class ThemeSelectionAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
-        val theme = mThemeOptionsDataSet[position]
+        val theme = mOptions[position]
         val themeViewHolder = viewHolder as ThemeSelectionAdapter.ThemeViewHolder
         themeViewHolder.setIcon(theme)
     }
 
     override fun getItemCount(): Int {
-        return mThemeOptionsDataSet.size
+        return mOptions.size
     }
 
     inner class ThemeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -47,15 +47,15 @@ class ThemeSelectionAdapter(
 
         override fun onClick(view: android.view.View) {
             val position = adapterPosition
-            val theme = mThemeOptionsDataSet[position]
-            Log.d(TAG, "Theme: $theme onClick() position: $position sharedPrefString: $mSharedPrefString")
+            val theme = mOptions[position]
+            Log.d(TAG, "Theme: $theme onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
-            if (mSharedPrefString != null && !mSharedPrefString.isEmpty()) {
+            if (mPrefString != null && !mPrefString.isEmpty()) {
                 val sharedPref = activity.getSharedPreferences(
                         activity.getString(R.string.zir_watch_preference_file_key),
                         Context.MODE_PRIVATE)
                 val editor = sharedPref.edit()
-                editor.putString(mSharedPrefString, theme.name)
+                editor.putString(mPrefString, theme.name)
                 editor.commit()
                 activity.setResult(android.app.Activity.RESULT_OK) //triggers config activity
             }

@@ -21,7 +21,7 @@ class StrokePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCli
         Log.d(TAG, "onClick() position: " + position)
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
-            launchIntent.putExtra(StrokeSelectionActivity.EXTRA_SHARED_STROKE, mSharedPrefString)
+            launchIntent.putExtra(StrokeSelectionActivity.EXTRA_SHARED_STROKE, mPrefString)
             val activity = view.context as Activity
             activity.startActivityForResult(
                     launchIntent,

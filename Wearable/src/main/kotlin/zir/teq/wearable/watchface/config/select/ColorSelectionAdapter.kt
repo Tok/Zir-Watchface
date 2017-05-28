@@ -13,8 +13,8 @@ import zir.teq.wearable.watchface.R
 import java.util.*
 
 class ColorSelectionAdapter(
-        private val mSharedPrefString: String?,
-        private val mColorOptionsDataSet: ArrayList<Col>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mPrefString: String?,
+        private val mOptions: ArrayList<Col>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
@@ -26,13 +26,13 @@ class ColorSelectionAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder() Element $position set.")
-        val color = mColorOptionsDataSet[position]
+        val color = mOptions[position]
         val colorViewHolder = viewHolder as ColorViewHolder
         colorViewHolder.setItemDisplayColor(viewHolder.itemView.context, color)
     }
 
     override fun getItemCount(): Int {
-        return mColorOptionsDataSet.size
+        return mOptions.size
     }
 
     inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -44,15 +44,15 @@ class ColorSelectionAdapter(
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val color = mColorOptionsDataSet[position]
-            Log.d(TAG, "Color: $color onClick() position: $position sharedPrefString: $mSharedPrefString")
+            val color = mOptions[position]
+            Log.d(TAG, "Color: $color onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
-            if (mSharedPrefString != null && !mSharedPrefString.isEmpty()) {
+            if (mPrefString != null && !mPrefString.isEmpty()) {
                 val sharedPref = activity.getSharedPreferences(
                         activity.getString(R.string.zir_watch_preference_file_key),
                         Context.MODE_PRIVATE)
                 val editor = sharedPref.edit()
-                editor.putString(mSharedPrefString, color.name) //pref = saved_color_name
+                editor.putString(mPrefString, color.name) //pref = saved_color_name
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK) //triggers config activity
             }

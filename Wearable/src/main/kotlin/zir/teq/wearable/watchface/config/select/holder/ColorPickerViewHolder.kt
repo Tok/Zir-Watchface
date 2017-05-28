@@ -26,7 +26,7 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
             val col = Col.findActive(view.context)
             Log.d(TAG, "Color changed to $col")
             launchIntent.putExtra("color", col.name)
-            launchIntent.putExtra(ColorSelectionActivity.EXTRA_SHARED_COLOR, mSharedPrefString)
+            launchIntent.putExtra(ColorSelectionActivity.EXTRA_SHARED_COLOR, mPrefString)
 
             val activity = view.context as Activity
             activity.startActivityForResult(

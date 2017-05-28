@@ -11,7 +11,7 @@ import android.widget.Button
 
 open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var mButton: Button? = null
-    var mSharedPrefString: String? = null
+    var mPrefString: String? = null
 
     fun initButton(view: View) {
         mButton = view as Button
@@ -36,7 +36,7 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun setSharedPrefString(sharedPrefString: String) {
-        mSharedPrefString = sharedPrefString
+        mPrefString = sharedPrefString
     }
 
     companion object {

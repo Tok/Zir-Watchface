@@ -12,8 +12,8 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Stroke
 
 class StrokeSelectionAdapter(
-        private val mSharedPrefString: String?,
-        private val mStrokeOptionsDataSet: ArrayList<Stroke>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mPrefString: String?,
+        private val mOptions: ArrayList<Stroke>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
@@ -25,7 +25,7 @@ class StrokeSelectionAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder() Element $position set.")
-        val stroke = mStrokeOptionsDataSet[position]
+        val stroke = mOptions[position]
         val strokeViewHolder = viewHolder as StrokeViewHolder
         val ctx = viewHolder.itemView.context
         strokeViewHolder.setItemDisplayColor(ctx.getColor(R.color.white))
@@ -33,7 +33,7 @@ class StrokeSelectionAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mStrokeOptionsDataSet.size
+        return mOptions.size
     }
 
     inner class StrokeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -53,15 +53,15 @@ class StrokeSelectionAdapter(
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val stroke = mStrokeOptionsDataSet[position]
-            Log.d(TAG, "Stroke: $stroke onClick() position: $position sharedPrefString: $mSharedPrefString")
+            val stroke = mOptions[position]
+            Log.d(TAG, "Stroke: $stroke onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
-            if (mSharedPrefString != null && !mSharedPrefString.isEmpty()) {
+            if (mPrefString != null && !mPrefString.isEmpty()) {
                 val sharedPref = activity.getSharedPreferences(
                         activity.getString(zir.teq.wearable.watchface.R.string.zir_watch_preference_file_key),
                         Context.MODE_PRIVATE)
                 val editor = sharedPref.edit()
-                editor.putString(mSharedPrefString, stroke.name)
+                editor.putString(mPrefString, stroke.name)
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK) //triggers config activity
             }

@@ -33,12 +33,12 @@ object ViewHelper {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_theme_item))
             ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_color_item))
             ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_stroke_item))
-            ConfigItem.DRAW_TRIANGLES.code -> createCheckboxViewHolder(group, R.string.label_draw_triangles)
-            ConfigItem.DRAW_CIRCLES.code -> createCheckboxViewHolder(group, R.string.label_draw_circles)
-            ConfigItem.DRAW_ACTIVE_HANDS.code -> createCheckboxViewHolder(group, R.string.label_draw_active_hands)
-            ConfigItem.DRAW_HANDS.code -> createCheckboxViewHolder(group, R.string.label_draw_hands)
-            ConfigItem.DRAW_POINTS.code -> createCheckboxViewHolder(group, R.string.label_draw_points)
-            ConfigItem.DRAW_TEXT.code -> createCheckboxViewHolder(group, R.string.label_draw_text)
+            ConfigItem.DRAW_TRIANGLES.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_TRIANGLES)
+            ConfigItem.DRAW_CIRCLES.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_CIRCLES)
+            ConfigItem.DRAW_ACTIVE_HANDS.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_ACTIVE_HANDS)
+            ConfigItem.DRAW_HANDS.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_HANDS)
+            ConfigItem.DRAW_POINTS.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_POINTS)
+            ConfigItem.DRAW_TEXT.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_TEXT)
             else -> throw IllegalArgumentException("Unknown type $viewType for group: $group")
         }
     }
@@ -47,15 +47,18 @@ object ViewHelper {
         return LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
     }
 
-    private fun createCheckboxViewHolder(viewGroup: ViewGroup, labelId: Int): ZirPickerViewHolder {
-        return createViewHolder(viewGroup, labelId, R.layout.list_item_checkbox)
+    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): ZirPickerViewHolder {
+        val resources = viewGroup.context.resources
+        val pref = resources.getString(type.prefId)
+        val name = resources.getString(type.nameId)
+        return createViewHolder(viewGroup, pref, name, R.layout.list_item_checkbox)
     }
 
-    private fun createViewHolder(viewGroup: ViewGroup, labelId: Int, layoutId: Int): ZirPickerViewHolder {
+    private fun createViewHolder(viewGroup: ViewGroup, pref: String, name: String, layoutId: Int): ZirPickerViewHolder {
         val ctx = viewGroup.context
         val view = LayoutInflater.from(ctx).inflate(layoutId, viewGroup, false)
         val holder = BooleanPickerViewHolder(view)
-        val name = ctx.resources.getString(labelId)
+        holder.setSharedPrefString(pref)
         holder.setName(name)
         return holder
     }

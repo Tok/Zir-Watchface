@@ -22,7 +22,7 @@ class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
         Log.d(TAG, "onClick() position: " + position)
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
-            launchIntent.putExtra(EXTRA_SHARED_THEME, mSharedPrefString)
+            launchIntent.putExtra(EXTRA_SHARED_THEME, mPrefString)
             val activity = view.context as Activity
             activity.startActivityForResult(
                     launchIntent,
