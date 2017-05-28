@@ -21,7 +21,7 @@ class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCl
                     Context.MODE_PRIVATE)
             val editor = prefs.edit()
             val checkBox = mButton as CheckBox
-            editor.putString(mPrefString, checkBox.isChecked().toString())
+            editor.putBoolean(mPrefString, checkBox.isChecked())
             editor.commit()
         }
     }
