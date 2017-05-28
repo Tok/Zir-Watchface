@@ -7,7 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.types.PaintType
-import zir.watchface.Config
+import zir.teq.wearable.watchface.model.item.ConfigItem
 
 data class Col(val name: String, val darkId: Int, val lightId: Int) {
     companion object {
@@ -78,7 +78,7 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
 
         fun prepareTextPaint(ctx: Context, colorId: Int): Paint {
             val paint = prep()
-            paint.typeface = Config.NORMAL_TYPEFACE
+            paint.typeface = ConfigItem.NORMAL_TYPEFACE
             paint.isFakeBoldText = true
             paint.color = ctx.getColor(colorId)
             return paint
