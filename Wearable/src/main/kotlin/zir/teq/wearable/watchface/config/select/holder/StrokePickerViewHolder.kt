@@ -25,7 +25,7 @@ class StrokePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCli
             val activity = view.context as Activity
             activity.startActivityForResult(
                     launchIntent,
-                    ZirWatchConfigActivity.UPDATE_STROKE_CONFIG_REQUEST_CODE)
+                    ZirWatchConfigActivity.STROKE.code)
         }
     }
 

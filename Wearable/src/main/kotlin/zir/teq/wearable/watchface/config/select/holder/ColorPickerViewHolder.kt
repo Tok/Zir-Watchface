@@ -31,7 +31,7 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
             val activity = view.context as Activity
             activity.startActivityForResult(
                     launchIntent,
-                    ZirWatchConfigActivity.UPDATE_COLORS_CONFIG_REQUEST_CODE)
+                    ZirWatchConfigActivity.COLORS.code)
         }
     }
 

@@ -26,7 +26,7 @@ class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
             val activity = view.context as Activity
             activity.startActivityForResult(
                     launchIntent,
-                    ZirWatchConfigActivity.UPDATE_THEME_CONFIG_REQUEST_CODE)
+                    ZirWatchConfigActivity.THEME.code)
         }
     }
 

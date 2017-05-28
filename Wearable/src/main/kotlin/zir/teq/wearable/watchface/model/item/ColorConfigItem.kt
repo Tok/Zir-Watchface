@@ -6,5 +6,5 @@ import zir.teq.wearable.watchface.model.ConfigData
 class ColorConfigItem internal constructor(name: String, iconId: Int, pref: String,
                                            val activity: Class<ColorSelectionActivity>):
         ConfigItem(name, iconId, pref), ConfigData.ConfigItemType {
-    override val configType: Int get() = ConfigItem.COLOR.code
+    override val configType: Int get() = ConfigItem.COLORS.code
 }
