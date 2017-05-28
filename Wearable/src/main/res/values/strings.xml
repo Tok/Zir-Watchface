@@ -7,21 +7,23 @@
 
     <string name="saved_background_color">saved_background_color</string>
 
+    <string name="saved_theme_name">saved_theme_name</string>
     <string name="saved_color_name">saved_color_name</string>
     <string name="saved_stroke_name">saved_stroke_name</string>
-    <string name="saved_theme_name">saved_theme_name</string>
     <string name="saved_draw_circles_name">saved_draw_circles_name</string>
-    <string name="saved_draw_active_hands_name">saved_draw_active_hands_name</string>
     <string name="saved_draw_triangles_name">saved_draw_triangles_name</string>
-    <string name="saved_draw_text_name">saved_draw_text_name</string>
+    <string name="saved_draw_active_hands_name">saved_draw_active_hands_name</string>
+    <string name="saved_draw_hands_name">saved_draw_hands_name</string>
     <string name="saved_draw_points_name">saved_draw_points_name</string>
+    <string name="saved_draw_text_name">saved_draw_text_name</string>
 
-    <string name="config_marker_color_label">Color</string>
-    <string name="config_marker_stroke_label">Stroke</string>
     <string name="config_marker_theme_label">Theme</string>
+    <string name="config_marker_color_label">Colors</string>
+    <string name="config_marker_stroke_label">Stroke</string>
     <string name="config_marker_draw_circles_label">Draw Circles</string>
-    <string name="config_marker_draw_active_hands_label">Draw Active Hands</string>
     <string name="config_marker_draw_triangles_label">Draw Triangles</string>
-    <string name="config_marker_draw_text_label">Draw Text</string>
+    <string name="config_marker_draw_active_hands_label">Draw Active Hands</string>
+    <string name="config_marker_draw_hands_label">Draw Hands</string>
     <string name="config_marker_draw_points_label">Draw Points</string>
+    <string name="config_marker_draw_text_label">Draw Text</string>
 </resources>

@@ -26,30 +26,31 @@ class ZirWatchConfigActivity : Activity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            UPDATE_COLORS_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
-                val col = Col.findActive(applicationContext) //TODO pass with intent extra?
-                val cf = Col.createFilter(applicationContext, col)
-                val res = applicationContext.resources
-                res.getDrawable(R.drawable.icon_color, null).setColorFilter(cf)
-                res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(cf)
-                res.getDrawable(R.drawable.icon_theme, null).setColorFilter(cf)
-                Log.d(TAG, "Color changed. col: $col")
+            COLORS.code -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val col = Col.findActive(applicationContext) //TODO pass with intent extra?
+                    val cf = Col.createFilter(applicationContext, col)
+                    val res = applicationContext.resources
+                    res.getDrawable(R.drawable.icon_color, null).setColorFilter(cf)
+                    res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(cf)
+                    res.getDrawable(R.drawable.icon_theme, null).setColorFilter(cf)
+                    Log.d(TAG, "Color changed. col: $col")
+                }
             }
-            //UPDATE_STROKE_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
-            //UPDATE_THEME_CONFIG_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) { doSomething() }
         }
     }
 
     companion object {
         private val TAG = ZirWatchConfigActivity::class.java.simpleName
-        internal val UPDATE_COLORS_CONFIG_REQUEST_CODE = 1002
-        internal val UPDATE_STROKE_CONFIG_REQUEST_CODE = 1003
-        internal val UPDATE_THEME_CONFIG_REQUEST_CODE = 1004
-        internal val UPDATE_DRAW_CIRCLES_REQUEST_CODE = 1005
-        internal val UPDATE_DRAW_ACTIVE_HANDS_REQUEST_CODE = 1006
-        internal val UPDATE_DRAW_HANDS_REQUEST_CODE = 1007
-        internal val UPDATE_DRAW_TRIANGLE_REQUEST_CODE = 1008
-        internal val UPDATE_DRAW_TEXT_REQUEST_CODE = 1009
-        internal val UPDATE_DRAW_POINTS_REQUEST_CODE = 1010
+        data class UpdateReq(val code: Int)
+        val THEME = UpdateReq(1001)
+        val COLORS = UpdateReq(1002)
+        val STROKE = UpdateReq(1003)
+        val DRAW_TRIANGLES = UpdateReq(1004)
+        val DRAW_CIRCLES = UpdateReq(1005)
+        val DRAW_ACTIVE_HANDS = UpdateReq(1006)
+        val DRAW_HANDS = UpdateReq(1007)
+        val DRAW_POINTS = UpdateReq(1008)
+        val DRAW_TEXT = UpdateReq(1009)
     }
 }
