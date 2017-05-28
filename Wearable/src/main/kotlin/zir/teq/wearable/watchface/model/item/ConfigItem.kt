@@ -5,10 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.*
+import zir.teq.wearable.watchface.model.ConfigData
 
-open class ConfigItem internal constructor(val name: String,
+open class ConfigItem internal constructor(val type: Int,
+                                           val name: String,
                                            val iconId: Int,
-                                           val pref: String) {
+                                           val pref: String): ConfigData.ConfigItemType {
+    override val configType: Int get() = type
     companion object {
         data class Type(val code: Int)
         val THEME = Type(1)
