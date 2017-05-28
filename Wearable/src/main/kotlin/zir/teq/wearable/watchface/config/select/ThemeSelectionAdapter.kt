@@ -2,6 +2,7 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.util.Log
@@ -48,17 +49,37 @@ class ThemeSelectionAdapter(
 
         override fun onClick(view: android.view.View) {
             val position = adapterPosition
-            val theme = mOptions[position]
+            val theme: Theme = mOptions[position]
             Log.d(TAG, "Theme: $theme onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                val editor = ConfigData.prefs(view.context).edit()
-                editor.putString(mPrefString, theme.name)
-                editor.commit()
+                updateSavedValues(view.context, theme)
                 activity.setResult(android.app.Activity.RESULT_OK) //triggers config activity
             }
             activity.finish()
         }
+    }
+
+    fun updateSavedValues(ctx: Context, theme: Theme) {
+        val editor = ConfigData.prefs(ctx).edit()
+        editor.putString(mPrefString, theme.name)
+
+        editor.putBoolean(ctx.getString(R.string.saved_hands_act), theme.hands.active)
+        editor.putBoolean(ctx.getString(R.string.saved_hands_amb), theme.hands.ambient)
+
+        editor.putBoolean(ctx.getString(R.string.saved_triangles_act), theme.triangles.active)
+        editor.putBoolean(ctx.getString(R.string.saved_triangles_amb), theme.triangles.ambient)
+
+        editor.putBoolean(ctx.getString(R.string.saved_circles_act), theme.circles.active)
+        editor.putBoolean(ctx.getString(R.string.saved_circles_amb), theme.circles.ambient)
+
+        editor.putBoolean(ctx.getString(R.string.saved_points_act), theme.points.active)
+        editor.putBoolean(ctx.getString(R.string.saved_points_amb), theme.points.ambient)
+
+        editor.putBoolean(ctx.getString(R.string.saved_text_act), theme.text.active)
+        editor.putBoolean(ctx.getString(R.string.saved_text_amb), theme.text.ambient)
+
+        editor.commit()
     }
 
     companion object {

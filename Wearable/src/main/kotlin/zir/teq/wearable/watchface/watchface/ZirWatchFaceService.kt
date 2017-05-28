@@ -144,8 +144,10 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onPropertiesChanged(properties: Bundle?) {
             super.onPropertiesChanged(properties)
             Log.d(TAG, "onPropertiesChanged: low-bit ambient = " + mLowBitAmbient)
-            mLowBitAmbient = properties!!.getBoolean(WatchFaceService.PROPERTY_LOW_BIT_AMBIENT, false)
-            mBurnInProtection = properties.getBoolean(WatchFaceService.PROPERTY_BURN_IN_PROTECTION, false)
+            if (properties != null && !properties.isEmpty) {
+                mLowBitAmbient = properties.getBoolean(WatchFaceService.PROPERTY_LOW_BIT_AMBIENT, false)
+                mBurnInProtection = properties.getBoolean(WatchFaceService.PROPERTY_BURN_IN_PROTECTION, false)
+            }
         }
 
         override fun onTapCommand(tapType: Int, x: Int, y: Int, eventTime: Long) {
