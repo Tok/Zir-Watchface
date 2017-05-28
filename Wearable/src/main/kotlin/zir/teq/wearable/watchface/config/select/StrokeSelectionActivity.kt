@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.types.StrokeType
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -21,6 +24,14 @@ class StrokeSelectionActivity : Activity() {
         mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.createStrokeOptions(ctx))
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val ctx = applicationContext
+        val strokeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_stroke), StrokeType.default.name)
+        val index = StrokeType.ALL_TYPES.indexOfFirst { it.name.equals(strokeName) } + 1
+        mConfigView?.smoothScrollToPosition(index)
     }
 
     companion object {

@@ -2,11 +2,15 @@ package zir.teq.wearable.watchface.config.select.holder
 
 import android.app.Activity
 import android.content.Intent
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
+import android.widget.ListView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
 import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Col
 
 class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
@@ -18,8 +22,7 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     }
 
     override fun onClick(view: View) {
-        val position = adapterPosition
-        Log.d(TAG, "onClick() position: " + position)
+        Log.d(TAG, "onClick() adapterPosition: " + adapterPosition)
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
 

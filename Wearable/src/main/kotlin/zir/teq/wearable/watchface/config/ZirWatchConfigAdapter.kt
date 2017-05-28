@@ -2,11 +2,9 @@ package zir.teq.wearable.watchface.config
 
 import android.content.ComponentName
 import android.content.Context
-import android.content.SharedPreferences
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
-import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.ColorPickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.StrokePickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.ThemePickerViewHolder

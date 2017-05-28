@@ -28,12 +28,13 @@ class ZirWatchConfigActivity : Activity() {
         when (requestCode) {
             COLORS.code -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    val col = Col.findActive(applicationContext) //TODO pass with intent extra?
-                    val cf = Col.createFilter(applicationContext, col)
+                    val ctx = applicationContext
+                    val col = Col.findActive(ctx)
+                    val filter = Col.createFilter(ctx, col)
                     val res = applicationContext.resources
-                    res.getDrawable(R.drawable.icon_color, null).setColorFilter(cf)
-                    res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(cf)
-                    res.getDrawable(R.drawable.icon_theme, null).setColorFilter(cf)
+                    res.getDrawable(R.drawable.icon_color, null).setColorFilter(filter)
+                    res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(filter)
+                    res.getDrawable(R.drawable.icon_theme, null).setColorFilter(filter)
                     Log.d(TAG, "Color changed. col: $col")
                 }
             }
@@ -46,11 +47,5 @@ class ZirWatchConfigActivity : Activity() {
         val THEME = UpdateReq(1001)
         val COLORS = UpdateReq(1002)
         val STROKE = UpdateReq(1003)
-        val DRAW_TRIANGLES = UpdateReq(1004)
-        val DRAW_CIRCLES = UpdateReq(1005)
-        val DRAW_ACTIVE_HANDS = UpdateReq(1006)
-        val DRAW_HANDS = UpdateReq(1007)
-        val DRAW_POINTS = UpdateReq(1008)
-        val DRAW_TEXT = UpdateReq(1009)
     }
 }
