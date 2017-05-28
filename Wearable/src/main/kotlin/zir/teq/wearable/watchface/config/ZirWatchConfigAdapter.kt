@@ -80,6 +80,6 @@ class ZirWatchConfigAdapter(
     }
 
     companion object {
-        private val TAG = ZirWatchConfigAdapter::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }

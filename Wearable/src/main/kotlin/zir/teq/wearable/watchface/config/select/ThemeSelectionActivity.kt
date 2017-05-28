@@ -23,7 +23,7 @@ class ThemeSelectionActivity : Activity() {
     }
 
     companion object {
-        private val TAG = ThemeSelectionActivity::class.java.simpleName
+        private val TAG = this::class.java.simpleName
         internal val EXTRA_SHARED_THEME = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_THEME"
     }
 }

@@ -40,6 +40,6 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-        private val TAG = ZirPickerViewHolder::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }

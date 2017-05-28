@@ -262,7 +262,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
     }
 
     companion object {
-        private val TAG = ZirWatchFaceService::class.java.simpleName
+        private val TAG = this::class.java.simpleName
         private val INTERACTIVE_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1)
     }
 }

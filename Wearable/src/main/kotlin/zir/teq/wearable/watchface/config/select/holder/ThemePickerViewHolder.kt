@@ -35,6 +35,6 @@ class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     }
 
     companion object {
-        private val TAG = ThemePickerViewHolder::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }

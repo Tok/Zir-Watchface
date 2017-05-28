@@ -65,6 +65,6 @@ class ColorSelectionAdapter(
     }
 
     companion object {
-        private val TAG = ColorSelectionAdapter::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }

@@ -23,7 +23,7 @@ class ColorSelectionActivity : Activity() {
     }
 
     companion object {
-        private val TAG = ColorSelectionActivity::class.java.simpleName
+        private val TAG = this::class.java.simpleName
         internal val EXTRA_SHARED_COLOR = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_COLOR"
     }
 }

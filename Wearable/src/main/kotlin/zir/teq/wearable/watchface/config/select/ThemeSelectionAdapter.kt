@@ -64,6 +64,6 @@ class ThemeSelectionAdapter(
     }
 
     companion object {
-        private val TAG = ThemeSelectionAdapter::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }

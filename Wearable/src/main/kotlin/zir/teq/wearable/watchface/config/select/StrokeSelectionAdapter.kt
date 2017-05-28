@@ -70,6 +70,6 @@ class StrokeSelectionAdapter(
     }
 
     companion object {
-        private val TAG = StrokeSelectionAdapter::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }

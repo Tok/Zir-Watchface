@@ -41,7 +41,7 @@ class ZirWatchConfigActivity : Activity() {
     }
 
     companion object {
-        private val TAG = ZirWatchConfigActivity::class.java.simpleName
+        private val TAG = this::class.java.simpleName
         data class UpdateReq(val code: Int)
         val THEME = UpdateReq(1001)
         val COLORS = UpdateReq(1002)

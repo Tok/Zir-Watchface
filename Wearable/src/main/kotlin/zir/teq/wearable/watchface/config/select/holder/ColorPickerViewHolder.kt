@@ -40,6 +40,6 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     }
 
     companion object {
-        private val TAG = ColorPickerViewHolder::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }

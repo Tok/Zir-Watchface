@@ -225,7 +225,7 @@ class DrawUtil() {
     }
 
     companion object {
-        private val TAG = DrawUtil::class.java.simpleName
+        private val TAG = this::class.java.simpleName
         val PHI = 1.618033988F
         val PI = Math.PI.toFloat() //180 Degree
         val TAU = PI * 2F //180 Degree

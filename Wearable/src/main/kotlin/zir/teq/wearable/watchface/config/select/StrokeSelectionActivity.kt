@@ -24,7 +24,7 @@ class StrokeSelectionActivity : Activity() {
     }
 
     companion object {
-        private val TAG = StrokeSelectionActivity::class.java.simpleName
+        private val TAG = this::class.java.simpleName
         internal val EXTRA_SHARED_STROKE = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_STROKE"
     }
 }

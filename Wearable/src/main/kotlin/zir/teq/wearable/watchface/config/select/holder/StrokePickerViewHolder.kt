@@ -34,6 +34,6 @@ class StrokePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCli
     }
 
     companion object {
-        private val TAG = StrokePickerViewHolder::class.java.simpleName
+        private val TAG = this::class.java.simpleName
     }
 }
