@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Theme
 
 class ThemeSelectionAdapter(
@@ -51,10 +52,7 @@ class ThemeSelectionAdapter(
             Log.d(TAG, "Theme: $theme onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                val sharedPref = activity.getSharedPreferences(
-                        activity.getString(R.string.zir_watch_preference_file_key),
-                        Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
+                val editor = ConfigData.prefs(view.context).edit()
                 editor.putString(mPrefString, theme.name)
                 editor.commit()
                 activity.setResult(android.app.Activity.RESULT_OK) //triggers config activity

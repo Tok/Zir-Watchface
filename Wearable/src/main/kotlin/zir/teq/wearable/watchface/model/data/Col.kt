@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
@@ -97,11 +98,8 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
         }
 
         fun findActive(ctx: Context): Col {
-            val shared = ctx.getSharedPreferences(
-                    ctx.getString(R.string.zir_watch_preference_file_key),
-                    Context.MODE_PRIVATE)
             val colRes = ctx.resources.getString(R.string.saved_color)
-            val colName = shared.getString(colRes, Col.WHITE.name)
+            val colName = ConfigData.prefs(ctx).getString(colRes, Col.WHITE.name)
             return Col.getColorByName(colName)
         }
     }

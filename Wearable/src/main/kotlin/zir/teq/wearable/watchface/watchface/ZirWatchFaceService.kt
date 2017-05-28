@@ -14,6 +14,7 @@ import android.support.wearable.watchface.WatchFaceStyle
 import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
@@ -78,20 +79,16 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         override fun onCreate(holder: SurfaceHolder?) {
-            Log.d(TAG, "onCreate")
             super.onCreate(holder)
-            val ctx = applicationContext
-            prefs = ctx.getSharedPreferences(
-                    getString(R.string.zir_watch_preference_file_key),
-                    Context.MODE_PRIVATE)
-            setWatchFaceStyle(
-                    WatchFaceStyle.Builder(this@ZirWatchFaceService).setAcceptsTapEvents(true).build()
-            )
+            val service = this@ZirWatchFaceService
+            val style = WatchFaceStyle.Builder(service).setAcceptsTapEvents(true).build()
+            setWatchFaceStyle(style)
             loadSavedPreferences()
             initializeStyles()
         }
 
         private fun loadSavedPreferences() {
+            val prefs = ConfigData.prefs(ctx)
             val backgroundColorResourceName = ctx.getString(R.string.saved_background_color)
             mBackgroundColor = prefs.getInt(backgroundColorResourceName, Color.BLACK)
 

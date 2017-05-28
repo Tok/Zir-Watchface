@@ -25,18 +25,16 @@ class ZirWatchConfigAdapter(
         watchFaceServiceClass: Class<*>,
         private val mSettingsDataSet: ArrayList<ConfigData.ConfigItemType>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mWatchFaceComponentName: ComponentName
-    internal var mSharedPref: SharedPreferences
 
     init {
         mWatchFaceComponentName = ComponentName(mContext, watchFaceServiceClass)
-        mSharedPref = mContext.getSharedPreferences(
-                mContext.getString(R.string.zir_watch_preference_file_key),
-                Context.MODE_PRIVATE)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         Log.d(TAG, "onCreateViewHolder(): viewGroup: $viewGroup, viewType: $viewType")
-        return ViewHelper.createViewHolder(viewGroup, viewType)
+        val holder = ViewHelper.createViewHolder(viewGroup, viewType)
+        Log.d(TAG, "onCreateViewHolder(): holder: $holder")
+        return holder
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, pos: Int) {

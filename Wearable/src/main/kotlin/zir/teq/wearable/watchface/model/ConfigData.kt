@@ -1,6 +1,7 @@
 package zir.teq.wearable.watchface.model
 
 import android.content.Context
+import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
 import java.util.*
@@ -19,4 +20,8 @@ object ConfigData {
         }
         return settingsConfigData
     }
+
+    fun prefs(ctx: Context) = ctx.getSharedPreferences(
+            ctx.getString(R.string.zir_watch_preference_file_key),
+            Context.MODE_PRIVATE)
 }

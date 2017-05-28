@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 import java.util.*
 
 class ColorSelectionAdapter(
@@ -48,10 +49,7 @@ class ColorSelectionAdapter(
             Log.d(TAG, "Color: $color onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                val sharedPref = activity.getSharedPreferences(
-                        activity.getString(R.string.zir_watch_preference_file_key),
-                        Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
+                val editor = ConfigData.prefs(view.context).edit()
                 editor.putString(mPrefString, color.name) //pref = saved_color_name
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK) //triggers config activity

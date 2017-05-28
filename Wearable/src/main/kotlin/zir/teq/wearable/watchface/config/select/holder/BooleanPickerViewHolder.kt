@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 
 class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
     init {
@@ -12,14 +13,17 @@ class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCl
         view.setOnClickListener(this)
     }
 
+    override fun setSharedPrefString(sharedPrefString: String) {
+        val checkBox = mButton as CheckBox
+        val isActive = ConfigData.prefs(checkBox.context).getBoolean(sharedPrefString, false)
+        checkBox.setChecked(isActive)
+        mPrefString = sharedPrefString
+    }
+
     override fun onClick(view: View) {
         Log.d(TAG, "onClick() mPrefString: $mPrefString")
         if (!mPrefString!!.isEmpty()) {
-            val ctx = view.context
-            val prefs = ctx.getSharedPreferences(
-                    ctx.getString(R.string.zir_watch_preference_file_key),
-                    Context.MODE_PRIVATE)
-            val editor = prefs.edit()
+            val editor = ConfigData.prefs(view.context).edit()
             val checkBox = mButton as CheckBox
             editor.putBoolean(mPrefString, checkBox.isChecked())
             editor.commit()

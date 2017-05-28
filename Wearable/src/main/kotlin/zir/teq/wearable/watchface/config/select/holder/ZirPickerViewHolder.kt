@@ -35,7 +35,7 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun setSharedPrefString(sharedPrefString: String) {
+    open fun setSharedPrefString(sharedPrefString: String) {
         mPrefString = sharedPrefString
     }
 
