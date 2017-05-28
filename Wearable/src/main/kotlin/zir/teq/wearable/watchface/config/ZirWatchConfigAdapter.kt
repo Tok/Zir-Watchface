@@ -44,9 +44,9 @@ class ZirWatchConfigAdapter(
         Log.d(TAG, "Element $pos set.")
         val configItemType = mSettingsDataSet[pos] as ConfigItem
         when (viewHolder.itemViewType) {
-            ConfigItem.TYPE_COLOR_CONFIG -> launchColorAct(viewHolder, configItemType)
-            ConfigItem.TYPE_STROKE_CONFIG -> launchStrokeAct(viewHolder, configItemType)
-            ConfigItem.TYPE_THEME_CONFIG -> launchThemeAct(viewHolder, configItemType)
+            ConfigItem.COLOR.code -> launchColorAct(viewHolder, configItemType)
+            ConfigItem.STROKE.code -> launchStrokeAct(viewHolder, configItemType)
+            ConfigItem.THEME.code -> launchThemeAct(viewHolder, configItemType)
         }
     }
 
