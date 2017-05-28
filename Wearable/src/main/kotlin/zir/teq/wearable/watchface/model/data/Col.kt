@@ -38,7 +38,7 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
                 PaintType.SHAPE_AMB -> prepareShapePaint(ctx, col.darkId)
                 PaintType.CIRCLE -> prepareCirclePaint(ctx, col.darkId)
                 PaintType.CIRCLE_AMB -> prepareCirclePaint(ctx, col.lightId)
-                PaintType.TEXT -> prepareTextPaint(ctx, R.color.text)
+                //PaintType.TEXT -> prepareTextPaint(ctx, R.color.text)
                 PaintType.POINT -> preparePointPaint(ctx, R.color.points)
                 else -> {
                     val msg = "Ignoring paintType: " + type
@@ -46,34 +46,6 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
                 }
             }
             paint.strokeWidth = stroke.dim
-            return paint
-        }
-
-        fun prep(): Paint {
-            val paint = Paint()
-            paint.isAntiAlias = true
-            return paint
-        }
-
-        fun prepareLinePaint(ctx: Context, colorId: Int): Paint {
-            val paint = prep()
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
-            return paint
-        }
-
-        fun prepareShapePaint(ctx: Context, colorId: Int): Paint {
-            val paint = prep()
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
-            return paint
-        }
-
-        fun prepareCirclePaint(ctx: Context, colorId: Int): Paint {
-            val paint = prep()
-            paint.style = Paint.Style.STROKE
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
             return paint
         }
 
@@ -85,7 +57,35 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun preparePointPaint(ctx: Context, colorId: Int): Paint {
+        private fun prep(): Paint {
+            val paint = Paint()
+            paint.isAntiAlias = true
+            return paint
+        }
+
+        private fun prepareLinePaint(ctx: Context, colorId: Int): Paint {
+            val paint = prep()
+            paint.strokeCap = Paint.Cap.ROUND
+            paint.color = ctx.getColor(colorId)
+            return paint
+        }
+
+        private fun prepareShapePaint(ctx: Context, colorId: Int): Paint {
+            val paint = prep()
+            paint.strokeCap = Paint.Cap.ROUND
+            paint.color = ctx.getColor(colorId)
+            return paint
+        }
+
+        private fun prepareCirclePaint(ctx: Context, colorId: Int): Paint {
+            val paint = prep()
+            paint.style = Paint.Style.STROKE
+            paint.strokeCap = Paint.Cap.ROUND
+            paint.color = ctx.getColor(colorId)
+            return paint
+        }
+
+        private fun preparePointPaint(ctx: Context, colorId: Int): Paint {
             val paint = prep()
             paint.style = Paint.Style.STROKE
             paint.strokeCap = Paint.Cap.ROUND

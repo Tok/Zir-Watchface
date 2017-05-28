@@ -75,7 +75,7 @@ class DrawUtil() {
             drawHands(data.getRef(can), paint, hour, minute, second)
         }
         if (theme.points.active && !theme.circles.active) {
-            val paint = Col.prepareTextPaint(ctx, R.color.points)
+            val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
             can.drawPoint(data.center.x, data.center.y, paint)
         }
         if (theme.triangles.active) {
@@ -87,7 +87,7 @@ class DrawUtil() {
             drawCircleLine(data.getRef(can), paint, data.minRot, secRot, min, sec)
         }
         if (theme.points.active) {
-            val paint = Col.prepareTextPaint(ctx, R.color.points)
+            val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
             can.drawPoint(sec.x, sec.y, paint)
         }
         if (theme.circles.active) {
@@ -95,7 +95,7 @@ class DrawUtil() {
             drawCircleLine(data.getRef(can), paint, data.hrRot, data.minRot, hr, min)
         }
         if (theme.points.active) {
-            val paint = Col.prepareTextPaint(ctx, R.color.points)
+            val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
             can.drawPoint(hr.x, hr.y, paint)
             can.drawPoint(min.x, min.y, paint)
             if (theme.circles.active) {
