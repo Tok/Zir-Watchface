@@ -107,13 +107,28 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val savedTheme = Theme.getThemeByName(savedThemeName)
             Log.d(TAG, "loaded saved theme... savedTheme: $savedTheme")
 
-            val isCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_circles), savedTheme.drawCircle)
-            val isActCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_active_hands), savedTheme.drawActiveCircles) //FIXME
-            val isHands = prefs.getBoolean(ctx.getString(R.string.saved_draw_hands), savedTheme.drawHands)
-            val isTriang = prefs.getBoolean(ctx.getString(R.string.saved_draw_triangles), savedTheme.drawTriangle)
-            val isText = prefs.getBoolean(ctx.getString(R.string.saved_draw_text), savedTheme.drawText)
-            val isPoints = prefs.getBoolean(ctx.getString(R.string.saved_draw_points), savedTheme.drawPoints)
-            mTheme = Theme(savedTheme.name, savedTheme.iconId, isCirc, isActCirc, isHands, isTriang, isText, isPoints)
+            val isHand = prefs.getBoolean(ctx.getString(R.string.saved_draw_hands_active), savedTheme.hands.active)
+            val isAmbHand = prefs.getBoolean(ctx.getString(R.string.saved_draw_hands_ambient), savedTheme.hands.ambient)
+
+            val isTri = prefs.getBoolean(ctx.getString(R.string.saved_draw_triangles_active), savedTheme.triangles.active)
+            val isAmbTri = prefs.getBoolean(ctx.getString(R.string.saved_draw_triangles_ambient), savedTheme.triangles.ambient)
+
+            val isCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_circles_active), savedTheme.circles.active)
+            val isAmbCirc = prefs.getBoolean(ctx.getString(R.string.saved_draw_circles_ambient), savedTheme.circles.ambient)
+
+            val isPoints = prefs.getBoolean(ctx.getString(R.string.saved_draw_points_active), savedTheme.points.active)
+            val isAmbPoints = prefs.getBoolean(ctx.getString(R.string.saved_draw_points_ambient), savedTheme.points.ambient)
+
+            val isText = prefs.getBoolean(ctx.getString(R.string.saved_draw_text_active), savedTheme.text.active)
+            val isAmbText = prefs.getBoolean(ctx.getString(R.string.saved_draw_text_ambient), savedTheme.text.ambient)
+
+            mTheme = Theme(savedTheme.name, savedTheme.iconId,
+                    Theme.Companion.Setting(isHand, isAmbHand),
+                    Theme.Companion.Setting(isTri, isAmbTri),
+                    Theme.Companion.Setting(isCirc, isAmbCirc),
+                    Theme.Companion.Setting(isPoints, isAmbPoints),
+                    Theme.Companion.Setting(isText, isAmbText))
+
             Log.d(TAG, "theme updated... mTheme: $mTheme")
 
             updateWatchPaintStyles()

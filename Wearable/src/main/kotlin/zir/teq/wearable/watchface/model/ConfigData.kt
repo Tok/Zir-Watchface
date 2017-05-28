@@ -14,15 +14,9 @@ object ConfigData {
 
     fun getDataToPopulateAdapter(ctx: Context): ArrayList<ConfigItemType> {
         val settingsConfigData = ArrayList<ConfigItemType>()
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.THEME))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.COLORS))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.STROKE))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.DRAW_TRIANGLES))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.DRAW_CIRCLES))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.DRAW_ACTIVE_HANDS))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.DRAW_HANDS))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.DRAW_POINTS))
-        settingsConfigData.add(ConfigItem.createInstance(ctx, ConfigItem.DRAW_TEXT))
+        ConfigItem.ALL_TYPES.forEach {
+            settingsConfigData.add(ConfigItem.createInstance(ctx, it))
+        }
         return settingsConfigData
     }
 }

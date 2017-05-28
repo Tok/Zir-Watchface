@@ -2,19 +2,19 @@ package zir.teq.wearable.watchface.model.data
 
 import zir.teq.wearable.watchface.R
 
-data class Theme(val name: String,
-                 val iconId: Int,
-                 val drawCircle: Boolean,
-                 val drawActiveCircles: Boolean,
-                 val drawHands: Boolean,
-                 val drawTriangle: Boolean,
-                 val drawText: Boolean,
-                 val drawPoints: Boolean) {
+data class Theme(val name: String, val iconId: Int,
+                 val hands: Setting,
+                 val triangles: Setting,
+                 val circles: Setting,
+                 val points: Setting,
+                 val text: Setting) {
     companion object {
-        val PLAIN = Theme("Plain", R.drawable.theme_plain, true, true, true, false, false, false)
-        val FIELDS = Theme("Fields", R.drawable.theme_fields, true, false, true, true, false, false)
-        val CIRCLES = Theme("Circles", R.drawable.theme_circles, true, true, false, false, false, false)
-        val GEOMETRY = Theme("Geometry", R.drawable.theme_geometry, true, false, true, true, false, false)
+        private fun set(both: Boolean) = Setting(both, both)
+        data class Setting(val active: Boolean, val ambient: Boolean)
+        val PLAIN = Theme("Plain", R.drawable.theme_plain, set(true), set(false), set(false), set(true), set(false))
+        val FIELDS = Theme("Fields", R.drawable.theme_fields, set(false), set(true), set(false), set(true), set(false))
+        val CIRCLES = Theme("Circles", R.drawable.theme_circles, set(false), set(false), set(true), set(true), set(false))
+        val GEOMETRY = Theme("Geometry", R.drawable.theme_geometry, set(false), set(true), set(true), set(true), set(false))
         val defaultTheme = PLAIN
         val ALL_THEMES = listOf(PLAIN, FIELDS, CIRCLES, GEOMETRY)
         fun createThemeOptions() = ALL_THEMES.toCollection(ArrayList())

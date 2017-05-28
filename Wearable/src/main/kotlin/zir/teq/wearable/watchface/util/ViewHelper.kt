@@ -33,13 +33,10 @@ object ViewHelper {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_theme_item))
             ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_color_item))
             ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_stroke_item))
-            ConfigItem.DRAW_TRIANGLES.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_TRIANGLES)
-            ConfigItem.DRAW_CIRCLES.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_CIRCLES)
-            ConfigItem.DRAW_ACTIVE_HANDS.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_ACTIVE_HANDS)
-            ConfigItem.DRAW_HANDS.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_HANDS)
-            ConfigItem.DRAW_POINTS.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_POINTS)
-            ConfigItem.DRAW_TEXT.code -> createCheckboxViewHolder(group, ConfigItem.DRAW_TEXT)
-            else -> throw IllegalArgumentException("Unknown type $viewType for group: $group")
+            else -> {
+                val ci = ConfigItem.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
+                createCheckboxViewHolder(group, ci)
+            }
         }
     }
 
