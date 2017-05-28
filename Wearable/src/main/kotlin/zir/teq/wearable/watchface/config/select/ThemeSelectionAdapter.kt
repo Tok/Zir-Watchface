@@ -27,7 +27,6 @@ class ThemeSelectionAdapter(
         android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
         val theme = mThemeOptionsDataSet[position]
         val themeViewHolder = viewHolder as ThemeSelectionAdapter.ThemeViewHolder
-        val ctx = viewHolder.itemView.context
         themeViewHolder.setIcon(theme)
     }
 
