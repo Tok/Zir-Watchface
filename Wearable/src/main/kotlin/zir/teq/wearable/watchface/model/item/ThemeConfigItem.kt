@@ -3,9 +3,9 @@ package zir.teq.wearable.watchface.model.item
 import zir.teq.wearable.watchface.config.select.ThemeSelectionActivity
 
 
-class ThemeConfigItem internal constructor(type: Int,
-                                           name: String,
-                                           iconId: Int,
+class ThemeConfigItem internal constructor(type: Type,
                                            pref: String,
-                                           val activity: Class<ThemeSelectionActivity>) :
-        ConfigItem(type, name, iconId, pref)
+                                           name: String) :
+        ConfigItem(type, pref, name) {
+    val activity = ThemeSelectionActivity::class.java
+}

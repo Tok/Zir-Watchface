@@ -95,17 +95,17 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val backgroundColorResourceName = ctx.getString(R.string.saved_background_color)
             mBackgroundColor = mSharedPref.getInt(backgroundColorResourceName, Color.BLACK)
 
-            val colResourceName = ctx.getString(R.string.saved_color_name)
+            val colResourceName = ctx.getString(R.string.saved_color)
             val mColName = mSharedPref.getString(colResourceName, Col.WHITE.name)
             mCol = Col.getColorByName(mColName)
             Log.d(TAG, "loaded saved color... mCol: $mCol")
 
-            val strokeResourceName = ctx.getString(R.string.saved_stroke_name)
+            val strokeResourceName = ctx.getString(R.string.saved_stroke)
             val mStrokeName = mSharedPref.getString(strokeResourceName, StrokeType.default.name)
             mStroke = Stroke.createStroke(ctx, mStrokeName)
             Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
 
-            val themeResourceName = ctx.getString(R.string.saved_theme_name)
+            val themeResourceName = ctx.getString(R.string.saved_theme)
             val mThemeName = mSharedPref.getString(themeResourceName, Theme.defaultTheme.name)
             mTheme = Theme.getThemeByName(mThemeName)
             Log.d(TAG, "loaded saved theme... mTheme: $mTheme")

@@ -33,12 +33,12 @@ object ViewHelper {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_theme_item))
             ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_color_item))
             ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_stroke_item))
-            ConfigItem.DRAW_TRIANGLES.code -> createCheckboxViewHolder(group, R.string.config_marker_draw_triangles_label)
-            ConfigItem.DRAW_CIRCLES.code -> createCheckboxViewHolder(group, R.string.config_marker_draw_circles_label)
-            ConfigItem.DRAW_ACTIVE_HANDS.code -> createCheckboxViewHolder(group, R.string.config_marker_draw_active_hands_label)
-            ConfigItem.DRAW_HANDS.code -> createCheckboxViewHolder(group, R.string.config_marker_draw_hands_label)
-            ConfigItem.DRAW_POINTS.code -> createCheckboxViewHolder(group, R.string.config_marker_draw_points_label)
-            ConfigItem.DRAW_TEXT.code -> createCheckboxViewHolder(group, R.string.config_marker_draw_text_label)
+            ConfigItem.DRAW_TRIANGLES.code -> createCheckboxViewHolder(group, R.string.label_draw_triangles)
+            ConfigItem.DRAW_CIRCLES.code -> createCheckboxViewHolder(group, R.string.label_draw_circles)
+            ConfigItem.DRAW_ACTIVE_HANDS.code -> createCheckboxViewHolder(group, R.string.label_draw_active_hands)
+            ConfigItem.DRAW_HANDS.code -> createCheckboxViewHolder(group, R.string.label_draw_hands)
+            ConfigItem.DRAW_POINTS.code -> createCheckboxViewHolder(group, R.string.label_draw_points)
+            ConfigItem.DRAW_TEXT.code -> createCheckboxViewHolder(group, R.string.label_draw_text)
             else -> throw IllegalArgumentException("Unknown type $viewType for group: $group")
         }
     }

@@ -66,19 +66,14 @@ class ZirWatchConfigAdapter(
 
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {
         val col = Col.findActive(holder.itemView.context)
-        holder.setIcon(item.iconId, col.lightId)
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
+        holder.setIcon(item.type.iconId, col.lightId)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val configItemType = mSettingsDataSet[position]
-        return configItemType.configType
-    }
+    override fun getItemViewType(position: Int): Int = mSettingsDataSet[position].configType
 
-    override fun getItemCount(): Int {
-        return mSettingsDataSet.size
-    }
+    override fun getItemCount(): Int = mSettingsDataSet.size
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
         super.onDetachedFromRecyclerView(recyclerView)

@@ -7,23 +7,23 @@
 
     <string name="saved_background_color">saved_background_color</string>
 
-    <string name="saved_theme_name">saved_theme_name</string>
-    <string name="saved_color_name">saved_color_name</string>
-    <string name="saved_stroke_name">saved_stroke_name</string>
-    <string name="saved_draw_circles_name">saved_draw_circles_name</string>
-    <string name="saved_draw_triangles_name">saved_draw_triangles_name</string>
-    <string name="saved_draw_active_hands_name">saved_draw_active_hands_name</string>
-    <string name="saved_draw_hands_name">saved_draw_hands_name</string>
-    <string name="saved_draw_points_name">saved_draw_points_name</string>
-    <string name="saved_draw_text_name">saved_draw_text_name</string>
+    <string name="saved_theme">saved_theme</string>
+    <string name="saved_color">saved_color</string>
+    <string name="saved_stroke">saved_stroke</string>
+    <string name="saved_draw_circles">saved_draw_circles</string>
+    <string name="saved_draw_triangles">saved_draw_triangles</string>
+    <string name="saved_draw_active_hands">saved_draw_active_hands</string>
+    <string name="saved_draw_hands">saved_draw_hands</string>
+    <string name="saved_draw_points">saved_draw_points</string>
+    <string name="saved_draw_text">saved_draw_text</string>
 
-    <string name="config_marker_theme_label">Theme</string>
-    <string name="config_marker_color_label">Colors</string>
-    <string name="config_marker_stroke_label">Stroke</string>
-    <string name="config_marker_draw_circles_label">Draw Circles</string>
-    <string name="config_marker_draw_triangles_label">Draw Triangles</string>
-    <string name="config_marker_draw_active_hands_label">Draw Active Hands</string>
-    <string name="config_marker_draw_hands_label">Draw Hands</string>
-    <string name="config_marker_draw_points_label">Draw Points</string>
-    <string name="config_marker_draw_text_label">Draw Text</string>
+    <string name="label_theme">Theme</string>
+    <string name="label_color">Color</string>
+    <string name="label_stroke">Stroke</string>
+    <string name="label_draw_circles">Draw Circles</string>
+    <string name="label_draw_triangles">Draw Triangles</string>
+    <string name="label_draw_active_hands">Draw Active Hands</string>
+    <string name="label_draw_hands">Draw Hands</string>
+    <string name="label_draw_points">Draw Points</string>
+    <string name="label_draw_text">Draw Text</string>
 </resources>
