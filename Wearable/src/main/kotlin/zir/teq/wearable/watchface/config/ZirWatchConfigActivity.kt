@@ -9,7 +9,7 @@ import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Col
-import zir.teq.wearable.watchface.util.ActivityHelper
+import zir.teq.wearable.watchface.util.ViewHelper
 
 class ZirWatchConfigActivity : Activity() {
     private var mView: WearableRecyclerView? = null
@@ -21,7 +21,7 @@ class ZirWatchConfigActivity : Activity() {
                 ConfigData.watchFaceServiceClass,
                 ConfigData.getDataToPopulateAdapter(this))
         mView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
-        ActivityHelper.initView(mView, mAdapter, CurvedChildLayoutManager(this))
+        ViewHelper.initView(mView, mAdapter, CurvedChildLayoutManager(this))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -3,11 +3,9 @@ package zir.teq.wearable.watchface.config
 import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.ImageView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.ColorPickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.StrokePickerViewHolder
@@ -19,6 +17,7 @@ import zir.teq.wearable.watchface.model.item.ColorConfigItem
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.model.item.StrokeConfigItem
 import zir.teq.wearable.watchface.model.item.ThemeConfigItem
+import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
 class ZirWatchConfigAdapter(
@@ -37,7 +36,7 @@ class ZirWatchConfigAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         Log.d(TAG, "onCreateViewHolder(): viewGroup: $viewGroup, viewType: $viewType")
-        return ConfigItem.createViewHolder(viewGroup, viewType)
+        return ViewHelper.createViewHolder(viewGroup, viewType)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, pos: Int) {

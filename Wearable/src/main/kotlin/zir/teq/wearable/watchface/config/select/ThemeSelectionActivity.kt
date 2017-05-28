@@ -7,7 +7,7 @@ import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Theme
-import zir.teq.wearable.watchface.util.ActivityHelper
+import zir.teq.wearable.watchface.util.ViewHelper
 
 class ThemeSelectionActivity : Activity() {
     private var mConfigView: WearableRecyclerView? = null
@@ -19,7 +19,7 @@ class ThemeSelectionActivity : Activity() {
         Log.d(TAG, "sharedThemeName:" + sharedThemeName)
         mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.createThemeOptions())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
-        ActivityHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
+        ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 
     companion object {
