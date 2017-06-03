@@ -5,7 +5,6 @@ import android.graphics.*
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Style
 import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import java.util.*

@@ -17,7 +17,6 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Style
 import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.watchface.DrawUtil
