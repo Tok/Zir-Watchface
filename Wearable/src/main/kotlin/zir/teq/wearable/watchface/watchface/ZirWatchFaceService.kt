@@ -17,6 +17,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Col
 import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.Style
 import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.watchface.DrawUtil
@@ -39,9 +40,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
 
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
-        private var mCol: Col = Col.defaultColor
-        private var mStroke: Stroke = Stroke.createStroke(ctx, Stroke.default.name)
-        private var mTheme: Theme = Theme.defaultTheme
+        private var mCol: Col = Col.default
+        private var mStroke: Stroke = Stroke.create(ctx, Stroke.default.name)
+        private var mTheme: Theme = Theme.default
 
         private var mBackgroundPaint: Paint = Col.prep(mBackgroundColor)
         private var mDarkPaint: Paint = Col.prep(mCol.darkId)
@@ -92,15 +93,15 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             mBackgroundColor = prefs.getInt(backgroundColorResourceName, Color.BLACK)
 
             val mColName = prefs.getString(ctx.getString(R.string.saved_color), Col.WHITE.name)
-            mCol = Col.getColorByName(mColName)
+            mCol = Col.getByName(mColName)
             Log.d(TAG, "loaded saved color... mCol: $mCol")
 
             val mStrokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-            mStroke = Stroke.createStroke(ctx, mStrokeName)
+            mStroke = Stroke.create(ctx, mStrokeName)
             Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
 
-            val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.defaultTheme.name)
-            val savedTheme = Theme.getThemeByName(savedThemeName)
+            val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
+            val savedTheme = Theme.getByName(savedThemeName)
             Log.d(TAG, "loaded saved theme... savedTheme: $savedTheme")
             val isFastUpdate = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), savedTheme.isFastUpdate)
             val isHand = Theme.Companion.Setting(
@@ -118,7 +119,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val isText = Theme.Companion.Setting(
                     prefs.getBoolean(ctx.getString(R.string.saved_text_act), savedTheme.text.active),
                     prefs.getBoolean(ctx.getString(R.string.saved_text_amb), savedTheme.text.ambient))
-            mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText)
+            val outline = 8F //TODO implement
+            val dotGrowth = 13F //TODO implement
+            mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outline, dotGrowth)
 
             Log.d(TAG, "theme updated... mTheme: $mTheme")
 
@@ -199,9 +202,19 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onDraw(canvas: Canvas, bounds: Rect?) {
             mCalendar.timeInMillis = System.currentTimeMillis()
             val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
-            val bgPaint = if (makeDarkBackground) mBackgroundPaint else Col.prep(ctx.getColor(R.color.black))
+            val bgPaint = selectBgPaint(makeDarkBackground)
             drawer.drawBackground(canvas, bgPaint)
             drawer.draw(ctx, mCol, mStroke, mTheme, canvas, bounds!!, mAmbient, mCalendar)
+        }
+
+        private fun selectBgPaint(makeDarkBackground: Boolean): Paint {
+            return if (mTheme.hasOutline) {
+                Col.prep(ctx.getColor(R.color.dark_grey))
+            } else if (makeDarkBackground) {
+                mBackgroundPaint
+            } else {
+                Col.prep(ctx.getColor(R.color.black))
+            }
         }
 
         private fun updateWatchPaintStyles() {

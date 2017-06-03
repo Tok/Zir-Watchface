@@ -1,7 +1,6 @@
 package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
-import android.graphics.Color
 import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
@@ -20,7 +19,7 @@ class ColorSelectionActivity : Activity() {
         setContentView(R.layout.selection_color)
         val sharedColorName = intent.getStringExtra(EXTRA_SHARED_COLOR)
         android.util.Log.d(TAG, "sharedColorName:" + sharedColorName)
-        mAdapter = ColorSelectionAdapter(sharedColorName, Col.getColorOptions())
+        mAdapter = ColorSelectionAdapter(sharedColorName, Col.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
@@ -29,8 +28,8 @@ class ColorSelectionActivity : Activity() {
         super.onStart()
         val ctx = applicationContext
         val colName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_color), Col.WHITE.name)
-        val col = Col.getColorByName(colName)
-        val index = Col.ALL_COLORS.indexOfFirst { it.equals(col) } + 1
+        val col = Col.getByName(colName)
+        val index = Col.all.indexOfFirst { it.equals(col) } + 1
         mConfigView?.smoothScrollToPosition(index)
     }
 

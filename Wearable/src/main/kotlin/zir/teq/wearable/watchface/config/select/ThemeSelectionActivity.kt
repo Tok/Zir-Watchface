@@ -18,7 +18,7 @@ class ThemeSelectionActivity : Activity() {
         setContentView(R.layout.selection_theme)
         val sharedThemeName = intent.getStringExtra(EXTRA_SHARED_THEME)
         Log.d(TAG, "sharedThemeName:" + sharedThemeName)
-        mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.createThemeOptions())
+        mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
@@ -26,8 +26,8 @@ class ThemeSelectionActivity : Activity() {
     override fun onStart() {
         super.onStart()
         val ctx = applicationContext
-        val themeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_theme), Theme.defaultTheme.name)
-        val index = Theme.ALL_THEMES.indexOfFirst { it.name.equals(themeName) } + 1
+        val themeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_theme), Theme.default.name)
+        val index = Theme.all.indexOfFirst { it.name.equals(themeName) } + 1
         mConfigView?.smoothScrollToPosition(index)
     }
 
