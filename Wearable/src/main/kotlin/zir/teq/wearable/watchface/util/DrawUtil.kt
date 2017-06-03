@@ -2,7 +2,7 @@ package zir.watchface
 
 import android.content.Context
 import android.graphics.*
-import zir.teq.wearable.watchface.model.data.Col
+import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
@@ -60,144 +60,144 @@ class DrawUtil() {
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), paint)
     }
 
-    fun draw(ctx: Context, col: Col, stroke: Stroke, theme: Theme, can: Canvas, bounds: Rect,
+    fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme, can: Canvas, bounds: Rect,
              isAmbient: Boolean, calendar: Calendar) {
         val isActive = !isAmbient
         if (isActive) {
             val data = ActiveFrameData(calendar, bounds, can, stroke, theme)
-            drawActiveFace(ctx, col, stroke, theme, can, data)
+            drawActiveFace(ctx, pal, stroke, theme, can, data)
             if (theme.text.active) {
                 drawText(ctx, can, false, calendar)
             }
         } else {
             val data = AmbientFrameData(calendar, bounds, can, stroke)
-            drawAmbientFace(ctx, col, stroke, theme, can, data)
+            drawAmbientFace(ctx, pal, stroke, theme, can, data)
             if (theme.text.ambient) {
                 drawText(ctx, can, true, calendar)
             }
         }
     }
 
-    fun drawActiveFace(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    fun drawActiveFace(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                        can: Canvas, data: ActiveFrameData) {
-        makeActiveCirclePair(ctx, col, stroke, theme, can, data)
-        makeActiveHandPair(ctx, col, stroke, theme, can, data)
-        makeActiveCenterPointPair(ctx, col, stroke, theme, can, data)
-        makeActiveTrianglesPair(ctx, col, stroke, theme, can, data)
-        makeActivePointsPair(ctx, col, stroke, theme, can, data)
+        makeActiveCirclePair(ctx, pal, stroke, theme, can, data)
+        makeActiveHandPair(ctx, pal, stroke, theme, can, data)
+        makeActiveCenterPointPair(ctx, pal, stroke, theme, can, data)
+        makeActiveTrianglesPair(ctx, pal, stroke, theme, can, data)
+        makeActivePointsPair(ctx, pal, stroke, theme, can, data)
     }
 
-    fun drawAmbientFace(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    fun drawAmbientFace(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                         can: Canvas, data: AmbientFrameData) {
-        makeAmbientCirclePair(ctx, col, stroke, theme, can, data)
-        makeAmbientHandsPair(ctx, col, stroke, theme, can, data)
-        makeAmbientPonitsPair(ctx, col, stroke, theme, can, data)
+        makeAmbientCirclePair(ctx, pal, stroke, theme, can, data)
+        makeAmbientHandsPair(ctx, pal, stroke, theme, can, data)
+        makeAmbientPonitsPair(ctx, pal, stroke, theme, can, data)
     }
 
-    private fun makeAmbientCirclePair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeAmbientCirclePair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
+                                      can: Canvas, data: AmbientFrameData) {
+        if (theme.hasOutline) {
+            val circleOutline = Palette.createPaint(ctx, PaintType.CIRCLE_OUTLINE, stroke)
+            makePaintedAmbientCircle(ctx, pal, stroke, theme, can, data, circleOutline)
+        }
+        makePaintedAmbientCircle(ctx, pal, stroke, theme, can, data)
+    }
+
+    private fun makeAmbientHandsPair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                      can: Canvas, data: AmbientFrameData) {
         if (theme.hasOutline) {
-            val circleOutline = Col.createPaint(ctx, PaintType.CIRCLE_OUTLINE, Col.BLACK, stroke)
-            makePaintedAmbientCircle(ctx, col, stroke, theme, can, data, circleOutline)
+            val shapeOutline = Palette.createPaint(ctx, PaintType.SHAPE_OUTLINE, stroke)
+            makePaintedAmbientHands(ctx, pal, stroke, theme, can, data, shapeOutline)
         }
-        makePaintedAmbientCircle(ctx, col, stroke, theme, can, data)
+        makePaintedAmbientHands(ctx, pal, stroke, theme, can, data)
     }
 
-    private fun makeAmbientHandsPair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
-                                     can: Canvas, data: AmbientFrameData) {
+    private fun makeAmbientPonitsPair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
+                                      can: Canvas, data: AmbientFrameData) {
         if (theme.hasOutline) {
-            val shapeOutline = Col.createPaint(ctx, PaintType.SHAPE_OUTLINE, Col.BLACK, stroke)
-            makePaintedAmbientHands(ctx, col, stroke, theme, can, data, shapeOutline)
+            val pointOutline = Palette.createPaint(ctx, PaintType.POINT_OUTLINE, stroke)
+            makePaintedAmbientPoints(ctx, pal, stroke, theme, can, data, pointOutline)
         }
-        makePaintedAmbientHands(ctx, col, stroke, theme, can, data)
+        makePaintedAmbientPoints(ctx, pal, stroke, theme, can, data)
     }
 
-    private fun makeAmbientPonitsPair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
-                                     can: Canvas, data: AmbientFrameData) {
-        if (theme.hasOutline) {
-            val pointOutline = Col.createPaint(ctx, PaintType.POINT_OUTLINE, Col.BLACK, stroke)
-            makePaintedAmbientPoints(ctx, col, stroke, theme, can, data, pointOutline)
-        }
-        makePaintedAmbientPoints(ctx, col, stroke, theme, can, data)
-    }
-
-    private fun makeActiveCirclePair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeActiveCirclePair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                      can: Canvas, data: ActiveFrameData) {
         if (theme.hasOutline) {
-            val circleOutline = Col.createPaint(ctx, PaintType.CIRCLE_OUTLINE, Col.BLACK, stroke)
-            makePaintedSlowCircle(ctx, col, stroke, theme, can, data, circleOutline)
-            makePaintedFastCircles(ctx, col, stroke, theme, can, data, circleOutline)
+            val circleOutline = Palette.createPaint(ctx, PaintType.CIRCLE_OUTLINE, stroke)
+            makePaintedSlowCircle(ctx, pal, stroke, theme, can, data, circleOutline)
+            makePaintedFastCircles(ctx, pal, stroke, theme, can, data, circleOutline)
         }
-        makePaintedSlowCircle(ctx, col, stroke, theme, can, data)
-        makePaintedFastCircles(ctx, col, stroke, theme, can, data)
+        makePaintedSlowCircle(ctx, pal, stroke, theme, can, data)
+        makePaintedFastCircles(ctx, pal, stroke, theme, can, data)
     }
 
-    private fun makeActiveHandPair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeActiveHandPair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                    can: Canvas, data: ActiveFrameData) {
         if (theme.hasOutline) {
-            val handOutline = Col.createPaint(ctx, PaintType.HAND_OUTLINE, Col.BLACK, stroke)
-            makePaintedActiveHandsFirst(ctx, col, stroke, theme, can, data, handOutline)
+            val handOutline = Palette.createPaint(ctx, PaintType.HAND_OUTLINE, stroke)
+            makePaintedActiveHandsFirst(ctx, pal, stroke, theme, can, data, handOutline)
         }
-        makePaintedActiveHandsFirst(ctx, col, stroke, theme, can, data)
+        makePaintedActiveHandsFirst(ctx, pal, stroke, theme, can, data)
     }
 
-    private fun makeActiveCenterPointPair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeActiveCenterPointPair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                           can: Canvas, data: ActiveFrameData) {
         if (theme.hasOutline) {
-            val pointOutline = Col.createPaint(ctx, PaintType.POINT_OUTLINE, Col.BLACK, stroke)
-            makeCenterPoint(ctx, col, stroke, theme, can, data, pointOutline) //center
+            val pointOutline = Palette.createPaint(ctx, PaintType.POINT_OUTLINE, stroke)
+            makeCenterPoint(ctx, pal, stroke, theme, can, data, pointOutline) //center
         }
-        makeCenterPoint(ctx, col, stroke, theme, can, data) //center
+        makeCenterPoint(ctx, pal, stroke, theme, can, data) //center
     }
 
-    private fun makeActiveTrianglesPair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeActiveTrianglesPair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                         can: Canvas, data: ActiveFrameData) {
         if (theme.hasOutline) {
-            val shapeOutline = Col.createPaint(ctx, PaintType.SHAPE_OUTLINE, Col.BLACK, stroke)
-            makePaintedTrianglesFirst(ctx, col, stroke, theme, can, data, shapeOutline)
+            val shapeOutline = Palette.createPaint(ctx, PaintType.SHAPE_OUTLINE, stroke)
+            makePaintedTrianglesFirst(ctx, pal, stroke, theme, can, data, shapeOutline)
         }
-        makePaintedTrianglesFirst(ctx, col, stroke, theme, can, data)
+        makePaintedTrianglesFirst(ctx, pal, stroke, theme, can, data)
     }
 
-    private fun makeActivePointsPair(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeActivePointsPair(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                      can: Canvas, data: ActiveFrameData) {
         if (theme.hasOutline) {
-            val pointOutline = Col.createPaint(ctx, PaintType.POINT_OUTLINE, Col.BLACK, stroke)
-            makeSecondsPoint(ctx, col, stroke, theme, can, data, pointOutline)
-            makeMinAndHrPoints(ctx, col, stroke, theme, can, data, pointOutline)
+            val pointOutline = Palette.createPaint(ctx, PaintType.POINT_OUTLINE, stroke)
+            makeSecondsPoint(ctx, pal, stroke, theme, can, data, pointOutline)
+            makeMinAndHrPoints(ctx, pal, stroke, theme, can, data, pointOutline)
         }
-        makeSecondsPoint(ctx, col, stroke, theme, can, data)
-        makeMinAndHrPoints(ctx, col, stroke, theme, can, data)
+        makeSecondsPoint(ctx, pal, stroke, theme, can, data)
+        makeMinAndHrPoints(ctx, pal, stroke, theme, can, data)
     }
 
-    private fun makePaintedActiveHandsFirst(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
-                                        can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
+    private fun makePaintedActiveHandsFirst(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
+                                            can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
         if (theme.hands.active) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.HAND, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.HAND, stroke, pal)
             drawHands(data.getRef(can), p, data.hour, data.minute, data.second)
         }
     }
 
-    private fun makeCenterPoint(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeCenterPoint(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                 can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
         if (theme.points.active) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.POINT, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, stroke, pal)
             can.drawPoint(data.center.x, data.center.y, p)
         }
     }
 
-    private fun makeSecondsPoint(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeSecondsPoint(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                  can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
         if (theme.points.active) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.POINT, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, stroke, pal)
             can.drawPoint(data.sec.x, data.sec.y, p)
         }
     }
 
-    private fun makeMinAndHrPoints(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makeMinAndHrPoints(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                    can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
         if (theme.points.active) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.POINT, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, stroke, pal)
             can.drawPoint(data.hr.x, data.hr.y, p)
             can.drawPoint(data.min.x, data.min.y, p)
             /* foreground center point */
@@ -207,51 +207,51 @@ class DrawUtil() {
             }*/
         }
     }
-    private fun makePaintedTrianglesFirst(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
-                                       can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
+    private fun makePaintedTrianglesFirst(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
+                                          can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
         if (theme.triangles.active) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.SHAPE, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.SHAPE, stroke, pal)
             drawTriangle(p, can, data.hour, data.minute, data.second)
         }
     }
-    private fun makePaintedFastCircles(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makePaintedFastCircles(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                        can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
         if (theme.circles.active) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.CIRCLE, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.CIRCLE, stroke, pal)
             drawCircleLine(data.getRef(can), p, data.hrRot, data.secRot, data.hr, data.sec)
             drawCircleLine(data.getRef(can), p, data.minRot, data.secRot, data.min, data.sec)
         }
     }
-    private fun makePaintedSlowCircle(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makePaintedSlowCircle(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                       can: Canvas, data: ActiveFrameData, paint: Paint? = null) {
         if (theme.circles.active) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.CIRCLE, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.CIRCLE, stroke, pal)
             drawCircleLine(data.getRef(can), p, data.hrRot, data.minRot, data.hr, data.min)
         }
     }
 
-    private fun makePaintedAmbientCircle(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makePaintedAmbientCircle(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                          can: Canvas, data: AmbientFrameData, paint: Paint? = null) {
         if (theme.circles.ambient) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.CIRCLE_AMB, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.CIRCLE_AMB, stroke, pal)
             can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, p)
         }
     }
 
-    private fun makePaintedAmbientHands(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makePaintedAmbientHands(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                         can: Canvas, data: AmbientFrameData, paint: Paint? = null) {
         if (theme.hands.ambient) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.SHAPE_AMB, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.SHAPE_AMB, stroke, pal)
             drawHand(data.getRef(can), p, data.hour)
             drawHand(data.getRef(can), p, data.minute)
             can.drawLine(data.min.x, data.min.y, data.hr.x, data.hr.y, p)
         }
     }
 
-    private fun makePaintedAmbientPoints(ctx: Context, col: Col, stroke: Stroke, theme: Theme,
+    private fun makePaintedAmbientPoints(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                                          can: Canvas, data: AmbientFrameData, paint: Paint? = null) {
         if (theme.points.ambient) {
-            val p = paint ?: Col.createPaint(ctx, PaintType.POINT, col, stroke)
+            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, stroke, pal)
             can.drawPoint(data.center.x, data.center.y, p)
             can.drawPoint(data.min.x, data.min.y, p)
             can.drawPoint(data.hr.x, data.hr.y, p)
@@ -267,7 +267,7 @@ class DrawUtil() {
             val ss = calendar.get(Calendar.SECOND)
             String.format("%02d:%02d:%02d", hh, mm, ss)
         }
-        val paint = Col.prepareTextPaint(ctx, R.color.text)
+        val paint = Palette.prepareTextPaint(ctx, R.color.text)
         val yOffset = ctx.resources.getDimension(R.dimen.y_offset)
         val xOffset = ctx.resources.getDimension(R.dimen.x_offset)
         can.drawText(text, xOffset, yOffset, paint)

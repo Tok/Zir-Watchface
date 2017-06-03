@@ -15,7 +15,7 @@ import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Col
+import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.item.ConfigItem
@@ -39,13 +39,13 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
 
         private var mBackgroundColor: Int = ctx.getColor(R.color.black)
-        private var mCol: Col = Col.default
+        private var mPalette: Palette = Palette.default
         private var mStroke: Stroke = Stroke.create(ctx, Stroke.default.name)
         private var mTheme: Theme = Theme.default
 
-        private var mBackgroundPaint: Paint = Col.prep(mBackgroundColor)
-        private var mDarkPaint: Paint = Col.prep(mCol.darkId)
-        private var mLightPaint: Paint = Col.prep(mCol.lightId)
+        private var mBackgroundPaint: Paint = Palette.prep(mBackgroundColor)
+        private var mDarkPaint: Paint = Palette.prep(mPalette.darkId)
+        private var mLightPaint: Paint = Palette.prep(mPalette.lightId)
 
         private var mAmbient: Boolean = false
         private var mLowBitAmbient: Boolean = false
@@ -91,9 +91,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val backgroundColorResourceName = ctx.getString(R.string.saved_background_color)
             mBackgroundColor = prefs.getInt(backgroundColorResourceName, Color.BLACK)
 
-            val mColName = prefs.getString(ctx.getString(R.string.saved_color), Col.WHITE.name)
-            mCol = Col.getByName(mColName)
-            Log.d(TAG, "loaded saved color... mCol: $mCol")
+            val palName = prefs.getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
+            mPalette = Palette.getByName(palName)
+            Log.d(TAG, "loaded saved color... mPalette: $mPalette")
 
             val mStrokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
             mStroke = Stroke.create(ctx, mStrokeName)
@@ -131,9 +131,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             Log.d(TAG, "initializeStyles()")
             mBackgroundPaint = Paint()
             mBackgroundPaint.color = mBackgroundColor
-            mDarkPaint.color = mCol.darkId
+            mDarkPaint.color = mPalette.darkId
             mDarkPaint.strokeWidth = mStroke.dim
-            mLightPaint.color = mCol.lightId
+            mLightPaint.color = mPalette.lightId
             mLightPaint.strokeWidth = mStroke.dim
         }
 
@@ -203,27 +203,27 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
             val bgPaint = selectBgPaint(makeDarkBackground)
             drawer.drawBackground(canvas, bgPaint)
-            drawer.draw(ctx, mCol, mStroke, mTheme, canvas, bounds!!, mAmbient, mCalendar)
+            drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mAmbient, mCalendar)
         }
 
         private fun selectBgPaint(makeDarkBackground: Boolean): Paint {
             return if (mTheme.hasOutline) {
-                Col.prep(ctx.getColor(R.color.dark_grey))
+                Palette.prep(ctx.getColor(R.color.dark_grey))
             } else if (makeDarkBackground) {
                 mBackgroundPaint
             } else {
-                Col.prep(ctx.getColor(R.color.black))
+                Palette.prep(ctx.getColor(R.color.black))
             }
         }
 
         private fun updateWatchPaintStyles() {
             mBackgroundPaint.color = if (mAmbient) Color.BLACK else mBackgroundColor
 
-            mDarkPaint.color = if (mAmbient) Color.BLACK else mCol.darkId
+            mDarkPaint.color = if (mAmbient) Color.BLACK else mPalette.darkId
             mDarkPaint.isAntiAlias = !mAmbient
             mDarkPaint.strokeWidth = mStroke.dim
 
-            mLightPaint.color = if (mAmbient) Color.WHITE else mCol.lightId
+            mLightPaint.color = if (mAmbient) Color.WHITE else mPalette.lightId
             mLightPaint.isAntiAlias = !mAmbient
             mLightPaint.strokeWidth = mStroke.dim
 

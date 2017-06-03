@@ -8,7 +8,7 @@ import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Col
+import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class ZirWatchConfigActivity : Activity() {
@@ -29,8 +29,8 @@ class ZirWatchConfigActivity : Activity() {
             COLORS.code -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val ctx = applicationContext
-                    val col = Col.findActive(ctx)
-                    val filter = Col.createFilter(ctx, col)
+                    val col = Palette.findActive(ctx)
+                    val filter = Palette.createFilter(ctx, col)
                     val res = applicationContext.resources
                     res.getDrawable(R.drawable.icon_color, null).setColorFilter(filter)
                     res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(filter)

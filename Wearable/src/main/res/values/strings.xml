@@ -8,7 +8,7 @@
     <string name="saved_background_color">saved_background_color</string>
 
     <string name="saved_theme">saved_theme</string>
-    <string name="saved_color">saved_color</string>
+    <string name="saved_palette">saved_palette</string>
     <string name="saved_stroke">saved_stroke</string>
 
     <string name="saved_fast_update">saved_fast_update</string>

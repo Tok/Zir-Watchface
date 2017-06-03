@@ -24,7 +24,7 @@ open class ConfigItem internal constructor(val type: Type,
         data class Type(val code: Int, val prefId: Int, val nameId: Int, val iconId: Int)
 
         val THEME = Type(1, R.string.saved_theme, R.string.label_theme, R.drawable.icon_theme)
-        val COLORS = Type(2, R.string.saved_color, R.string.label_color, R.drawable.icon_color)
+        val COLORS = Type(2, R.string.saved_palette, R.string.label_color, R.drawable.icon_color)
         val STROKE = Type(3, R.string.saved_stroke, R.string.label_stroke, R.drawable.icon_stroke)
         val DRAW_HANDS_ACTIVE = Type(10, R.string.saved_hands_act, R.string.label_hands_act, R.drawable.icon_dummy)
         val DRAW_HANDS_AMBIENT = Type(11, R.string.saved_hands_amb, R.string.label_hands_amb, R.drawable.icon_dummy)

@@ -16,20 +16,40 @@
     <color name="text">#ffffff</color>
     <color name="points">#dddddd</color>
 
-    <color name="white_dark">#aaaaaa</color>
-    <color name="white_light">#ffffff</color>
-    <color name="red_dark">#770000</color>
-    <color name="red_light">#ff0000</color>
+    <color name="white">#ffffff</color>
+    <color name="light_gray">#d3d3d3</color>
+    <color name="dark_gray">#a9a9a9</color>
+    <color name="gray">#808080</color>
+    <color name="black">#000000</color>
+
+    <color name="dark_red">#8b0000</color>
+    <color name="fire_brick">#b22222</color>
+    <color name="red">#ff0000</color>
+
+    <!--
     <color name="orange_dark">#995500</color>
-    <color name="orange_light">#ff7700</color>
+    -->
+    <color name="orange_red">#ff4500</color>
+    <color name="dark_orange">#ff8c00</color>
+    <color name="orange">#ffa500</color>
+
     <color name="yellow_dark">#aaaa00</color>
-    <color name="yellow_light">#ffff00</color>
-    <color name="green_dark">#007700</color>
-    <color name="green_light">#00ff00</color>
-    <color name="blue_dark">#000077</color>
-    <color name="blue_light">#0000ff</color>
-    <color name="purple_dark">#550077</color>
-    <color name="purple_light">#7700ff</color>
-    <color name="pink_dark">#770077</color>
-    <color name="pink_light">#ff00ff</color>
+    <color name="gold">#ffd700</color>
+    <color name="yellow">#ffff00</color>
+
+    <!--
+    <color name="forest_green">#228b22</color>
+    <color name="lime">#00ff00</color>
+    -->
+    <color name="dark_green">#006400</color>
+    <color name="lime_green">#32cd32</color>
+    <color name="green_yellow">#adff2f</color>
+
+    <color name="dark_blue">#00008B</color>
+    <color name="blue">#0000ff</color>
+    <color name="deep_sky_blue">#00bfff</color>
+
+    <color name="indigo">#4b0082</color>
+    <color name="dark_violet">#9400d3</color>
+    <color name="magenta">#ff00ff</color>
 </resources>

@@ -2,19 +2,15 @@ package zir.teq.wearable.watchface.config.select.holder
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.widget.CheckBox
-import android.widget.ListView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
-import zir.teq.wearable.watchface.config.select.ColorSelectionActivity
-import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Col
+import zir.teq.wearable.watchface.config.select.PaletteSelectionActivity
+import zir.teq.wearable.watchface.model.data.Palette
 
 class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
-    private var mActivity: Class<ColorSelectionActivity>? = null
+    private var mActivity: Class<PaletteSelectionActivity>? = null
 
     init {
         initButton(view.findViewById(R.id.color_picker_button))
@@ -26,10 +22,10 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
 
-            val col = Col.findActive(view.context)
+            val col = Palette.findActive(view.context)
             Log.d(TAG, "Color changed to $col")
             launchIntent.putExtra("color", col.name)
-            launchIntent.putExtra(ColorSelectionActivity.EXTRA_SHARED_COLOR, mPrefString)
+            launchIntent.putExtra(PaletteSelectionActivity.EXTRA_SHARED_COLOR, mPrefString)
 
             val activity = view.context as Activity
             activity.startActivityForResult(
@@ -38,7 +34,7 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
         }
     }
 
-    fun setLaunchActivity(activity: Class<ColorSelectionActivity>) {
+    fun setLaunchActivity(activity: Class<PaletteSelectionActivity>) {
         mActivity = activity
     }
 

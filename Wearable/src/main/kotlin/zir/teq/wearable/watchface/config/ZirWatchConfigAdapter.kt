@@ -10,7 +10,7 @@ import zir.teq.wearable.watchface.config.select.holder.StrokePickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.ThemePickerViewHolder
 import zir.teq.wearable.watchface.config.select.holder.ZirPickerViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Col
+import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.item.ColorConfigItem
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.model.item.StrokeConfigItem
@@ -61,7 +61,7 @@ class ZirWatchConfigAdapter(
     }
 
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {
-        val col = Col.findActive(holder.itemView.context)
+        val col = Palette.findActive(holder.itemView.context)
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
         holder.setIcon(item.type.iconId, col.lightId)

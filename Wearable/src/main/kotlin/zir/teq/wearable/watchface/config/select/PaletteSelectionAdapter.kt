@@ -8,14 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import zir.teq.wearable.watchface.model.data.Col
+import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import java.util.*
 
-class ColorSelectionAdapter(
+class PaletteSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Col>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: ArrayList<Palette>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
@@ -50,15 +50,15 @@ class ColorSelectionAdapter(
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs(view.context).edit()
-                editor.putString(mPrefString, color.name) //pref = saved_color_name
+                editor.putString(mPrefString, color.name)
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK) //triggers config activity
             }
             activity.finish()
         }
 
-        fun setItemDisplayColor(ctx: Context, col: Col) {
-            mView.setCircleColor(ctx.getColor(col.lightId))
+        fun setItemDisplayColor(ctx: Context, pal: Palette) {
+            mView.setCircleColor(ctx.getColor(pal.lightId))
         }
     }
 
