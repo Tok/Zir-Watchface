@@ -6,16 +6,14 @@ import zir.teq.wearable.watchface.R
 data class Stroke(val name: String, val dim: Float) {
     companion object {
         data class Type(val name: String, val dimId: Int)
-        val THINNER = Type("Thinner", R.dimen.dim_thinner)
+        val HAIR = Type("Hair", R.dimen.dim_hair)
         val THIN = Type("Thin", R.dimen.dim_thin)
         val NORMAL = Type("Normal", R.dimen.dim_normal)
-        val THICK = Type("Thick", R.dimen.dim_thick)
-        val THICKER = Type("Thicker", R.dimen.dim_thicker)
-        val FAT = Type("Fat", R.dimen.dim_fat)
-        val FATTER = Type("Fatter", R.dimen.dim_fatter)
-        val FATTEST = Type("Fattest", R.dimen.dim_fattest)
+        val BOLD = Type("Bold", R.dimen.dim_bold)
+        val MEGA = Type("Mega", R.dimen.dim_mega)
+        val GIGA = Type("Giga", R.dimen.dim_giga)
         val ULTRA = Type("Ultra", R.dimen.dim_ultra)
-        val all = listOf(THINNER, THIN, NORMAL, THICK, THICKER, FAT, FATTER, FATTEST, ULTRA)
+        val all = listOf(HAIR, THIN, NORMAL, BOLD, MEGA, GIGA, ULTRA)
         val default = NORMAL
         fun options(ctx: Context) = all.map { inst(ctx, it) }.toCollection(ArrayList<Stroke>())
         fun create(ctx: Context, typeName: String) = inst(ctx, all.find { it.name.equals(typeName) } ?: default)

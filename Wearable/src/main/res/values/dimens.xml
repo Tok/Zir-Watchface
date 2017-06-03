@@ -14,15 +14,14 @@
 
     <dimen name="full_circle">34dp</dimen>
 
-    <dimen name="dim_thinner">1dp</dimen>
+    <dimen name="dim_hair">1dp</dimen>
     <dimen name="dim_thin">2dp</dimen>
     <dimen name="dim_normal">3dp</dimen>
-    <dimen name="dim_thick">5dp</dimen>
+    <dimen name="dim_bold">5dp</dimen>
     <dimen name="dim_thicker">8dp</dimen>
-    <dimen name="dim_fat">13dp</dimen>
-    <dimen name="dim_fatter">21dp</dimen>
-    <dimen name="dim_fattest">34dp</dimen>
-    <dimen name="dim_ultra">55dp</dimen>
+    <dimen name="dim_mega">13dp</dimen>
+    <dimen name="dim_giga">21dp</dimen>
+    <dimen name="dim_ultra">34dp</dimen>
 
     <dimen name="text_size">55dp</dimen>
     <dimen name="text_size_round">55dp</dimen>
