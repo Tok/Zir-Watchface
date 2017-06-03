@@ -19,7 +19,7 @@ import java.util.*
 class DrawUtil() {
     data class HandData(val p: PointF, val radians: Float, val maybeExtended: PointF)
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
-    class FrameData(cal: Calendar, bounds: Rect) {
+    open class FrameData(cal: Calendar, bounds: Rect) {
         val hh = cal.get(Calendar.HOUR_OF_DAY)
         val mm = cal.get(Calendar.MINUTE)
         val ss = cal.get(Calendar.SECOND)
@@ -28,9 +28,34 @@ class DrawUtil() {
         val unit = bounds.width() / 2F
         val center = PointF(unit, unit)
         fun getRef(can: Canvas): Ref = Ref(can, unit, center)
-        fun calcDistFromBorder(can: Canvas, stroke: Stroke): Float {
-            return can.height / (can.height + 2F * stroke.dim)
-        }
+    }
+
+    class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas, stroke: Stroke, theme: Theme): FrameData(cal, bounds) {
+        val ms = cal.get(Calendar.MILLISECOND)
+        val secRot = (ss + ms / 1000F) / 30F * PI
+        val secLength = unit * calcDistFromBorder(can, stroke)
+        val minLength = secLength / PHI
+        val hrLength = minLength / PHI
+        val hr = calcPosition(hrRot, hrLength, unit)
+        val min = calcPosition(minRot, minLength, unit)
+        val sec = calcPosition(secRot, secLength, unit)
+        val hrExtended = if (theme.circles.active) calcPosition(hrRot, secLength, unit) else hr
+        val minExtended = if (theme.circles.active) calcPosition(minRot, secLength, unit) else min
+        val secExtended = if (theme.circles.active) calcPosition(secRot, secLength, unit) else sec
+        val hour = HandData(hr, hrRot, hrExtended)
+        val minute = HandData(min, minRot, minExtended)
+        val second = HandData(sec, secRot, secExtended)
+    }
+
+    class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas, stroke: Stroke): FrameData(cal, bounds) {
+        val minLength = unit * calcDistFromBorder(can, stroke) / PHI
+        val hrLength = minLength / PHI
+        val hr = calcPosition(hrRot, hrLength, unit)
+        val min = calcPosition(minRot, minLength, unit)
+        val hour = HandData(hr, hrRot, center)
+        val minute = HandData(min, minRot, center)
+        val ccCenter = calcCircumcenter(center, hr, min)
+        val ccRadius = calcDistance(min, ccCenter)
     }
 
     fun drawBackground(can: Canvas, paint: Paint) {
@@ -38,16 +63,15 @@ class DrawUtil() {
     }
 
     fun draw(ctx: Context, col: Col, stroke: Stroke, theme: Theme, can: Canvas, bounds: Rect, isAmbient: Boolean, calendar: Calendar) {
-        Log.d(TAG, "draw(): " + col)
-        val data = FrameData(calendar, bounds)
         val isActive = !isAmbient
         if (isActive) {
-            val ms = calendar.get(Calendar.MILLISECOND)
-            drawFace(ctx, col, stroke, theme, can, data, ms)
+            val data = ActiveFrameData(calendar, bounds, can, stroke, theme)
+            drawActiveFace(ctx, col, stroke, theme, can, data)
             if (theme.text.active) {
                 drawText(ctx, can, false, calendar)
             }
         } else {
+            val data = AmbientFrameData(calendar, bounds, can, stroke)
             drawAmbientFace(ctx, col, stroke, theme, can, data)
             if (theme.text.ambient) {
                 drawText(ctx, can, true, calendar)
@@ -55,79 +79,57 @@ class DrawUtil() {
         }
     }
 
-    fun drawFace(ctx: Context, col: Col, stroke: Stroke, theme: Theme, can: Canvas, data: FrameData, ms: Int) {
-        val secRot = (data.ss + ms / 1000F) / 30F * PI
-        val secLength = data.unit * data.calcDistFromBorder(can, stroke)
-        val minLength = secLength / PHI
-        val hrLength = minLength / PHI
-        val hr = calcPosition(data.hrRot, hrLength, data.unit)
-        val min = calcPosition(data.minRot, minLength, data.unit)
-        val sec = calcPosition(secRot, secLength, data.unit)
-        val hrExtended = if (theme.circles.active) calcPosition(data.hrRot, secLength, data.unit) else hr
-        val minExtended = if (theme.circles.active) calcPosition(data.minRot, secLength, data.unit) else min
-        val secExtended = if (theme.circles.active) calcPosition(secRot, secLength, data.unit) else sec
-        Log.d(TAG, "hr(): " + hrExtended + " min(): " + minExtended + " sec(): " + secExtended + " ms: " + ms)
-        val hour = HandData(hr, data.hrRot, hrExtended)
-        val minute = HandData(min, data.minRot, minExtended)
-        val second = HandData(sec, secRot, secExtended)
+    fun drawActiveFace(ctx: Context, col: Col, stroke: Stroke, theme: Theme, can: Canvas, data: ActiveFrameData) {
         if (theme.hands.active) {
             val paint = Col.createPaint(ctx, PaintType.HAND, col, stroke)
-            drawHands(data.getRef(can), paint, hour, minute, second)
+            drawHands(data.getRef(can), paint, data.hour, data.minute, data.second)
         }
         if (theme.points.active && !theme.circles.active) {
             val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
             can.drawPoint(data.center.x, data.center.y, paint)
         }
         if (theme.triangles.active) {
-            drawTriangle(ctx, can, hour, minute, second, col, stroke)
+            drawTriangle(ctx, can, data.hour, data.minute, data.second, col, stroke)
         }
         if (theme.circles.active) {
             val paint = Col.createPaint(ctx, PaintType.CIRCLE_AMB, col, stroke)
-            drawCircleLine(data.getRef(can), paint, data.hrRot, secRot, hr, sec)
-            drawCircleLine(data.getRef(can), paint, data.minRot, secRot, min, sec)
+            drawCircleLine(data.getRef(can), paint, data.hrRot, data.secRot, data.hr, data.sec)
+            drawCircleLine(data.getRef(can), paint, data.minRot, data.secRot, data.min, data.sec)
         }
         if (theme.points.active) {
             val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
-            can.drawPoint(sec.x, sec.y, paint)
+            can.drawPoint(data.sec.x, data.sec.y, paint)
         }
         if (theme.circles.active) {
             val paint = Col.createPaint(ctx, PaintType.CIRCLE, col, stroke)
-            drawCircleLine(data.getRef(can), paint, data.hrRot, data.minRot, hr, min)
+            drawCircleLine(data.getRef(can), paint, data.hrRot, data.minRot, data.hr, data.min)
         }
         if (theme.points.active) {
             val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
-            can.drawPoint(hr.x, hr.y, paint)
-            can.drawPoint(min.x, min.y, paint)
+            can.drawPoint(data.hr.x, data.hr.y, paint)
+            can.drawPoint(data.min.x, data.min.y, paint)
             if (theme.circles.active) {
                 can.drawPoint(data.center.x, data.center.y, paint)
             }
         }
     }
 
-    fun drawAmbientFace(ctx: Context, col: Col, stroke: Stroke, theme: Theme, can: Canvas, data: FrameData) {
-        val minLength = data.unit * data.calcDistFromBorder(can, stroke) / PHI
-        val hrLength = minLength / PHI
-        val hr = calcPosition(data.hrRot, hrLength, data.unit)
-        val min = calcPosition(data.minRot, minLength, data.unit)
-        val hour = HandData(hr, data.hrRot, data.center)
-        val minute = HandData(min, data.minRot, data.center)
-        val ccCenter = calcCircumcenter(data.center, hr, min)
-        val ccRadius = calcDistance(min, ccCenter)
+    fun drawAmbientFace(ctx: Context, col: Col, stroke: Stroke, theme: Theme, can: Canvas, data: AmbientFrameData) {
         if (theme.circles.ambient) {
             val paint = Col.createPaint(ctx, PaintType.CIRCLE_AMB, col, stroke)
-            can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, paint)
+            can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, paint)
         }
         if (theme.hands.ambient) {
             val paint = Col.createPaint(ctx, PaintType.SHAPE_AMB, col, stroke)
-            drawHand(data.getRef(can), paint, hour)
-            drawHand(data.getRef(can), paint, minute)
-            can.drawLine(min.x, min.y, hr.x, hr.y, paint)
+            drawHand(data.getRef(can), paint, data.hour)
+            drawHand(data.getRef(can), paint, data.minute)
+            can.drawLine(data.min.x, data.min.y, data.hr.x, data.hr.y, paint)
         }
         if (theme.points.ambient) {
             val paint = Col.createPaint(ctx, PaintType.POINT, col, stroke)
             can.drawPoint(data.center.x, data.center.y, paint)
-            can.drawPoint(min.x, min.y, paint)
-            can.drawPoint(hr.x, hr.y, paint)
+            can.drawPoint(data.min.x, data.min.y, paint)
+            can.drawPoint(data.hr.x, data.hr.y, paint)
         }
     }
 
@@ -206,28 +208,29 @@ class DrawUtil() {
         return PointF(x, y)
     }
 
-    private fun calcPosition(rot: Float, length: Float, centerOffset: Float): PointF {
-        val x = centerOffset + (Math.sin(rot.toDouble()) * length).toFloat()
-        val y = centerOffset + (-Math.cos(rot.toDouble()) * length).toFloat()
-        return PointF(x, y)
-    }
-
-    private fun calcCircumcenter(a: PointF, b: PointF, c: PointF): PointF {
-        val dA = a.x * a.x + a.y * a.y
-        val dB = b.x * b.x + b.y * b.y
-        val dC = c.x * c.x + c.y * c.y
-        val divisor = 2F * (a.x * (c.y - b.y) + b.x * (a.y - c.y) + c.x * (b.y - a.y))
-        val x = (dA * (c.y - b.y) + dB * (a.y - c.y) + dC * (b.y - a.y)) / divisor
-        val y = -(dA * (c.x - b.x) + dB * (a.x - c.x) + dC * (b.x - a.x)) / divisor
-        return PointF(x, y)
-    }
-
-    private fun calcDistance(a: PointF, b: PointF): Float {
-        val p = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
-        return Math.sqrt(p.toDouble()).toFloat()
-    }
-
     companion object {
+        fun calcDistFromBorder(can: Canvas, stroke: Stroke): Float {
+            return can.height / (can.height + 2F * stroke.dim)
+        }
+        fun calcPosition(rot: Float, length: Float, centerOffset: Float): PointF {
+            val x = centerOffset + (Math.sin(rot.toDouble()) * length).toFloat()
+            val y = centerOffset + (-Math.cos(rot.toDouble()) * length).toFloat()
+            return PointF(x, y)
+        }
+        fun calcCircumcenter(a: PointF, b: PointF, c: PointF): PointF {
+            val dA = a.x * a.x + a.y * a.y
+            val dB = b.x * b.x + b.y * b.y
+            val dC = c.x * c.x + c.y * c.y
+            val divisor = 2F * (a.x * (c.y - b.y) + b.x * (a.y - c.y) + c.x * (b.y - a.y))
+            val x = (dA * (c.y - b.y) + dB * (a.y - c.y) + dC * (b.y - a.y)) / divisor
+            val y = -(dA * (c.x - b.x) + dB * (a.x - c.x) + dC * (b.x - a.x)) / divisor
+            return PointF(x, y)
+        }
+        fun calcDistance(a: PointF, b: PointF): Float {
+            val p = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
+            return Math.sqrt(p.toDouble()).toFloat()
+        }
+
         private val TAG = this::class.java.simpleName
         val PHI = 1.618033988F
         val PI = Math.PI.toFloat() //180 Degree

@@ -94,7 +94,7 @@ data class Col(val name: String, val darkId: Int, val lightId: Int) {
         }
 
         fun createFilter(ctx: Context, col: Col): ColorFilter {
-            return PorterDuffColorFilter(ctx.getColor(col.lightId), PorterDuff.Mode.MULTIPLY)
+            return PorterDuffColorFilter(ctx.getColor(col.lightId), PorterDuff.Mode.MULTIPLY) as ColorFilter
         }
 
         fun findActive(ctx: Context): Col {
