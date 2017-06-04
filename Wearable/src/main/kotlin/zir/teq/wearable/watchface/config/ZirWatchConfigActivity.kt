@@ -31,12 +31,13 @@ class ZirWatchConfigActivity : Activity() {
                     val ctx = applicationContext
                     val col = Palette.findActive(ctx)
                     val filter = Palette.createFilter(ctx, col)
-                    val res = applicationContext.resources
-                    res.getDrawable(R.drawable.icon_color, null).setColorFilter(filter)
-                    res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(filter)
-                    res.getDrawable(R.drawable.icon_theme, null).setColorFilter(filter)
-                    res.getDrawable(R.drawable.icon_outline, null).setColorFilter(filter)
-                    res.getDrawable(R.drawable.icon_growth, null).setColorFilter(filter)
+                    with(applicationContext.resources) {
+                        getDrawable(R.drawable.icon_color, null).setColorFilter(filter)
+                        getDrawable(R.drawable.icon_stroke, null).setColorFilter(filter)
+                        getDrawable(R.drawable.icon_theme, null).setColorFilter(filter)
+                        getDrawable(R.drawable.icon_outline, null).setColorFilter(filter)
+                        getDrawable(R.drawable.icon_growth, null).setColorFilter(filter)
+                    }
                     Log.d(TAG, "Color changed. col: $col")
                 }
             }

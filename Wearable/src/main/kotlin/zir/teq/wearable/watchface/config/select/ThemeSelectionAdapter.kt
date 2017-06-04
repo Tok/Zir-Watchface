@@ -62,24 +62,20 @@ class ThemeSelectionAdapter(
 
     fun updateSavedValues(ctx: Context, theme: Theme) {
         val editor = ConfigData.prefs(ctx).edit()
-        editor.putString(mPrefString, theme.name)
-
-        editor.putBoolean(ctx.getString(R.string.saved_hands_act), theme.hands.active)
-        editor.putBoolean(ctx.getString(R.string.saved_hands_amb), theme.hands.ambient)
-
-        editor.putBoolean(ctx.getString(R.string.saved_triangles_act), theme.triangles.active)
-        editor.putBoolean(ctx.getString(R.string.saved_triangles_amb), theme.triangles.ambient)
-
-        editor.putBoolean(ctx.getString(R.string.saved_circles_act), theme.circles.active)
-        editor.putBoolean(ctx.getString(R.string.saved_circles_amb), theme.circles.ambient)
-
-        editor.putBoolean(ctx.getString(R.string.saved_points_act), theme.points.active)
-        editor.putBoolean(ctx.getString(R.string.saved_points_amb), theme.points.ambient)
-
-        editor.putBoolean(ctx.getString(R.string.saved_text_act), theme.text.active)
-        editor.putBoolean(ctx.getString(R.string.saved_text_amb), theme.text.ambient)
-
-        editor.commit()
+        with(editor) {
+            putString(mPrefString, theme.name)
+            putBoolean(ctx.getString(R.string.saved_hands_act), theme.hands.active)
+            putBoolean(ctx.getString(R.string.saved_hands_amb), theme.hands.ambient)
+            putBoolean(ctx.getString(R.string.saved_triangles_act), theme.triangles.active)
+            putBoolean(ctx.getString(R.string.saved_triangles_amb), theme.triangles.ambient)
+            putBoolean(ctx.getString(R.string.saved_circles_act), theme.circles.active)
+            putBoolean(ctx.getString(R.string.saved_circles_amb), theme.circles.ambient)
+            putBoolean(ctx.getString(R.string.saved_points_act), theme.points.active)
+            putBoolean(ctx.getString(R.string.saved_points_amb), theme.points.ambient)
+            putBoolean(ctx.getString(R.string.saved_text_act), theme.text.active)
+            putBoolean(ctx.getString(R.string.saved_text_amb), theme.text.ambient)
+            commit()
+        }
     }
 
     companion object {

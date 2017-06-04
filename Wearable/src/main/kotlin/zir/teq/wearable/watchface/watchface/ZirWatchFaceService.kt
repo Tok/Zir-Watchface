@@ -214,15 +214,16 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
         private fun updateWatchPaintStyles() {
             mBackgroundPaint.color = if (mAmbient) Color.BLACK else mBackgroundColor
-
-            mDarkPaint.color = if (mAmbient) Color.BLACK else mPalette.darkId
-            mDarkPaint.isAntiAlias = !mAmbient
-            mDarkPaint.strokeWidth = mStroke.dim
-
-            mLightPaint.color = if (mAmbient) Color.WHITE else mPalette.lightId
-            mLightPaint.isAntiAlias = !mAmbient
-            mLightPaint.strokeWidth = mStroke.dim
-
+            with (mDarkPaint) {
+                color = if (mAmbient) android.graphics.Color.BLACK else mPalette.darkId
+                isAntiAlias = !mAmbient
+                strokeWidth = mStroke.dim
+            }
+            with (mLightPaint) {
+                color = if (mAmbient) Color.WHITE else mPalette.lightId
+                isAntiAlias = !mAmbient
+                strokeWidth = mStroke.dim
+            }
             setShadows(mAmbient)
         }
 
