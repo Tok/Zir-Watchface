@@ -154,6 +154,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val isFastUpdate = true //FIXME
             val rate = ConfigItem.updateRateMs(inMuteMode, isFastUpdate)
             setInteractiveUpdateRateMs(rate)
+
             val isDimmed = mMuteMode != inMuteMode
             if (isDimmed) {
                 mMuteMode = inMuteMode
@@ -177,16 +178,22 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         override fun onDraw(canvas: Canvas, bounds: Rect?) {
+            updateWatchPaintStyles()
             mCalendar.timeInMillis = System.currentTimeMillis()
-            val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
-            val bgPaint = selectBgPaint(makeDarkBackground)
+            val bgPaint = selectBgPaint()
             drawer.drawBackground(canvas, bgPaint)
             drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mCalendar)
         }
 
-        private fun selectBgPaint(isDarkBackground: Boolean): Paint {
-            return if (isDarkBackground || mTheme.hasOutline) {
-                Palette.prep(ctx.getColor(R.color.background_outline))
+        private fun selectBgPaint(): Paint {
+            val isBipEnabled = false //TODO
+            val makeDark = isBipEnabled && mPalette.isAmbient && (mLowBitAmbient || mBurnInProtection)
+            return if (makeDark) {
+                Palette.prep(ctx.getColor(R.color.black))
+            } else if (!mTheme.hasOutline) {
+                Palette.prep(ctx.getColor(R.color.black))
+            } else if (mPalette.isAmbient) {
+                Palette.prep(ctx.getColor(R.color.background_ambient))
             } else {
                 Palette.prep(ctx.getColor(R.color.background))
             }
@@ -194,8 +201,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
         private fun updateWatchPaintStyles() {
             mPalette.isAmbient = mAmbient
-            mPalette.isActive = !mAmbient
-            mPalette.isAntiAlias = !mAmbient
+            //mPalette.alpha = if (mPalette.isAmbient) Palette.AMBIENT_ALPHA else Palette.FULL_ALPHA
         }
 
         private fun setInteractiveUpdateRateMs(updateRateMs: Long) {

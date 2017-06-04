@@ -62,16 +62,16 @@ class DrawUtil() {
 
     fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
              can: Canvas, bounds: Rect, calendar: Calendar) {
-        if (pal.isActive) {
-            val data = ActiveFrameData(calendar, bounds, can, stroke, theme)
-            drawActiveFace(ctx, pal, stroke, theme, can, data)
-            if (theme.text.active) {
-                drawText(ctx, can, pal, calendar)
-            }
-        } else {
+        if (pal.isAmbient) {
             val data = AmbientFrameData(calendar, bounds, can, stroke)
             drawAmbientFace(ctx, pal, stroke, theme, can, data)
             if (theme.text.ambient) {
+                drawText(ctx, can, pal, calendar)
+            }
+        } else {
+            val data = ActiveFrameData(calendar, bounds, can, stroke, theme)
+            drawActiveFace(ctx, pal, stroke, theme, can, data)
+            if (theme.text.active) {
                 drawText(ctx, can, pal, calendar)
             }
         }

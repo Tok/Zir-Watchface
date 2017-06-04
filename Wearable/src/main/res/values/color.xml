@@ -14,8 +14,9 @@
     <color name="config_activity_stroke_item_circle_border_color">#ffffff</color>
     <color name="config_activity_theme_item_circle_border_color">#ffffff</color>
 
-    <color name="background">#424242</color>
-    <color name="background_outline">#808080</color>
+    <color name="background">#808080</color>
+    <color name="background_ambient">#424242</color>
+
     <color name="text">#ffffff</color>
     <color name="points">#dddddd</color>
 

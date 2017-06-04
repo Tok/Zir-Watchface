@@ -9,11 +9,13 @@ import zir.teq.wearable.watchface.model.item.ConfigItem
 
 data class Palette(val name: String,
                    val darkId: Int, val id: Int, val lightId: Int) {
-    var isActive = true
+    val isAntiAlias = true
     var isAmbient = false
-    var isAntiAlias = true
-    var alpha: Int = 255
+    var alpha = FULL_ALPHA
     companion object {
+        val AMBIENT_ALPHA: Int = 100
+        val FULL_ALPHA: Int = 255
+
         val BLACK = Palette("Black", R.color.black, R.color.gray, R.color.dark_gray)
         val WHITE = Palette("White", R.color.dark_grey, R.color.light_gray, R.color.white)
         val RED = Palette("Red", R.color.dark_red, R.color.fire_brick, R.color.red)
