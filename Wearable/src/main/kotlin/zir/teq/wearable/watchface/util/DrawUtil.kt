@@ -60,20 +60,19 @@ class DrawUtil() {
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), paint)
     }
 
-    fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme, can: Canvas, bounds: Rect,
-             isAmbient: Boolean, calendar: Calendar) {
-        val isActive = !isAmbient
-        if (isActive) {
+    fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
+             can: Canvas, bounds: Rect, calendar: Calendar) {
+        if (pal.isActive) {
             val data = ActiveFrameData(calendar, bounds, can, stroke, theme)
             drawActiveFace(ctx, pal, stroke, theme, can, data)
             if (theme.text.active) {
-                drawText(ctx, can, false, calendar)
+                drawText(ctx, can, pal, calendar)
             }
         } else {
             val data = AmbientFrameData(calendar, bounds, can, stroke)
             drawAmbientFace(ctx, pal, stroke, theme, can, data)
             if (theme.text.ambient) {
-                drawText(ctx, can, true, calendar)
+                drawText(ctx, can, pal, calendar)
             }
         }
     }
@@ -258,16 +257,16 @@ class DrawUtil() {
         }
     }
 
-    fun drawText(ctx: Context, can: Canvas, isAmbient: Boolean, calendar: Calendar) {
+    fun drawText(ctx: Context, can: Canvas, pal: Palette, calendar: Calendar) {
         val hh = calendar.get(Calendar.HOUR_OF_DAY)
         val mm = calendar.get(Calendar.MINUTE)
-        val text = if (isAmbient) { // Draw HH:MM in ambient mode or HH:MM:SS in interactive mode.
+        val text = if (pal.isAmbient) { // Draw HH:MM in ambient mode or HH:MM:SS in interactive mode.
             String.format("%02d:%02d", hh, mm)
         } else {
             val ss = calendar.get(Calendar.SECOND)
             String.format("%02d:%02d:%02d", hh, mm, ss)
         }
-        val paint = Palette.prepareTextPaint(ctx, R.color.text)
+        val paint = Palette.createTextPaint(ctx, pal)
         val yOffset = ctx.resources.getDimension(R.dimen.y_offset)
         val xOffset = ctx.resources.getDimension(R.dimen.x_offset)
         can.drawText(text, xOffset, yOffset, paint)

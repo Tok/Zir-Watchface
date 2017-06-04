@@ -35,20 +35,14 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mMuteMode: Boolean = false
         private var mRegisteredTimeZoneReceiver = false
 
-
-        private var mBackgroundColor: Int = ctx.getColor(R.color.black)
         private var mPalette: Palette = Palette.default
         private var mStroke: Stroke = Stroke.create(ctx, Stroke.default.name)
         private var mTheme: Theme = Theme.default
 
-        private var mBackgroundPaint: Paint = Palette.prep(mBackgroundColor)
-        private var mDarkPaint: Paint = Palette.prep(mPalette.darkId)
-        private var mLightPaint: Paint = Palette.prep(mPalette.lightId)
-
         private var mAmbient: Boolean = false
         private var mLowBitAmbient: Boolean = false
         private var mBurnInProtection: Boolean = false
-        private var mUpdateRateMs = ConfigItem.updateRateMs(mAmbient, mTheme.isFastUpdate)
+        private var mUpdateRateMs = ConfigItem.updateRateMs(mAmbient, mTheme.isFastUpdate) //TODO move elsewhere?
 
         internal lateinit var prefs: SharedPreferences
         private val mTimeZoneReceiver = object : BroadcastReceiver() {
@@ -81,13 +75,10 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val style = WatchFaceStyle.Builder(service).setAcceptsTapEvents(true).build()
             setWatchFaceStyle(style)
             loadSavedPreferences()
-            initializeStyles()
         }
 
         private fun loadSavedPreferences() {
             val prefs = ConfigData.prefs(ctx)
-            val backgroundColorResourceName = ctx.getString(R.string.saved_background_color)
-            mBackgroundColor = prefs.getInt(backgroundColorResourceName, Color.BLACK)
 
             val palName = prefs.getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
             mPalette = Palette.getByName(palName)
@@ -100,6 +91,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
             val savedTheme = Theme.getByName(savedThemeName)
             Log.d(TAG, "loaded saved theme... savedTheme: $savedTheme")
+
             val isFastUpdate = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), savedTheme.isFastUpdate)
             val isHand = Theme.Companion.Setting(
                     prefs.getBoolean(ctx.getString(R.string.saved_hands_act), savedTheme.hands.active),
@@ -121,16 +113,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outlineName, growthName)
             Log.d(TAG, "theme updated... mTheme: $mTheme")
             updateWatchPaintStyles()
-        }
-
-        private fun initializeStyles() {
-            Log.d(TAG, "initializeStyles()")
-            mBackgroundPaint = Paint()
-            mBackgroundPaint.color = mBackgroundColor
-            mDarkPaint.color = mPalette.darkId //TODO drop
-            mDarkPaint.strokeWidth = mStroke.dim
-            mLightPaint.color = mPalette.lightId
-            mLightPaint.strokeWidth = mStroke.dim
         }
 
         override fun onDestroy() {
@@ -172,10 +154,10 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val isFastUpdate = true //FIXME
             val rate = ConfigItem.updateRateMs(inMuteMode, isFastUpdate)
             setInteractiveUpdateRateMs(rate)
-            if (mMuteMode != inMuteMode) { //dim display in mute mode.
+            val isDimmed = mMuteMode != inMuteMode
+            if (isDimmed) {
                 mMuteMode = inMuteMode
-                mDarkPaint.alpha = if (inMuteMode) 100 else 255
-                mLightPaint.alpha = if (inMuteMode) 100 else 255
+                mPalette.alpha = if (inMuteMode) 100 else 255
                 invalidate()
             }
         }
@@ -199,44 +181,23 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val makeDarkBackground = mAmbient && (mLowBitAmbient || mBurnInProtection)
             val bgPaint = selectBgPaint(makeDarkBackground)
             drawer.drawBackground(canvas, bgPaint)
-            drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mAmbient, mCalendar)
+            drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mCalendar)
         }
 
-        private fun selectBgPaint(makeDarkBackground: Boolean): Paint {
-            return if (mTheme.hasOutline) {
-                Palette.prep(ctx.getColor(R.color.dark_grey))
-            } else if (makeDarkBackground) {
-                mBackgroundPaint
-            } else {
+        private fun selectBgPaint(isDarkBackground: Boolean): Paint {
+            return if (isDarkBackground) {
                 Palette.prep(ctx.getColor(R.color.black))
+            } else if (mTheme.hasOutline) {
+                Palette.prep(ctx.getColor(R.color.background_outline))
+            } else {
+                Palette.prep(ctx.getColor(R.color.background))
             }
         }
 
         private fun updateWatchPaintStyles() {
-            mBackgroundPaint.color = if (mAmbient) Color.BLACK else mBackgroundColor
-            with (mDarkPaint) {
-                color = if (mAmbient) android.graphics.Color.BLACK else mPalette.darkId
-                isAntiAlias = !mAmbient
-                strokeWidth = mStroke.dim
-            }
-            with (mLightPaint) {
-                color = if (mAmbient) Color.WHITE else mPalette.lightId
-                isAntiAlias = !mAmbient
-                strokeWidth = mStroke.dim
-            }
-            setShadows(mAmbient)
-        }
-
-        private fun setShadows(mAmbient: Boolean) {
-            val drawShadows = false //TODO activate?
-            if (drawShadows && mAmbient) {
-                mDarkPaint.clearShadowLayer()
-                mLightPaint.clearShadowLayer()
-            } else {
-                val shadowRadius = 3F
-                val shadowColor = Color.WHITE
-                mDarkPaint.setShadowLayer(shadowRadius, 0F, 0F, shadowColor)
-            }
+            mPalette.isAmbient = mAmbient
+            mPalette.isActive = !mAmbient
+            mPalette.isAntiAlias = !mAmbient
         }
 
         private fun setInteractiveUpdateRateMs(updateRateMs: Long) {

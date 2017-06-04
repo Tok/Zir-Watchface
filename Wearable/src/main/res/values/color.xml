@@ -15,6 +15,7 @@
     <color name="config_activity_theme_item_circle_border_color">#ffffff</color>
 
     <color name="background">#000000</color>
+    <color name="background_outline">#808080</color>
     <color name="text">#ffffff</color>
     <color name="points">#dddddd</color>
 

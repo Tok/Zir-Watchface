@@ -2,7 +2,6 @@ package zir.teq.wearable.watchface.model.data.types
 
 data class PaintType(val name: String, val isAmbient: Boolean, val isOutline: Boolean) {
     companion object {
-        val TEXT = PaintType("TEXT", false, false)
         val HAND = PaintType("HAND", false, false)
         val HAND_AMB = PaintType("HAND_AMB", true, false)
         val HAND_OUTLINE = PaintType("OUTLINE", false, true)

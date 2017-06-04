@@ -1,16 +1,18 @@
 package zir.teq.wearable.watchface.model.data
 
 import android.content.Context
-import android.graphics.ColorFilter
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
+import android.graphics.*
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
-data class Palette(val name: String, val darkId: Int, val id: Int, val lightId: Int) {
+data class Palette(val name: String,
+                   val darkId: Int, val id: Int, val lightId: Int) {
+    var isActive = true
+    var isAmbient = false
+    var isAntiAlias = true
+    var alpha: Int = 255
     companion object {
         val BLACK = Palette("Black", R.color.black, R.color.gray, R.color.dark_gray)
         val WHITE = Palette("White", R.color.dark_grey, R.color.light_gray, R.color.white)
@@ -48,15 +50,35 @@ data class Palette(val name: String, val darkId: Int, val id: Int, val lightId: 
                 PaintType.SHAPE_AMB -> prepareShapePaint(ctx, pal.lightId)
                 PaintType.HAND_AMB -> prepareLinePaint(ctx, pal.id)
                 PaintType.CIRCLE_AMB -> prepareCirclePaint(ctx, pal.darkId)
-
-                //PaintType.TEXT -> prepareTextPaint(ctx, R.color.text)
                 else -> {
                     val msg = "Ignoring paintType: " + type
                     throw IllegalArgumentException(msg)
                 }
             }
             paint.strokeWidth = createStrokeWidth(ctx, type, theme, stroke)
+            paint.alpha = pal.alpha
+            paint.isAntiAlias = pal.isAntiAlias
             return paint
+        }
+
+        fun createTextPaint(ctx: Context, pal: Palette): Paint {
+            val paint = inst()
+            paint.typeface = ConfigItem.NORMAL_TYPEFACE
+            paint.isFakeBoldText = true
+            paint.color = ctx.getColor(R.color.text)
+            paint.alpha = pal.alpha
+            paint.isAntiAlias = pal.isAntiAlias
+            addShadows(paint, pal)
+            return paint
+        }
+
+        private fun addShadows(paint: Paint, pal: Palette) {
+            if (pal.isAmbient) {
+                paint.clearShadowLayer()
+            } else {
+                val blurRadius = 3F
+                paint.setShadowLayer(blurRadius, 0F, 0F, Color.WHITE)
+            }
         }
 
         private fun createStrokeWidth(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Float {
@@ -68,14 +90,6 @@ data class Palette(val name: String, val darkId: Int, val id: Int, val lightId: 
             } else {
                 stroke.dim + pointGrowth
             }
-        }
-
-        fun prepareTextPaint(ctx: Context, colorId: Int): Paint {
-            val paint = inst()
-            paint.typeface = ConfigItem.NORMAL_TYPEFACE
-            paint.isFakeBoldText = true
-            paint.color = ctx.getColor(colorId)
-            return paint
         }
 
         private fun inst(): Paint {
