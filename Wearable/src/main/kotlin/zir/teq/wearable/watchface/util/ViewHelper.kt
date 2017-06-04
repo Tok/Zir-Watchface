@@ -17,9 +17,23 @@ import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
 object ViewHelper {
+    fun initMainConfigView(view: WearableRecyclerView?,
+                 ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
+                 manager: RecyclerView.LayoutManager?): Unit {
+        view!!.setBackgroundColor(R.color.background)
+        init(view, ada, manager)
+    }
+
     fun initView(view: WearableRecyclerView?,
                  ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
                  manager: RecyclerView.LayoutManager?): Unit {
+        view!!.setBackgroundColor(R.color.background)
+        init(view, ada, manager)
+    }
+
+    private fun init(view: WearableRecyclerView?,
+                     ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
+                     manager: RecyclerView.LayoutManager?) {
         view!!.centerEdgeItems = true
         view.layoutManager = manager
         view.adapter = ada

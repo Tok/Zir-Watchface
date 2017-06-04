@@ -52,29 +52,22 @@ class PaletteSelectionAdapter(
         fun bindPalette(pal: Palette) {
             val ctx = mFirst.context
             val prefs = ConfigData.prefs(ctx)
-            val strokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-            val stroke = Stroke.create(ctx, strokeName)
 
             val themeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
             val theme = Theme.getByName(themeName)
             val outline = Outline.create(ctx, theme.outlineName)
 
-            val dim: Float = (DISPLAY_ITEM_FACTOR * (stroke.dim + outline.dim))
-
             with (mFirst) {
-                circleRadius = dim
                 setCircleColor(ctx.getColor(pal.darkId))
                 setCircleBorderWidth(outline.dim)
             }
 
             with (mSecond) {
-                circleRadius = dim
                 setCircleColor(ctx.getColor(pal.id))
                 setCircleBorderWidth(outline.dim)
             }
 
             with (mThird) {
-                circleRadius = dim
                 setCircleColor(ctx.getColor(pal.lightId))
                 setCircleBorderWidth(outline.dim)
             }

@@ -31,7 +31,7 @@ class OutlineSelectionAdapter(
         val outlineViewHolder = viewHolder as OutlineSelectionAdapter.OutlineViewHolder
         ViewHelper.bindCircleColor(outlineViewHolder.mView)
         outlineViewHolder.setOutline(outline)
-        ViewHelper.bindCircleRadius(outlineViewHolder.mView)
+        //ViewHelper.bindCircleRadius(outlineViewHolder.mView)
     }
 
     override fun getItemCount(): Int {
