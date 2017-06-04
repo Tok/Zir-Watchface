@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list_item_growth"
+    android:id="@+id/list_item_palette"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:descendantFocusability="blocksDescendants"
     android:gravity="center_horizontal|center_vertical"
     android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="true"
     tools:context="zir.teq.wearable.watchface.config.select.GrowthSelectionActivity">
 
     <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/list_item_growth_current_stroke"
+        android:id="@+id/list_item_palette_first_cirlce"
         style="@style/MultiCircleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,19 +21,19 @@
 
     <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/list_item_growth_grown_stroke"
+        android:id="@+id/list_item_palette_second_circle"
         style="@style/MultiCircleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:circle_border_color="@color/theme_item_circle_border_color"
         app:circle_border_width="5dp" />
 
-    <TextView
-        android:id="@+id/list_item_growth_text"
-        style="@style/CheckboxListItemStyle"
+    <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list_item_palette_third_circle"
+        style="@style/MultiCircleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false" />
+        app:circle_border_color="@color/theme_item_circle_border_color"
+        app:circle_border_width="5dp" />
 </LinearLayout>

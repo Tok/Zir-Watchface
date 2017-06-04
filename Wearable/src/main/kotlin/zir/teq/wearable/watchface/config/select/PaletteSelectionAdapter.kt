@@ -7,10 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.util.ViewHelper
+import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.Theme
 import java.util.*
 
 class PaletteSelectionAdapter(
@@ -20,7 +24,7 @@ class PaletteSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
         val viewHolder = ColorViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.list_item_color, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false)
         )
         return viewHolder
     }
@@ -30,8 +34,6 @@ class PaletteSelectionAdapter(
         val pal = mOptions[position]
         val colorViewHolder = viewHolder as ColorViewHolder
         colorViewHolder.bindPalette(pal)
-        ViewHelper.bindCircleBorderWidth(colorViewHolder.mView)
-        ViewHelper.bindCircleRadius(colorViewHolder.mView)
     }
 
     override fun getItemCount(): Int {
@@ -39,13 +41,44 @@ class PaletteSelectionAdapter(
     }
 
     inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        val mView: CircledImageView
+        val mView = view as LinearLayout
+        val mFirst = view.findViewById(R.id.list_item_palette_first_cirlce) as CircledImageView
+        val mSecond = view.findViewById(R.id.list_item_palette_second_circle) as CircledImageView
+        val mThird = view.findViewById(R.id.list_item_palette_third_circle) as CircledImageView
         init {
-            mView = view.findViewById(R.id.color) as CircledImageView
-            view.setOnClickListener(this)
+            mView.setOnClickListener(this)
         }
 
-        fun bindPalette(pal: Palette) { mView.setCircleColor(mView.context.getColor(pal.id)) }
+        fun bindPalette(pal: Palette) {
+            val ctx = mFirst.context
+            val prefs = ConfigData.prefs(ctx)
+            val strokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
+            val stroke = Stroke.create(ctx, strokeName)
+
+            val themeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
+            val theme = Theme.getByName(themeName)
+            val outline = Outline.create(ctx, theme.outlineName)
+
+            val dim: Float = (DISPLAY_ITEM_FACTOR * (stroke.dim + outline.dim))
+
+            with (mFirst) {
+                circleRadius = dim
+                setCircleColor(ctx.getColor(pal.darkId))
+                setCircleBorderWidth(outline.dim)
+            }
+
+            with (mSecond) {
+                circleRadius = dim
+                setCircleColor(ctx.getColor(pal.id))
+                setCircleBorderWidth(outline.dim)
+            }
+
+            with (mThird) {
+                circleRadius = dim
+                setCircleColor(ctx.getColor(pal.lightId))
+                setCircleBorderWidth(outline.dim)
+            }
+        }
 
         override fun onClick(view: View) {
             val position = adapterPosition
@@ -63,6 +96,7 @@ class PaletteSelectionAdapter(
     }
 
     companion object {
+        val DISPLAY_ITEM_FACTOR = 1F
         private val TAG = this::class.java.simpleName
     }
 }

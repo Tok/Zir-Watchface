@@ -30,7 +30,7 @@ class GrowthSelectionAdapter(
         android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
         val growth = mOptions[position]
         val growthViewHolder = viewHolder as GrowthSelectionAdapter.GrowthViewHolder
-        val ctx = growthViewHolder.mPrimary.context
+        val ctx = growthViewHolder.mFirst.context
         val palName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.default.name)
         val pal = Palette.getByName(palName)
         growthViewHolder.bindGrowth(growth, pal)
@@ -41,15 +41,15 @@ class GrowthSelectionAdapter(
     }
 
     inner class GrowthViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        val mPrimary = view.findViewById(R.id.primary_growth_button) as CircledImageView
-        val mSecondary = view.findViewById(R.id.secondary_growth_button) as CircledImageView
-        val mText = view.findViewById(R.id.growth_text) as TextView
+        val mFirst = view.findViewById(R.id.list_item_growth_current_stroke) as CircledImageView
+        val mSecond = view.findViewById(R.id.list_item_growth_grown_stroke) as CircledImageView
+        val mText = view.findViewById(R.id.list_item_growth_text) as TextView
         init {
             view.setOnClickListener(this)
         }
 
         fun bindGrowth(growth: Growth, pal: Palette) {
-            val ctx = mPrimary.context
+            val ctx = mFirst.context
 
             val strokeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
             val stroke = Stroke.create(ctx, strokeName)
@@ -59,12 +59,14 @@ class GrowthSelectionAdapter(
             val outline = Outline.create(ctx, theme.outlineName)
 
             val dim: Float = (DISPLAY_ITEM_FACTOR * (stroke.dim + outline.dim))
-            mPrimary.circleRadius = dim
-            mPrimary.setCircleColor(ctx.getColor(pal.lightId))
+            mFirst.circleRadius = dim
+            mFirst.setCircleColor(ctx.getColor(pal.lightId))
+            mFirst.setCircleBorderWidth(outline.dim)
 
             val growthDim: Float = dim + growth.dim
-            mSecondary.circleRadius = growthDim
-            mSecondary.setCircleColor(ctx.getColor(pal.lightId))
+            mSecond.circleRadius = growthDim
+            mSecond.setCircleColor(ctx.getColor(pal.lightId))
+            mSecond.setCircleBorderWidth(outline.dim)
 
             mText.text = growth.name
         }
