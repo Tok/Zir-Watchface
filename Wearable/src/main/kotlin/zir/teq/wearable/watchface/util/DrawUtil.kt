@@ -333,7 +333,9 @@ class DrawUtil() {
 
     companion object {
         fun calcDistFromBorder(can: Canvas, stroke: Stroke): Float {
-            return can.height / (can.height + 2F * stroke.dim)
+            val assertedOutlineDimension = 8 //TODO use exact?
+            val totalSetoff = 4F * (stroke.dim + assertedOutlineDimension)
+            return can.height / (can.height + totalSetoff)
         }
         fun calcPosition(rot: Float, length: Float, centerOffset: Float): PointF {
             val x = centerOffset + (Math.sin(rot.toDouble()) * length).toFloat()

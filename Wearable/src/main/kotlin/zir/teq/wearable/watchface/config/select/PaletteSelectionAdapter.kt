@@ -96,7 +96,7 @@ class PaletteSelectionAdapter(
     }
 
     companion object {
-        val DISPLAY_ITEM_FACTOR = 1F
+        val DISPLAY_ITEM_FACTOR = 0.5F
         private val TAG = this::class.java.simpleName
     }
 }

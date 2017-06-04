@@ -63,7 +63,7 @@ data class Palette(val name: String,
 
         fun createTextPaint(ctx: Context, pal: Palette): Paint {
             val paint = inst()
-            paint.typeface = ConfigItem.NORMAL_TYPEFACE
+            paint.typeface = ConfigItem.MONO_TYPEFACE
             paint.isFakeBoldText = true
             paint.color = ctx.getColor(R.color.text)
             paint.alpha = pal.alpha
@@ -76,8 +76,8 @@ data class Palette(val name: String,
             if (pal.isAmbient) {
                 paint.clearShadowLayer()
             } else {
-                val blurRadius = 3F
-                paint.setShadowLayer(blurRadius, 0F, 0F, Color.WHITE)
+                val blurRadius = 5F
+                paint.setShadowLayer(blurRadius, 0F, 0F, Color.BLACK)
             }
         }
 
