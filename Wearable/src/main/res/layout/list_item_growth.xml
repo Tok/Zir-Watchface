@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/growth"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/growth_picker_layout"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:padding="8dp"
-    app:circle_border_color="@color/growth_item_circle_border_color"
-    app:circle_border_width="5dp"
-    app:circle_radius="@dimen/growth_picker_size" />
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="horizontal"
+    tools:context="zir.teq.wearable.watchface.config.select.GrowthSelectionActivity">
+
+    <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/primary_growth_button"
+        style="@style/DualListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:circle_border_color="@color/theme_item_circle_border_color"
+        app:circle_border_width="5dp" />
+
+    <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/secondary_growth_button"
+        style="@style/DualListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:circle_border_color="@color/theme_item_circle_border_color"
+        app:circle_border_width="5dp" />
+
+    <TextView
+        android:id="@+id/growth_text"
+        style="@style/CheckboxListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

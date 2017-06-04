@@ -83,7 +83,7 @@ data class Palette(val name: String,
 
         private fun createStrokeWidth(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Float {
             val isPoint = PaintType.POINT.equals(type) || PaintType.POINT_OUTLINE.equals(type)
-            val pointGrowth = if (isPoint) { Growth.create(ctx, theme.growthName).dim ?: 0F } else { 0F }
+            val pointGrowth = if (isPoint) { Growth.create(ctx, theme.growthName).dim } else { 0F }
             return if (type.isOutline) {
                 val outline = Outline.create(ctx, theme.outlineName)
                 stroke.dim + pointGrowth + outline.dim

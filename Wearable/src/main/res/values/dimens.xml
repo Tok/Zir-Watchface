@@ -4,11 +4,11 @@
     <dimen name="activity_config_padding">21dp</dimen>
     <dimen name="checkbox_min_height">21dp</dimen>
 
-    <dimen name="theme_picker_size">35dp</dimen>
-    <dimen name="color_picker_size">35dp</dimen>
-    <dimen name="stroke_picker_size">35dp</dimen>
-    <dimen name="outline_picker_size">35dp</dimen>
-    <dimen name="growth_picker_size">35dp</dimen>
+    <dimen name="theme_picker_size">34dp</dimen>
+    <dimen name="color_picker_size">34dp</dimen>
+    <dimen name="stroke_picker_size">34dp</dimen>
+    <dimen name="outline_picker_size">34dp</dimen>
+    <dimen name="growth_picker_size">34dp</dimen>
 
     <dimen name="config_theme_picker_item_margin">5dp</dimen>
     <dimen name="config_color_picker_item_margin">5dp</dimen>

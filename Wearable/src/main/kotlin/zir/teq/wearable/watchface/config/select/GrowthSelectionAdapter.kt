@@ -8,10 +8,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.*
-import zir.teq.wearable.watchface.util.ViewHelper
+
 
 class GrowthSelectionAdapter(
         private val mPrefString: String?,
@@ -29,10 +30,10 @@ class GrowthSelectionAdapter(
         android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
         val growth = mOptions[position]
         val growthViewHolder = viewHolder as GrowthSelectionAdapter.GrowthViewHolder
-        ViewHelper.bindCircleColor(growthViewHolder.mView)
-        ViewHelper.bindCircleBorderWidth(growthViewHolder.mView)
-        ViewHelper.bindCircleRadius(growthViewHolder.mView)
-        growthViewHolder.bindGrowth(growth)
+        val ctx = growthViewHolder.mPrimary.context
+        val palName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.default.name)
+        val pal = Palette.getByName(palName)
+        growthViewHolder.bindGrowth(growth, pal)
     }
 
     override fun getItemCount(): Int {
@@ -40,14 +41,32 @@ class GrowthSelectionAdapter(
     }
 
     inner class GrowthViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        val mView: CircledImageView
+        val mPrimary = view.findViewById(R.id.primary_growth_button) as CircledImageView
+        val mSecondary = view.findViewById(R.id.secondary_growth_button) as CircledImageView
+        val mText = view.findViewById(R.id.growth_text) as TextView
         init {
-            mView = view.findViewById(R.id.growth) as CircledImageView
             view.setOnClickListener(this)
         }
 
-        fun bindGrowth(growth: Growth) { //TODO implement something..
-            //mView.set
+        fun bindGrowth(growth: Growth, pal: Palette) {
+            val ctx = mPrimary.context
+
+            val strokeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
+            val stroke = Stroke.create(ctx, strokeName)
+
+            val themeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_theme), Theme.default.name)
+            val theme = Theme.getByName(themeName)
+            val outline = Outline.create(ctx, theme.outlineName)
+
+            val dim: Float = (DISPLAY_ITEM_FACTOR * (stroke.dim + outline.dim))
+            mPrimary.circleRadius = dim
+            mPrimary.setCircleColor(ctx.getColor(pal.lightId))
+
+            val growthDim: Float = dim + growth.dim
+            mSecondary.circleRadius = growthDim
+            mSecondary.setCircleColor(ctx.getColor(pal.lightId))
+
+            mText.text = growth.name
         }
 
         override fun onClick(view: android.view.View) {
@@ -70,6 +89,7 @@ class GrowthSelectionAdapter(
     }
 
     companion object {
+        val DISPLAY_ITEM_FACTOR = 0.5F //=radius to circumfence?
         private val TAG = this::class.java.simpleName
     }
 }
