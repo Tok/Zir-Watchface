@@ -2,7 +2,6 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.content.Context
-import android.content.SharedPreferences
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.util.Log
@@ -12,6 +11,7 @@ import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Theme
+import zir.teq.wearable.watchface.util.ViewHelper
 
 class ThemeSelectionAdapter(
         private val mPrefString: String?,
@@ -29,7 +29,8 @@ class ThemeSelectionAdapter(
         android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
         val theme = mOptions[position]
         val themeViewHolder = viewHolder as ThemeSelectionAdapter.ThemeViewHolder
-        themeViewHolder.setIcon(theme)
+        ViewHelper.bindCircleColor(themeViewHolder.mView)
+        themeViewHolder.setTheme(theme)
     }
 
     override fun getItemCount(): Int {
@@ -37,13 +38,13 @@ class ThemeSelectionAdapter(
     }
 
     inner class ThemeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        private val mView: CircledImageView
+        val mView: CircledImageView
         init {
             mView = view.findViewById(R.id.theme) as CircledImageView
             view.setOnClickListener(this)
         }
 
-        fun setIcon(theme: Theme) {
+        fun setTheme(theme: Theme) {
             mView.setImageResource(theme.iconId)
         }
 

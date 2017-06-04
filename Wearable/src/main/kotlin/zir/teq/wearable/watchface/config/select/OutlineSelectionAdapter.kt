@@ -11,13 +11,15 @@ import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
+import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.Stroke
 
 class OutlineSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Outline>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        android.util.Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
+        Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
         val viewHolder = OutlineViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.list_item_outline, parent, false)
         )
@@ -25,10 +27,22 @@ class OutlineSelectionAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
-        //val outline = mOptions[position]
-        //val outlineViewHolder = viewHolder as OutlineSelectionAdapter.OutlineViewHolder
-        //outlineViewHolder.setOutline(outline) //TODO set outline
+        Log.d(TAG, "onBindViewHolder() Element $position set.")
+        val outline = mOptions[position]
+
+        val outlineViewHolder = viewHolder as OutlineSelectionAdapter.OutlineViewHolder
+        //outlineViewHolder.setOutline(outline)
+
+        val ctx = viewHolder.itemView.context
+        val pref = ConfigData.prefs(ctx)
+
+        val pal = Palette.getByName(pref.getString(ctx.getString(R.string.saved_palette), Palette.default.name))
+        outlineViewHolder.setItemDisplayColor(pal.id)
+
+        val stroke = Stroke.create(ctx, pref.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name))
+        outlineViewHolder.setItemDisplayRadius(stroke.dim)
+
+        outlineViewHolder.setItemDisplayBorder(outline.dim)
     }
 
     override fun getItemCount(): Int {
@@ -42,10 +56,17 @@ class OutlineSelectionAdapter(
             view.setOnClickListener(this)
         }
 
-        /*
-        fun setOutline(outlineWidth: Float) {
-            mView.setImageResource(R.)
-        }*/
+        fun setItemDisplayColor(color: Int) {
+            mView.setCircleColor(color)
+        }
+
+        fun setItemDisplayRadius(radius: Float) {
+            mView.circleRadius = radius
+        }
+
+        fun setItemDisplayBorder(strokeWidth: Float) {
+            mView.setCircleBorderWidth(strokeWidth)
+        }
 
         override fun onClick(view: android.view.View) {
             val position = adapterPosition

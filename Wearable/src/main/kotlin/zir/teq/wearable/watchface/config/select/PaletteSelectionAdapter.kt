@@ -1,16 +1,16 @@
 package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
 class PaletteSelectionAdapter(
@@ -27,9 +27,11 @@ class PaletteSelectionAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder() Element $position set.")
-        val color = mOptions[position]
+        val pal = mOptions[position]
         val colorViewHolder = viewHolder as ColorViewHolder
-        colorViewHolder.setItemDisplayColor(viewHolder.itemView.context, color)
+        colorViewHolder.bindPalette(pal)
+        ViewHelper.bindCircleBorderWidth(colorViewHolder.mView)
+        ViewHelper.bindCircleRadius(colorViewHolder.mView)
     }
 
     override fun getItemCount(): Int {
@@ -37,11 +39,13 @@ class PaletteSelectionAdapter(
     }
 
     inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        private val mView: CircledImageView
+        val mView: CircledImageView
         init {
             mView = view.findViewById(R.id.color) as CircledImageView
             view.setOnClickListener(this)
         }
+
+        fun bindPalette(pal: Palette) { mView.setCircleColor(mView.context.getColor(pal.id)) }
 
         override fun onClick(view: View) {
             val position = adapterPosition
@@ -55,10 +59,6 @@ class PaletteSelectionAdapter(
                 activity.setResult(Activity.RESULT_OK) //triggers config activity
             }
             activity.finish()
-        }
-
-        fun setItemDisplayColor(ctx: Context, pal: Palette) {
-            mView.setCircleColor(ctx.getColor(pal.lightId))
         }
     }
 

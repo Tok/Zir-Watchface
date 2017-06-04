@@ -28,6 +28,13 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         mButton!!.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
     }
 
+    /*
+    fun drawIcon(resourceId: Int, theme: Theme) {
+        val ctx = mButton!!.context
+        val can = Canvas()
+        mButton!!.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+    }*/
+
     fun setFilterColor(ctx: Context, drawable: Drawable, colorId: Int?) {
         if (colorId != null) {
             val cf = PorterDuffColorFilter(ctx.getColor(colorId), PorterDuff.Mode.MULTIPLY)

@@ -10,7 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Growth
+import zir.teq.wearable.watchface.model.data.*
+import zir.teq.wearable.watchface.util.ViewHelper
 
 class GrowthSelectionAdapter(
         private val mPrefString: String?,
@@ -26,9 +27,12 @@ class GrowthSelectionAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
-        //val growth = mOptions[position]
-        //val growthViewHolder = viewHolder as GrowthSelectionAdapter.GrowthViewHolder
-        //growthViewHolder.setIcon(growth)
+        val growth = mOptions[position]
+        val growthViewHolder = viewHolder as GrowthSelectionAdapter.GrowthViewHolder
+        ViewHelper.bindCircleColor(growthViewHolder.mView)
+        ViewHelper.bindCircleBorderWidth(growthViewHolder.mView)
+        ViewHelper.bindCircleRadius(growthViewHolder.mView)
+        growthViewHolder.bindGrowth(growth)
     }
 
     override fun getItemCount(): Int {
@@ -36,10 +40,14 @@ class GrowthSelectionAdapter(
     }
 
     inner class GrowthViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        private val mView: CircledImageView
+        val mView: CircledImageView
         init {
             mView = view.findViewById(R.id.growth) as CircledImageView
             view.setOnClickListener(this)
+        }
+
+        fun bindGrowth(growth: Growth) { //TODO implement something..
+            //mView.set
         }
 
         override fun onClick(view: android.view.View) {

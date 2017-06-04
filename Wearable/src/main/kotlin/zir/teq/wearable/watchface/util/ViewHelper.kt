@@ -1,12 +1,19 @@
 package zir.teq.wearable.watchface.util
 
 import android.support.v7.widget.RecyclerView
+import android.support.wearable.view.CircledImageView
 import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.select.StrokeSelectionAdapter
 import zir.teq.wearable.watchface.config.select.holder.*
+import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Outline
+import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
 object ViewHelper {
@@ -60,5 +67,33 @@ object ViewHelper {
         holder.setSharedPrefString(pref)
         holder.setName(name)
         return holder
+    }
+
+    fun bindCircleColor(view: CircledImageView) {
+        val ctx = view.context
+        val palName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.default.name)
+        val pal = Palette.getByName(palName)
+        val color = ctx.getColor(pal.id)
+        view.setCircleColor(color)
+    }
+
+    fun bindCircleRadius(view: CircledImageView) {
+        val ctx = view.context
+        val strokeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
+        val stroke = Stroke.create(ctx, strokeName)
+
+        //outline is added to the radius
+        val themeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_theme), Theme.default.name)
+        val theme = Theme.getByName(themeName)
+        val outline = Outline.create(ctx, theme.outlineName)
+        view.circleRadius = (stroke.dim * StrokeSelectionAdapter.DISPLAY_ITEM_FACTOR) + outline.dim
+    }
+
+    fun bindCircleBorderWidth(view: CircledImageView) {
+        val ctx = view.context
+        val themeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_theme), Theme.default.name)
+        val theme = Theme.getByName(themeName)
+        val outline = Outline.create(ctx, theme.outlineName)
+        view.setCircleBorderWidth(outline.dim)
     }
 }
