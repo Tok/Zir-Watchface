@@ -37,11 +37,11 @@ object ViewHelper {
 
     fun createViewHolder(group: ViewGroup, viewType: Int): ZirPickerViewHolder? {
         return when (viewType) {
-            ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_theme_item))
-            ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_color_item))
-            ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_stroke_item))
-            ConfigItem.OUTLINE.code -> OutlinePickerViewHolder(createView(group, R.layout.config_list_outline_item))
-            ConfigItem.GROWTH.code -> GrowthPickerViewHolder(createView(group, R.layout.config_list_growth_item))
+            ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_item_theme))
+            ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_item_color))
+            ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_item_stroke))
+            ConfigItem.OUTLINE.code -> OutlinePickerViewHolder(createView(group, R.layout.config_list_item_outline))
+            ConfigItem.GROWTH.code -> GrowthPickerViewHolder(createView(group, R.layout.config_list_item_growth))
             else -> {
                 val ci = ConfigItem.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
                 createCheckboxViewHolder(group, ci)

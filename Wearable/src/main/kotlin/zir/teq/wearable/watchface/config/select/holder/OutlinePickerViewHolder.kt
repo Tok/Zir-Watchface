@@ -13,7 +13,7 @@ class OutlinePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCl
     private var mActivity: Class<OutlineSelectionActivity>? = null
 
     init {
-        initButton(view.findViewById(R.id.outline_picker_button))
+        initButton(view.findViewById(R.id.config_list_item_outline))
         view.setOnClickListener(this)
     }
 

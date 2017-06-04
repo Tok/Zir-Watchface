@@ -13,7 +13,7 @@ class GrowthPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCli
     private var mActivity: Class<GrowthSelectionActivity>? = null
 
     init {
-        initButton(view.findViewById(R.id.growth_picker_button))
+        initButton(view.findViewById(R.id.config_list_item_growth))
         view.setOnClickListener(this)
     }
 

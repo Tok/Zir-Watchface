@@ -40,7 +40,7 @@ class ThemeSelectionAdapter(
     inner class ThemeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val mView: CircledImageView
         init {
-            mView = view.findViewById(R.id.theme) as CircledImageView
+            mView = view.findViewById(R.id.list_item_theme) as CircledImageView
             view.setOnClickListener(this)
         }
 

@@ -12,7 +12,7 @@ class StrokePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCli
     private var mActivity: Class<StrokeSelectionActivity>? = null
 
     init {
-        initButton(view.findViewById(R.id.stroke_picker_button))
+        initButton(view.findViewById(R.id.config_list_item_stroke))
         view.setOnClickListener(this)
     }
 

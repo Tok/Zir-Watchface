@@ -13,7 +13,7 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     private var mActivity: Class<PaletteSelectionActivity>? = null
 
     init {
-        initButton(view.findViewById(R.id.color_picker_button))
+        initButton(view.findViewById(R.id.config_list_item_color))
         view.setOnClickListener(this)
     }
 

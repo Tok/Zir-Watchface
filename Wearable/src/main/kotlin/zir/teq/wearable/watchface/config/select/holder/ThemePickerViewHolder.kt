@@ -13,7 +13,7 @@ class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     private var mActivity: Class<ThemeSelectionActivity>? = null
 
     init {
-        initButton(view.findViewById(R.id.theme_picker_button))
+        initButton(view.findViewById(R.id.config_list_item_theme))
         view.setOnClickListener(this)
     }
 
