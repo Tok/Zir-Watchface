@@ -29,7 +29,7 @@ class PaletteSelectionActivity : Activity() {
         val ctx = applicationContext
         val colName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
         val col = Palette.getByName(colName)
-        val index = Palette.all.indexOfFirst { it.equals(col) } + 1
+        val index = Palette.selectable.indexOfFirst { it.equals(col) } + 1
         mConfigView?.smoothScrollToPosition(index)
     }
 

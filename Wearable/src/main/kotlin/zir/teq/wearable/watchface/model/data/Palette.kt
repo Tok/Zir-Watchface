@@ -25,7 +25,8 @@ data class Palette(val name: String,
         val BLUE = Palette("Blue", R.color.dark_blue, R.color.blue, R.color.deep_sky_blue)
         val PURPLE = Palette("Purple", R.color.indigo, R.color.dark_violet, R.color.magenta)
         val default = BLACK
-        val all = listOf(BLACK, WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
+        private val all = listOf(BLACK, WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
+        val selectable = listOf(RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
         fun options() = all.toCollection(ArrayList<Palette>())
         fun getByName(name: String): Palette = all.find { it.name.equals(name) } ?: default
         fun prep(color: Int): Paint {
