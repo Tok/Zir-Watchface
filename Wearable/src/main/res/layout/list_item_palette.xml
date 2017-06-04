@@ -8,6 +8,7 @@
     android:orientation="horizontal"
     android:descendantFocusability="blocksDescendants"
     android:clickable="true"
+    android:minHeight="34dp"
     tools:context="zir.teq.wearable.watchface.config.select.GrowthSelectionActivity">
 
     <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
