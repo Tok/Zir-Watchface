@@ -7,6 +7,6 @@
     android:layout_gravity="center_vertical"
     android:padding="8dp"
     android:minHeight="34dp"
-    app:circle_border_color="@color/stroke_item_circle_border_color"
+    app:circle_border_color="@color/border_color"
     app:circle_border_width="5dp"
     app:circle_radius="@dimen/stroke_picker_size" />
