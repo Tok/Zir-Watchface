@@ -267,8 +267,8 @@ class DrawUtil() {
             String.format("%02d:%02d:%02d", hh, mm, ss)
         }
         val paint = Palette.createTextPaint(ctx, pal)
-        val yOffset = ctx.resources.getDimension(R.dimen.y_offset)
-        val xOffset = ctx.resources.getDimension(R.dimen.x_offset)
+        val yOffset = ctx.resources.getDimension(R.dimen.text_y_offset)
+        val xOffset = ctx.resources.getDimension(R.dimen.text_x_offset)
         can.drawText(text, xOffset, yOffset, paint)
     }
 

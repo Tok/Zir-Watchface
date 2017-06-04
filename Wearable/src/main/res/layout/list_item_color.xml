@@ -9,4 +9,4 @@
     android:minHeight="34dp"
     app:circle_border_color="@color/border_color"
     app:circle_border_width="5dp"
-    app:circle_radius="@dimen/color_picker_size" />
+    app:circle_radius="@dimen/item_picker_size" />
