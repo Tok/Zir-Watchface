@@ -5,16 +5,10 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
-import zir.teq.wearable.watchface.config.select.holder.ColorPickerViewHolder
-import zir.teq.wearable.watchface.config.select.holder.StrokePickerViewHolder
-import zir.teq.wearable.watchface.config.select.holder.ThemePickerViewHolder
-import zir.teq.wearable.watchface.config.select.holder.ZirPickerViewHolder
+import zir.teq.wearable.watchface.config.select.holder.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.item.ColorConfigItem
-import zir.teq.wearable.watchface.model.item.ConfigItem
-import zir.teq.wearable.watchface.model.item.StrokeConfigItem
-import zir.teq.wearable.watchface.model.item.ThemeConfigItem
+import zir.teq.wearable.watchface.model.item.*
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
@@ -42,6 +36,8 @@ class ZirWatchConfigAdapter(
             ConfigItem.THEME.code -> launchThemeAct(viewHolder, configItemType)
             ConfigItem.COLORS.code -> launchColorAct(viewHolder, configItemType)
             ConfigItem.STROKE.code -> launchStrokeAct(viewHolder, configItemType)
+            ConfigItem.OUTLINE.code -> launchOutlineAct(viewHolder, configItemType)
+            ConfigItem.GROWTH.code -> launchGrowthAct(viewHolder, configItemType)
         }
     }
 
@@ -58,6 +54,16 @@ class ZirWatchConfigAdapter(
     fun launchThemeAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
         prepareHolder(holder as ZirPickerViewHolder, item)
         (holder as ThemePickerViewHolder).setLaunchActivity((item as ThemeConfigItem).activity)
+    }
+
+    fun launchOutlineAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
+        prepareHolder(holder as ZirPickerViewHolder, item)
+        (holder as OutlinePickerViewHolder).setLaunchActivity((item as OutlineConfigItem).activity)
+    }
+
+    fun launchGrowthAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
+        prepareHolder(holder as ZirPickerViewHolder, item)
+        (holder as GrowthPickerViewHolder).setLaunchActivity((item as GrowthConfigItem).activity)
     }
 
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {

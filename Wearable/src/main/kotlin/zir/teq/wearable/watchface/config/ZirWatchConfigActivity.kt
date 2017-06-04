@@ -35,6 +35,8 @@ class ZirWatchConfigActivity : Activity() {
                     res.getDrawable(R.drawable.icon_color, null).setColorFilter(filter)
                     res.getDrawable(R.drawable.icon_stroke, null).setColorFilter(filter)
                     res.getDrawable(R.drawable.icon_theme, null).setColorFilter(filter)
+                    res.getDrawable(R.drawable.icon_outline, null).setColorFilter(filter)
+                    res.getDrawable(R.drawable.icon_growth, null).setColorFilter(filter)
                     Log.d(TAG, "Color changed. col: $col")
                 }
             }
@@ -47,5 +49,7 @@ class ZirWatchConfigActivity : Activity() {
         val THEME = UpdateReq(1001)
         val COLORS = UpdateReq(1002)
         val STROKE = UpdateReq(1003)
+        val OUTLINE = UpdateReq(1004)
+        val GROWTH = UpdateReq(1005)
     }
 }

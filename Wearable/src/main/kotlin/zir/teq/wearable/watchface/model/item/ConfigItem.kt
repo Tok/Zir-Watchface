@@ -17,6 +17,8 @@ open class ConfigItem internal constructor(val type: Type,
                 THEME -> ThemeConfigItem(type, ctx.getString(type.prefId), ctx.getString(type.nameId))
                 COLORS -> ColorConfigItem(type, ctx.getString(type.prefId), ctx.getString(type.nameId))
                 STROKE -> StrokeConfigItem(type, ctx.getString(type.prefId), ctx.getString(type.nameId))
+                OUTLINE -> OutlineConfigItem(type, ctx.getString(type.prefId), ctx.getString(type.nameId))
+                GROWTH -> GrowthConfigItem(type, ctx.getString(type.prefId), ctx.getString(type.nameId))
                 else -> ConfigItem(type, ctx.getString(type.prefId), ctx.getString(type.nameId))
             }
         }
@@ -26,6 +28,8 @@ open class ConfigItem internal constructor(val type: Type,
         val THEME = Type(1, R.string.saved_theme, R.string.label_theme, R.drawable.icon_theme)
         val COLORS = Type(2, R.string.saved_palette, R.string.label_color, R.drawable.icon_color)
         val STROKE = Type(3, R.string.saved_stroke, R.string.label_stroke, R.drawable.icon_stroke)
+        val OUTLINE = Type(4, R.string.saved_outline, R.string.label_outline, R.drawable.icon_outline)
+        val GROWTH = Type(5, R.string.saved_growth, R.string.label_growth, R.drawable.icon_growth)
         val DRAW_HANDS_ACTIVE = Type(10, R.string.saved_hands_act, R.string.label_hands_act, R.drawable.icon_dummy)
         val DRAW_HANDS_AMBIENT = Type(11, R.string.saved_hands_amb, R.string.label_hands_amb, R.drawable.icon_dummy)
         val DRAW_TRIANGLES_ACTIVE = Type(20, R.string.saved_triangles_act, R.string.label_triangles_act, R.drawable.icon_dummy)
@@ -38,7 +42,7 @@ open class ConfigItem internal constructor(val type: Type,
         val DRAW_TEXT_AMBIENT = Type(51, R.string.saved_text_amb, R.string.label_text_amb, R.drawable.icon_dummy)
         val FAST_UPDATE = Type(100, R.string.saved_fast_update, R.string.label_fast_update, R.drawable.icon_dummy)
         //TODO replace dummy icons
-        val ALL_TYPES = listOf<Type>(THEME, COLORS, STROKE,
+        val ALL_TYPES = listOf<Type>(THEME, COLORS, STROKE, OUTLINE, GROWTH,
                 FAST_UPDATE,
                 DRAW_HANDS_ACTIVE, DRAW_HANDS_AMBIENT,
                 DRAW_TRIANGLES_ACTIVE, DRAW_TRIANGLES_AMBIENT,

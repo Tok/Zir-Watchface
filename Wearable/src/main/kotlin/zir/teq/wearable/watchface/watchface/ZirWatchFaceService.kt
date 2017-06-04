@@ -15,9 +15,7 @@ import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Theme
+import zir.teq.wearable.watchface.model.data.*
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.watchface.DrawUtil
 import java.util.*
@@ -95,8 +93,8 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             mPalette = Palette.getByName(palName)
             Log.d(TAG, "loaded saved color... mPalette: $mPalette")
 
-            val mStrokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-            mStroke = Stroke.create(ctx, mStrokeName)
+            val strokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
+            mStroke = Stroke.create(ctx, strokeName)
             Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
 
             val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
@@ -118,12 +116,10 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val isText = Theme.Companion.Setting(
                     prefs.getBoolean(ctx.getString(R.string.saved_text_act), savedTheme.text.active),
                     prefs.getBoolean(ctx.getString(R.string.saved_text_amb), savedTheme.text.ambient))
-            val outline = 8F //TODO implement
-            val dotGrowth = 13F //TODO implement
-            mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outline, dotGrowth)
-
+            val outlineName = prefs.getString(ctx.getString(R.string.saved_outline), savedTheme.outlineName)
+            val growthName = prefs.getString(ctx.getString(R.string.saved_growth), savedTheme.growthName)
+            mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outlineName, growthName)
             Log.d(TAG, "theme updated... mTheme: $mTheme")
-
             updateWatchPaintStyles()
         }
 
@@ -131,7 +127,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             Log.d(TAG, "initializeStyles()")
             mBackgroundPaint = Paint()
             mBackgroundPaint.color = mBackgroundColor
-            mDarkPaint.color = mPalette.darkId
+            mDarkPaint.color = mPalette.darkId //TODO drop
             mDarkPaint.strokeWidth = mStroke.dim
             mLightPaint.color = mPalette.lightId
             mLightPaint.strokeWidth = mStroke.dim

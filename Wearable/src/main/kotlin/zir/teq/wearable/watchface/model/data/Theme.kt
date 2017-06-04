@@ -8,16 +8,17 @@ data class Theme(val name: String, val iconId: Int, val isFastUpdate: Boolean,
                  val circles: Setting,
                  val points: Setting,
                  val text: Setting,
-                 val outline: Float,
-                 val dotGrowth: Float) {
-    val hasOutline = outline > 0F
+                 val outlineName: String,
+                 val growthName: String) {
+    val hasOutline = !outlineName.equals(Outline.OFF.name)
     companion object {
         private fun set(both: Boolean) = Setting(both, both)
         data class Setting(val active: Boolean, val ambient: Boolean)
-        val PLAIN = Theme("Plain", R.drawable.theme_plain, false, set(true), set(false), set(false), set(true), set(false), 0F, 0F)
-        val FIELDS = Theme("Fields", R.drawable.theme_fields, false, set(false), set(true), set(false), set(true), set(false), 8F, 13F)
-        val CIRCLES = Theme("Circles", R.drawable.theme_circles, true, set(false), set(false), set(true), set(true), set(false), 8F, 13F)
-        val GEOMETRY = Theme("Geometry", R.drawable.theme_geometry, true, set(false), set(true), set(true), set(true), set(false), 8F, 13F)
+        //TODO refactor
+        val PLAIN = Theme("Plain", R.drawable.theme_plain, false, set(true), set(false), set(false), set(true), set(false), Outline.OFF.name, Growth.OFF.name)
+        val FIELDS = Theme("Fields", R.drawable.theme_fields, false, set(false), set(true), set(false), set(true), set(false), Outline.BOLD.name, Growth.BOLDER.name)
+        val CIRCLES = Theme("Circles", R.drawable.theme_circles, true, set(false), set(false), set(true), set(true), set(false), Outline.BOLD.name, Growth.BOLDER.name)
+        val GEOMETRY = Theme("Geometry", R.drawable.theme_geometry, true, set(false), set(true), set(true), set(true), set(false), Outline.BOLD.name, Growth.BOLDER.name)
         val default = GEOMETRY
         val all = listOf(PLAIN, FIELDS, CIRCLES, GEOMETRY)
         fun options() = all.toCollection(ArrayList())

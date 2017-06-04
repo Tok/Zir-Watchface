@@ -30,8 +30,10 @@ data class Palette(val name: String, val darkId: Int, val id: Int, val lightId: 
             return paint
         }
 
-        fun createPaint(ctx: Context, type: PaintType, stroke: Stroke)= createPaint(ctx, type, stroke, Palette.default)
-        fun createPaint(ctx: Context, type: PaintType, stroke: Stroke, pal: Palette): Paint {
+        fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Paint  {
+            return createPaint(ctx, type, theme, stroke, Palette.default)
+        }
+        fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke, pal: Palette): Paint {
             val paint = when (type) {
                 PaintType.SHAPE -> prepareShapePaint(ctx, pal.lightId)
                 PaintType.HAND -> prepareLinePaint(ctx, pal.id)
@@ -53,16 +55,16 @@ data class Palette(val name: String, val darkId: Int, val id: Int, val lightId: 
                     throw IllegalArgumentException(msg)
                 }
             }
-            paint.strokeWidth = createStrokeWidth(type, stroke)
+            paint.strokeWidth = createStrokeWidth(ctx, type, theme, stroke)
             return paint
         }
 
-        private fun createStrokeWidth(type: PaintType, stroke: Stroke): Float {
+        private fun createStrokeWidth(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Float {
             val isPoint = PaintType.POINT.equals(type) || PaintType.POINT_OUTLINE.equals(type)
-            val pointGrowth = if (isPoint) { 13F } else { 0F } //TODO implement selection
+            val pointGrowth = if (isPoint) { Growth.create(ctx, theme.growthName).dim ?: 0F } else { 0F }
             return if (type.isOutline) {
-                val outline = 8F //TODO implement selection
-                stroke.dim + pointGrowth + outline
+                val outline = Outline.create(ctx, theme.outlineName)
+                stroke.dim + pointGrowth + outline.dim
             } else {
                 stroke.dim + pointGrowth
             }

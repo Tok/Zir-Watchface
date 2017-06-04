@@ -3,6 +3,8 @@
     <color name="color_item_circle_border_color">#000000</color>
     <color name="stroke_item_circle_border_color">#000000</color>
     <color name="theme_item_circle_border_color">#000000</color>
+    <color name="outline_item_circle_border_color">#000000</color>
+    <color name="growth_item_circle_border_color">#000000</color>
 
     <color name="config_activity_background">#424242</color>
     <color name="config_activity_color_item_label_color">#ffffff</color>

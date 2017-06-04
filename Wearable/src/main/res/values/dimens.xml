@@ -7,18 +7,23 @@
     <dimen name="theme_picker_size">35dp</dimen>
     <dimen name="color_picker_size">35dp</dimen>
     <dimen name="stroke_picker_size">35dp</dimen>
+    <dimen name="outline_picker_size">35dp</dimen>
+    <dimen name="growth_picker_size">35dp</dimen>
 
     <dimen name="config_theme_picker_item_margin">5dp</dimen>
     <dimen name="config_color_picker_item_margin">5dp</dimen>
     <dimen name="config_stroke_picker_item_margin">5dp</dimen>
+    <dimen name="config_outline_picker_item_margin">5dp</dimen>
+    <dimen name="config_growth_picker_item_margin">5dp</dimen>
 
     <dimen name="full_circle">34dp</dimen>
 
+    <dimen name="dim_off">0dp</dimen>
     <dimen name="dim_hair">1dp</dimen>
     <dimen name="dim_thin">2dp</dimen>
     <dimen name="dim_normal">3dp</dimen>
     <dimen name="dim_bold">5dp</dimen>
-    <dimen name="dim_thicker">8dp</dimen>
+    <dimen name="dim_bolder">8dp</dimen>
     <dimen name="dim_mega">13dp</dimen>
     <dimen name="dim_giga">21dp</dimen>
     <dimen name="dim_ultra">34dp</dimen>
