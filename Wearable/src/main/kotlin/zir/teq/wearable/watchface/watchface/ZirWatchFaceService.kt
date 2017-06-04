@@ -185,9 +185,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun selectBgPaint(isDarkBackground: Boolean): Paint {
-            return if (isDarkBackground) {
-                Palette.prep(ctx.getColor(R.color.black))
-            } else if (mTheme.hasOutline) {
+            return if (isDarkBackground || mTheme.hasOutline) {
                 Palette.prep(ctx.getColor(R.color.background_outline))
             } else {
                 Palette.prep(ctx.getColor(R.color.background))
