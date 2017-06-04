@@ -11,8 +11,7 @@ import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
-import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.util.ViewHelper
 
 class OutlineSelectionAdapter(
         private val mPrefString: String?,
@@ -29,20 +28,10 @@ class OutlineSelectionAdapter(
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder() Element $position set.")
         val outline = mOptions[position]
-
         val outlineViewHolder = viewHolder as OutlineSelectionAdapter.OutlineViewHolder
-        //outlineViewHolder.setOutline(outline)
-
-        val ctx = viewHolder.itemView.context
-        val pref = ConfigData.prefs(ctx)
-
-        val pal = Palette.getByName(pref.getString(ctx.getString(R.string.saved_palette), Palette.default.name))
-        outlineViewHolder.setItemDisplayColor(pal.id)
-
-        val stroke = Stroke.create(ctx, pref.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name))
-        outlineViewHolder.setItemDisplayRadius(stroke.dim)
-
-        outlineViewHolder.setItemDisplayBorder(outline.dim)
+        ViewHelper.bindCircleColor(outlineViewHolder.mView)
+        outlineViewHolder.setOutline(outline)
+        ViewHelper.bindCircleRadius(outlineViewHolder.mView)
     }
 
     override fun getItemCount(): Int {
@@ -50,23 +39,13 @@ class OutlineSelectionAdapter(
     }
 
     inner class OutlineViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        private val mView: CircledImageView
+        val mView: CircledImageView
         init {
             mView = view.findViewById(R.id.outline) as CircledImageView
             view.setOnClickListener(this)
         }
 
-        fun setItemDisplayColor(color: Int) {
-            mView.setCircleColor(color)
-        }
-
-        fun setItemDisplayRadius(radius: Float) {
-            mView.circleRadius = radius
-        }
-
-        fun setItemDisplayBorder(strokeWidth: Float) {
-            mView.setCircleBorderWidth(strokeWidth)
-        }
+        fun setOutline(outline: Outline) { mView.setCircleBorderWidth(outline.dim) }
 
         override fun onClick(view: android.view.View) {
             val position = adapterPosition
