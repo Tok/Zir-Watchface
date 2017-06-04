@@ -16,7 +16,7 @@ data class Theme(val name: String, val iconId: Int, val isFastUpdate: Boolean,
         data class Setting(val active: Boolean, val ambient: Boolean)
         //TODO refactor
         val PLAIN = Theme("Plain", R.drawable.theme_plain, false, set(true), set(false), set(false), set(true), set(false), Outline.OFF.name, Growth.OFF.name)
-        val DEFAULT = Theme("Default", R.drawable.theme_plain, false, Setting(true, false), set(false), Setting(true, false), set(true), set(true), Outline.OFF.name, Growth.OFF.name)
+        val DEFAULT = Theme("Default", R.drawable.theme_plain, false, Setting(true, false), set(true), Setting(false, true), set(true), set(true), Outline.OFF.name, Growth.OFF.name)
         val FIELDS = Theme("Fields", R.drawable.theme_fields, false, set(true), set(true), set(false), set(true), set(false), Outline.BOLD.name, Growth.BOLDER.name)
         val CIRCLES = Theme("Circles", R.drawable.theme_circles, true, set(false), set(false), set(true), set(true), set(false), Outline.BOLD.name, Growth.BOLDER.name)
         val GEOMETRY = Theme("Geometry", R.drawable.theme_geometry, true, set(true), set(true), set(true), set(true), set(false), Outline.BOLD.name, Growth.BOLDER.name)
