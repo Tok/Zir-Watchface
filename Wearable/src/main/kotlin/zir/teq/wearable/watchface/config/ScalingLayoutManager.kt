@@ -6,7 +6,7 @@ import android.support.wearable.view.WearableRecyclerView
 import android.view.View
 import zir.watchface.DrawUtil
 
-class PaletteCirclesLayoutManager(ctx: Context) : CurvedChildLayoutManager(ctx) {
+class ScalingLayoutManager(ctx: Context) : CurvedChildLayoutManager(ctx) {
     private var mProgressToCenter: Float = 0F
 
     override fun updateChild(child: View, parent: WearableRecyclerView) {

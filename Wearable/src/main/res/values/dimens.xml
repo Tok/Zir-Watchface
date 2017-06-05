@@ -5,10 +5,15 @@
     <dimen name="item_picker_size">34dp</dimen>
     <dimen name="full_circle">34dp</dimen>
 
-    <dimen name="list_item_palette_circle_size">21dp</dimen>
-    <dimen name="list_item_palette_circle_border_width">5dp</dimen>
+    <dimen name="list_items_padding">0dp</dimen>
+
+    <dimen name="list_item_palette_circle_radius">21dp</dimen>
     <dimen name="list_item_palette_list_margin">-8dp</dimen>
-    <dimen name="list_item_palette_padding">0dp</dimen>
+    <dimen name="list_item_palette_border_width">5dp</dimen>
+
+    <dimen name="list_item_theme_circle_radius">55dp</dimen>
+    <dimen name="list_item_theme_list_margin">-8dp</dimen>
+    <dimen name="list_item_theme_border_width">5dp</dimen>
 
     <dimen name="dim_off">0dp</dimen>
     <dimen name="dim_hair">1dp</dimen>

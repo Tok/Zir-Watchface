@@ -11,8 +11,8 @@
     </style>
 
     <style name="ListItemPaletteCircleStyle" parent="android:Widget.Holo.Button.Borderless">
-        <item name="android:padding">@dimen/list_item_palette_padding</item>
-        <item name="android:drawablePadding">@dimen/list_item_palette_padding</item>
+        <item name="android:padding">@dimen/list_items_padding</item>
+        <item name="android:drawablePadding">@dimen/list_items_padding</item>
         <item name="android:clickable">false</item>
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>

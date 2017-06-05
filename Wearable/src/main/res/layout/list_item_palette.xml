@@ -17,22 +17,22 @@
         android:id="@+id/list_item_palette_first_cirlce"
         style="@style/ListItemPaletteCircleStyle"
         app:circle_border_color="@color/border_color"
-        app:circle_border_width="@dimen/list_item_palette_circle_border_width"
-        app:circle_radius="@dimen/list_item_palette_circle_size" />
+        app:circle_border_width="@dimen/list_item_palette_border_width"
+        app:circle_radius="@dimen/list_item_palette_circle_radius" />
 
     <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list_item_palette_second_circle"
         style="@style/ListItemPaletteCircleStyle"
         app:circle_border_color="@color/border_color"
-        app:circle_border_width="@dimen/list_item_palette_circle_border_width"
-        app:circle_radius="@dimen/list_item_palette_circle_size" />
+        app:circle_border_width="@dimen/list_item_palette_border_width"
+        app:circle_radius="@dimen/list_item_palette_circle_radius" />
 
     <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list_item_palette_third_circle"
         style="@style/ListItemPaletteCircleStyle"
         app:circle_border_color="@color/border_color"
-        app:circle_border_width="@dimen/list_item_palette_circle_border_width"
-        app:circle_radius="@dimen/list_item_palette_circle_size" />
+        app:circle_border_width="@dimen/list_item_palette_border_width"
+        app:circle_radius="@dimen/list_item_palette_circle_radius" />
 </LinearLayout>
