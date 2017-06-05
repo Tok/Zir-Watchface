@@ -4,5 +4,4 @@
     style="@style/ButtonConfigurationStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="34dp"
     android:text="Color" />
