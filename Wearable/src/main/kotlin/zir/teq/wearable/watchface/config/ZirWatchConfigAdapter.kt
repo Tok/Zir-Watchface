@@ -70,7 +70,7 @@ class ZirWatchConfigAdapter(
         val col = Palette.findActive(holder.itemView.context)
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
-        holder.setIcon(item.type.iconId, col.lightId)
+        holder.bindIcon(item.type.iconId, col.lightId)
     }
 
     override fun getItemViewType(position: Int): Int = mSettingsDataSet[position].configType

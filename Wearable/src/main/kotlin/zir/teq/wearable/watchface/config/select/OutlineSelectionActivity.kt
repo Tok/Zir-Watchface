@@ -16,7 +16,7 @@ class OutlineSelectionActivity : Activity() {
     private var mAdapter: OutlineSelectionAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_theme)
+        setContentView(R.layout.selection_outline)
         val sharedOutlineName = intent.getStringExtra(EXTRA_SHARED_OUTLINE)
         Log.d(TAG, "sharedOutlineName:" + sharedOutlineName)
         mAdapter = OutlineSelectionAdapter(sharedOutlineName, Outline.options(applicationContext))
