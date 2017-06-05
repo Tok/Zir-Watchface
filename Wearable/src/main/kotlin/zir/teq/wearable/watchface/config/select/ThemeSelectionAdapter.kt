@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Theme
@@ -29,8 +31,8 @@ class ThemeSelectionAdapter(
         android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
         val theme = mOptions[position]
         val themeViewHolder = viewHolder as ThemeSelectionAdapter.ThemeViewHolder
-        ViewHelper.bindCircleColor(themeViewHolder.mView)
-        themeViewHolder.setTheme(theme)
+        //ViewHelper.bindCircleColor(themeViewHolder.mView)
+        themeViewHolder.bindTheme(theme)
     }
 
     override fun getItemCount(): Int {
@@ -38,14 +40,17 @@ class ThemeSelectionAdapter(
     }
 
     inner class ThemeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        val mView: CircledImageView
+        val mView = view as LinearLayout
+        val mCircleView = view.findViewById(R.id.list_item_theme_circle) as CircledImageView
+        val mTextView = view.findViewById(R.id.list_item_theme_text) as TextView
         init {
-            mView = view.findViewById(R.id.list_item_theme) as CircledImageView
-            view.setOnClickListener(this)
+            mView.setOnClickListener(this)
         }
 
-        fun setTheme(theme: Theme) {
-            mView.setImageResource(theme.iconId)
+        fun bindTheme(theme: Theme) {
+            val ctx = mView.context
+            mCircleView.setImageResource(theme.iconId)
+            mTextView.text = theme.name
         }
 
         override fun onClick(view: android.view.View) {

@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item_theme"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/list_item_palette_list_margin"
-    android:layout_marginTop="@dimen/list_item_palette_list_margin"
-    android:layout_gravity="center_vertical"
-    android:padding="@dimen/list_items_padding"
-    app:circle_border_color="@color/border_color"
-    app:circle_border_width="@dimen/list_item_theme_border_width"
-    app:circle_radius="@dimen/list_item_theme_circle_radius" />
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:context="zir.teq.wearable.watchface.config.select.ThemeSelectionActivity">
+
+    <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list_item_theme_circle"
+        style="@style/ListItemPaletteCircleStyle"
+        app:circle_border_color="@color/border_color"
+        app:circle_border_width="@dimen/list_item_theme_border_width"
+        app:circle_radius="@dimen/list_item_theme_circle_radius" />
+
+    <TextView
+        android:id="@+id/list_item_theme_text"
+        style="@style/CheckboxListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+</LinearLayout>
