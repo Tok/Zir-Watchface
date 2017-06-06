@@ -35,15 +35,23 @@ class ZirWatchConfigAdapter(
         when (viewHolder.itemViewType) {
             ConfigItem.THEME.code -> launchThemeAct(viewHolder, configItemType)
             ConfigItem.COLORS.code -> launchColorAct(viewHolder, configItemType)
+            ConfigItem.BACKGROUND.code -> launchBackgroundAct(viewHolder, configItemType)
             ConfigItem.STROKE.code -> launchStrokeAct(viewHolder, configItemType)
             ConfigItem.OUTLINE.code -> launchOutlineAct(viewHolder, configItemType)
             ConfigItem.GROWTH.code -> launchGrowthAct(viewHolder, configItemType)
+            ConfigItem.ALPHA.code -> launchAlphaAct(viewHolder, configItemType)
+            ConfigItem.DIM.code -> launchDimAct(viewHolder, configItemType)
         }
     }
 
     fun launchColorAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
         prepareHolder(holder as ZirPickerViewHolder, item)
         (holder as ColorPickerViewHolder).setLaunchActivity((item as ColorConfigItem).activity)
+    }
+
+    fun launchBackgroundAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
+        prepareHolder(holder as ZirPickerViewHolder, item)
+        (holder as BackgroundPickerViewHolder).setLaunchActivity((item as BackgroundConfigItem).activity)
     }
 
     fun launchStrokeAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
@@ -64,6 +72,16 @@ class ZirWatchConfigAdapter(
     fun launchGrowthAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
         prepareHolder(holder as ZirPickerViewHolder, item)
         (holder as GrowthPickerViewHolder).setLaunchActivity((item as GrowthConfigItem).activity)
+    }
+
+    fun launchAlphaAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
+        prepareHolder(holder as ZirPickerViewHolder, item)
+        (holder as AlphaPickerViewHolder).setLaunchActivity((item as AlphaConfigItem).activity)
+    }
+
+    fun launchDimAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
+        prepareHolder(holder as ZirPickerViewHolder, item)
+        (holder as DimPickerViewHolder).setLaunchActivity((item as DimConfigItem).activity)
     }
 
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {

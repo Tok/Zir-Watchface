@@ -33,10 +33,13 @@ class ZirWatchConfigActivity : Activity() {
                     val filter = Palette.createFilter(ctx, col)
                     with(applicationContext.resources) {
                         getDrawable(R.drawable.icon_color, null).setColorFilter(filter)
+                        getDrawable(R.drawable.icon_background, null).setColorFilter(filter)
                         getDrawable(R.drawable.icon_stroke, null).setColorFilter(filter)
                         getDrawable(R.drawable.icon_theme, null).setColorFilter(filter)
                         getDrawable(R.drawable.icon_outline, null).setColorFilter(filter)
                         getDrawable(R.drawable.icon_growth, null).setColorFilter(filter)
+                        getDrawable(R.drawable.icon_alpha, null).setColorFilter(filter)
+                        getDrawable(R.drawable.icon_dim, null).setColorFilter(filter)
                     }
                     Log.d(TAG, "Color changed. col: $col")
                 }
@@ -49,8 +52,11 @@ class ZirWatchConfigActivity : Activity() {
         data class UpdateReq(val code: Int)
         val THEME = UpdateReq(1001)
         val COLORS = UpdateReq(1002)
-        val STROKE = UpdateReq(1003)
-        val OUTLINE = UpdateReq(1004)
-        val GROWTH = UpdateReq(1005)
+        val BACKGROUND = UpdateReq(1003)
+        val STROKE = UpdateReq(1004)
+        val OUTLINE = UpdateReq(1005)
+        val GROWTH = UpdateReq(1006)
+        val ALPHA = UpdateReq(1007)
+        val DIM = UpdateReq(1008)
     }
 }

@@ -12,6 +12,7 @@
     <color name="light_gray">#d3d3d3</color>
     <color name="dark_gray">#a9a9a9</color>
     <color name="gray">#808080</color>
+    <color name="dark">#424242</color>
     <color name="black">#000000</color>
 
     <color name="dark_red">#8b0000</color>

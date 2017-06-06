@@ -11,11 +11,12 @@ data class Palette(val name: String,
                    val darkId: Int, val id: Int, val lightId: Int) {
     val isAntiAlias = true
     var isAmbient = false
-    var alpha = FULL_ALPHA
-    companion object {
-        val AMBIENT_ALPHA: Int = 100
-        val FULL_ALPHA: Int = 255
+    var isMute = false
+    var background = Background.default
+    var alpha = Alpha.default
+    var dim = Dim.default
 
+    companion object {
         val BLACK = Palette("Black", R.color.black, R.color.gray, R.color.dark_gray)
         val WHITE = Palette("White", R.color.dark_grey, R.color.light_gray, R.color.white)
         val RED = Palette("Red", R.color.dark_red, R.color.fire_brick, R.color.red)
@@ -32,12 +33,15 @@ data class Palette(val name: String,
         fun prep(color: Int): Paint {
             val paint = inst()
             paint.color = color
+            //paint.isAntiAlias = true
+            //paint.isDither = true
             return paint
         }
 
-        fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Paint  {
+        fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Paint {
             return createPaint(ctx, type, theme, stroke, Palette.default)
         }
+
         fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke, pal: Palette): Paint {
             val paint = when (type) {
                 PaintType.SHAPE -> prepareShapePaint(ctx, pal.lightId)
@@ -59,8 +63,13 @@ data class Palette(val name: String,
                 }
             }
             paint.strokeWidth = createStrokeWidth(ctx, type, theme, stroke)
-            paint.alpha = pal.alpha
+            paint.alpha = pal.alpha.value
             paint.isAntiAlias = pal.isAntiAlias
+
+            //apply dimming..
+            val dimColor = Color.argb(255, pal.dim.value, pal.dim.value, pal.dim.value)
+            paint.colorFilter = PorterDuffColorFilter(dimColor, PorterDuff.Mode.MULTIPLY)
+
             return paint
         }
 
@@ -69,7 +78,7 @@ data class Palette(val name: String,
             paint.typeface = ConfigItem.MONO_TYPEFACE
             paint.isFakeBoldText = true
             paint.color = ctx.getColor(R.color.text)
-            paint.alpha = pal.alpha
+            paint.alpha = pal.alpha.value
             paint.isAntiAlias = pal.isAntiAlias
             addShadows(paint, pal)
             return paint
@@ -86,7 +95,11 @@ data class Palette(val name: String,
 
         private fun createStrokeWidth(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Float {
             val isPoint = PaintType.POINT.equals(type) || PaintType.POINT_OUTLINE.equals(type)
-            val pointGrowth = if (isPoint) { Growth.create(ctx, theme.growthName).dim } else { 0F }
+            val pointGrowth = if (isPoint) {
+                Growth.create(ctx, theme.growthName).dim
+            } else {
+                0F
+            }
             return if (type.isOutline) {
                 val outline = Outline.create(ctx, theme.outlineName)
                 stroke.dim + pointGrowth + outline.dim
@@ -148,4 +161,5 @@ data class Palette(val name: String,
             return Palette.getByName(colName)
         }
     }
+
 }

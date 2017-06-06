@@ -53,8 +53,11 @@
         </activity>
         <activity android:name="zir.teq.wearable.watchface.config.select.ThemeSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.PaletteSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.BackgroundSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.StrokeSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.GrowthSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.OutlineSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.AlphaSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.DimSelectionActivity" />
     </application>
 </manifest>

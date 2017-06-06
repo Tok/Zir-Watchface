@@ -53,9 +53,12 @@ object ViewHelper {
         return when (viewType) {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_item_theme))
             ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_item_color))
+            ConfigItem.BACKGROUND.code -> BackgroundPickerViewHolder(createView(group, R.layout.config_list_item_background))
             ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_item_stroke))
             ConfigItem.OUTLINE.code -> OutlinePickerViewHolder(createView(group, R.layout.config_list_item_outline))
             ConfigItem.GROWTH.code -> GrowthPickerViewHolder(createView(group, R.layout.config_list_item_growth))
+            ConfigItem.ALPHA.code -> AlphaPickerViewHolder(createView(group, R.layout.config_list_item_alpha))
+            ConfigItem.DIM.code -> DimPickerViewHolder(createView(group, R.layout.config_list_item_dim))
             else -> {
                 val ci = ConfigItem.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
                 createCheckboxViewHolder(group, ci)

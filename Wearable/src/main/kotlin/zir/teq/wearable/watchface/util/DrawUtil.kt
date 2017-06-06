@@ -56,8 +56,10 @@ class DrawUtil() {
         val ccRadius = calcDistance(min, ccCenter)
     }
 
-    fun drawBackground(can: Canvas, paint: Paint) {
-        can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), paint)
+    fun drawBackground(can: Canvas, color: Int) {
+        //can.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+        can.drawColor(color, PorterDuff.Mode.CLEAR)
+        can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), Palette.prep(color))
     }
 
     fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,

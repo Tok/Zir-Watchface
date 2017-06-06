@@ -1,10 +1,7 @@
 package zir.teq.wearable.watchface.watchface
 
 import android.content.*
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -32,7 +29,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         val drawer = DrawUtil()
 
         private var mCalendar: Calendar = Calendar.getInstance()
-        private var mMuteMode: Boolean = false
         private var mRegisteredTimeZoneReceiver = false
 
         private var mPalette: Palette = Palette.default
@@ -77,6 +73,13 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             loadSavedPreferences()
         }
 
+        override fun onDraw(canvas: Canvas, bounds: Rect?) {
+            updateWatchPaintStyles()
+            mCalendar.timeInMillis = System.currentTimeMillis()
+            drawer.drawBackground(canvas, ctx.getColor(mPalette.background.id))
+            drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mCalendar)
+        }
+
         private fun loadSavedPreferences() {
             val prefs = ConfigData.prefs(ctx)
 
@@ -110,6 +113,17 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                     prefs.getBoolean(ctx.getString(R.string.saved_text_amb), savedTheme.text.ambient))
             val outlineName = prefs.getString(ctx.getString(R.string.saved_outline), savedTheme.outlineName)
             val growthName = prefs.getString(ctx.getString(R.string.saved_growth), savedTheme.growthName)
+
+            with (prefs) { //TODO change types
+                val background = Background.getByName(getString(ctx.getString(R.string.saved_background), Background.default.name))
+                val alpha = Alpha.getByName(getString(ctx.getString(R.string.saved_alpha), Alpha.default.name))
+                val dim = Dim.getByName(getString(ctx.getString(R.string.saved_dim), Dim.default.name))
+                Log.d(TAG, "loaded saved background: $background, alpha: $alpha, dim: $dim")
+                mPalette.background = background
+                mPalette.alpha = alpha
+                mPalette.dim = dim
+            }
+
             mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outlineName, growthName)
             Log.d(TAG, "theme updated... mTheme: $mTheme")
             updateWatchPaintStyles()
@@ -151,14 +165,11 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onInterruptionFilterChanged(interruptionFilter: Int) {
             super.onInterruptionFilterChanged(interruptionFilter)
             val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
-            val isFastUpdate = true //FIXME
-            val rate = ConfigItem.updateRateMs(inMuteMode, isFastUpdate)
+            val rate = ConfigItem.updateRateMs(inMuteMode, mTheme.isFastUpdate)
             setInteractiveUpdateRateMs(rate)
-
-            val isDimmed = mMuteMode != inMuteMode
+            val isDimmed = mPalette.isMute != inMuteMode
             if (isDimmed) {
-                mMuteMode = inMuteMode
-                mPalette.alpha = if (inMuteMode) 100 else 255
+                mPalette.isMute = inMuteMode
                 invalidate()
             }
         }
@@ -175,28 +186,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                 unregisterReceiver()
             }
             updateTimer()
-        }
-
-        override fun onDraw(canvas: Canvas, bounds: Rect?) {
-            updateWatchPaintStyles()
-            mCalendar.timeInMillis = System.currentTimeMillis()
-            val bgPaint = selectBgPaint()
-            drawer.drawBackground(canvas, bgPaint)
-            drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mCalendar)
-        }
-
-        private fun selectBgPaint(): Paint {
-            val isBipEnabled = false //TODO
-            val makeDark = isBipEnabled && mPalette.isAmbient && (mLowBitAmbient || mBurnInProtection)
-            return if (makeDark) {
-                Palette.prep(ctx.getColor(R.color.black))
-            } else if (!mTheme.hasOutline) {
-                Palette.prep(ctx.getColor(R.color.black))
-            } else if (mPalette.isAmbient) {
-                Palette.prep(ctx.getColor(R.color.background_ambient))
-            } else {
-                Palette.prep(ctx.getColor(R.color.background))
-            }
         }
 
         private fun updateWatchPaintStyles() {

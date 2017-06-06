@@ -1,18 +1,15 @@
 package zir.teq.wearable.watchface.config.select.holder
 
 import android.content.Context
-import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import zir.teq.wearable.watchface.R
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.Bitmap
-
-
 
 
 open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -47,16 +44,14 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun scaleImage(ctx: Context, image: Drawable): Drawable {
-        var image = image
-        if (image == null || image !is BitmapDrawable) {
-            return image
+        if (image is BitmapDrawable) {
+            val dim = ctx.resources.getDimension(R.dimen.main_config_item_size).toInt()
+            val resizedBitmap = Bitmap.createScaledBitmap(image.bitmap, dim, dim, false)
+            return BitmapDrawable(ctx.resources, resizedBitmap)
         }
-        val b = image.bitmap
-        val dim = ctx.resources.getDimension(R.dimen.main_config_item_size).toInt()
-        val bitmapResized = Bitmap.createScaledBitmap(b, dim, dim, false)
-        image = BitmapDrawable(ctx.resources, bitmapResized)
         return image
     }
+
     companion object {
         private val TAG = this::class.java.simpleName
     }

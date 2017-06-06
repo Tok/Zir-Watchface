@@ -48,7 +48,6 @@ class ThemeSelectionAdapter(
         }
 
         fun bindTheme(theme: Theme) {
-            val ctx = mView.context
             mCircleView.setImageResource(theme.iconId)
             mTextView.text = theme.name
         }
