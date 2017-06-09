@@ -28,7 +28,7 @@ open class ConfigItem internal constructor(val type: Type,
             }
         }
 
-        data class Type(val code: Int, val prefId: Int, val nameId: Int, val iconId: Int)
+        data class Type(val code: Int, val prefId: Int, val nameId: Int, val iconId: Int? = null)
 
         val THEME = Type(1, R.string.saved_theme, R.string.label_theme, R.drawable.icon_theme)
         val COLORS = Type(2, R.string.saved_palette, R.string.label_color, R.drawable.icon_color)
@@ -38,18 +38,17 @@ open class ConfigItem internal constructor(val type: Type,
         val GROWTH = Type(6, R.string.saved_growth, R.string.label_growth, R.drawable.icon_growth)
         val ALPHA = Type(7, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha)
         val DIM = Type(8, R.string.saved_dim, R.string.label_dim, R.drawable.icon_dim)
-        val DRAW_HANDS_ACTIVE = Type(10, R.string.saved_hands_act, R.string.label_hands_act, R.drawable.icon_dummy)
-        val DRAW_HANDS_AMBIENT = Type(11, R.string.saved_hands_amb, R.string.label_hands_amb, R.drawable.icon_dummy)
-        val DRAW_TRIANGLES_ACTIVE = Type(20, R.string.saved_triangles_act, R.string.label_triangles_act, R.drawable.icon_dummy)
-        val DRAW_TRIANGLES_AMBIENT = Type(21, R.string.saved_triangles_amb, R.string.label_triangles_amb, R.drawable.icon_dummy)
-        val DRAW_CIRCLES_ACTIVE = Type(30, R.string.saved_circles_act, R.string.label_circles_act, R.drawable.icon_dummy)
-        val DRAW_CIRCLES_AMBIENT = Type(31, R.string.saved_circles_amb, R.string.label_circles_amb, R.drawable.icon_dummy)
-        val DRAW_POINTS_ACTIVE = Type(40, R.string.saved_points_act, R.string.label_points_act, R.drawable.icon_dummy)
-        val DRAW_POINTS_AMBIENT = Type(41, R.string.saved_points_amb, R.string.label_points_amb, R.drawable.icon_dummy)
-        val DRAW_TEXT_ACTIVE = Type(50, R.string.saved_text_act, R.string.label_text_act, R.drawable.icon_dummy)
-        val DRAW_TEXT_AMBIENT = Type(51, R.string.saved_text_amb, R.string.label_text_amb, R.drawable.icon_dummy)
-        val FAST_UPDATE = Type(100, R.string.saved_fast_update, R.string.label_fast_update, R.drawable.icon_dummy)
-        //TODO replace dummy icons
+        val DRAW_HANDS_ACTIVE = Type(10, R.string.saved_hands_act, R.string.label_hands_act)
+        val DRAW_HANDS_AMBIENT = Type(11, R.string.saved_hands_amb, R.string.label_hands_amb)
+        val DRAW_TRIANGLES_ACTIVE = Type(20, R.string.saved_triangles_act, R.string.label_triangles_act)
+        val DRAW_TRIANGLES_AMBIENT = Type(21, R.string.saved_triangles_amb, R.string.label_triangles_amb)
+        val DRAW_CIRCLES_ACTIVE = Type(30, R.string.saved_circles_act, R.string.label_circles_act)
+        val DRAW_CIRCLES_AMBIENT = Type(31, R.string.saved_circles_amb, R.string.label_circles_amb)
+        val DRAW_POINTS_ACTIVE = Type(40, R.string.saved_points_act, R.string.label_points_act)
+        val DRAW_POINTS_AMBIENT = Type(41, R.string.saved_points_amb, R.string.label_points_amb)
+        val DRAW_TEXT_ACTIVE = Type(50, R.string.saved_text_act, R.string.label_text_act)
+        val DRAW_TEXT_AMBIENT = Type(51, R.string.saved_text_amb, R.string.label_text_amb)
+        val FAST_UPDATE = Type(100, R.string.saved_fast_update, R.string.label_fast_update)
         val ALL_TYPES = listOf<Type>(THEME, COLORS, BACKGROUND, STROKE, OUTLINE, GROWTH, ALPHA, DIM,
                 FAST_UPDATE,
                 DRAW_HANDS_ACTIVE, DRAW_HANDS_AMBIENT,

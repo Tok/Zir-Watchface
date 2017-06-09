@@ -51,7 +51,9 @@ class ZirWatchConfigAdapter(
             val col = Palette.findActive(itemView.context)
             setName(item.name)
             setSharedPrefString(item.pref)
-            bindIcon(item.type.iconId, col.lightId)
+            if (item.type.iconId != null) {
+                bindIcon(item.type.iconId, col.lightId)
+            }
         }
     }
 
