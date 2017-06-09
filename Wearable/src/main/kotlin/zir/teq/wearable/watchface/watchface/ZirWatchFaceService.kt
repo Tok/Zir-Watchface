@@ -1,7 +1,8 @@
 package zir.teq.wearable.watchface.watchface
 
 import android.content.*
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -85,15 +86,12 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
             val palName = prefs.getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
             mPalette = Palette.getByName(palName)
-            Log.d(TAG, "loaded saved color... mPalette: $mPalette")
 
             val strokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
             mStroke = Stroke.create(ctx, strokeName)
-            Log.d(TAG, "loaded saved stroke... mStroke: $mStroke")
 
             val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
             val savedTheme = Theme.getByName(savedThemeName)
-            Log.d(TAG, "loaded saved theme... savedTheme: $savedTheme")
 
             val isFastUpdate = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), savedTheme.isFastUpdate)
             val isHand = Theme.Companion.Setting(
@@ -136,7 +134,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
         override fun onPropertiesChanged(properties: Bundle?) {
             super.onPropertiesChanged(properties)
-            Log.d(TAG, "onPropertiesChanged: low-bit ambient = " + mLowBitAmbient)
             if (properties != null && !properties.isEmpty) {
                 mLowBitAmbient = properties.getBoolean(WatchFaceService.PROPERTY_LOW_BIT_AMBIENT, false)
                 mBurnInProtection = properties.getBoolean(WatchFaceService.PROPERTY_BURN_IN_PROTECTION, false)

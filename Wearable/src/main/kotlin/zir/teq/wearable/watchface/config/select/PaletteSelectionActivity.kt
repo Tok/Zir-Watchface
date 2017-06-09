@@ -18,7 +18,6 @@ class PaletteSelectionActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_palette)
         val sharedColorName = intent.getStringExtra(EXTRA_SHARED_COLOR)
-        android.util.Log.d(TAG, "sharedColorName:" + sharedColorName)
         mAdapter = PaletteSelectionAdapter(sharedColorName, Palette.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
@@ -34,7 +33,6 @@ class PaletteSelectionActivity : Activity() {
     }
 
     companion object {
-        private val TAG = this::class.java.simpleName
         internal val EXTRA_SHARED_COLOR = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_COLOR"
     }
 }

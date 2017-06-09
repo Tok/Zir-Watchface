@@ -7,8 +7,6 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Alpha
-import zir.teq.wearable.watchface.model.data.Growth
-import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -20,7 +18,6 @@ class AlphaSelectionActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_alpha)
         val sharedAlphaId = intent.getStringExtra(EXTRA_SHARED_ALPHA)
-        android.util.Log.d(TAG, "sharedAlphaId: $sharedAlphaId")
         mAdapter = AlphaSelectionAdapter(sharedAlphaId, Alpha.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
@@ -35,7 +32,6 @@ class AlphaSelectionActivity : Activity() {
     }
 
     companion object {
-        private val TAG = this::class.java.simpleName
         internal val EXTRA_SHARED_ALPHA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_ALPHA"
     }
 }

@@ -2,7 +2,6 @@ package zir.teq.wearable.watchface.config.select.holder
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
@@ -18,15 +17,11 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     }
 
     override fun onClick(view: View) {
-        Log.d(TAG, "onClick() adapterPosition: " + adapterPosition)
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
-
             val col = Palette.findActive(view.context)
-            Log.d(TAG, "Color changed to $col")
             launchIntent.putExtra("color", col.name)
             launchIntent.putExtra(PaletteSelectionActivity.EXTRA_SHARED_COLOR, mPrefString)
-
             val activity = view.context as Activity
             activity.startActivityForResult(
                     launchIntent,
@@ -36,9 +31,5 @@ class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
 
     fun setLaunchActivity(activity: Class<PaletteSelectionActivity>) {
         mActivity = activity
-    }
-
-    companion object {
-        private val TAG = this::class.java.simpleName
     }
 }

@@ -2,7 +2,6 @@ package zir.teq.wearable.watchface.config.select.holder
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
@@ -18,8 +17,7 @@ class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     }
 
     override fun onClick(view: View) {
-        val position = adapterPosition
-        Log.d(TAG, "onClick() position: " + position)
+        //val position = adapterPosition
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
             launchIntent.putExtra(EXTRA_SHARED_THEME, mPrefString)
@@ -32,9 +30,5 @@ class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
 
     fun setLaunchActivity(activity: Class<ThemeSelectionActivity>) {
         mActivity = activity
-    }
-
-    companion object {
-        private val TAG = this::class.java.simpleName
     }
 }

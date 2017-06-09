@@ -19,16 +19,10 @@ class AlphaSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Alpha>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
-        val viewHolder = AlphaViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.list_item_alpha, parent, false)
-        )
-        return viewHolder
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            AlphaViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_alpha, parent, false))
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder() Element $position set.")
         val alpha = mOptions[position]
         val alphaViewHolder = viewHolder as AlphaViewHolder
         alphaViewHolder.bindAlpha(alpha)
@@ -59,7 +53,6 @@ class AlphaSelectionAdapter(
         override fun onClick(view: View) {
             val position = adapterPosition
             val alpha: Alpha = mOptions[position]
-            Log.d(TAG, "Alpha: $alpha onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs(view.context).edit()
@@ -69,10 +62,5 @@ class AlphaSelectionAdapter(
             }
             activity.finish()
         }
-    }
-
-    companion object {
-        val DISPLAY_ITEM_FACTOR = 0.5F
-        private val TAG = this::class.java.simpleName
     }
 }

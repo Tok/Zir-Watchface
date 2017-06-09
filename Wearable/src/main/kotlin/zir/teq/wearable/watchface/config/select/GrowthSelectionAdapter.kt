@@ -18,16 +18,10 @@ class GrowthSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Growth>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        android.util.Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
-        val viewHolder = GrowthViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.list_item_growth, parent, false)
-        )
-        return viewHolder
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            GrowthViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_growth, parent, false))
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        android.util.Log.d(TAG, "onBindViewHolder() Element $position set.")
         val growth = mOptions[position]
         val growthViewHolder = viewHolder as GrowthSelectionAdapter.GrowthViewHolder
         val ctx = growthViewHolder.mFirst.context
@@ -74,11 +68,10 @@ class GrowthSelectionAdapter(
         override fun onClick(view: android.view.View) {
             val position = adapterPosition
             val growth: Growth = mOptions[position]
-            Log.d(TAG, "growth: $growth onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 updateSavedValue(view.context, growth)
-                activity.setResult(android.app.Activity.RESULT_OK) //triggers config activity
+                activity.setResult(android.app.Activity.RESULT_OK)
             }
             activity.finish()
         }
@@ -92,6 +85,5 @@ class GrowthSelectionAdapter(
 
     companion object {
         val DISPLAY_ITEM_FACTOR = 0.5F //=radius to circumfence?
-        private val TAG = this::class.java.simpleName
     }
 }

@@ -1,6 +1,5 @@
 package zir.teq.wearable.watchface.config.select.holder
 
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import zir.teq.wearable.watchface.R
@@ -20,16 +19,11 @@ class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCl
     }
 
     override fun onClick(view: View) {
-        Log.d(TAG, "onClick() mPrefString: $mPrefString")
         if (!mPrefString!!.isEmpty()) {
             val editor = ConfigData.prefs(view.context).edit()
             val checkBox = mButton as CheckBox
             editor.putBoolean(mPrefString, checkBox.isChecked())
             editor.commit()
         }
-    }
-
-    companion object {
-        private val TAG = this::class.java.simpleName
     }
 }

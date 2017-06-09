@@ -3,7 +3,6 @@ package zir.teq.wearable.watchface.config
 import android.content.ComponentName
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.config.select.holder.*
 import zir.teq.wearable.watchface.model.ConfigData
@@ -22,15 +21,9 @@ class ZirWatchConfigAdapter(
         mWatchFaceComponentName = ComponentName(mContext, watchFaceServiceClass)
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
-        Log.d(TAG, "onCreateViewHolder(): viewGroup: $viewGroup, viewType: $viewType")
-        val holder = ViewHelper.createViewHolder(viewGroup, viewType)
-        Log.d(TAG, "onCreateViewHolder(): holder: $holder")
-        return holder
-    }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ViewHelper.createViewHolder(viewGroup, viewType)
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, pos: Int) {
-        Log.d(TAG, "Element $pos set.")
         val configItemType = mSettingsDataSet[pos] as ConfigItem
         when (viewHolder.itemViewType) {
             ConfigItem.THEME.code -> launchThemeAct(viewHolder, configItemType)
@@ -97,9 +90,5 @@ class ZirWatchConfigAdapter(
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
         super.onDetachedFromRecyclerView(recyclerView)
-    }
-
-    companion object {
-        private val TAG = this::class.java.simpleName
     }
 }

@@ -3,7 +3,6 @@ package zir.teq.wearable.watchface.config.select
 import android.app.Activity
 import android.os.Bundle
 import android.support.wearable.view.WearableRecyclerView
-import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
@@ -17,7 +16,6 @@ class ThemeSelectionActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_theme)
         val sharedThemeName = intent.getStringExtra(EXTRA_SHARED_THEME)
-        Log.d(TAG, "sharedThemeName:" + sharedThemeName)
         mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
@@ -32,7 +30,6 @@ class ThemeSelectionActivity : Activity() {
     }
 
     companion object {
-        private val TAG = this::class.java.simpleName
         internal val EXTRA_SHARED_THEME = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_THEME"
     }
 }

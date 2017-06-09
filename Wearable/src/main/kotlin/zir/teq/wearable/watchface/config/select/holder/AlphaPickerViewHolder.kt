@@ -2,7 +2,6 @@ package zir.teq.wearable.watchface.config.select.holder
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
@@ -17,7 +16,6 @@ class AlphaPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
     }
 
     override fun onClick(view: View) {
-        Log.d(TAG, "onClick() adapterPosition: " + adapterPosition)
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity)
             launchIntent.putExtra(AlphaSelectionActivity.EXTRA_SHARED_ALPHA, mPrefString)
@@ -30,9 +28,5 @@ class AlphaPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
 
     fun setLaunchActivity(activity: Class<AlphaSelectionActivity>) {
         mActivity = activity
-    }
-
-    companion object {
-        private val TAG = this::class.java.simpleName
     }
 }

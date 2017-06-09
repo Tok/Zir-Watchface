@@ -21,16 +21,10 @@ class DimSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Dim>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        Log.d(TAG, "onCreateViewHolder(): viewType: " + viewType)
-        val viewHolder = DimViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.list_item_dim, parent, false)
-        )
-        return viewHolder
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            DimViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_dim, parent, false))
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder() Element $position set.")
         val dim = mOptions[position]
         val dimViewHolder = viewHolder as DimViewHolder
         dimViewHolder.bindDim(dim)
@@ -58,7 +52,6 @@ class DimSelectionAdapter(
         override fun onClick(view: View) {
             val position = adapterPosition
             val dim: Dim = mOptions[position]
-            Log.d(TAG, "Dim: $dim onClick() position: $position sharedPrefString: $mPrefString")
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs(view.context).edit()
@@ -68,10 +61,5 @@ class DimSelectionAdapter(
             }
             activity.finish()
         }
-    }
-
-    companion object {
-        val DISPLAY_ITEM_FACTOR = 0.5F
-        private val TAG = this::class.java.simpleName
     }
 }

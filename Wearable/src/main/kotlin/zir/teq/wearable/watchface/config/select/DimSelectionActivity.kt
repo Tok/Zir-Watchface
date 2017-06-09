@@ -6,7 +6,6 @@ import android.support.wearable.view.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Alpha
 import zir.teq.wearable.watchface.model.data.Dim
 import zir.teq.wearable.watchface.util.ViewHelper
 
@@ -19,7 +18,6 @@ class DimSelectionActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_alpha)
         val sharedDimId = intent.getStringExtra(EXTRA_SHARED_DIM)
-        android.util.Log.d(TAG, "sharedDimId: $sharedDimId")
         mAdapter = DimSelectionAdapter(sharedDimId, Dim.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
@@ -34,7 +32,6 @@ class DimSelectionActivity : Activity() {
     }
 
     companion object {
-        private val TAG = this::class.java.simpleName
         internal val EXTRA_SHARED_DIM = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_DIM"
     }
 }
