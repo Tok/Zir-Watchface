@@ -20,7 +20,7 @@ data class Palette(val name: String,
         val BLACK = Palette("Black", R.color.black, R.color.gray, R.color.dark_gray)
         val WHITE = Palette("White", R.color.dark_grey, R.color.light_gray, R.color.white)
         val RED = Palette("Red", R.color.dark_red, R.color.fire_brick, R.color.red)
-        val ORANGE = Palette("Orange", R.color.orange_red, R.color.dark_orange, R.color.orange)
+        val ORANGE = Palette("Orange", R.color.orange_red, R.color.orange, R.color.bright_orange)
         val YELLOW = Palette("Yellow", R.color.yellow_dark, R.color.gold, R.color.yellow)
         val GREEN = Palette("Green", R.color.dark_green, R.color.lime_green, R.color.green_yellow)
         val BLUE = Palette("Blue", R.color.dark_blue, R.color.blue, R.color.deep_sky_blue)
