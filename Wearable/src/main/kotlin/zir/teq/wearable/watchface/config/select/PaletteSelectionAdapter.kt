@@ -21,9 +21,9 @@ class PaletteSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             = ColorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false))
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val pal = mOptions[position]
-        val colorViewHolder = viewHolder as ColorViewHolder
+        val colorViewHolder = vh as ColorViewHolder
         colorViewHolder.bindPalette(pal)
     }
 

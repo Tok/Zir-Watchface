@@ -20,9 +20,9 @@ class BackgroundSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             BackgroundViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_background, parent, false))
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val bg = mOptions[position]
-        val colorViewHolder = viewHolder as BackgroundViewHolder
+        val colorViewHolder = vh as BackgroundViewHolder
         colorViewHolder.bindBackground(bg)
     }
 

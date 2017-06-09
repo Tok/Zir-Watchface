@@ -19,9 +19,9 @@ class OutlineSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             OutlineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_outline, parent, false))
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val outline = mOptions[position]
-        val outlineViewHolder = viewHolder as OutlineSelectionAdapter.OutlineViewHolder
+        val outlineViewHolder = vh as OutlineSelectionAdapter.OutlineViewHolder
         ViewHelper.bindCircleColor(outlineViewHolder.mView)
         outlineViewHolder.setOutline(outline)
     }

@@ -3,7 +3,6 @@ package zir.teq.wearable.watchface.config.select
 import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +21,9 @@ class AlphaSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             AlphaViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_alpha, parent, false))
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val alpha = mOptions[position]
-        val alphaViewHolder = viewHolder as AlphaViewHolder
+        val alphaViewHolder = vh as AlphaViewHolder
         alphaViewHolder.bindAlpha(alpha)
     }
 

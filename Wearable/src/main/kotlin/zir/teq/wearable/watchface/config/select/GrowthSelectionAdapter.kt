@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +20,9 @@ class GrowthSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             GrowthViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_growth, parent, false))
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val growth = mOptions[position]
-        val growthViewHolder = viewHolder as GrowthSelectionAdapter.GrowthViewHolder
+        val growthViewHolder = vh as GrowthSelectionAdapter.GrowthViewHolder
         val ctx = growthViewHolder.mFirst.context
         val palName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.default.name)
         val pal = Palette.getByName(palName)

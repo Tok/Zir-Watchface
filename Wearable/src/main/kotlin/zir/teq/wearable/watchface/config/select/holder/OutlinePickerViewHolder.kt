@@ -28,7 +28,7 @@ class OutlinePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCl
         }
     }
 
-    fun setLaunchActivity(activity: Class<OutlineSelectionActivity>) {
+    fun setActivity(activity: Class<OutlineSelectionActivity>) {
         mActivity = activity
     }
 }

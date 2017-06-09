@@ -10,6 +10,14 @@ import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.item.*
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.THEME
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.COLORS
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.BACKGROUND
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STROKE
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.OUTLINE
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.GROWTH
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.ALPHA
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.DIM
 
 class ZirWatchConfigAdapter(
         private val mContext: Context,
@@ -23,65 +31,28 @@ class ZirWatchConfigAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ViewHelper.createViewHolder(viewGroup, viewType)
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, pos: Int) {
-        val configItemType = mSettingsDataSet[pos] as ConfigItem
-        when (viewHolder.itemViewType) {
-            ConfigItem.THEME.code -> launchThemeAct(viewHolder, configItemType)
-            ConfigItem.COLORS.code -> launchColorAct(viewHolder, configItemType)
-            ConfigItem.BACKGROUND.code -> launchBackgroundAct(viewHolder, configItemType)
-            ConfigItem.STROKE.code -> launchStrokeAct(viewHolder, configItemType)
-            ConfigItem.OUTLINE.code -> launchOutlineAct(viewHolder, configItemType)
-            ConfigItem.GROWTH.code -> launchGrowthAct(viewHolder, configItemType)
-            ConfigItem.ALPHA.code -> launchAlphaAct(viewHolder, configItemType)
-            ConfigItem.DIM.code -> launchDimAct(viewHolder, configItemType)
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, pos: Int) {
+        val ci = mSettingsDataSet[pos] as ConfigItem
+        prepareHolder(vh as ZirPickerViewHolder, ci)
+        when (vh.itemViewType) {
+            THEME.code -> (vh as ThemePickerViewHolder).setActivity((ci as ThemeConfigItem).activity)
+            COLORS.code -> (vh as ColorPickerViewHolder).setActivity((ci as ColorConfigItem).activity)
+            BACKGROUND.code -> (vh as BackgroundPickerViewHolder).setActivity((ci as BackgroundConfigItem).activity)
+            STROKE.code -> (vh as StrokePickerViewHolder).setActivity((ci as StrokeConfigItem).activity)
+            OUTLINE.code -> (vh as OutlinePickerViewHolder).setActivity((ci as OutlineConfigItem).activity)
+            GROWTH.code -> (vh as GrowthPickerViewHolder).setActivity((ci as GrowthConfigItem).activity)
+            ALPHA.code -> (vh as AlphaPickerViewHolder).setActivity((ci as AlphaConfigItem).activity)
+            DIM.code -> (vh as DimPickerViewHolder).setActivity((ci as DimConfigItem).activity)
         }
     }
 
-    fun launchColorAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as ColorPickerViewHolder).setLaunchActivity((item as ColorConfigItem).activity)
-    }
-
-    fun launchBackgroundAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as BackgroundPickerViewHolder).setLaunchActivity((item as BackgroundConfigItem).activity)
-    }
-
-    fun launchStrokeAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as StrokePickerViewHolder).setLaunchActivity((item as StrokeConfigItem).activity)
-    }
-
-    fun launchThemeAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as ThemePickerViewHolder).setLaunchActivity((item as ThemeConfigItem).activity)
-    }
-
-    fun launchOutlineAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as OutlinePickerViewHolder).setLaunchActivity((item as OutlineConfigItem).activity)
-    }
-
-    fun launchGrowthAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as GrowthPickerViewHolder).setLaunchActivity((item as GrowthConfigItem).activity)
-    }
-
-    fun launchAlphaAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as AlphaPickerViewHolder).setLaunchActivity((item as AlphaConfigItem).activity)
-    }
-
-    fun launchDimAct(holder: RecyclerView.ViewHolder, item: ConfigItem) {
-        prepareHolder(holder as ZirPickerViewHolder, item)
-        (holder as DimPickerViewHolder).setLaunchActivity((item as DimConfigItem).activity)
-    }
-
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {
-        val col = Palette.findActive(holder.itemView.context)
-        holder.setName(item.name)
-        holder.setSharedPrefString(item.pref)
-        holder.bindIcon(item.type.iconId, col.lightId)
+        with (holder) {
+            val col = Palette.findActive(itemView.context)
+            setName(item.name)
+            setSharedPrefString(item.pref)
+            bindIcon(item.type.iconId, col.lightId)
+        }
     }
 
     override fun getItemViewType(position: Int): Int = mSettingsDataSet[position].configType

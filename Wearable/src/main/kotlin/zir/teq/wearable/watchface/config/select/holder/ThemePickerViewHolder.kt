@@ -28,7 +28,7 @@ class ThemePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
         }
     }
 
-    fun setLaunchActivity(activity: Class<ThemeSelectionActivity>) {
+    fun setActivity(activity: Class<ThemeSelectionActivity>) {
         mActivity = activity
     }
 }

@@ -26,7 +26,7 @@ class BackgroundPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.O
         }
     }
 
-    fun setLaunchActivity(activity: Class<BackgroundSelectionActivity>) {
+    fun setActivity(activity: Class<BackgroundSelectionActivity>) {
         mActivity = activity
     }
 }

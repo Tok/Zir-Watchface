@@ -27,7 +27,7 @@ class StrokePickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCli
         }
     }
 
-    fun setLaunchActivity(activity: Class<StrokeSelectionActivity>) {
+    fun setActivity(activity: Class<StrokeSelectionActivity>) {
         mActivity = activity
     }
 }

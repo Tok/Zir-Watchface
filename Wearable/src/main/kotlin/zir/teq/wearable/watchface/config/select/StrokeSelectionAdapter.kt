@@ -19,9 +19,9 @@ class StrokeSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             StrokeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_stroke, parent, false))
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val stroke = mOptions[position]
-        val strokeViewHolder = viewHolder as StrokeViewHolder
+        val strokeViewHolder = vh as StrokeViewHolder
         ViewHelper.bindCircleColor(strokeViewHolder.mView)
         ViewHelper.bindCircleBorderWidth(strokeViewHolder.mView)
         strokeViewHolder.bindStroke(stroke)

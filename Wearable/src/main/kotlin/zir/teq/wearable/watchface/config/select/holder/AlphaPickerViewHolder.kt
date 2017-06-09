@@ -26,7 +26,7 @@ class AlphaPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClic
         }
     }
 
-    fun setLaunchActivity(activity: Class<AlphaSelectionActivity>) {
+    fun setActivity(activity: Class<AlphaSelectionActivity>) {
         mActivity = activity
     }
 }

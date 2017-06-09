@@ -28,7 +28,7 @@ class GrowthPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCli
         }
     }
 
-    fun setLaunchActivity(activity: Class<GrowthSelectionActivity>) {
+    fun setActivity(activity: Class<GrowthSelectionActivity>) {
         mActivity = activity
     }
 }

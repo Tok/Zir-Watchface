@@ -1,10 +1,8 @@
 package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
-import android.graphics.*
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +11,6 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Dim
-import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
 class DimSelectionAdapter(
@@ -24,9 +20,9 @@ class DimSelectionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             DimViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_dim, parent, false))
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val dim = mOptions[position]
-        val dimViewHolder = viewHolder as DimViewHolder
+        val dimViewHolder = vh as DimViewHolder
         dimViewHolder.bindDim(dim)
     }
 

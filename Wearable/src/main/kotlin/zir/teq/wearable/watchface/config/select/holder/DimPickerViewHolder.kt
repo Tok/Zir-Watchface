@@ -26,7 +26,7 @@ class DimPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickL
         }
     }
 
-    fun setLaunchActivity(activity: Class<DimSelectionActivity>) {
+    fun setActivity(activity: Class<DimSelectionActivity>) {
         mActivity = activity
     }
 }
