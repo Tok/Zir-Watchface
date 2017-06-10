@@ -1,6 +1,6 @@
 package zir.teq.wearable.watchface.model.item
 
-import zir.teq.wearable.watchface.config.select.AlphaSelectionActivity
+import zir.teq.wearable.watchface.config.select.activity.AlphaSelectionActivity
 
 class AlphaConfigItem internal constructor(type: Type,
                                          pref: String,

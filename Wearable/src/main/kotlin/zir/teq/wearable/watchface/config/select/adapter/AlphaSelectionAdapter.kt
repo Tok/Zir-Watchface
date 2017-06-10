@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select
+package zir.teq.wearable.watchface.config.select.adapter
 
 import android.app.Activity
 import android.support.v7.widget.RecyclerView

@@ -1,6 +1,6 @@
 package zir.teq.wearable.watchface.model.item
 
-import zir.teq.wearable.watchface.config.select.StrokeSelectionActivity
+import zir.teq.wearable.watchface.config.select.activity.StrokeSelectionActivity
 
 
 class StrokeConfigItem internal constructor(type: Type,

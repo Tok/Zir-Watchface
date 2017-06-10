@@ -12,26 +12,27 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
-import zir.teq.wearable.watchface.config.select.AlphaSelectionActivity
 
 
 open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private lateinit var mActivity: Class<out Activity>
     lateinit var mButton: Button
-    var mPrefString: String? = null
+    lateinit var mPrefString: String
 
-    fun handleClick(view: View, extra: String) {
-        if (mActivity != null) {
-            val launchIntent = Intent(view.context, mActivity as Class<Activity>)
-            val pref = mPrefString ?: throw IllegalStateException("Preference is missing.")
+    fun handleClick(view: View, extra: String) = handleClick(view, extra, NO_REQ)
+    fun handleClick(view: View, extra: String, req: Int) {
+        if (mActivity is Class<out Activity>) {
+            val launchIntent = Intent(view.context, mActivity)
+            val pref = mPrefString
             launchIntent.putExtra(extra, pref)
             val activity = view.context as Activity
-            activity.startActivityForResult(launchIntent, REQ)
+            activity.startActivityForResult(launchIntent, req)
         }
     }
 
-    fun setActivity(activity: Class<out Activity>) { mActivity = activity }
+    fun setActivity(activity: Class<out Activity>) {
+        mActivity = activity
+    }
 
     fun initButton(view: View) {
         mButton = view as Button
@@ -70,6 +71,6 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-        private val REQ = 0 //default value if unused
+        private val NO_REQ = 0 //default value if unused
     }
 }

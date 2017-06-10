@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config
+package zir.teq.wearable.watchface.config.select.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.select.adapter.ZirWatchConfigAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
@@ -25,7 +27,7 @@ class ZirWatchConfigActivity : Activity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            COLORS.code -> {
+            PALETTE.code -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val ctx = applicationContext
                     val col = Palette.findActive(ctx)
@@ -49,13 +51,6 @@ class ZirWatchConfigActivity : Activity() {
     companion object {
         private val TAG = this::class.java.simpleName
         data class UpdateReq(val code: Int)
-        val THEME = UpdateReq(1001)
-        val COLORS = UpdateReq(1002)
-        val BACKGROUND = UpdateReq(1003)
-        val STROKE = UpdateReq(1004)
-        val OUTLINE = UpdateReq(1005)
-        val GROWTH = UpdateReq(1006)
-        val ALPHA = UpdateReq(1007)
-        val DIM = UpdateReq(1008)
+        val PALETTE = UpdateReq(1000)
     }
 }

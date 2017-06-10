@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.select.StrokeSelectionAdapter
+import zir.teq.wearable.watchface.config.select.adapter.StrokeSelectionAdapter
 import zir.teq.wearable.watchface.config.select.holder.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline

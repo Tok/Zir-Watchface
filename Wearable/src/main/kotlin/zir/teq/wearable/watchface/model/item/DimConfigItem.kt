@@ -1,6 +1,6 @@
 package zir.teq.wearable.watchface.model.item
 
-import zir.teq.wearable.watchface.config.select.DimSelectionActivity
+import zir.teq.wearable.watchface.config.select.activity.DimSelectionActivity
 
 class DimConfigItem internal constructor(type: Type,
                                          pref: String,

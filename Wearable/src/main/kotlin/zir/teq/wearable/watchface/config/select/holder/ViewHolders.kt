@@ -3,8 +3,8 @@ package zir.teq.wearable.watchface.config.select.holder
 import android.view.View
 import android.widget.Button
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.select.*
-
+import zir.teq.wearable.watchface.config.select.activity.*
+import zir.teq.wearable.watchface.config.select.activity.ZirWatchConfigActivity.Companion.PALETTE
 
 class AlphaPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     init {
@@ -23,7 +23,7 @@ class BackgroundPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
 class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     init {
         mButton = view.findViewById(R.id.config_list_item_color) as Button
-        view.setOnClickListener { super.handleClick(view, PaletteSelectionActivity.EXTRA) }
+        view.setOnClickListener { super.handleClick(view, PaletteSelectionActivity.EXTRA, PALETTE.code) }
     }
 }
 
