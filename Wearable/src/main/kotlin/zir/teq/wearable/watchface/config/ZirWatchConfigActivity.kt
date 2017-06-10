@@ -21,7 +21,7 @@ class ZirWatchConfigActivity : Activity() {
                 ConfigData.watchFaceServiceClass,
                 ConfigData.getDataToPopulateAdapter(this))
         mView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initMainConfigView(mView, mAdapter, CurvedChildLayoutManager(this))
+        ViewHelper.initMainConfigView(mView, mAdapter, ScalingLayoutManager(this))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

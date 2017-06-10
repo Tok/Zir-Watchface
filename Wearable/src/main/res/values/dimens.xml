@@ -7,9 +7,10 @@
     <dimen name="list_item_palette_radius">27.5dp</dimen>
     <dimen name="list_item_theme_radius">27.5dp</dimen>
 
-    <dimen name="checkbox_min_height">21dp</dimen>
+    <dimen name="checkbox_min_height">13dp</dimen>
 
-    <dimen name="main_config_item_size">55dp</dimen>
+    <dimen name="main_config_item_size">89dp</dimen>
+    <dimen name="main_config_list_margin">-13dp</dimen>
 
     <dimen name="list_items_padding">0dp</dimen>
 
