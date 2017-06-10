@@ -16,7 +16,7 @@ class StrokeSelectionActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_stroke)
-        val sharedStrokeName = intent.getStringExtra(EXTRA_SHARED_STROKE)
+        val sharedStrokeName = intent.getStringExtra(EXTRA)
         val ctx = applicationContext
         mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options(ctx))
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
@@ -32,6 +32,6 @@ class StrokeSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA_SHARED_STROKE = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_STROKE"
+        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_STROKE"
     }
 }

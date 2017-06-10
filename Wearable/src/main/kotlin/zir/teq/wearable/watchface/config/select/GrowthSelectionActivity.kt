@@ -16,7 +16,7 @@ class GrowthSelectionActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_growth)
-        val sharedGrowthName = intent.getStringExtra(EXTRA_SHARED_GROWTH)
+        val sharedGrowthName = intent.getStringExtra(EXTRA)
         mAdapter = GrowthSelectionAdapter(sharedGrowthName, Growth.options(applicationContext))
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
@@ -31,6 +31,6 @@ class GrowthSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA_SHARED_GROWTH = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_GROWTH"
+        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_GROWTH"
     }
 }

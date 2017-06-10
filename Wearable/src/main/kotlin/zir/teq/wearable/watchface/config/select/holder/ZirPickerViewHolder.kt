@@ -18,16 +18,16 @@ import zir.teq.wearable.watchface.config.select.AlphaSelectionActivity
 
 open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private lateinit var mActivity: Class<out Activity>
-    var mButton: Button? = null
+    lateinit var mButton: Button
     var mPrefString: String? = null
 
-    fun handleClick(extra: String, req: Int, view: View) {
+    fun handleClick(view: View, extra: String) {
         if (mActivity != null) {
             val launchIntent = Intent(view.context, mActivity as Class<Activity>)
             val pref = mPrefString ?: throw IllegalStateException("Preference is missing.")
             launchIntent.putExtra(extra, pref)
             val activity = view.context as Activity
-            activity.startActivityForResult(launchIntent, req)
+            activity.startActivityForResult(launchIntent, REQ)
         }
     }
 
@@ -70,6 +70,6 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-        private val TAG = this::class.java.simpleName
+        private val REQ = 0 //default value if unused
     }
 }

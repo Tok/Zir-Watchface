@@ -16,7 +16,7 @@ class OutlineSelectionActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_outline)
-        val sharedOutlineName = intent.getStringExtra(EXTRA_SHARED_OUTLINE)
+        val sharedOutlineName = intent.getStringExtra(EXTRA)
         mAdapter = OutlineSelectionAdapter(sharedOutlineName, Outline.options(applicationContext))
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
@@ -31,6 +31,6 @@ class OutlineSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA_SHARED_OUTLINE = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_OUTLINE"
+        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_OUTLINE"
     }
 }
