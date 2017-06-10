@@ -19,7 +19,7 @@ class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCl
     }
 
     override fun onClick(view: View) {
-        if (!mPrefString!!.isEmpty()) {
+        if (!mPrefString.isEmpty()) {
             val editor = ConfigData.prefs(view.context).edit()
             val checkBox = mButton as CheckBox
             editor.putBoolean(mPrefString, checkBox.isChecked())

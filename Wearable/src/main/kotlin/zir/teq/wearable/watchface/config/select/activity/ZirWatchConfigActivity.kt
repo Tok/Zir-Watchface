@@ -1,7 +1,9 @@
 package zir.teq.wearable.watchface.config.select.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.ColorFilter
 import android.os.Bundle
 import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
@@ -32,16 +34,14 @@ class ZirWatchConfigActivity : Activity() {
                     val ctx = applicationContext
                     val col = Palette.findActive(ctx)
                     val filter = Palette.createFilter(ctx, col)
-                    with(applicationContext.resources) {
-                        getDrawable(R.drawable.icon_color, null).setColorFilter(filter)
-                        getDrawable(R.drawable.icon_background, null).setColorFilter(filter)
-                        getDrawable(R.drawable.icon_stroke, null).setColorFilter(filter)
-                        getDrawable(R.drawable.icon_theme, null).setColorFilter(filter)
-                        getDrawable(R.drawable.icon_outline, null).setColorFilter(filter)
-                        getDrawable(R.drawable.icon_growth, null).setColorFilter(filter)
-                        getDrawable(R.drawable.icon_alpha, null).setColorFilter(filter)
-                        getDrawable(R.drawable.icon_dim, null).setColorFilter(filter)
-                    }
+                    updateItemColor(ctx, R.drawable.icon_color, filter)
+                    updateItemColor(ctx, R.drawable.icon_background, filter)
+                    updateItemColor(ctx, R.drawable.icon_stroke, filter)
+                    updateItemColor(ctx, R.drawable.icon_theme, filter)
+                    updateItemColor(ctx, R.drawable.icon_outline, filter)
+                    updateItemColor(ctx, R.drawable.icon_growth, filter)
+                    updateItemColor(ctx, R.drawable.icon_alpha, filter)
+                    updateItemColor(ctx, R.drawable.icon_dim, filter)
                     Log.d(TAG, "Color changed. col: $col")
                 }
             }
@@ -52,5 +52,10 @@ class ZirWatchConfigActivity : Activity() {
         private val TAG = this::class.java.simpleName
         data class UpdateReq(val code: Int)
         val PALETTE = UpdateReq(1000)
+        fun updateItemColor(ctx: Context, id: Int, filter: ColorFilter) {
+            val drawable = ctx.resources.getDrawable(id, null)
+            drawable.setColorFilter(filter)
+            drawable.invalidateSelf()
+        }
     }
 }

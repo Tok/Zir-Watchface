@@ -52,7 +52,7 @@ object ViewHelper {
     fun createViewHolder(group: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_item_theme))
-            ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_item_color))
+            ConfigItem.PALETTE.code -> PalettePickerViewHolder(createView(group, R.layout.config_list_item_palette))
             ConfigItem.BACKGROUND.code -> BackgroundPickerViewHolder(createView(group, R.layout.config_list_item_background))
             ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_item_stroke))
             ConfigItem.OUTLINE.code -> OutlinePickerViewHolder(createView(group, R.layout.config_list_item_outline))

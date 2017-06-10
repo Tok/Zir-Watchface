@@ -39,15 +39,15 @@ open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun setName(name: String) {
-        mButton!!.text = name
+        mButton.text = name
     }
 
     fun bindIcon(resourceId: Int, tintColorId: Int?) {
-        val ctx = mButton!!.context
+        val ctx = mButton.context
         val drawable = ctx.getDrawable(resourceId)
         val scaled = scaleImage(ctx, drawable)
         setFilterColor(ctx, scaled, tintColorId)
-        mButton!!.setCompoundDrawablesWithIntrinsicBounds(scaled, null, null, null)
+        mButton.setCompoundDrawablesWithIntrinsicBounds(scaled, null, null, null)
     }
 
     fun setFilterColor(ctx: Context, drawable: Drawable, colorId: Int?) {

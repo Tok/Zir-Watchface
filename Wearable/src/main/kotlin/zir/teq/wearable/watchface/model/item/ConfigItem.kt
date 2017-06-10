@@ -17,7 +17,7 @@ open class ConfigItem internal constructor(val type: Type,
             val name = ctx.getString(type.nameId)
             return when (type) {
                 THEME -> ThemeConfigItem(type, pref, name)
-                COLORS -> ColorConfigItem(type, pref, name)
+                PALETTE -> PaletteConfigItem(type, pref, name)
                 BACKGROUND -> BackgroundConfigItem(type, pref, name)
                 STROKE -> StrokeConfigItem(type, pref, name)
                 OUTLINE -> OutlineConfigItem(type, pref, name)
@@ -33,9 +33,9 @@ open class ConfigItem internal constructor(val type: Type,
             fun isPair() = code in 10..99 //TODO keep updated or refactor
         }
 
-        val THEME = Type(1, R.string.saved_theme, null, R.string.label_theme, R.drawable.icon_theme)
-        val COLORS = Type(2, R.string.saved_palette, null, R.string.label_color, R.drawable.icon_color)
-        val BACKGROUND = Type(3, R.string.saved_background, null, R.string.label_background, R.drawable.icon_background)
+        val PALETTE = Type(1, R.string.saved_palette, null, R.string.label_palette, R.drawable.icon_color)
+        val BACKGROUND = Type(2, R.string.saved_background, null, R.string.label_background, R.drawable.icon_background)
+        val THEME = Type(3, R.string.saved_theme, null, R.string.label_theme, R.drawable.icon_theme)
         val STROKE = Type(4, R.string.saved_stroke, null, R.string.label_stroke, R.drawable.icon_stroke)
         val OUTLINE = Type(5, R.string.saved_outline, null, R.string.label_outline, R.drawable.icon_outline)
         val GROWTH = Type(6, R.string.saved_growth, null, R.string.label_growth, R.drawable.icon_growth)
@@ -47,8 +47,8 @@ open class ConfigItem internal constructor(val type: Type,
         val DRAW_POINTS = Type(40, R.string.saved_points_act, R.string.saved_points_amb, R.string.label_points_act)
         val DRAW_TEXT = Type(50, R.string.saved_text_act, R.string.saved_text_amb, R.string.label_text_act)
         val FAST_UPDATE = Type(100, R.string.saved_fast_update, null, R.string.label_fast_update)
-        val ALL_TYPES = listOf<Type>(THEME, COLORS, BACKGROUND, STROKE, OUTLINE, GROWTH, ALPHA, DIM,
-                FAST_UPDATE, DRAW_HANDS, DRAW_TRIANGLES, DRAW_CIRCLES, DRAW_POINTS, DRAW_TEXT)
+        val ALL_TYPES = listOf<Type>(PALETTE, BACKGROUND, THEME, STROKE, OUTLINE, GROWTH, ALPHA, DIM,
+                DRAW_HANDS, DRAW_TRIANGLES, DRAW_CIRCLES, DRAW_POINTS, DRAW_TEXT, FAST_UPDATE)
         fun valueOf(code: Int) = ALL_TYPES.find { it.code == code }
 
         val NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)

@@ -12,7 +12,7 @@ import zir.teq.wearable.watchface.model.item.*
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.THEME
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.COLORS
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.PALETTE
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.BACKGROUND
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STROKE
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.OUTLINE
@@ -42,7 +42,7 @@ class ZirWatchConfigAdapter(
         }
         when (vh.itemViewType) {
             THEME.code -> (vh as ThemePickerViewHolder).setActivity((ci as ThemeConfigItem).activity)
-            COLORS.code -> (vh as ColorPickerViewHolder).setActivity((ci as ColorConfigItem).activity)
+            PALETTE.code -> (vh as PalettePickerViewHolder).setActivity((ci as PaletteConfigItem).activity)
             BACKGROUND.code -> (vh as BackgroundPickerViewHolder).setActivity((ci as BackgroundConfigItem).activity)
             STROKE.code -> (vh as StrokePickerViewHolder).setActivity((ci as StrokeConfigItem).activity)
             OUTLINE.code -> (vh as OutlinePickerViewHolder).setActivity((ci as OutlineConfigItem).activity)

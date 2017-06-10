@@ -20,9 +20,9 @@ class BackgroundPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     }
 }
 
-class ColorPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
+class PalettePickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     init {
-        mButton = view.findViewById(R.id.config_list_item_color) as Button
+        mButton = view.findViewById(R.id.config_list_item_palette) as Button
         view.setOnClickListener { super.handleClick(view, PaletteSelectionActivity.EXTRA, PALETTE.code) }
     }
 }
