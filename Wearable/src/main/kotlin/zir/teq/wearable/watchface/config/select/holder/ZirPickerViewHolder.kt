@@ -1,6 +1,8 @@
 package zir.teq.wearable.watchface.config.select.holder
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -10,11 +12,26 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.ZirWatchConfigActivity
+import zir.teq.wearable.watchface.config.select.AlphaSelectionActivity
 
 
 open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private lateinit var mActivity: Class<out Activity>
     var mButton: Button? = null
     var mPrefString: String? = null
+
+    fun handleClick(extra: String, req: Int, view: View) {
+        if (mActivity != null) {
+            val launchIntent = Intent(view.context, mActivity as Class<Activity>)
+            val pref = mPrefString ?: throw IllegalStateException("Preference is missing.")
+            launchIntent.putExtra(extra, pref)
+            val activity = view.context as Activity
+            activity.startActivityForResult(launchIntent, req)
+        }
+    }
+
+    fun setActivity(activity: Class<out Activity>) { mActivity = activity }
 
     fun initButton(view: View) {
         mButton = view as Button

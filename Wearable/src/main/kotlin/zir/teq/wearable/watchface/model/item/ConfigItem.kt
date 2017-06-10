@@ -3,6 +3,7 @@ package zir.teq.wearable.watchface.model.item
 import android.content.Context
 import android.graphics.Typeface
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.select.BackgroundSelectionActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import java.util.concurrent.TimeUnit
 
