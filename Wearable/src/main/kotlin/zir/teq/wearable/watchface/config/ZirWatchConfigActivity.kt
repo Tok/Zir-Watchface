@@ -3,7 +3,6 @@ package zir.teq.wearable.watchface.config
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
 import android.util.Log
 import zir.teq.wearable.watchface.R

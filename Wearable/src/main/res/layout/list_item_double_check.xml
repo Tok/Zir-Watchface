@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_double_check"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/list_item_palette_list_margin"
+    android:layout_marginTop="@dimen/list_item_palette_list_margin"
+    android:padding="8dp"
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/list_item_double_check_active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:minHeight="@dimen/checkbox_min_height" />
+
+    <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/list_item_double_check_ambient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:minHeight="@dimen/checkbox_min_height" />
+
+    <TextView
+        android:id="@+id/list_item_double_check_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:drawablePadding="8dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="fill_horizontal"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="21sp" />
+</LinearLayout>

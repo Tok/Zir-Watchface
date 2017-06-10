@@ -3,6 +3,7 @@ package zir.teq.wearable.watchface.config
 import android.content.ComponentName
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.config.select.holder.*
 import zir.teq.wearable.watchface.model.ConfigData
@@ -33,7 +34,12 @@ class ZirWatchConfigAdapter(
 
     override fun onBindViewHolder(vh: RecyclerView.ViewHolder, pos: Int) {
         val ci = mSettingsDataSet[pos] as ConfigItem
-        prepareHolder(vh as ZirPickerViewHolder, ci)
+        Log.d(TAG, "onBindViewHolder() ci: $ci")
+        if (ci.type.isPair()) {
+            prepareDoubleCheckHolder(vh as BooleanPairViewHolder, ci)
+        } else {
+            prepareHolder(vh as ZirPickerViewHolder, ci)
+        }
         when (vh.itemViewType) {
             THEME.code -> (vh as ThemePickerViewHolder).setActivity((ci as ThemeConfigItem).activity)
             COLORS.code -> (vh as ColorPickerViewHolder).setActivity((ci as ColorConfigItem).activity)
@@ -46,14 +52,22 @@ class ZirWatchConfigAdapter(
         }
     }
 
+    private fun prepareDoubleCheckHolder(holder: BooleanPairViewHolder, item: ConfigItem) {
+        val res = holder.mLayout.context.resources
+        with(item.type) {
+            val activePref = res.getString(prefId)
+            val ambientPref = res.getString(secondaryPrefId ?: prefId)
+            val name = res.getString(nameId)
+            holder.updateBoxes(activePref, ambientPref, name)
+        }
+    }
+
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {
-        with (holder) {
-            val col = Palette.findActive(itemView.context)
-            setName(item.name)
-            setSharedPrefString(item.pref)
-            if (item.type.iconId != null) {
-                bindIcon(item.type.iconId, col.lightId)
-            }
+        val col = Palette.findActive(holder.itemView.context)
+        holder.setName(item.name)
+        holder.setSharedPrefString(item.pref)
+        if (item.type.iconId != null) {
+            holder.bindIcon(item.type.iconId, col.lightId)
         }
     }
 
@@ -63,5 +77,9 @@ class ZirWatchConfigAdapter(
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
         super.onDetachedFromRecyclerView(recyclerView)
+    }
+
+    companion object {
+        private val TAG = this::class.java.simpleName
     }
 }

@@ -18,8 +18,8 @@ import zir.teq.wearable.watchface.model.item.ConfigItem
 
 object ViewHelper {
     fun initMainConfigView(view: WearableRecyclerView?,
-                 ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
-                 manager: RecyclerView.LayoutManager?): Unit {
+                           ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
+                           manager: RecyclerView.LayoutManager?): Unit {
         view!!.setBackgroundColor(R.color.background)
         init(view, ada, manager)
     }
@@ -49,7 +49,7 @@ object ViewHelper {
         }
     }
 
-    fun createViewHolder(group: ViewGroup, viewType: Int): ZirPickerViewHolder? {
+    fun createViewHolder(group: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_item_theme))
             ConfigItem.COLORS.code -> ColorPickerViewHolder(createView(group, R.layout.config_list_item_color))
@@ -61,7 +61,11 @@ object ViewHelper {
             ConfigItem.DIM.code -> DimPickerViewHolder(createView(group, R.layout.config_list_item_dim))
             else -> {
                 val ci = ConfigItem.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
-                createCheckboxViewHolder(group, ci)
+                if (ci.isPair()) {
+                    createDoubleCheckViewHolder(group, ci)
+                } else {
+                    createCheckboxViewHolder(group, ci)
+                }
             }
         }
     }
@@ -70,20 +74,26 @@ object ViewHelper {
         return LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
     }
 
-    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): ZirPickerViewHolder {
-        val resources = viewGroup.context.resources
-        val pref = resources.getString(type.prefId)
-        val name = resources.getString(type.nameId)
-        return createViewHolder(viewGroup, pref, name, R.layout.list_item_checkbox)
+    private fun createDoubleCheckViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): BooleanPairViewHolder {
+        val ctx = viewGroup.context
+        val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_double_check, viewGroup, false)
+        val holder = BooleanPairViewHolder(view)
+        val activePref = ctx.resources.getString(type.prefId)
+        val ambientPref = ctx.resources.getString(type.secondaryPrefId ?: type.prefId)
+        val name = ctx.resources.getString(type.nameId)
+        holder.updateBoxes(activePref, ambientPref, name)
+        return holder
     }
 
-    private fun createViewHolder(viewGroup: ViewGroup, pref: String, name: String, layoutId: Int): ZirPickerViewHolder {
+    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): ZirPickerViewHolder {
         val ctx = viewGroup.context
-        val view = LayoutInflater.from(ctx).inflate(layoutId, viewGroup, false)
-        val holder = BooleanPickerViewHolder(view)
-        holder.setSharedPrefString(pref)
-        holder.setName(name)
-        return holder
+        with(ctx.resources) {
+            val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_checkbox, viewGroup, false)
+            val holder = BooleanPickerViewHolder(view)
+            holder.setSharedPrefString(getString(type.prefId))
+            holder.setName(getString(type.nameId))
+            return holder
+        }
     }
 
     fun bindCircleColor(view: CircledImageView) {
