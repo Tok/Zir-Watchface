@@ -33,6 +33,5 @@ class AlphaSelectionActivity : Activity() {
 
     companion object {
         internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_ALPHA"
-        internal val REQ = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_ALPHA"
     }
 }
