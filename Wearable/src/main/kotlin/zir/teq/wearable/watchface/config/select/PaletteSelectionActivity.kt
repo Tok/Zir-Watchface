@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 
 class PaletteSelectionActivity : Activity() {
-    private var mConfigView: WearableRecyclerView? = null
-    private var mAdapter: PaletteSelectionAdapter? = null
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: PaletteSelectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class PaletteSelectionActivity : Activity() {
         val colName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
         val col = Palette.getByName(colName)
         val index = Palette.selectable.indexOfFirst { it.equals(col) } + 1
-        mConfigView?.smoothScrollToPosition(index)
+        mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {

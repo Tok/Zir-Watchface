@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 
 class DimSelectionActivity : Activity() {
-    private var mConfigView: WearableRecyclerView? = null
-    private var mAdapter: DimSelectionAdapter? = null
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: DimSelectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class DimSelectionActivity : Activity() {
         val ctx = applicationContext
         val name = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_dim), Dim.default.name)
         val index = Dim.all.indexOfFirst { it.name.equals(name) } + 1
-        mConfigView?.smoothScrollToPosition(index)
+        mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {

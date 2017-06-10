@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 
 class AlphaSelectionActivity : Activity() {
-    private var mConfigView: WearableRecyclerView? = null
-    private var mAdapter: AlphaSelectionAdapter? = null
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: AlphaSelectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class AlphaSelectionActivity : Activity() {
         val ctx = applicationContext
         val name = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_alpha), Alpha.default.name)
         val index = Alpha.all.indexOfFirst { it.name.equals(name) } + 1
-        mConfigView?.smoothScrollToPosition(index)
+        mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {

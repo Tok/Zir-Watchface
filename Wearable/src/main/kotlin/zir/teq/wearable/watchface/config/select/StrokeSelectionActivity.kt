@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 
 class StrokeSelectionActivity : Activity() {
-    private var mConfigView: WearableRecyclerView? = null
-    private var mAdapter: StrokeSelectionAdapter? = null
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: StrokeSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_stroke)
@@ -28,7 +28,7 @@ class StrokeSelectionActivity : Activity() {
         val ctx = applicationContext
         val strokeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
         val index = Stroke.all.indexOfFirst { it.name.equals(strokeName) } + 1
-        mConfigView?.smoothScrollToPosition(index)
+        mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {

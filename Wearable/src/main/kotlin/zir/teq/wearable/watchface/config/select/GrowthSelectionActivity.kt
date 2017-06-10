@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class GrowthSelectionActivity : Activity() {
-    private var mConfigView: WearableRecyclerView? = null
-    private var mAdapter: GrowthSelectionAdapter? = null
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: GrowthSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_growth)
@@ -27,7 +27,7 @@ class GrowthSelectionActivity : Activity() {
         val ctx = applicationContext
         val growthName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_growth), Theme.default.growthName)
         val index = Growth.all.indexOfFirst { it.name.equals(growthName) } + 1
-        mConfigView?.smoothScrollToPosition(index)
+        mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {

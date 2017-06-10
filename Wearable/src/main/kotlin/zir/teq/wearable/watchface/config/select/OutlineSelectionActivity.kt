@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class OutlineSelectionActivity : Activity() {
-    private var mConfigView: WearableRecyclerView? = null
-    private var mAdapter: OutlineSelectionAdapter? = null
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: OutlineSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_outline)
@@ -27,7 +27,7 @@ class OutlineSelectionActivity : Activity() {
         val ctx = applicationContext
         val outlineName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_outline), Theme.default.outlineName)
         val index = Outline.all.indexOfFirst { it.name.equals(outlineName) } + 1
-        mConfigView?.smoothScrollToPosition(index)
+        mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {

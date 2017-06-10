@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 
 class BackgroundSelectionActivity : Activity() {
-    private var mConfigView: WearableRecyclerView? = null
-    private var mAdapter: BackgroundSelectionAdapter? = null
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: BackgroundSelectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class BackgroundSelectionActivity : Activity() {
         val ctx = applicationContext
         val name = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_background), Background.default.name)
         val index = Background.all.indexOfFirst { it.name.equals(name) } + 1
-        mConfigView?.smoothScrollToPosition(index)
+        mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {
