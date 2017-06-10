@@ -2,31 +2,42 @@ package zir.teq.wearable.watchface.model.data
 
 import android.content.Context
 import android.graphics.*
+import android.support.annotation.ColorInt
+import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
-data class Palette(val name: String,
-                   val darkId: Int, val id: Int, val lightId: Int) {
+data class Palette(val name: String, val darkId: Int, val lightId: Int) {
     val isAntiAlias = true
     var isAmbient = false
     var isMute = false
     var background = Background.default
     var alpha = Alpha.default
     var dim = Dim.default
+    fun dark(ctx: Context) = ctx.getColor(darkId)
+    fun third(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.33F)
+    fun half(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.5F)
+    fun twoThrids(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.67F)
+    fun light(ctx: Context) = ctx.getColor(lightId)
 
     companion object {
-        val BLACK = Palette("Black", R.color.black, R.color.gray, R.color.dark_gray)
-        val WHITE = Palette("White", R.color.dark_grey, R.color.light_gray, R.color.white)
-        val RED = Palette("Red", R.color.dark_red, R.color.fire_brick, R.color.red)
-        val ORANGE = Palette("Orange", R.color.orange_red, R.color.orange, R.color.bright_orange)
-        val YELLOW = Palette("Yellow", R.color.yellow_dark, R.color.gold, R.color.yellow)
-        val GREEN = Palette("Green", R.color.dark_green, R.color.lime_green, R.color.green_yellow)
-        val BLUE = Palette("Blue", R.color.dark_blue, R.color.blue, R.color.deep_sky_blue)
-        val PURPLE = Palette("Purple", R.color.indigo, R.color.dark_violet, R.color.magenta)
+        val BLACK = Palette("Black", R.color.black, R.color.dark_gray)
+        val WHITE = Palette("White", R.color.dark_grey, R.color.white)
+        val RED = Palette("Red", R.color.dark_red, R.color.red)
+        val ORANGE = Palette("Orange", R.color.orange_red, R.color.bright_orange)
+        val YELLOW = Palette("Yellow", R.color.yellow_dark, R.color.yellow)
+        val GREEN = Palette("Green", R.color.dark_green, R.color.green_yellow)
+        val BLUE = Palette("Blue", R.color.dark_blue, R.color.deep_sky_blue)
+        val PURPLE = Palette("Purple", R.color.indigo, R.color.magenta)
+        val PURPLE_GREEN = Palette("Purple and Green", R.color.indigo, R.color.green_yellow)
+        val RED_YELLOW = Palette("Red and Yellow", R.color.red, R.color.yellow)
+        val BLUE_ORANGE = Palette("Blue and Orange", R.color.deep_sky_blue, R.color.bright_orange)
+        val BLACK_YELLOW = Palette("Black and Yellow", R.color.black, R.color.yellow)
         val default = BLACK
-        private val all = listOf(BLACK, WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
+        private val all = listOf(BLACK, WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE,
+                PURPLE_GREEN, RED_YELLOW, BLUE_ORANGE, BLACK_YELLOW)
         val selectable = listOf(RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
         fun options() = all.toCollection(ArrayList<Palette>())
         fun getByName(name: String): Palette = all.find { it.name.equals(name) } ?: default
@@ -44,19 +55,19 @@ data class Palette(val name: String,
 
         fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke, pal: Palette): Paint {
             val paint = when (type) {
-                PaintType.SHAPE -> prepareShapePaint(ctx, pal.lightId)
-                PaintType.HAND -> prepareLinePaint(ctx, pal.id)
-                PaintType.CIRCLE -> prepareCirclePaint(ctx, pal.darkId)
-                PaintType.POINT -> preparePointPaint(ctx, R.color.points)
+                PaintType.SHAPE -> prepareShapePaint(pal.light(ctx))
+                PaintType.HAND -> prepareLinePaint(pal.half(ctx))
+                PaintType.CIRCLE -> prepareCirclePaint(pal.dark(ctx))
+                PaintType.POINT -> preparePointPaint(ctx.getColor(R.color.points))
 
-                PaintType.SHAPE_OUTLINE -> prepareShapePaint(ctx, R.color.black)
-                PaintType.HAND_OUTLINE -> prepareLinePaint(ctx, R.color.black)
-                PaintType.CIRCLE_OUTLINE -> prepareCirclePaint(ctx, R.color.black)
-                PaintType.POINT_OUTLINE -> preparePointPaint(ctx, R.color.black)
+                PaintType.SHAPE_OUTLINE -> prepareShapePaint(ctx.getColor(R.color.black))
+                PaintType.HAND_OUTLINE -> prepareLinePaint(ctx.getColor(R.color.black))
+                PaintType.CIRCLE_OUTLINE -> prepareCirclePaint(ctx.getColor(R.color.black))
+                PaintType.POINT_OUTLINE -> preparePointPaint(ctx.getColor(R.color.black))
 
-                PaintType.SHAPE_AMB -> prepareShapePaint(ctx, pal.lightId)
-                PaintType.HAND_AMB -> prepareLinePaint(ctx, pal.id)
-                PaintType.CIRCLE_AMB -> prepareCirclePaint(ctx, pal.darkId)
+                PaintType.SHAPE_AMB -> prepareShapePaint(pal.light(ctx))
+                PaintType.HAND_AMB -> prepareLinePaint(pal.half(ctx))
+                PaintType.CIRCLE_AMB -> prepareCirclePaint(pal.dark(ctx))
                 else -> {
                     val msg = "Ignoring paintType: " + type
                     throw IllegalArgumentException(msg)
@@ -114,45 +125,45 @@ data class Palette(val name: String,
             return paint
         }
 
-        private fun prepareLinePaint(ctx: Context, colorId: Int): Paint {
+        private fun prepareLinePaint(@ColorInt color: Int): Paint {
             val paint = inst()
             paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
+            paint.color = color
             return paint
         }
 
-        private fun prepareOutlinePaint(ctx: Context, colorId: Int): Paint {
+        private fun prepareOutlinePaint(@ColorInt color: Int): Paint {
             val paint = inst()
             paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
+            paint.color = color
             return paint
         }
 
-        private fun prepareShapePaint(ctx: Context, colorId: Int): Paint {
+        private fun prepareShapePaint(@ColorInt color: Int): Paint {
             val paint = inst()
             paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
+            paint.color = color
             return paint
         }
 
-        private fun prepareCirclePaint(ctx: Context, colorId: Int): Paint {
+        private fun prepareCirclePaint(@ColorInt color: Int): Paint {
             val paint = inst()
             paint.style = Paint.Style.STROKE
             paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
+            paint.color = color
             return paint
         }
 
-        private fun preparePointPaint(ctx: Context, colorId: Int): Paint {
+        private fun preparePointPaint(@ColorInt color: Int): Paint {
             val paint = inst()
             paint.style = Paint.Style.STROKE
             paint.strokeCap = Paint.Cap.ROUND
-            paint.color = ctx.getColor(colorId)
+            paint.color = color
             return paint
         }
 
         fun createFilter(ctx: Context, pal: Palette): ColorFilter {
-            return PorterDuffColorFilter(ctx.getColor(pal.lightId), PorterDuff.Mode.MULTIPLY)
+            return PorterDuffColorFilter(pal.half(ctx), PorterDuff.Mode.MULTIPLY)
         }
 
         fun findActive(ctx: Context): Palette {
@@ -161,5 +172,4 @@ data class Palette(val name: String,
             return Palette.getByName(colName)
         }
     }
-
 }

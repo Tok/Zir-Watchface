@@ -38,17 +38,17 @@ class PaletteSelectionAdapter(
             val outline = zir.teq.wearable.watchface.model.data.Outline.Companion.create(ctx, theme.outlineName)
 
             with (mFirst) {
-                setCircleColor(ctx.getColor(pal.darkId))
+                setCircleColor(pal.dark(ctx))
                 setCircleBorderWidth(outline.dim)
             }
 
             with (mSecond) {
-                setCircleColor(ctx.getColor(pal.id))
+                setCircleColor(pal.half(ctx))
                 setCircleBorderWidth(outline.dim)
             }
 
             with (mThird) {
-                setCircleColor(ctx.getColor(pal.lightId))
+                setCircleColor(pal.light(ctx))
                 setCircleBorderWidth(outline.dim)
             }
         }
