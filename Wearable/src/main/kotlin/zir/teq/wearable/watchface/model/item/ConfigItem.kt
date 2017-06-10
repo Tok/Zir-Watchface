@@ -58,8 +58,6 @@ open class ConfigItem internal constructor(val type: Type,
                 DRAW_TEXT_ACTIVE, DRAW_TEXT_AMBIENT)
         fun valueOf(code: Int) = ALL_TYPES.find { it.code == code }
 
-        val isStayActive = false //TODO reimplement
-
         val NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
         val MONO_TYPEFACE = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
 

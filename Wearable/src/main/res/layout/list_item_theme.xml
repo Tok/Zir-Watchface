@@ -14,7 +14,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list_item_theme_circle"
         style="@style/ListItemPaletteCircleStyle"
-        app:circle_radius="@dimen/list_item_theme_circle_radius" />
+        app:circle_border_color="@color/border_color"
+        app:circle_border_width="5dp"
+        app:circle_radius="@dimen/theme_circle_radius" />
 
     <TextView
         android:id="@+id/list_item_theme_text"

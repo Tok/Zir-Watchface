@@ -18,7 +18,7 @@
         style="@style/ListItemCircleStyle"
         app:circle_border_color="@color/border_color"
         app:circle_border_width="@dimen/list_item_border_width"
-        app:circle_radius="@dimen/list_item_circle_radius" />
+        app:circle_radius="@dimen/list_item_radius" />
 
     <TextView
         android:id="@+id/list_item_background_text"
