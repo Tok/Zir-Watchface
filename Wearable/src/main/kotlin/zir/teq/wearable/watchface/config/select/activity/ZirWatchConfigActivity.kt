@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.ColorFilter
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.wearable.view.WearableRecyclerView
 import zir.teq.wearable.watchface.R
@@ -13,7 +12,6 @@ import zir.teq.wearable.watchface.config.select.adapter.ZirWatchConfigAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
-import javax.security.auth.callback.Callback
 
 class ZirWatchConfigActivity : Activity() {
     private lateinit var mView: WearableRecyclerView

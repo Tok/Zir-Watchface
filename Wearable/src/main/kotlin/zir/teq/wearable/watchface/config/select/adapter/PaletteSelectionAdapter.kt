@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Theme
 
 class PaletteSelectionAdapter(
         private val mPrefString: String?,
@@ -40,27 +38,29 @@ class PaletteSelectionAdapter(
         }
 
         fun bindPalette(pal: Palette) {
+            val oDim = Math.max(1F, ConfigData.outline.dim)
             with (mFirst) {
                 setCircleColor(pal.dark())
-                setCircleBorderWidth(ConfigData.outline.dim)
+                setCircleBorderWidth(oDim)
             }
             with (mSecond) {
                 setCircleColor(pal.half())
-                setCircleBorderWidth(ConfigData.outline.dim)
+                setCircleBorderWidth(oDim)
             }
             with (mThird) {
                 setCircleColor(pal.light())
-                setCircleBorderWidth(ConfigData.outline.dim)
+                setCircleBorderWidth(oDim)
             }
         }
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val color = mOptions[position]
+            val palette = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
+                ConfigData.palette = palette
                 val editor = ConfigData.prefs.edit()
-                editor.putString(mPrefString, color.name)
+                editor.putString(mPrefString, palette.name)
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK)
             }

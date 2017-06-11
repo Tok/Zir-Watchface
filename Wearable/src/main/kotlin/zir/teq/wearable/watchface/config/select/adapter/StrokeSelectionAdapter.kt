@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Outline
+import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class StrokeSelectionAdapter(
@@ -22,8 +21,6 @@ class StrokeSelectionAdapter(
     override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val stroke = mOptions[position]
         val strokeViewHolder = vh as StrokeViewHolder
-        ViewHelper.bindCircleColor(strokeViewHolder.mView)
-        ViewHelper.bindCircleBorderWidth(strokeViewHolder.mView)
         strokeViewHolder.bindStroke(stroke)
     }
 
@@ -39,7 +36,10 @@ class StrokeSelectionAdapter(
         }
 
         fun bindStroke(stroke: Stroke) {
-            mView.circleRadius = stroke.dim + ConfigData.outline.dim
+            val oDim = Math.max(1F, ConfigData.outline.dim)
+            mView.setCircleBorderWidth(oDim)
+            mView.circleRadius = stroke.dim + oDim
+            mView.setCircleColor(ConfigData.palette.half())
         }
 
         override fun onClick(view: View) {
@@ -47,6 +47,7 @@ class StrokeSelectionAdapter(
             val stroke = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
+                ConfigData.stroke = stroke
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, stroke.name)
                 editor.commit()
@@ -54,9 +55,5 @@ class StrokeSelectionAdapter(
             }
             activity.finish()
         }
-    }
-
-    companion object {
-        val DISPLAY_ITEM_FACTOR = 0.5F //=radius to circumfence?
     }
 }

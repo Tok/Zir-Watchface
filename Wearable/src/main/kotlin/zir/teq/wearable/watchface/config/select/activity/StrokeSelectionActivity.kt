@@ -25,7 +25,7 @@ class StrokeSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Stroke.all.indexOfFirst { it.name.equals(ConfigData.stroke.name) } + 1
+        val index = Stroke.all.indexOfFirst { it.name.equals(ConfigData.stroke.name) }
         mConfigView.smoothScrollToPosition(index)
     }
 

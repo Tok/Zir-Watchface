@@ -8,7 +8,6 @@ import config.select.adapter.OutlineSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
-import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class OutlineSelectionActivity : Activity() {

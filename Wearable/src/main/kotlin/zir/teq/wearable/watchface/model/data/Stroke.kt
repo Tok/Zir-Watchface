@@ -14,7 +14,7 @@ data class Stroke(val name: String, val dim: Float) {
         val GIGA = Type("Giga", R.dimen.dim_giga)
         val ULTRA = Type("Ultra", R.dimen.dim_ultra)
         val all = listOf(HAIR, THIN, NORMAL, BOLD, MEGA, GIGA, ULTRA)
-        val defaultType = NORMAL
+        private val defaultType = NORMAL
         fun default() = create(defaultType.name)
         fun options() = all.map { inst(it) }.toCollection(ArrayList<Stroke>())
         fun create(typeName: String) = inst(all.find { it.name.equals(typeName) } ?: defaultType)

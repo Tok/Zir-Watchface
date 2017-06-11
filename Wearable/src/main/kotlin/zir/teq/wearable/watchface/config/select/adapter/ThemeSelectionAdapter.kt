@@ -56,6 +56,7 @@ class ThemeSelectionAdapter(
     }
 
     private fun loadTheme(ctx: Context, theme: Theme) {
+        //ConfigData.theme = theme
         val editor = ConfigData.prefs.edit()
         with(editor) {
             putString(mPrefString, theme.name)

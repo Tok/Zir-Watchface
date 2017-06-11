@@ -38,6 +38,8 @@ class DimSelectionAdapter(
         }
 
         fun bindDim(dim: Dim) {
+            val oDim = Math.max(1F, ConfigData.outline.dim)
+            mCircle.setCircleBorderWidth(oDim)
             mCircle.setCircleColor(mView.context.getColor(R.color.black))
             mCircle.alpha = dim.value.toFloat()
             mText.text = dim.name
@@ -48,6 +50,7 @@ class DimSelectionAdapter(
             val dim: Dim = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
+                ConfigData.dim = dim
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, dim.name)
                 editor.commit()

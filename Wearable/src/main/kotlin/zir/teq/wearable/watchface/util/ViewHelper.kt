@@ -91,16 +91,4 @@ object ViewHelper {
             return holder
         }
     }
-
-    fun bindCircleColor(view: CircledImageView) {
-        val ctx = view.context
-        val palName = ConfigData.prefs.getString(ctx.getString(R.string.saved_palette), Palette.default().name)
-        val pal = Palette.create(palName)
-        val color = pal.half()
-        view.setCircleColor(color)
-    }
-
-    fun bindCircleBorderWidth(view: CircledImageView) {
-        view.setCircleBorderWidth(ConfigData.outline.dim)
-    }
 }

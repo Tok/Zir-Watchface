@@ -47,8 +47,10 @@ open class ConfigItem internal constructor(val type: Type,
         val DRAW_POINTS = Type(40, R.string.saved_points_act, R.string.saved_points_amb, R.string.label_points_act)
         val DRAW_TEXT = Type(50, R.string.saved_text_act, R.string.saved_text_amb, R.string.label_text_act)
         val FAST_UPDATE = Type(100, R.string.saved_fast_update, null, R.string.label_fast_update)
+        val IS_ELASTIC = Type(110, R.string.saved_is_elastic, null, R.string.label_is_elastic)
         val ALL_TYPES = listOf<Type>(PALETTE, BACKGROUND, THEME, STROKE, OUTLINE, GROWTH, ALPHA, DIM,
-                DRAW_HANDS, DRAW_TRIANGLES, DRAW_CIRCLES, DRAW_POINTS, DRAW_TEXT, FAST_UPDATE)
+                DRAW_HANDS, DRAW_TRIANGLES, DRAW_CIRCLES, DRAW_POINTS, DRAW_TEXT,
+                FAST_UPDATE, IS_ELASTIC)
         fun valueOf(code: Int) = ALL_TYPES.find { it.code == code }
 
         val NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)

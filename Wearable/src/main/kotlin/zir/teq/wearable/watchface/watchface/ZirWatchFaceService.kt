@@ -81,25 +81,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun loadSavedPreferences() {
-            with(ConfigData) {
-                //TODO change pref types
-                palette = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
-                stroke = Stroke.create(prefString(R.string.saved_stroke, Stroke.default().name))
-                background = Background.getByName(prefString(R.string.saved_background, Background.default.name))
-                alpha = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))
-                dim = Dim.getByName(prefString(R.string.saved_dim, Dim.default.name))
-                outline = Outline.create(prefString(R.string.saved_outline, Outline.default().name))
-                growth = Growth.create(prefString(R.string.saved_growth, Growth.default().name))
-                isFastUpdate = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), isFastUpdate)
-                val savedTheme = savedTheme()
-                val isHand = savedHandSetting(savedTheme)
-                val isTri = savedTriangleSetting(savedTheme)
-                val isCirc = savedCircleSetting(savedTheme)
-                val isPoints = savedPointsSetting(savedTheme)
-                val isText = savedTextSetting(savedTheme)
-                theme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText)
-            }
-            Log.d(TAG, "theme updated: " + ConfigData.theme)
+            ConfigData.updateFromSavedPreferences()
             updateWatchPaintStyles()
         }
 

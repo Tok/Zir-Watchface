@@ -7,18 +7,17 @@ import android.util.Log
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.config.select.holder.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.item.*
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.ALPHA
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.BACKGROUND
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.DIM
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.GROWTH
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.OUTLINE
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.PALETTE
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STROKE
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.THEME
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.THEME
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.PALETTE
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.BACKGROUND
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STROKE
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.OUTLINE
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.GROWTH
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.ALPHA
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.DIM
 
 class ZirWatchConfigAdapter(
         private val mContext: Context,

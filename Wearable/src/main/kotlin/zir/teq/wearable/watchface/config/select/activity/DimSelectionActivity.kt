@@ -8,7 +8,6 @@ import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.adapter.DimSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Dim
-import zir.teq.wearable.watchface.model.data.Growth
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

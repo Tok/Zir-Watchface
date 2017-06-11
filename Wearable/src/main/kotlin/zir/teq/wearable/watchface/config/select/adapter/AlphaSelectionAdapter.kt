@@ -11,7 +11,6 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Alpha
-import zir.teq.wearable.watchface.model.data.Palette
 import java.util.*
 
 class AlphaSelectionAdapter(
@@ -40,6 +39,8 @@ class AlphaSelectionAdapter(
         }
 
         fun bindAlpha(alpha: Alpha) {
+            val oDim = Math.max(1F, ConfigData.outline.dim)
+            mCircle.setCircleBorderWidth(oDim)
             mCircle.setCircleColor(ConfigData.palette.half())
             mCircle.alpha = 256 - alpha.value.toFloat() //Inverse of how it's used in draw util.
             mText.text = alpha.name
@@ -50,6 +51,7 @@ class AlphaSelectionAdapter(
             val alpha: Alpha = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
+                ConfigData.alpha = alpha
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, alpha.name)
                 editor.commit()

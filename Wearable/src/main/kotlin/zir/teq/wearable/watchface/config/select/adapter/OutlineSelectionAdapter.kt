@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
+import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class OutlineSelectionAdapter(
@@ -21,8 +22,7 @@ class OutlineSelectionAdapter(
     override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val outline = mOptions[position]
         val outlineViewHolder = vh as OutlineViewHolder
-        ViewHelper.bindCircleColor(outlineViewHolder.mView)
-        outlineViewHolder.setOutline(outline)
+        outlineViewHolder.bindOutline(outline)
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +36,11 @@ class OutlineSelectionAdapter(
             view.setOnClickListener(this)
         }
 
-        fun setOutline(outline: Outline) { mView.setCircleBorderWidth(outline.dim) }
+        fun bindOutline(outline: Outline) {
+            val oDim = Math.max(1F, outline.dim)
+            mView.setCircleBorderWidth(oDim)
+            mView.setCircleColor(ConfigData.palette.half())
+        }
 
         override fun onClick(view: View) {
             val position = adapterPosition
@@ -51,6 +55,7 @@ class OutlineSelectionAdapter(
     }
 
     fun updateSavedValue(outline: Outline) {
+        ConfigData.outline = outline
         val editor = ConfigData.prefs.edit()
         editor.putString(mPrefString, outline.name)
         editor.commit()

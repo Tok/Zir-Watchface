@@ -23,7 +23,6 @@ class GrowthSelectionAdapter(
     override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val growth = mOptions[position]
         val viewHolder = vh as GrowthViewHolder
-        val ctx = viewHolder.mFirst.context
         viewHolder.bindGrowth(growth, ConfigData.palette)
     }
 
@@ -41,14 +40,15 @@ class GrowthSelectionAdapter(
 
         fun bindGrowth(growth: Growth, pal: Palette) {
             val dim: Float = (GrowthSelectionAdapter.DISPLAY_ITEM_FACTOR * (ConfigData.stroke.dim + ConfigData.outline.dim))
+            val oDim = Math.max(1F, ConfigData.outline.dim)
             mFirst.circleRadius = dim
             mFirst.setCircleColor(pal.light())
-            mFirst.setCircleBorderWidth(ConfigData.outline.dim)
+            mFirst.setCircleBorderWidth(oDim)
 
             val growthDim: Float = dim + growth.dim
             mSecond.circleRadius = growthDim
             mSecond.setCircleColor(pal.light())
-            mSecond.setCircleBorderWidth(ConfigData.outline.dim)
+            mSecond.setCircleBorderWidth(oDim)
 
             mText.text = growth.name
         }
@@ -66,6 +66,7 @@ class GrowthSelectionAdapter(
     }
 
     fun updateSavedValue(growth: Growth) {
+        ConfigData.growth = growth
         val editor = ConfigData.prefs.edit()
         editor.putString(mPrefString, growth.name)
         editor.commit()

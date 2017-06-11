@@ -16,55 +16,83 @@ object ConfigData {
     val prefs: SharedPreferences = ctx.getSharedPreferences(
             ctx.getString(R.string.zir_watch_preference_file_key),
             Context.MODE_PRIVATE)
-    fun prefString(pref: Int, default: String): String {
+    fun updateFromSavedPreferences() {
+        palette = savedPalette()
+        stroke = savedStroke()
+        background = savedBackground()
+        alpha = savedAlpha()
+        dim = savedDim()
+        outline = savedOutline()
+        growth = savedGrowth()
+        isFastUpdate = savedFastUpdate()
+        isElastic = savedIsElastic()
+        val savedTheme = savedTheme()
+        val isHand = savedHandSetting(savedTheme)
+        val isTri = savedTriangleSetting(savedTheme)
+        val isCirc = savedCircleSetting(savedTheme)
+        val isPoints = savedPointsSetting(savedTheme)
+        val isText = savedTextSetting(savedTheme)
+        theme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText)
+    }
+    private fun prefString(pref: Int, default: String): String {
         return prefs.getString(ctx.getString(pref), default)
     }
-    fun prefBoolean(pref: Int, default: Boolean): Boolean {
+    private fun prefBoolean(pref: Int, default: Boolean): Boolean {
         return prefs.getBoolean(ctx.getString(pref), default)
     }
-    fun savedTheme(): Theme {
+    private fun savedTheme(): Theme {
         return Theme.getByName(prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name))
     }
-    fun savedHandSetting(theme: Theme): Theme.Companion.Setting {
+    private fun savedHandSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_hands_act, theme.hands.active),
                 prefBoolean(R.string.saved_hands_amb, theme.hands.ambient))
     }
-    fun savedTriangleSetting(theme: Theme): Theme.Companion.Setting {
+    private fun savedTriangleSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_triangles_act, theme.triangles.active),
                 prefBoolean(R.string.saved_triangles_amb, theme.triangles.ambient))
     }
-    fun savedCircleSetting(theme: Theme): Theme.Companion.Setting {
+    private fun savedCircleSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_circles_act, theme.circles.active),
                 prefBoolean(R.string.saved_circles_amb, theme.circles.ambient))
     }
-    fun savedPointsSetting(theme: Theme): Theme.Companion.Setting {
+    private fun savedPointsSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_points_act, theme.points.active),
                 prefBoolean(R.string.saved_points_amb, theme.points.ambient))
     }
-    fun savedTextSetting(theme: Theme): Theme.Companion.Setting {
+    private fun savedTextSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_text_act, theme.text.active),
                 prefBoolean(R.string.saved_text_amb, theme.text.ambient))
     }
+    private fun savedFastUpdate() = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), isFastUpdate)
+    private fun savedIsElastic() = prefs.getBoolean(ctx.getString(R.string.saved_is_elastic), isElastic)
+    private fun savedPalette() = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
+    private fun savedStroke() = Stroke.create(prefString(R.string.saved_stroke, Stroke.default().name))
+    private fun savedBackground() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
+    private fun savedAlpha() = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))
+    private fun savedDim() = Dim.getByName(prefString(R.string.saved_dim, Dim.default.name))
+    private fun savedOutline() = Outline.create(prefString(R.string.saved_outline, Outline.default().name))
+    private fun savedGrowth() = Growth.create(prefString(R.string.saved_growth, Growth.default().name))
+    var palette = savedPalette()
+    var stroke = savedStroke()
+    var theme = savedTheme()
+    var outline = savedOutline()
+    var growth = savedGrowth()
+    var background = savedBackground()
+    var alpha = savedAlpha()
+    var dim = savedDim()
+    var isFastUpdate: Boolean = savedFastUpdate()
+    var isElastic: Boolean = savedIsElastic()
 
     val isAntiAlias = true
-    val isElastic = false
-    var palette = Palette.default()
-    var stroke: Stroke = Stroke.default()
-    var theme = Theme.default
-    fun hasOutline() = Outline.OFF.name != outline.name
-    var outline: Outline = Outline.default()
-    var growth: Growth = Growth.default()
-    var isFastUpdate: Boolean = true
     var isAmbient = false
     var isMute = false
-    var background = Background.default
-    var alpha = Alpha.default
-    var dim = Dim.default
+
+    fun hasOutline() = Outline.OFF.name != outline.name
 
     interface ConfigItemType {
         val configType: Int
