@@ -52,22 +52,12 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Paint {
-            return createPaint(ctx, type, theme, stroke, Palette.default)
-        }
-
         fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke, pal: Palette): Paint {
             val paint = when (type) {
                 PaintType.SHAPE -> prepareShapePaint(pal.light(ctx))
                 PaintType.HAND -> prepareLinePaint(pal.half(ctx))
                 PaintType.CIRCLE -> prepareCirclePaint(pal.dark(ctx))
                 PaintType.POINT -> preparePointPaint(ctx.getColor(R.color.points))
-
-                PaintType.SHAPE_OUTLINE -> prepareShapePaint(ctx.getColor(R.color.black))
-                PaintType.HAND_OUTLINE -> prepareLinePaint(ctx.getColor(R.color.black))
-                PaintType.CIRCLE_OUTLINE -> prepareCirclePaint(ctx.getColor(R.color.black))
-                PaintType.POINT_OUTLINE -> preparePointPaint(ctx.getColor(R.color.black))
-
                 PaintType.SHAPE_AMB -> prepareShapePaint(pal.light(ctx))
                 PaintType.HAND_AMB -> prepareLinePaint(pal.half(ctx))
                 PaintType.CIRCLE_AMB -> prepareCirclePaint(pal.dark(ctx))
@@ -108,18 +98,9 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         }
 
         private fun createStrokeWidth(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Float {
-            val isPoint = PaintType.POINT.equals(type) || PaintType.POINT_OUTLINE.equals(type)
-            val pointGrowth = if (isPoint) {
-                Growth.create(ctx, theme.growthName).dim
-            } else {
-                0F
-            }
-            return if (type.isOutline) {
-                val outline = Outline.create(ctx, theme.outlineName)
-                stroke.dim + pointGrowth + outline.dim
-            } else {
-                stroke.dim + pointGrowth
-            }
+            val isPoint = PaintType.POINT.equals(type)
+            val pointGrowth = if (isPoint) Growth.create(ctx, theme.growthName).dim else 0F
+            return stroke.dim + pointGrowth
         }
 
         private fun inst(): Paint {
@@ -129,13 +110,6 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         }
 
         private fun prepareLinePaint(@ColorInt color: Int): Paint {
-            val paint = inst()
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = color
-            return paint
-        }
-
-        private fun prepareOutlinePaint(@ColorInt color: Int): Paint {
             val paint = inst()
             paint.strokeCap = Paint.Cap.ROUND
             paint.color = color

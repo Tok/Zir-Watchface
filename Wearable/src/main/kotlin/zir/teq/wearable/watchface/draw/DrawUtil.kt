@@ -1,11 +1,10 @@
 package zir.watchface
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.PointF
-import android.graphics.PorterDuff
-import android.graphics.Rect
+import android.graphics.*
+import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
+import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
@@ -97,8 +96,13 @@ class DrawUtil() {
         Points.drawAmbient(ctx, pal, stroke, theme, can, data)
     }
 
-
     companion object {
+        fun makeOutline(ctx: Context, p: Paint, theme: Theme): Paint {
+            val outLine = Paint(p)
+            outLine.strokeWidth = p.strokeWidth + Outline.create(ctx, theme.outlineName).dim
+            outLine.color = ctx.getColor(R.color.black)
+            return outLine
+        }
         fun calcDistFromBorder(can: Canvas, stroke: Stroke): Float {
             val assertedOutlineDimension = 8 //TODO use exact?
             val totalSetoff = 4F * (stroke.dim + assertedOutlineDimension)

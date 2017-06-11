@@ -12,63 +12,56 @@ import zir.watchface.DrawUtil
 object Points {
     fun drawActiveCenter(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                          can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.POINT, theme, stroke, pal)
         if (theme.hasOutline) {
-            val pointOutline = Palette.createPaint(ctx, PaintType.POINT_OUTLINE, theme, stroke)
-            makeCenter(ctx, pal, stroke, theme, can, data, pointOutline) //center
+            makeCenter(can, data, theme, DrawUtil.makeOutline(ctx, p, theme)) //center
         }
-        makeCenter(ctx, pal, stroke, theme, can, data) //center
+        makeCenter(can, data, theme, p) //center
     }
 
     fun drawActive(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                    can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.POINT, theme, stroke, pal)
         if (theme.hasOutline) {
-            val pointOutline = Palette.createPaint(ctx, PaintType.POINT_OUTLINE, theme, stroke)
-            makeSeconds(ctx, pal, stroke, theme, can, data, pointOutline)
-            makeMinAndHr(ctx, pal, stroke, theme, can, data, pointOutline)
+            val outlineP = DrawUtil.makeOutline(ctx, p, theme)
+            makeSeconds(can, data, theme, outlineP)
+            makeMinAndHr(can, data, theme, outlineP)
         }
-        makeSeconds(ctx, pal, stroke, theme, can, data)
-        makeMinAndHr(ctx, pal, stroke, theme, can, data)
+        makeSeconds(can, data, theme, p)
+        makeMinAndHr(can, data, theme, p)
     }
 
     fun drawAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                     can: Canvas, data: DrawUtil.AmbientFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.POINT, theme, stroke, pal)
         if (theme.hasOutline) {
-            val pointOutline = Palette.createPaint(ctx, PaintType.POINT_OUTLINE, theme, stroke)
-            drawAmbientPoints(ctx, pal, stroke, theme, can, data, pointOutline)
+            drawAmbientPoints(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
         }
-        drawAmbientPoints(ctx, pal, stroke, theme, can, data)
+        drawAmbientPoints(can, data, theme, p)
     }
 
-    private fun drawAmbientPoints(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                                  can: Canvas, data: DrawUtil.AmbientFrameData, paint: Paint? = null) {
+    private fun drawAmbientPoints(can: Canvas, data: DrawUtil.AmbientFrameData, theme: Theme, p: Paint) {
         if (theme.points.ambient) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, theme, stroke, pal)
             can.drawPoint(data.center.x, data.center.y, p)
             can.drawPoint(data.min.x, data.min.y, p)
             can.drawPoint(data.hr.x, data.hr.y, p)
         }
     }
 
-    private fun makeCenter(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                           can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
+    private fun makeCenter(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
         if (theme.points.active) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, theme, stroke, pal)
             can.drawPoint(data.center.x, data.center.y, p)
         }
     }
 
-    private fun makeSeconds(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                            can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
+    private fun makeSeconds(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
         if (theme.points.active) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, theme, stroke, pal)
             can.drawPoint(data.sec.x, data.sec.y, p)
         }
     }
 
-    private fun makeMinAndHr(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                             can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
+    private fun makeMinAndHr(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
         if (theme.points.active) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.POINT, theme, stroke, pal)
             can.drawPoint(data.hr.x, data.hr.y, p)
             can.drawPoint(data.min.x, data.min.y, p)
             /* foreground center point */

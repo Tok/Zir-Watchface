@@ -12,40 +12,38 @@ import zir.watchface.DrawUtil
 object Hands {
     fun drawActive(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                    can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.HAND, theme, stroke, pal)
         if (theme.hasOutline) {
-            val handOutline = Palette.createPaint(ctx, PaintType.HAND_OUTLINE, theme, stroke)
-            makeActiveFirst(ctx, pal, stroke, theme, can, data, handOutline)
+            makeActiveFirst(can, data, theme, pal, DrawUtil.makeOutline(ctx, p, theme))
         }
-        makeActiveFirst(ctx, pal, stroke, theme, can, data)
+        makeActiveFirst(can, data, theme, pal, p)
     }
 
     fun drawAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                     can: Canvas, data: DrawUtil.AmbientFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.SHAPE_AMB, theme, stroke, pal) //not HAND_AMB...
         if (theme.hasOutline) {
-            val shapeOutline = Palette.createPaint(ctx, PaintType.SHAPE_OUTLINE, theme, stroke)
-            makeAmbient(ctx, pal, stroke, theme, can, data, shapeOutline)
+            makeAmbient(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
         }
-        makeAmbient(ctx, pal, stroke, theme, can, data)
+        makeAmbient(can, data, theme, p)
     }
 
-    private fun makeActiveFirst(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                                can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
+    private fun makeActiveFirst(can: Canvas, data: DrawUtil.ActiveFrameData,
+                                theme: Theme, pal: Palette, p: Paint) {
         if (theme.hands.active) {
             if (pal.isElastic) {
-                makeActiveFirstElastic(ctx, pal, stroke, theme, can, data, paint)
+                drawHandsElastic(can, data, p)
             } else {
-                val p = paint ?: Palette.createPaint(ctx, PaintType.HAND, theme, stroke, pal)
                 drawHands(data.getRef(can), p, data.hour, data.minute, data.second)
             }
         }
     }
 
-    private fun makeActiveFirstElastic(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                                       can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
-        val hourPaint = paint ?: Palette.createPaint(ctx, PaintType.HAND, theme, stroke, pal)
-        val minutePaint = paint ?: Palette.createPaint(ctx, PaintType.HAND, theme, stroke, pal)
-        val secondPaint = paint ?: Palette.createPaint(ctx, PaintType.HAND, theme, stroke, pal)
-        val w: Float = hourPaint.strokeWidth
+    private fun drawHandsElastic(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+        val hourPaint = Paint(p)
+        val minutePaint = Paint(p)
+        val secondPaint = Paint(p)
+        val w: Float = p.strokeWidth
         with(data) {
             hourPaint.strokeWidth = w * unit / DrawUtil.calcDistance(hour.p, center)
             minutePaint.strokeWidth = w * unit / DrawUtil.calcDistance(minute.p, center)
@@ -56,10 +54,8 @@ object Hands {
         }
     }
 
-    private fun makeAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                            can: Canvas, data: DrawUtil.AmbientFrameData, paint: Paint? = null) {
+    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, theme: Theme, p: Paint) {
         if (theme.hands.ambient) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.SHAPE_AMB, theme, stroke, pal)
             drawHand(data.getRef(can), p, data.hour)
             drawHand(data.getRef(can), p, data.minute)
             can.drawLine(data.min.x, data.min.y, data.hr.x, data.hr.y, p)

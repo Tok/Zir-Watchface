@@ -12,30 +12,27 @@ import zir.watchface.DrawUtil
 object Triangles {
     fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
              can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.SHAPE, theme, stroke, pal)
         if (theme.hasOutline) {
-            val shapeOutline = Palette.createPaint(ctx, PaintType.SHAPE_OUTLINE, theme, stroke)
-            prepareAndDraw(ctx, pal, stroke, theme, can, data, shapeOutline)
+            prepareAndDraw(can, data, theme, pal, DrawUtil.makeOutline(ctx, p, theme))
         }
-        prepareAndDraw(ctx, pal, stroke, theme, can, data)
+        prepareAndDraw(can, data, theme, pal, p)
     }
 
-    private fun prepareAndDraw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                               can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
+    private fun prepareAndDraw(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, pal: Palette, p: Paint) {
         if (theme.triangles.active) {
             if (pal.isElastic) {
-                drawElastic(ctx, pal, stroke, theme, can, data, paint)
+                drawElastic(can, data, p)
             } else {
-                val p = paint ?: Palette.createPaint(ctx, PaintType.SHAPE, theme, stroke, pal)
-                drawTriangle(p, can, data.hour, data.minute, data.second)
+                drawTriangle(can, data, p)
             }
         }
     }
 
-    private fun drawElastic(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                            can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
-        val hourMinutePaint = paint ?: Palette.createPaint(ctx, PaintType.SHAPE, theme, stroke, pal)
-        val hourSecondPaint = paint ?: Palette.createPaint(ctx, PaintType.SHAPE, theme, stroke, pal)
-        val minuteSecondPaint = paint ?: Palette.createPaint(ctx, PaintType.SHAPE, theme, stroke, pal)
+    private fun drawElastic(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+        val hourMinutePaint = Paint(p)
+        val hourSecondPaint = Paint(p)
+        val minuteSecondPaint = Paint(p)
         val w: Float = hourMinutePaint.strokeWidth
         with(data) {
             hourMinutePaint.strokeWidth =  w * unit / DrawUtil.calcDistance(hour.p, minute.p)
@@ -47,9 +44,11 @@ object Triangles {
         }
     }
 
-    private fun drawTriangle(paint: Paint, can: Canvas, hr: DrawUtil.HandData, min: DrawUtil.HandData, sec: DrawUtil.HandData) {
-        can.drawLine(sec.p.x, sec.p.y, min.p.x, min.p.y, paint)
-        can.drawLine(sec.p.x, sec.p.y, hr.p.x, hr.p.y, paint)
-        can.drawLine(min.p.x, min.p.y, hr.p.x, hr.p.y, paint)
+    private fun drawTriangle(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+        with (data) {
+            can.drawLine(second.p.x, second.p.y, minute.p.x, minute.p.y, p)
+            can.drawLine(second.p.x, second.p.y, hour.p.x, hour.p.y, p)
+            can.drawLine(minute.p.x, minute.p.y, hour.p.x, hour.p.y, p)
+        }
     }
 }

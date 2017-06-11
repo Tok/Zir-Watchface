@@ -13,45 +13,40 @@ import zir.watchface.DrawUtil
 object Circles {
     fun drawActive(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                    can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.CIRCLE, theme, stroke, pal)
         if (theme.hasOutline) {
-            val circleOutline = Palette.createPaint(ctx, PaintType.CIRCLE_OUTLINE, theme, stroke)
-            makeSlow(ctx, pal, stroke, theme, can, data, circleOutline)
-            makeFast(ctx, pal, stroke, theme, can, data, circleOutline)
+            val outlineP = DrawUtil.makeOutline(ctx, p, theme)
+            makeSlow(can, data, theme, outlineP)
+            makeFast(can, data, theme, outlineP)
         }
-        makeSlow(ctx, pal, stroke, theme, can, data)
-        makeFast(ctx, pal, stroke, theme, can, data)
+        makeSlow(can, data, theme, p)
+        makeFast(can, data, theme, p)
     }
 
     fun drawAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
                     can: Canvas, data: DrawUtil.AmbientFrameData) {
+        val p = Palette.createPaint(ctx, PaintType.CIRCLE_AMB, theme, stroke, pal)
         if (theme.hasOutline) {
-            val circleOutline = Palette.createPaint(ctx, PaintType.CIRCLE_OUTLINE, theme, stroke)
-            makeAmbient(ctx, pal, stroke, theme, can, data, circleOutline)
+            makeAmbient(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
         }
-        makeAmbient(ctx, pal, stroke, theme, can, data)
+        makeAmbient(can, data, theme, p)
     }
 
-    private fun makeFast(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                         can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
+    private fun makeFast(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
         if (theme.circles.active) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.CIRCLE, theme, stroke, pal)
             drawLine(data.getRef(can), p, data.hrRot, data.secRot, data.hr, data.sec)
             drawLine(data.getRef(can), p, data.minRot, data.secRot, data.min, data.sec)
         }
     }
 
-    private fun makeSlow(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                         can: Canvas, data: DrawUtil.ActiveFrameData, paint: Paint? = null) {
+    private fun makeSlow(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
         if (theme.circles.active) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.CIRCLE, theme, stroke, pal)
             drawLine(data.getRef(can), p, data.hrRot, data.minRot, data.hr, data.min)
         }
     }
 
-    private fun makeAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                            can: Canvas, data: DrawUtil.AmbientFrameData, paint: Paint? = null) {
+    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, theme: Theme, p: Paint) {
         if (theme.circles.ambient) {
-            val p = paint ?: Palette.createPaint(ctx, PaintType.CIRCLE_AMB, theme, stroke, pal)
             can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, p)
         }
     }
