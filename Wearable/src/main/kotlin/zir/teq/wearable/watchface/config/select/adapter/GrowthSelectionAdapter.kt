@@ -24,9 +24,7 @@ class GrowthSelectionAdapter(
         val growth = mOptions[position]
         val viewHolder = vh as GrowthViewHolder
         val ctx = viewHolder.mFirst.context
-        val palName = ConfigData.prefs.getString(ctx.getString(zir.teq.wearable.watchface.R.string.saved_palette), Palette.default().name)
-        val pal = Palette.create(palName)
-        viewHolder.bindGrowth(growth, pal)
+        viewHolder.bindGrowth(growth, ConfigData.palette)
     }
 
     override fun getItemCount(): Int {

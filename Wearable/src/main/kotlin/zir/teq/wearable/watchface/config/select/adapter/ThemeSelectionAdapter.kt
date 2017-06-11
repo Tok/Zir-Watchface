@@ -48,14 +48,14 @@ class ThemeSelectionAdapter(
             val theme: Theme = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                updateSavedValues(view.context, theme)
+                loadTheme(view.context, theme)
                 activity.setResult(Activity.RESULT_OK)
             }
             activity.finish()
         }
     }
 
-    fun updateSavedValues(ctx: Context, theme: Theme) {
+    private fun loadTheme(ctx: Context, theme: Theme) {
         val editor = ConfigData.prefs.edit()
         with(editor) {
             putString(mPrefString, theme.name)
