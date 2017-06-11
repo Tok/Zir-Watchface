@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.data.Stroke
@@ -65,17 +66,17 @@ class DrawUtil() {
 
     fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
              can: Canvas, bounds: Rect, calendar: Calendar) {
-        if (pal.isAmbient) {
+        if (ConfigData.isAmbient) {
             val data = AmbientFrameData(calendar, bounds, can, stroke)
             drawAmbientFace(ctx, pal, stroke, theme, can, data)
             if (theme.text.ambient) {
-                Text.draw(ctx, can, pal, calendar)
+                Text.draw(ctx, can, calendar)
             }
         } else {
             val data = ActiveFrameData(calendar, bounds, can, stroke, theme)
             drawActiveFace(ctx, pal, stroke, theme, can, data)
             if (theme.text.active) {
-                Text.draw(ctx, can, pal, calendar)
+                Text.draw(ctx, can, calendar)
             }
         }
     }

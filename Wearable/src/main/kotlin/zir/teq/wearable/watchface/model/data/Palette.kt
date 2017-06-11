@@ -11,14 +11,6 @@ import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.watchface.DrawUtil
 
 data class Palette(val name: String, val darkId: Int, val lightId: Int) {
-    val isAntiAlias = true
-    var isAmbient = false
-    var isMute = false
-    var background = Background.default
-    var alpha = Alpha.default
-    var dim = Dim.default
-    var isElastic = false
-
     fun dark(ctx: Context) = ctx.getColor(darkId)
     fun half(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.5F)
     fun light(ctx: Context) = ctx.getColor(lightId)
@@ -67,29 +59,30 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
                 }
             }
             paint.strokeWidth = createStrokeWidth(ctx, type, theme, stroke)
-            paint.alpha = pal.alpha.value
-            paint.isAntiAlias = pal.isAntiAlias
+            paint.alpha = ConfigData.alpha.value
+            paint.isAntiAlias = ConfigData.isAntiAlias
 
             //apply dimming..
-            val dimColor = Color.argb(255, pal.dim.value, pal.dim.value, pal.dim.value)
+            val dimValue = ConfigData.dim.value
+            val dimColor = Color.argb(255, dimValue, dimValue, dimValue)
             paint.colorFilter = PorterDuffColorFilter(dimColor, PorterDuff.Mode.MULTIPLY)
 
             return paint
         }
 
-        fun createTextPaint(ctx: Context, pal: Palette): Paint {
+        fun createTextPaint(ctx: Context): Paint {
             val paint = inst()
             paint.typeface = ConfigItem.MONO_TYPEFACE
             paint.isFakeBoldText = true
             paint.color = ctx.getColor(R.color.text)
-            paint.alpha = pal.alpha.value
-            paint.isAntiAlias = pal.isAntiAlias
-            addShadows(paint, pal)
+            paint.alpha = ConfigData.alpha.value
+            paint.isAntiAlias = ConfigData.isAntiAlias
+            addShadows(paint)
             return paint
         }
 
-        private fun addShadows(paint: Paint, pal: Palette) {
-            if (pal.isAmbient) {
+        private fun addShadows(paint: Paint) {
+            if (ConfigData.isAmbient) {
                 paint.clearShadowLayer()
             } else {
                 val blurRadius = 5F

@@ -3,6 +3,7 @@ package zir.teq.wearable.watchface.draw
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
@@ -14,9 +15,9 @@ object Hands {
                    can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(ctx, PaintType.HAND, theme, stroke, pal)
         if (theme.hasOutline) {
-            makeActiveFirst(can, data, theme, pal, DrawUtil.makeOutline(ctx, p, theme))
+            makeActiveFirst(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
         }
-        makeActiveFirst(can, data, theme, pal, p)
+        makeActiveFirst(can, data, theme, p)
     }
 
     fun drawAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
@@ -29,9 +30,9 @@ object Hands {
     }
 
     private fun makeActiveFirst(can: Canvas, data: DrawUtil.ActiveFrameData,
-                                theme: Theme, pal: Palette, p: Paint) {
+                                theme: Theme, p: Paint) {
         if (theme.hands.active) {
-            if (pal.isElastic) {
+            if (ConfigData.isElastic) {
                 drawHandsElastic(can, data, p)
             } else {
                 drawHands(data.getRef(can), p, data.hour, data.minute, data.second)

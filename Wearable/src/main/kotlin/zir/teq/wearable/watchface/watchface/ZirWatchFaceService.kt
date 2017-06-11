@@ -77,7 +77,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onDraw(canvas: Canvas, bounds: Rect?) {
             updateWatchPaintStyles()
             mCalendar.timeInMillis = System.currentTimeMillis()
-            drawer.drawBackground(canvas, ctx.getColor(mPalette.background.id))
+            drawer.drawBackground(canvas, ctx.getColor(ConfigData.background.id))
             drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mCalendar)
         }
 
@@ -117,9 +117,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                 val alpha = Alpha.getByName(getString(ctx.getString(R.string.saved_alpha), Alpha.default.name))
                 val dim = Dim.getByName(getString(ctx.getString(R.string.saved_dim), Dim.default.name))
                 Log.d(TAG, "loaded saved background: $background, alpha: $alpha, dim: $dim")
-                mPalette.background = background
-                mPalette.alpha = alpha
-                mPalette.dim = dim
+                ConfigData.background = background
+                ConfigData.alpha = alpha
+                ConfigData.dim = dim
             }
 
             mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outlineName, growthName)
@@ -164,9 +164,9 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
             val rate = ConfigItem.updateRateMs(inMuteMode, mTheme.isFastUpdate)
             setInteractiveUpdateRateMs(rate)
-            val isDimmed = mPalette.isMute != inMuteMode
+            val isDimmed = ConfigData.isMute != inMuteMode
             if (isDimmed) {
-                mPalette.isMute = inMuteMode
+                ConfigData.isMute = inMuteMode
                 invalidate()
             }
         }
@@ -186,7 +186,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun updateWatchPaintStyles() {
-            mPalette.isAmbient = mAmbient
+            ConfigData.isAmbient = mAmbient
             //mPalette.alpha = if (mPalette.isAmbient) Palette.AMBIENT_ALPHA else Palette.FULL_ALPHA
         }
 
