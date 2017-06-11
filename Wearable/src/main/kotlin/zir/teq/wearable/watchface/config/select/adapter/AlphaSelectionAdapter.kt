@@ -41,9 +41,9 @@ class AlphaSelectionAdapter(
 
         fun bindAlpha(alpha: Alpha) {
             val ctx = mView.context
-            val palName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.default.name)
+            val palName = ConfigData.prefs.getString(ctx.getString(R.string.saved_palette), Palette.default.name)
             val pal = Palette.getByName(palName)
-            val color = pal.half(ctx)
+            val color = pal.half()
             mCircle.setCircleColor(color)
             mCircle.alpha = 256 - alpha.value.toFloat() //Inverse of how it's used in draw util.
             mText.text = alpha.name
@@ -54,7 +54,7 @@ class AlphaSelectionAdapter(
             val alpha: Alpha = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                val editor = ConfigData.prefs(view.context).edit()
+                val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, alpha.name)
                 editor.commit()
                 activity.setResult(Activity.RESULT_OK)

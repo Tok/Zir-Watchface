@@ -4,8 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
+import config.select.adapter.OutlineSelectionAdapter
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.select.adapter.OutlineSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Theme
@@ -18,15 +18,15 @@ class OutlineSelectionActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_outline)
         val sharedOutlineName = intent.getStringExtra(EXTRA)
-        mAdapter = OutlineSelectionAdapter(sharedOutlineName, Outline.options(applicationContext))
+        mAdapter = OutlineSelectionAdapter(sharedOutlineName, Outline.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 
     override fun onStart() {
         super.onStart()
-        val ctx = applicationContext
-        val outlineName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_outline), Theme.default.outlineName)
+        val ctx = mConfigView.context
+        val outlineName = ConfigData.prefs.getString(ctx.getString(R.string.saved_outline), Theme.default.outlineName)
         val index = Outline.all.indexOfFirst { it.name.equals(outlineName) } + 1
         mConfigView.smoothScrollToPosition(index)
     }

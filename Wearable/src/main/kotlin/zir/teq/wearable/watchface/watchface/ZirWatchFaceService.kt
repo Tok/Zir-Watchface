@@ -12,6 +12,7 @@ import android.support.wearable.watchface.WatchFaceStyle
 import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.*
 import zir.teq.wearable.watchface.model.item.ConfigItem
@@ -26,20 +27,16 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
     inner class Engine : CanvasWatchFaceService.Engine() {
         private val MSG_UPDATE_TIME = 0
 
-        val ctx = applicationContext
+        val ctx = Zir.getAppContext()
         val drawer = DrawUtil()
 
         private var mCalendar: Calendar = Calendar.getInstance()
         private var mRegisteredTimeZoneReceiver = false
 
-        private var mPalette: Palette = Palette.default
-        private var mStroke: Stroke = Stroke.create(ctx, Stroke.default.name)
-        private var mTheme: Theme = Theme.default
-
         private var mAmbient: Boolean = false
         private var mLowBitAmbient: Boolean = false
         private var mBurnInProtection: Boolean = false
-        private var mUpdateRateMs = ConfigItem.updateRateMs(mAmbient, mTheme.isFastUpdate) //TODO move elsewhere?
+        private var mUpdateRateMs = ConfigItem.updateRateMs(mAmbient) //TODO move elsewhere?
 
         internal lateinit var prefs: SharedPreferences
         private val mTimeZoneReceiver = object : BroadcastReceiver() {
@@ -57,7 +54,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                         invalidate()
                         if (shouldTimerBeRunning()) {
                             val timeMs = System.currentTimeMillis()
-                            mUpdateRateMs = ConfigItem.updateRateMs(mAmbient, mTheme.isFastUpdate)
+                            mUpdateRateMs = ConfigItem.updateRateMs(mAmbient)
                             val delayMs = mUpdateRateMs - timeMs % mUpdateRateMs
                             this.sendEmptyMessageDelayed(msgUpdateTime, delayMs)
                         }
@@ -77,18 +74,18 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onDraw(canvas: Canvas, bounds: Rect?) {
             updateWatchPaintStyles()
             mCalendar.timeInMillis = System.currentTimeMillis()
-            drawer.drawBackground(canvas, ctx.getColor(ConfigData.background.id))
-            drawer.draw(ctx, mPalette, mStroke, mTheme, canvas, bounds!!, mCalendar)
+            drawer.drawBackground(canvas)
+            drawer.draw(canvas, bounds!!, mCalendar)
         }
 
         private fun loadSavedPreferences() {
-            val prefs = ConfigData.prefs(ctx)
+            val prefs = ConfigData.prefs
 
             val palName = prefs.getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
-            mPalette = Palette.getByName(palName)
+            ConfigData.palette = Palette.getByName(palName)
 
             val strokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-            mStroke = Stroke.create(ctx, strokeName)
+            ConfigData.stroke = Stroke.create(ctx, strokeName)
 
             val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
             val savedTheme = Theme.getByName(savedThemeName)
@@ -122,8 +119,8 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                 ConfigData.dim = dim
             }
 
-            mTheme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outlineName, growthName)
-            Log.d(TAG, "theme updated... mTheme: $mTheme")
+            ConfigData.theme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outlineName, growthName)
+            Log.d(TAG, "theme updated: " + ConfigData.theme)
             updateWatchPaintStyles()
         }
 
@@ -162,7 +159,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onInterruptionFilterChanged(interruptionFilter: Int) {
             super.onInterruptionFilterChanged(interruptionFilter)
             val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
-            val rate = ConfigItem.updateRateMs(inMuteMode, mTheme.isFastUpdate)
+            val rate = ConfigItem.updateRateMs(inMuteMode)
             setInteractiveUpdateRateMs(rate)
             val isDimmed = ConfigData.isMute != inMuteMode
             if (isDimmed) {

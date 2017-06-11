@@ -31,17 +31,17 @@ class BooleanPairViewHolder(view: View) : RecyclerView.ViewHolder(view), View.On
         mAmbientPref = ambientPref
         mText.text = text
 
-        val isActiveChecked = ConfigData.prefs(mText.context).getBoolean(activePref, false)
+        val isActiveChecked = ConfigData.prefs.getBoolean(activePref, false)
         (mActiveBox as CheckBox).isChecked = isActiveChecked
 
-        val isAmbientChecked = ConfigData.prefs(mText.context).getBoolean(ambientPref, false)
+        val isAmbientChecked = ConfigData.prefs.getBoolean(ambientPref, false)
         (mAmbientBox as CheckBox).isChecked = isAmbientChecked
     }
 
     override fun onClick(view: View) {
         val isReady = !mActivePref!!.isEmpty() && !mAmbientPref!!.isEmpty()
         if (isReady) {
-            val editor = ConfigData.prefs(view.context).edit()
+            val editor = ConfigData.prefs.edit()
             editor.putBoolean(mActivePref, (mActiveBox as CheckBox).isChecked())
             editor.putBoolean(mAmbientPref, (mAmbientBox as CheckBox).isChecked())
             editor.commit()

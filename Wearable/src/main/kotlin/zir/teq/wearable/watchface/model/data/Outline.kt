@@ -1,7 +1,7 @@
 package zir.teq.wearable.watchface.model.data
 
-import android.content.Context
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 
 data class Outline(val name: String, val dim: Float) {
     companion object {
@@ -15,8 +15,8 @@ data class Outline(val name: String, val dim: Float) {
         val MEGA = Type("Mega", R.dimen.dim_mega)
         val all = listOf(OFF, HAIR, THIN, NORMAL, BOLD, BOLDER, MEGA)
         val default = NORMAL
-        fun options(ctx: Context) = all.map { inst(ctx, it) }.toCollection(ArrayList<Outline>())
-        fun create(ctx: Context, typeName: String) = inst(ctx, all.find { it.name.equals(typeName) } ?: default)
-        private fun inst(ctx: Context, type: Type) = Outline(type.name, ctx.getResources().getDimension(type.dimId))
+        fun options() = all.map { inst(it) }.toCollection(ArrayList<Outline>())
+        fun create(typeName: String) = inst(all.find { it.name.equals(typeName) } ?: default)
+        private fun inst(type: Type) = Outline(type.name, ConfigData.res.getDimension(type.dimId))
     }
 }

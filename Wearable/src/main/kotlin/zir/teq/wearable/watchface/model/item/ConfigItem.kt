@@ -57,8 +57,8 @@ open class ConfigItem internal constructor(val type: Type,
         val FAST_UPDATE_RATE_MS = TimeUnit.MILLISECONDS.toMillis(20)
         val NORMAL_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1)
         val MUTE_UPDATE_RATE_MS = TimeUnit.MINUTES.toMillis(1)
-        fun updateRateMs(inMuteMode: Boolean, isFastUpdate: Boolean) = if (inMuteMode) activeUpdateRateMs(isFastUpdate) else ambientUpdateRateMs(isFastUpdate)
-        private fun ambientUpdateRateMs(isFastUpdate: Boolean) = if (isFastUpdate) FAST_UPDATE_RATE_MS else NORMAL_UPDATE_RATE_MS
-        private fun activeUpdateRateMs(isFastUpdate: Boolean) = if (isFastUpdate) NORMAL_UPDATE_RATE_MS else MUTE_UPDATE_RATE_MS
+        fun updateRateMs(inMuteMode: Boolean) = if (inMuteMode) activeUpdateRateMs() else ambientUpdateRateMs()
+        private fun ambientUpdateRateMs() = if (ConfigData.theme.isFastUpdate) FAST_UPDATE_RATE_MS else NORMAL_UPDATE_RATE_MS
+        private fun activeUpdateRateMs() = if (ConfigData.theme.isFastUpdate) NORMAL_UPDATE_RATE_MS else MUTE_UPDATE_RATE_MS
     }
 }

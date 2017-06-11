@@ -11,9 +11,9 @@ import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.watchface.DrawUtil
 
 data class Palette(val name: String, val darkId: Int, val lightId: Int) {
-    fun dark(ctx: Context) = ctx.getColor(darkId)
-    fun half(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.5F)
-    fun light(ctx: Context) = ctx.getColor(lightId)
+    fun dark() = ConfigData.ctx.getColor(darkId)
+    fun half() = ColorUtils.blendARGB(ConfigData.ctx.getColor(darkId), ConfigData.ctx.getColor(lightId), 0.5F)
+    fun light() = ConfigData.ctx.getColor(lightId)
 
     companion object {
         fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / DrawUtil.PHI)
@@ -44,21 +44,21 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createPaint(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke, pal: Palette): Paint {
+        fun createPaint(type: PaintType): Paint {
             val paint = when (type) {
-                PaintType.SHAPE -> prepareShapePaint(pal.light(ctx))
-                PaintType.HAND -> prepareLinePaint(pal.half(ctx))
-                PaintType.CIRCLE -> prepareCirclePaint(pal.dark(ctx))
-                PaintType.POINT -> preparePointPaint(ctx.getColor(R.color.points))
-                PaintType.SHAPE_AMB -> prepareShapePaint(pal.light(ctx))
-                PaintType.HAND_AMB -> prepareLinePaint(pal.half(ctx))
-                PaintType.CIRCLE_AMB -> prepareCirclePaint(pal.dark(ctx))
+                PaintType.SHAPE -> prepareShapePaint(ConfigData.palette.light())
+                PaintType.HAND -> prepareLinePaint(ConfigData.palette.half())
+                PaintType.CIRCLE -> prepareCirclePaint(ConfigData.palette.dark())
+                PaintType.POINT -> preparePointPaint(ConfigData.ctx.getColor(R.color.points))
+                PaintType.SHAPE_AMB -> prepareShapePaint(ConfigData.palette.light())
+                PaintType.HAND_AMB -> prepareLinePaint(ConfigData.palette.half())
+                PaintType.CIRCLE_AMB -> prepareCirclePaint(ConfigData.palette.dark())
                 else -> {
                     val msg = "Ignoring paintType: " + type
                     throw IllegalArgumentException(msg)
                 }
             }
-            paint.strokeWidth = createStrokeWidth(ctx, type, theme, stroke)
+            paint.strokeWidth = createStrokeWidth(type)
             paint.alpha = ConfigData.alpha.value
             paint.isAntiAlias = ConfigData.isAntiAlias
 
@@ -70,11 +70,11 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createTextPaint(ctx: Context): Paint {
+        fun createTextPaint(): Paint {
             val paint = inst()
             paint.typeface = ConfigItem.MONO_TYPEFACE
             paint.isFakeBoldText = true
-            paint.color = ctx.getColor(R.color.text)
+            paint.color = ConfigData.ctx.getColor(R.color.text)
             paint.alpha = ConfigData.alpha.value
             paint.isAntiAlias = ConfigData.isAntiAlias
             addShadows(paint)
@@ -90,10 +90,10 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             }
         }
 
-        private fun createStrokeWidth(ctx: Context, type: PaintType, theme: Theme, stroke: Stroke): Float {
+        private fun createStrokeWidth(type: PaintType): Float {
             val isPoint = PaintType.POINT.equals(type)
-            val pointGrowth = if (isPoint) Growth.create(ctx, theme.growthName).dim else 0F
-            return stroke.dim + pointGrowth
+            val pointGrowth = if (isPoint) Growth.create(ConfigData.theme.growthName).dim else 0F
+            return ConfigData.stroke.dim + pointGrowth
         }
 
         private fun inst(): Paint {
@@ -132,13 +132,13 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createFilter(ctx: Context, pal: Palette): ColorFilter {
-            return PorterDuffColorFilter(pal.half(ctx), PorterDuff.Mode.MULTIPLY)
+        fun createFilter(pal: Palette): ColorFilter {
+            return PorterDuffColorFilter(pal.half(), PorterDuff.Mode.MULTIPLY)
         }
 
-        fun findActive(ctx: Context): Palette {
-            val colRes = ctx.resources.getString(R.string.saved_palette)
-            val colName = ConfigData.prefs(ctx).getString(colRes, Palette.WHITE.name)
+        fun findActive(): Palette {
+            val colRes = ConfigData.res.getString(R.string.saved_palette)
+            val colName = ConfigData.prefs.getString(colRes, Palette.WHITE.name)
             return Palette.getByName(colName)
         }
     }

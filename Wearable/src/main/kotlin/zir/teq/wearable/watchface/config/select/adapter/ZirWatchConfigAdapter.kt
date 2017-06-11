@@ -63,7 +63,7 @@ class ZirWatchConfigAdapter(
     }
 
     private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {
-        val col = Palette.findActive(holder.itemView.context)
+        val col = Palette.findActive()
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
         if (item.type.iconId != null) {

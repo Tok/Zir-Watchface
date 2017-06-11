@@ -13,14 +13,14 @@ class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnCl
 
     override fun setSharedPrefString(sharedPrefString: String) {
         val checkBox = mButton as CheckBox
-        val isActive = ConfigData.prefs(checkBox.context).getBoolean(sharedPrefString, false)
+        val isActive = ConfigData.prefs.getBoolean(sharedPrefString, false)
         checkBox.setChecked(isActive)
         mPrefString = sharedPrefString
     }
 
     override fun onClick(view: View) {
         if (!mPrefString.isEmpty()) {
-            val editor = ConfigData.prefs(view.context).edit()
+            val editor = ConfigData.prefs.edit()
             val checkBox = mButton as CheckBox
             editor.putBoolean(mPrefString, checkBox.isChecked())
             editor.commit()

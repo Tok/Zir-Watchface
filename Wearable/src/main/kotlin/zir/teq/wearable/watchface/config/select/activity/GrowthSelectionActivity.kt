@@ -18,15 +18,15 @@ class GrowthSelectionActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_growth)
         val sharedGrowthName = intent.getStringExtra(EXTRA)
-        mAdapter = GrowthSelectionAdapter(sharedGrowthName, Growth.options(applicationContext))
+        mAdapter = GrowthSelectionAdapter(sharedGrowthName, Growth.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 
     override fun onStart() {
         super.onStart()
-        val ctx = applicationContext
-        val growthName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_growth), Theme.default.growthName)
+        val ctx = mConfigView.context
+        val growthName = ConfigData.prefs.getString(ctx.getString(R.string.saved_growth), Theme.default.growthName)
         val index = Growth.all.indexOfFirst { it.name.equals(growthName) } + 1
         mConfigView.smoothScrollToPosition(index)
     }

@@ -1,52 +1,48 @@
 package zir.teq.wearable.watchface.draw
 
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
 object Circles {
-    fun drawActive(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                   can: Canvas, data: DrawUtil.ActiveFrameData) {
-        val p = Palette.createPaint(ctx, PaintType.CIRCLE, theme, stroke, pal)
-        if (theme.hasOutline) {
-            val outlineP = DrawUtil.makeOutline(ctx, p, theme)
-            makeSlow(can, data, theme, outlineP)
-            makeFast(can, data, theme, outlineP)
+    fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(PaintType.CIRCLE)
+        if (ConfigData.theme.hasOutline) {
+            val outlineP = DrawUtil.makeOutline(p)
+            makeSlow(can, data, outlineP)
+            makeFast(can, data, outlineP)
         }
-        makeSlow(can, data, theme, p)
-        makeFast(can, data, theme, p)
+        makeSlow(can, data, p)
+        makeFast(can, data, p)
     }
 
-    fun drawAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                    can: Canvas, data: DrawUtil.AmbientFrameData) {
-        val p = Palette.createPaint(ctx, PaintType.CIRCLE_AMB, theme, stroke, pal)
-        if (theme.hasOutline) {
-            makeAmbient(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
+    fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
+        val p = Palette.createPaint(PaintType.CIRCLE_AMB)
+        if (ConfigData.theme.hasOutline) {
+            makeAmbient(can, data, DrawUtil.makeOutline(p))
         }
-        makeAmbient(can, data, theme, p)
+        makeAmbient(can, data, p)
     }
 
-    private fun makeFast(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
-        if (theme.circles.active) {
+    private fun makeFast(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+        if (ConfigData.theme.circles.active) {
             drawLine(data.getRef(can), p, data.hrRot, data.secRot, data.hr, data.sec)
             drawLine(data.getRef(can), p, data.minRot, data.secRot, data.min, data.sec)
         }
     }
 
-    private fun makeSlow(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
-        if (theme.circles.active) {
+    private fun makeSlow(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+        if (ConfigData.theme.circles.active) {
             drawLine(data.getRef(can), p, data.hrRot, data.minRot, data.hr, data.min)
         }
     }
 
-    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, theme: Theme, p: Paint) {
-        if (theme.circles.ambient) {
+    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint) {
+        if (ConfigData.theme.circles.ambient) {
             can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, p)
         }
     }

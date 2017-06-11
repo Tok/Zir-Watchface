@@ -26,8 +26,8 @@ class AlphaSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = applicationContext
-        val name = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_alpha), Alpha.default.name)
+        val ctx = mConfigView.context
+        val name = ConfigData.prefs.getString(ctx.getString(R.string.saved_alpha), Alpha.default.name)
         val index = Alpha.all.indexOfFirst { it.name.equals(name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }

@@ -1,27 +1,23 @@
 package zir.teq.wearable.watchface.draw
 
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
 object Triangles {
-    fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-             can: Canvas, data: DrawUtil.ActiveFrameData) {
-        val p = Palette.createPaint(ctx, PaintType.SHAPE, theme, stroke, pal)
-        if (theme.hasOutline) {
-            prepareAndDraw(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
+    fun draw(can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(PaintType.SHAPE)
+        if (ConfigData.theme.hasOutline) {
+            prepareAndDraw(can, data, DrawUtil.makeOutline(p))
         }
-        prepareAndDraw(can, data, theme, p)
+        prepareAndDraw(can, data, p)
     }
 
-    private fun prepareAndDraw(can: Canvas, data: DrawUtil.ActiveFrameData, theme: Theme, p: Paint) {
-        if (theme.triangles.active) {
+    private fun prepareAndDraw(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+        if (ConfigData.theme.triangles.active) {
             if (ConfigData.isElastic) {
                 drawElastic(can, data, p)
             } else {

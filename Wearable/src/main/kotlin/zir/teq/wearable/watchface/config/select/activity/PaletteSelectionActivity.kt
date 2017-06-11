@@ -3,9 +3,9 @@ package zir.teq.wearable.watchface.config.select.activity
 import android.app.Activity
 import android.os.Bundle
 import android.support.wearable.view.WearableRecyclerView
+import config.select.adapter.PaletteSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
-import zir.teq.wearable.watchface.config.select.adapter.PaletteSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
@@ -26,8 +26,8 @@ class PaletteSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = applicationContext
-        val colName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
+        val ctx = mConfigView.context
+        val colName = ConfigData.prefs.getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
         val col = Palette.getByName(colName)
         val index = Palette.selectable.indexOfFirst { it.equals(col) } + 1
         mConfigView.smoothScrollToPosition(index)

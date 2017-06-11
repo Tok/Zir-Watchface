@@ -1,18 +1,27 @@
-package zir.teq.wearable.watchface.config.select.adapter
+package config.select.adapter
 
+import android.app.Activity
 import android.support.v7.widget.RecyclerView
+import android.support.wearable.view.CircledImageView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Outline
+import zir.teq.wearable.watchface.util.ViewHelper
 
 class OutlineSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<zir.teq.wearable.watchface.model.data.Outline>) : android.support.v7.widget.RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: ArrayList<Outline>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int) =
-            OutlineViewHolder(android.view.LayoutInflater.from(parent.context).inflate(zir.teq.wearable.watchface.R.layout.list_item_outline, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            OutlineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_outline, parent, false))
 
-    override fun onBindViewHolder(vh: android.support.v7.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val outline = mOptions[position]
-        val outlineViewHolder = vh as zir.teq.wearable.watchface.config.select.adapter.OutlineSelectionAdapter.OutlineViewHolder
-        zir.teq.wearable.watchface.util.ViewHelper.bindCircleColor(outlineViewHolder.mView)
+        val outlineViewHolder = vh as OutlineViewHolder
+        ViewHelper.bindCircleColor(outlineViewHolder.mView)
         outlineViewHolder.setOutline(outline)
     }
 
@@ -20,29 +29,29 @@ class OutlineSelectionAdapter(
         return mOptions.size
     }
 
-    inner class OutlineViewHolder(view: android.view.View) : android.support.v7.widget.RecyclerView.ViewHolder(view), android.view.View.OnClickListener {
-        val mView: android.support.wearable.view.CircledImageView
+    inner class OutlineViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+        val mView: CircledImageView
         init {
-            mView = view.findViewById(zir.teq.wearable.watchface.R.id.list_item_outline) as android.support.wearable.view.CircledImageView
+            mView = view.findViewById(R.id.list_item_outline) as CircledImageView
             view.setOnClickListener(this)
         }
 
-        fun setOutline(outline: zir.teq.wearable.watchface.model.data.Outline) { mView.setCircleBorderWidth(outline.dim) }
+        fun setOutline(outline: Outline) { mView.setCircleBorderWidth(outline.dim) }
 
-        override fun onClick(view: android.view.View) {
+        override fun onClick(view: View) {
             val position = adapterPosition
-            val outline: zir.teq.wearable.watchface.model.data.Outline = mOptions[position]
-            val activity = view.context as android.app.Activity
+            val outline: Outline = mOptions[position]
+            val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                updateSavedValue(view.context, outline)
-                activity.setResult(android.app.Activity.RESULT_OK)
+                updateSavedValue(outline)
+                activity.setResult(Activity.RESULT_OK)
             }
             activity.finish()
         }
     }
 
-    fun updateSavedValue(ctx: android.content.Context, outline: zir.teq.wearable.watchface.model.data.Outline) {
-        val editor = zir.teq.wearable.watchface.model.ConfigData.prefs(ctx).edit()
+    fun updateSavedValue(outline: Outline) {
+        val editor = ConfigData.prefs.edit()
         editor.putString(mPrefString, outline.name)
         editor.commit()
     }

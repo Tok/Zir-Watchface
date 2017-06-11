@@ -4,8 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
+import config.select.adapter.StrokeSelectionAdapter
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.select.adapter.StrokeSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.util.ViewHelper
@@ -26,8 +26,8 @@ class StrokeSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = applicationContext
-        val strokeName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
+        val ctx = mConfigView.context
+        val strokeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
         val index = Stroke.all.indexOfFirst { it.name.equals(strokeName) } + 1
         mConfigView.smoothScrollToPosition(index)
     }

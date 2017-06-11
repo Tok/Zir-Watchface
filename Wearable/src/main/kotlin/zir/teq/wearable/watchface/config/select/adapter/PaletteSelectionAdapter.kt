@@ -1,18 +1,28 @@
-package zir.teq.wearable.watchface.config.select.adapter
+package config.select.adapter
 
+import android.app.Activity
 import android.support.v7.widget.RecyclerView
+import android.support.wearable.view.CircledImageView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.Theme
 
 class PaletteSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: java.util.ArrayList<Palette>) : android.support.v7.widget.RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: java.util.ArrayList<Palette>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int)
-            = ColorViewHolder(android.view.LayoutInflater.from(parent.context).inflate(zir.teq.wearable.watchface.R.layout.list_item_palette, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            = ColorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false))
 
-    override fun onBindViewHolder(vh: android.support.v7.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val pal = mOptions[position]
-        val colorViewHolder = vh as zir.teq.wearable.watchface.config.select.adapter.PaletteSelectionAdapter.ColorViewHolder
+        val colorViewHolder = vh as ColorViewHolder
         colorViewHolder.bindPalette(pal)
     }
 
@@ -20,48 +30,48 @@ class PaletteSelectionAdapter(
         return mOptions.size
     }
 
-    inner class ColorViewHolder(view: android.view.View) : android.support.v7.widget.RecyclerView.ViewHolder(view), android.view.View.OnClickListener {
-        val mView = view as android.widget.LinearLayout
-        val mFirst = view.findViewById(zir.teq.wearable.watchface.R.id.list_item_palette_first_cirlce) as android.support.wearable.view.CircledImageView
-        val mSecond = view.findViewById(zir.teq.wearable.watchface.R.id.list_item_palette_second_circle) as android.support.wearable.view.CircledImageView
-        val mThird = view.findViewById(zir.teq.wearable.watchface.R.id.list_item_palette_third_circle) as android.support.wearable.view.CircledImageView
+    inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+        val mView = view as LinearLayout
+        val mFirst = view.findViewById(R.id.list_item_palette_first_cirlce) as CircledImageView
+        val mSecond = view.findViewById(R.id.list_item_palette_second_circle) as CircledImageView
+        val mThird = view.findViewById(R.id.list_item_palette_third_circle) as CircledImageView
         init {
             mView.setOnClickListener(this)
         }
 
-        fun bindPalette(pal: zir.teq.wearable.watchface.model.data.Palette) {
+        fun bindPalette(pal: Palette) {
             val ctx = mFirst.context
-            val prefs = zir.teq.wearable.watchface.model.ConfigData.prefs(ctx)
+            val prefs = ConfigData.prefs
 
-            val themeName = prefs.getString(ctx.getString(zir.teq.wearable.watchface.R.string.saved_theme), zir.teq.wearable.watchface.model.data.Theme.Companion.default.name)
-            val theme = zir.teq.wearable.watchface.model.data.Theme.Companion.getByName(themeName)
-            val outline = zir.teq.wearable.watchface.model.data.Outline.Companion.create(ctx, theme.outlineName)
+            val themeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
+            val theme = Theme.getByName(themeName)
+            val outline = Outline.create(theme.outlineName)
 
             with (mFirst) {
-                setCircleColor(pal.dark(ctx))
+                setCircleColor(pal.dark())
                 setCircleBorderWidth(outline.dim)
             }
 
             with (mSecond) {
-                setCircleColor(pal.half(ctx))
+                setCircleColor(pal.half())
                 setCircleBorderWidth(outline.dim)
             }
 
             with (mThird) {
-                setCircleColor(pal.light(ctx))
+                setCircleColor(pal.light())
                 setCircleBorderWidth(outline.dim)
             }
         }
 
-        override fun onClick(view: android.view.View) {
+        override fun onClick(view: View) {
             val position = adapterPosition
             val color = mOptions[position]
-            val activity = view.context as android.app.Activity
+            val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                val editor = zir.teq.wearable.watchface.model.ConfigData.prefs(view.context).edit()
+                val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, color.name)
                 editor.commit()
-                activity.setResult(android.app.Activity.RESULT_OK)
+                activity.setResult(Activity.RESULT_OK)
             }
             activity.finish()
         }

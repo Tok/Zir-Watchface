@@ -30,25 +30,26 @@ class DrawUtil() {
         fun getRef(can: Canvas): Ref = Ref(can, unit, center)
     }
 
-    class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas, stroke: Stroke, theme: Theme): FrameData(cal, bounds) {
+    class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas): FrameData(cal, bounds) {
         val ms = cal.get(Calendar.MILLISECOND)
         val secRot = (ss + ms / 1000F) / 30F * PI
-        val secLength = unit * calcDistFromBorder(can, stroke)
+        val secLength = unit * calcDistFromBorder(can, ConfigData.stroke)
         val minLength = secLength / PHI
         val hrLength = minLength / PHI
         val hr = calcPosition(hrRot, hrLength, unit)
         val min = calcPosition(minRot, minLength, unit)
         val sec = calcPosition(secRot, secLength, unit)
-        val hrExtended = if (theme.circles.active) calcPosition(hrRot, secLength, unit) else hr
-        val minExtended = if (theme.circles.active) calcPosition(minRot, secLength, unit) else min
-        val secExtended = if (theme.circles.active) calcPosition(secRot, secLength, unit) else sec
+        val circlesActive = ConfigData.theme.circles.active
+        val hrExtended = if (circlesActive) calcPosition(hrRot, secLength, unit) else hr
+        val minExtended = if (circlesActive) calcPosition(minRot, secLength, unit) else min
+        val secExtended = if (circlesActive) calcPosition(secRot, secLength, unit) else sec
         val hour = HandData(hr, hrRot, hrExtended)
         val minute = HandData(min, minRot, minExtended)
         val second = HandData(sec, secRot, secExtended)
     }
 
-    class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas, stroke: Stroke): FrameData(cal, bounds) {
-        val minLength = unit * calcDistFromBorder(can, stroke) / PHI
+    class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas): FrameData(cal, bounds) {
+        val minLength = unit * calcDistFromBorder(can, ConfigData.stroke) / PHI
         val hrLength = minLength / PHI
         val hr = calcPosition(hrRot, hrLength, unit)
         val min = calcPosition(minRot, minLength, unit)
@@ -58,50 +59,48 @@ class DrawUtil() {
         val ccRadius = calcDistance(min, ccCenter)
     }
 
-    fun drawBackground(can: Canvas, color: Int) {
+    fun drawBackground(can: Canvas) {
+        val color = ConfigData.ctx.getColor(ConfigData.background.id)
         //can.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         can.drawColor(color, PorterDuff.Mode.CLEAR)
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), Palette.prep(color))
     }
 
-    fun draw(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-             can: Canvas, bounds: Rect, calendar: Calendar) {
+    fun draw(can: Canvas, bounds: Rect, calendar: Calendar) {
         if (ConfigData.isAmbient) {
-            val data = AmbientFrameData(calendar, bounds, can, stroke)
-            drawAmbientFace(ctx, pal, stroke, theme, can, data)
-            if (theme.text.ambient) {
-                Text.draw(ctx, can, calendar)
+            val data = AmbientFrameData(calendar, bounds, can)
+            drawAmbientFace(can, data)
+            if (ConfigData.theme.text.ambient) {
+                Text.draw(can, calendar)
             }
         } else {
-            val data = ActiveFrameData(calendar, bounds, can, stroke, theme)
-            drawActiveFace(ctx, pal, stroke, theme, can, data)
-            if (theme.text.active) {
-                Text.draw(ctx, can, calendar)
+            val data = ActiveFrameData(calendar, bounds, can)
+            drawActiveFace(can, data)
+            if (ConfigData.theme.text.active) {
+                Text.draw(can, calendar)
             }
         }
     }
 
-    fun drawActiveFace(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                       can: Canvas, data: ActiveFrameData) {
-        Circles.drawActive(ctx, pal, stroke, theme, can, data)
-        Hands.drawActive(ctx, pal, stroke, theme, can, data)
-        Points.drawActiveCenter(ctx, pal, stroke, theme, can, data)
-        Triangles.draw(ctx, pal, stroke, theme, can, data)
-        Points.drawActive(ctx, pal, stroke, theme, can, data)
+    fun drawActiveFace(can: Canvas, data: ActiveFrameData) {
+        Circles.drawActive(can, data)
+        Hands.drawActive(can, data)
+        Points.drawActiveCenter(can, data)
+        Triangles.draw(can, data)
+        Points.drawActive(can, data)
     }
 
-    fun drawAmbientFace(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                        can: Canvas, data: AmbientFrameData) {
-        Circles.drawAmbient(ctx, pal, stroke, theme, can, data)
-        Hands.drawAmbient(ctx, pal, stroke, theme, can, data)
-        Points.drawAmbient(ctx, pal, stroke, theme, can, data)
+    fun drawAmbientFace(can: Canvas, data: AmbientFrameData) {
+        Circles.drawAmbient(can, data)
+        Hands.drawAmbient(can, data)
+        Points.drawAmbient(can, data)
     }
 
     companion object {
-        fun makeOutline(ctx: Context, p: Paint, theme: Theme): Paint {
+        fun makeOutline(p: Paint): Paint {
             val outLine = Paint(p)
-            outLine.strokeWidth = p.strokeWidth + Outline.create(ctx, theme.outlineName).dim
-            outLine.color = ctx.getColor(R.color.black)
+            outLine.strokeWidth = p.strokeWidth + Outline.create(ConfigData.theme.outlineName).dim
+            outLine.color = ConfigData.ctx.getColor(R.color.black)
             return outLine
         }
         fun calcDistFromBorder(can: Canvas, stroke: Stroke): Float {

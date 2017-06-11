@@ -1,37 +1,31 @@
 package zir.teq.wearable.watchface.draw
 
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
 object Hands {
-    fun drawActive(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                   can: Canvas, data: DrawUtil.ActiveFrameData) {
-        val p = Palette.createPaint(ctx, PaintType.HAND, theme, stroke, pal)
-        if (theme.hasOutline) {
-            makeActiveFirst(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
+    fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
+        val p = Palette.createPaint(PaintType.HAND)
+        if (ConfigData.theme.hasOutline) {
+            makeActiveFirst(can, data, DrawUtil.makeOutline(p))
         }
-        makeActiveFirst(can, data, theme, p)
+        makeActiveFirst(can, data, p)
     }
 
-    fun drawAmbient(ctx: Context, pal: Palette, stroke: Stroke, theme: Theme,
-                    can: Canvas, data: DrawUtil.AmbientFrameData) {
-        val p = Palette.createPaint(ctx, PaintType.SHAPE_AMB, theme, stroke, pal) //not HAND_AMB...
-        if (theme.hasOutline) {
-            makeAmbient(can, data, theme, DrawUtil.makeOutline(ctx, p, theme))
+    fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
+        val p = Palette.createPaint(PaintType.SHAPE_AMB) //not HAND_AMB...
+        if (ConfigData.theme.hasOutline) {
+            makeAmbient(can, data, DrawUtil.makeOutline(p))
         }
-        makeAmbient(can, data, theme, p)
+        makeAmbient(can, data, p)
     }
 
-    private fun makeActiveFirst(can: Canvas, data: DrawUtil.ActiveFrameData,
-                                theme: Theme, p: Paint) {
-        if (theme.hands.active) {
+    private fun makeActiveFirst(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+        if (ConfigData.theme.hands.active) {
             if (ConfigData.isElastic) {
                 drawHandsElastic(can, data, p)
             } else {
@@ -55,8 +49,8 @@ object Hands {
         }
     }
 
-    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, theme: Theme, p: Paint) {
-        if (theme.hands.ambient) {
+    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint) {
+        if (ConfigData.theme.hands.ambient) {
             drawHand(data.getRef(can), p, data.hour)
             drawHand(data.getRef(can), p, data.minute)
             can.drawLine(data.min.x, data.min.y, data.hr.x, data.hr.y, p)

@@ -15,15 +15,16 @@ import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class ZirWatchConfigActivity : Activity() {
-    private var mView: WearableRecyclerView? = null
-    private var mAdapter: ZirWatchConfigAdapter? = null
+    private lateinit var mView: WearableRecyclerView
+    private lateinit var mAdapter: ZirWatchConfigAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_config)
-        mAdapter = ZirWatchConfigAdapter(applicationContext,
+        mView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
+        val ctx = mView.context
+        mAdapter = ZirWatchConfigAdapter(ctx,
                 ConfigData.watchFaceServiceClass,
                 ConfigData.getDataToPopulateAdapter(this))
-        mView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initMainConfigView(mView, mAdapter, ScalingLayoutManager(this))
     }
 
@@ -31,9 +32,9 @@ class ZirWatchConfigActivity : Activity() {
         when (requestCode) {
             PALETTE.code -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    val ctx = applicationContext
-                    val col = Palette.findActive(ctx)
-                    val filter = Palette.createFilter(ctx, col)
+                    val ctx = mView.context
+                    val col = Palette.findActive()
+                    val filter = Palette.createFilter(col)
                     updateItemColor(ctx, R.drawable.icon_color, filter)
                     updateItemColor(ctx, R.drawable.icon_background, filter)
                     updateItemColor(ctx, R.drawable.icon_stroke, filter)
