@@ -137,11 +137,5 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         fun createFilter(pal: Palette): ColorFilter {
             return PorterDuffColorFilter(pal.half(), PorterDuff.Mode.MULTIPLY)
         }
-
-        fun findActive(): Palette {
-            val colRes = ConfigData.res.getString(R.string.saved_palette)
-            val colName = ConfigData.prefs.getString(colRes, Palette.WHITE.name)
-            return create(colName)
-        }
     }
 }

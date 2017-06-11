@@ -38,7 +38,7 @@ class BackgroundSelectionAdapter(
         }
 
         fun bindBackground(background: Background) {
-            mCircle.setCircleColor(background.id)
+            mCircle.setCircleColor(mCircle.context.getColor(background.id))
             mText.text = background.name
         }
 
