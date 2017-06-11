@@ -17,6 +17,7 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
     var background = Background.default
     var alpha = Alpha.default
     var dim = Dim.default
+    var isElastic = false
 
     fun dark(ctx: Context) = ctx.getColor(darkId)
     fun half(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.5F)
