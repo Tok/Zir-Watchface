@@ -43,12 +43,12 @@ class GrowthSelectionAdapter(
 
             val dim: Float = (zir.teq.wearable.watchface.config.select.adapter.GrowthSelectionAdapter.Companion.DISPLAY_ITEM_FACTOR * (stroke.dim + outline.dim))
             mFirst.circleRadius = dim
-            mFirst.setCircleColor(ctx.getColor(pal.lightId))
+            mFirst.setCircleColor(pal.light(ctx))
             mFirst.setCircleBorderWidth(outline.dim)
 
             val growthDim: Float = dim + growth.dim
             mSecond.circleRadius = growthDim
-            mSecond.setCircleColor(ctx.getColor(pal.lightId))
+            mSecond.setCircleColor(pal.light(ctx))
             mSecond.setCircleBorderWidth(outline.dim)
 
             mText.text = growth.name

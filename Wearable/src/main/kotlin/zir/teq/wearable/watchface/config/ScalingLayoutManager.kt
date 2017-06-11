@@ -4,23 +4,24 @@ import android.content.Context
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
 import android.view.View
-import zir.watchface.DrawUtil
 
 class ScalingLayoutManager(ctx: Context) : CurvedChildLayoutManager(ctx) {
-    private var mProgressToCenter: Float = 0F
-
     override fun updateChild(child: View, parent: WearableRecyclerView) {
         super.updateChild(child, parent)
-
-        val centerOffset = (child.height.toFloat() / 2.0F) / parent.height.toFloat()
-        val yRelativeToCenterOffset = (child.y / parent.height) + centerOffset
-        mProgressToCenter = Math.abs(0.5F - yRelativeToCenterOffset) * 2F
-        //mProgressToCenter = Math.min(mProgressToCenter, MAX_ICON_PROGRESS) // Adjust to the maximum scale
-        child.scaleX = 1F - mProgressToCenter
-        child.scaleY = 1F - mProgressToCenter
+        val centerOffset = child.height.toFloat() * 0.5F / parent.height.toFloat()
+        val relativeCenterOffsetY = (child.y / parent.height) + centerOffset
+        val progress = Math.abs(0.5F - relativeCenterOffsetY) * 2F
+        val clippedAbsProgress = Math.min(progress, MAX_ICON_PROGRESS)
+        val scale = 1F - progress
+        val clippedScale = 1F - clippedAbsProgress
+        child.scaleX = scale
+        child.scaleY = scale
+        child.translationX = child.width * progress * -0.5F
+        child.translationY = child.height * (0.5F - relativeCenterOffsetY) * DISTORTION / clippedScale
     }
 
     companion object {
-        private val MAX_ICON_PROGRESS = 1F - (1F / DrawUtil.PHI)
+        private val DISTORTION: Float = 1F / 6F
+        private val MAX_ICON_PROGRESS: Float = 0.8F
     }
 }

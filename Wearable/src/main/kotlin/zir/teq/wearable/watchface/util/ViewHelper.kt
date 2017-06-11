@@ -100,7 +100,7 @@ object ViewHelper {
         val ctx = view.context
         val palName = ConfigData.prefs(ctx).getString(ctx.getString(R.string.saved_palette), Palette.default.name)
         val pal = Palette.getByName(palName)
-        val color = ctx.getColor(pal.half(ctx))
+        val color = pal.half(ctx)
         view.setCircleColor(color)
     }
 

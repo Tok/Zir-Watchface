@@ -8,6 +8,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.item.ConfigItem
+import zir.watchface.DrawUtil
 
 data class Palette(val name: String, val darkId: Int, val lightId: Int) {
     val isAntiAlias = true
@@ -16,13 +17,14 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
     var background = Background.default
     var alpha = Alpha.default
     var dim = Dim.default
+
     fun dark(ctx: Context) = ctx.getColor(darkId)
-    fun third(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.33F)
     fun half(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.5F)
-    fun twoThrids(ctx: Context) = ColorUtils.blendARGB(ctx.getColor(darkId), ctx.getColor(lightId), 0.67F)
     fun light(ctx: Context) = ctx.getColor(lightId)
 
     companion object {
+        fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / DrawUtil.PHI)
+        fun makeLighter(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.white), 1F / DrawUtil.PHI)
         val BLACK = Palette("Black", R.color.black, R.color.dark_gray)
         val WHITE = Palette("White", R.color.dark_grey, R.color.white)
         val RED = Palette("Red", R.color.dark_red, R.color.red)
