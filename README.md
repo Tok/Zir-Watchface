@@ -10,13 +10,14 @@
 ## TODO
 ### High Priority
 * Move all the variable config data into the ConfigData object.
+* Elasticy
 * Separate color selection from palette and allow individual selection.
 * Create a setting to turn the seconds on or off.
-* Replace the ambient mode implementation with a simple color filter and use lower refresh rate
+* ~~Replace the ambient mode implementation with a simple color filter and use lower refresh rate~~ 
 * Reduce redundancies and make code more idiomatic.
 
 ### Medium Priority
-* Use generated colorshades and apply them dynamically.
+* ~~Use generated colorshades and apply them dynamically.~~
 * Unlock the center dot from the center of the watchface and find a way to display the time by just rendering a distorted tetrahedron.
 * Center dot should be visually different from the hands, this may be done by using a darker or brighter color.
 * Find a workaround for the problem when all the dots are lined up and the tetrahedron would be a tangent.
