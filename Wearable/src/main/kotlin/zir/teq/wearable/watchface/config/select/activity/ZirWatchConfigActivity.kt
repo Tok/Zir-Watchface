@@ -21,7 +21,7 @@ class ZirWatchConfigActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_config)
         mView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
-        val ctx = mView.context
+        val ctx = ConfigData.ctx
         mAdapter = ZirWatchConfigAdapter(ctx,
                 ConfigData.watchFaceServiceClass,
                 ConfigData.getDataToPopulateAdapter(this))

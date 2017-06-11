@@ -10,7 +10,7 @@ import zir.watchface.DrawUtil
 object Hands {
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.HAND)
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             makeActiveFirst(can, data, DrawUtil.makeOutline(p))
         }
         makeActiveFirst(can, data, p)
@@ -18,7 +18,7 @@ object Hands {
 
     fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
         val p = Palette.createPaint(PaintType.SHAPE_AMB) //not HAND_AMB...
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             makeAmbient(can, data, DrawUtil.makeOutline(p))
         }
         makeAmbient(can, data, p)

@@ -39,11 +39,7 @@ class StrokeSelectionAdapter(
         }
 
         fun bindStroke(stroke: Stroke) {
-            val ctx = mView.context
-            val themeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
-            val theme = Theme.getByName(themeName)
-            val outline = Outline.create(theme.outlineName)
-            mView.circleRadius = stroke.dim + outline.dim
+            mView.circleRadius = stroke.dim + ConfigData.outline.dim
         }
 
         override fun onClick(view: View) {

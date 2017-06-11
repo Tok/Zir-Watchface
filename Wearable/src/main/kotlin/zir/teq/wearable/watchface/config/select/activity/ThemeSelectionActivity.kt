@@ -24,9 +24,7 @@ class ThemeSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = mConfigView.context
-        val themeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
-        val index = Theme.all.indexOfFirst { it.name.equals(themeName) } + 1
+        val index = Theme.all.indexOfFirst { it.name.equals(ConfigData.theme.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

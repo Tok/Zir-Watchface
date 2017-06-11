@@ -1,6 +1,9 @@
 package zir.teq.wearable.watchface.watchface
 
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
@@ -38,7 +41,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mBurnInProtection: Boolean = false
         private var mUpdateRateMs = ConfigItem.updateRateMs(mAmbient) //TODO move elsewhere?
 
-        internal lateinit var prefs: SharedPreferences
         private val mTimeZoneReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 mCalendar.timeZone = TimeZone.getDefault()
@@ -79,47 +81,24 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun loadSavedPreferences() {
-            val prefs = ConfigData.prefs
-
-            val palName = prefs.getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
-            ConfigData.palette = Palette.getByName(palName)
-
-            val strokeName = prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-            ConfigData.stroke = Stroke.create(ctx, strokeName)
-
-            val savedThemeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
-            val savedTheme = Theme.getByName(savedThemeName)
-
-            val isFastUpdate = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), savedTheme.isFastUpdate)
-            val isHand = Theme.Companion.Setting(
-                    prefs.getBoolean(ctx.getString(R.string.saved_hands_act), savedTheme.hands.active),
-                    prefs.getBoolean(ctx.getString(R.string.saved_hands_amb), savedTheme.hands.ambient))
-            val isTri = Theme.Companion.Setting(
-                    prefs.getBoolean(ctx.getString(R.string.saved_triangles_act), savedTheme.triangles.active),
-                    prefs.getBoolean(ctx.getString(R.string.saved_triangles_amb), savedTheme.triangles.ambient))
-            val isCirc = Theme.Companion.Setting(
-                    prefs.getBoolean(ctx.getString(R.string.saved_circles_act), savedTheme.circles.active),
-                    prefs.getBoolean(ctx.getString(R.string.saved_circles_amb), savedTheme.circles.ambient))
-            val isPoints = Theme.Companion.Setting(
-                    prefs.getBoolean(ctx.getString(R.string.saved_points_act), savedTheme.points.active),
-                    prefs.getBoolean(ctx.getString(R.string.saved_points_amb), savedTheme.points.ambient))
-            val isText = Theme.Companion.Setting(
-                    prefs.getBoolean(ctx.getString(R.string.saved_text_act), savedTheme.text.active),
-                    prefs.getBoolean(ctx.getString(R.string.saved_text_amb), savedTheme.text.ambient))
-            val outlineName = prefs.getString(ctx.getString(R.string.saved_outline), savedTheme.outlineName)
-            val growthName = prefs.getString(ctx.getString(R.string.saved_growth), savedTheme.growthName)
-
-            with (prefs) { //TODO change types
-                val background = Background.getByName(getString(ctx.getString(R.string.saved_background), Background.default.name))
-                val alpha = Alpha.getByName(getString(ctx.getString(R.string.saved_alpha), Alpha.default.name))
-                val dim = Dim.getByName(getString(ctx.getString(R.string.saved_dim), Dim.default.name))
-                Log.d(TAG, "loaded saved background: $background, alpha: $alpha, dim: $dim")
-                ConfigData.background = background
-                ConfigData.alpha = alpha
-                ConfigData.dim = dim
+            with(ConfigData) {
+                //TODO change pref types
+                palette = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
+                stroke = Stroke.create(prefString(R.string.saved_stroke, Stroke.default().name))
+                background = Background.getByName(prefString(R.string.saved_background, Background.default.name))
+                alpha = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))
+                dim = Dim.getByName(prefString(R.string.saved_dim, Dim.default.name))
+                outline = Outline.create(prefString(R.string.saved_outline, Outline.default().name))
+                growth = Growth.create(prefString(R.string.saved_growth, Growth.default().name))
+                isFastUpdate = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), isFastUpdate)
+                val savedTheme = savedTheme()
+                val isHand = savedHandSetting(savedTheme)
+                val isTri = savedTriangleSetting(savedTheme)
+                val isCirc = savedCircleSetting(savedTheme)
+                val isPoints = savedPointsSetting(savedTheme)
+                val isText = savedTextSetting(savedTheme)
+                theme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText)
             }
-
-            ConfigData.theme = Theme(savedTheme.name, savedTheme.iconId, isFastUpdate, isHand, isTri, isCirc, isPoints, isText, outlineName, growthName)
             Log.d(TAG, "theme updated: " + ConfigData.theme)
             updateWatchPaintStyles()
         }

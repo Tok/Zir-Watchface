@@ -6,14 +6,10 @@ import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import config.select.adapter.StrokeSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Theme
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
 object ViewHelper {
@@ -98,29 +94,13 @@ object ViewHelper {
 
     fun bindCircleColor(view: CircledImageView) {
         val ctx = view.context
-        val palName = ConfigData.prefs.getString(ctx.getString(R.string.saved_palette), Palette.default.name)
-        val pal = Palette.getByName(palName)
+        val palName = ConfigData.prefs.getString(ctx.getString(R.string.saved_palette), Palette.default().name)
+        val pal = Palette.create(palName)
         val color = pal.half()
         view.setCircleColor(color)
     }
 
-    fun bindCircleRadius(view: CircledImageView) {
-        val ctx = view.context
-        val strokeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-        val stroke = Stroke.create(ctx, strokeName)
-
-        //outline is added to the radius
-        val themeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
-        val theme = Theme.getByName(themeName)
-        val outline = Outline.create(theme.outlineName)
-        view.circleRadius = (stroke.dim * StrokeSelectionAdapter.DISPLAY_ITEM_FACTOR) + outline.dim
-    }
-
     fun bindCircleBorderWidth(view: CircledImageView) {
-        val ctx = view.context
-        val themeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
-        val theme = Theme.getByName(themeName)
-        val outline = Outline.create(theme.outlineName)
-        view.setCircleBorderWidth(outline.dim)
+        view.setCircleBorderWidth(ConfigData.outline.dim)
     }
 }

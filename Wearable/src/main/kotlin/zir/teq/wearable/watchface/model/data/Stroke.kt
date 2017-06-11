@@ -1,7 +1,7 @@
 package zir.teq.wearable.watchface.model.data
 
-import android.content.Context
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 
 data class Stroke(val name: String, val dim: Float) {
     companion object {
@@ -14,9 +14,10 @@ data class Stroke(val name: String, val dim: Float) {
         val GIGA = Type("Giga", R.dimen.dim_giga)
         val ULTRA = Type("Ultra", R.dimen.dim_ultra)
         val all = listOf(HAIR, THIN, NORMAL, BOLD, MEGA, GIGA, ULTRA)
-        val default = NORMAL
-        fun options(ctx: Context) = all.map { inst(ctx, it) }.toCollection(ArrayList<Stroke>())
-        fun create(ctx: Context, typeName: String) = inst(ctx, all.find { it.name.equals(typeName) } ?: default)
-        private fun inst(ctx: Context, type: Type) = Stroke(type.name, ctx.getResources().getDimension(type.dimId))
+        val defaultType = NORMAL
+        fun default() = create(defaultType.name)
+        fun options() = all.map { inst(it) }.toCollection(ArrayList<Stroke>())
+        fun create(typeName: String) = inst(all.find { it.name.equals(typeName) } ?: defaultType)
+        private fun inst(type: Type) = Stroke(type.name, ConfigData.res.getDimension(type.dimId))
     }
 }

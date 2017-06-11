@@ -40,26 +40,17 @@ class PaletteSelectionAdapter(
         }
 
         fun bindPalette(pal: Palette) {
-            val ctx = mFirst.context
-            val prefs = ConfigData.prefs
-
-            val themeName = prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
-            val theme = Theme.getByName(themeName)
-            val outline = Outline.create(theme.outlineName)
-
             with (mFirst) {
                 setCircleColor(pal.dark())
-                setCircleBorderWidth(outline.dim)
+                setCircleBorderWidth(ConfigData.outline.dim)
             }
-
             with (mSecond) {
                 setCircleColor(pal.half())
-                setCircleBorderWidth(outline.dim)
+                setCircleBorderWidth(ConfigData.outline.dim)
             }
-
             with (mThird) {
                 setCircleColor(pal.light())
-                setCircleBorderWidth(outline.dim)
+                setCircleBorderWidth(ConfigData.outline.dim)
             }
         }
 

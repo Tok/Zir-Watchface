@@ -26,10 +26,7 @@ class PaletteSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = mConfigView.context
-        val colName = ConfigData.prefs.getString(ctx.getString(R.string.saved_palette), Palette.WHITE.name)
-        val col = Palette.getByName(colName)
-        val index = Palette.selectable.indexOfFirst { it.equals(col) } + 1
+        val index = Palette.selectable.indexOfFirst { it.equals(ConfigData.palette) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

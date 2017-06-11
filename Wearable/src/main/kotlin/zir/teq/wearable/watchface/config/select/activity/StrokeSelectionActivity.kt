@@ -18,17 +18,14 @@ class StrokeSelectionActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selection_stroke)
         val sharedStrokeName = intent.getStringExtra(EXTRA)
-        val ctx = applicationContext
-        mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options(ctx))
+        mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options())
         mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 
     override fun onStart() {
         super.onStart()
-        val ctx = mConfigView.context
-        val strokeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-        val index = Stroke.all.indexOfFirst { it.name.equals(strokeName) } + 1
+        val index = Stroke.all.indexOfFirst { it.name.equals(ConfigData.stroke.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

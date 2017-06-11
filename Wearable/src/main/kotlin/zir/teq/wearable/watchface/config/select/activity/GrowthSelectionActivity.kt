@@ -25,9 +25,7 @@ class GrowthSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = mConfigView.context
-        val growthName = ConfigData.prefs.getString(ctx.getString(R.string.saved_growth), Theme.default.growthName)
-        val index = Growth.all.indexOfFirst { it.name.equals(growthName) } + 1
+        val index = Growth.all.indexOfFirst { it.name.equals(ConfigData.growth.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

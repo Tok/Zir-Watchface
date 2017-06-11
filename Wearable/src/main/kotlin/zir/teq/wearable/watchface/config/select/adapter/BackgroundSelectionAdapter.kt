@@ -37,10 +37,9 @@ class BackgroundSelectionAdapter(
             mView.setOnClickListener(this)
         }
 
-        fun bindBackground(bg: Background) {
-            val ctx = mView.context
-            mCircle.setCircleColor(ctx.getColor(bg.id))
-            mText.text = bg.name
+        fun bindBackground(background: Background) {
+            mCircle.setCircleColor(background.id)
+            mText.text = background.name
         }
 
         override fun onClick(view: View) {

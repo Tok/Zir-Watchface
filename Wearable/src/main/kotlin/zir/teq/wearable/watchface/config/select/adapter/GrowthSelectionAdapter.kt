@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.*
+import zir.teq.wearable.watchface.model.data.Growth
+import zir.teq.wearable.watchface.model.data.Palette
 
 
 class GrowthSelectionAdapter(
@@ -21,11 +22,11 @@ class GrowthSelectionAdapter(
 
     override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
         val growth = mOptions[position]
-        val growthViewHolder = vh as GrowthViewHolder
-        val ctx = growthViewHolder.mFirst.context
-        val palName = ConfigData.prefs.getString(ctx.getString(zir.teq.wearable.watchface.R.string.saved_palette), Palette.default.name)
-        val pal = Palette.getByName(palName)
-        growthViewHolder.bindGrowth(growth, pal)
+        val viewHolder = vh as GrowthViewHolder
+        val ctx = viewHolder.mFirst.context
+        val palName = ConfigData.prefs.getString(ctx.getString(zir.teq.wearable.watchface.R.string.saved_palette), Palette.default().name)
+        val pal = Palette.create(palName)
+        viewHolder.bindGrowth(growth, pal)
     }
 
     override fun getItemCount(): Int {
@@ -41,24 +42,15 @@ class GrowthSelectionAdapter(
         }
 
         fun bindGrowth(growth: Growth, pal: Palette) {
-            val ctx = mFirst.context
-
-            val strokeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_stroke), Stroke.default.name)
-            val stroke = Stroke.create(ctx, strokeName)
-
-            val themeName = ConfigData.prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name)
-            val theme = Theme.getByName(themeName)
-            val outline = Outline.create(theme.outlineName)
-
-            val dim: Float = (GrowthSelectionAdapter.DISPLAY_ITEM_FACTOR * (stroke.dim + outline.dim))
+            val dim: Float = (GrowthSelectionAdapter.DISPLAY_ITEM_FACTOR * (ConfigData.stroke.dim + ConfigData.outline.dim))
             mFirst.circleRadius = dim
             mFirst.setCircleColor(pal.light())
-            mFirst.setCircleBorderWidth(outline.dim)
+            mFirst.setCircleBorderWidth(ConfigData.outline.dim)
 
             val growthDim: Float = dim + growth.dim
             mSecond.circleRadius = growthDim
             mSecond.setCircleColor(pal.light())
-            mSecond.setCircleBorderWidth(outline.dim)
+            mSecond.setCircleBorderWidth(ConfigData.outline.dim)
 
             mText.text = growth.name
         }

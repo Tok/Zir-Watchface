@@ -10,7 +10,7 @@ import zir.watchface.DrawUtil
 object Triangles {
     fun draw(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.SHAPE)
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             prepareAndDraw(can, data, DrawUtil.makeOutline(p))
         }
         prepareAndDraw(can, data, p)

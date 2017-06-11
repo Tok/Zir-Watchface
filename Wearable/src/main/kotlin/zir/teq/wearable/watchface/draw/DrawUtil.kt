@@ -99,7 +99,7 @@ class DrawUtil() {
     companion object {
         fun makeOutline(p: Paint): Paint {
             val outLine = Paint(p)
-            outLine.strokeWidth = p.strokeWidth + Outline.create(ConfigData.theme.outlineName).dim
+            outLine.strokeWidth = p.strokeWidth + ConfigData.outline.dim
             outLine.color = ConfigData.ctx.getColor(R.color.black)
             return outLine
         }

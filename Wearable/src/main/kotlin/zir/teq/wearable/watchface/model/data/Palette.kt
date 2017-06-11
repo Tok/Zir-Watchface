@@ -30,12 +30,14 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         val RED_YELLOW = Palette("Red and Yellow", R.color.red, R.color.yellow)
         val BLUE_ORANGE = Palette("Blue and Orange", R.color.deep_sky_blue, R.color.bright_orange)
         val BLACK_YELLOW = Palette("Black and Yellow", R.color.black, R.color.yellow)
-        val default = BLACK
+        val defaultType = BLACK
+        fun default() = create(defaultType.name)
+
         private val all = listOf(BLACK, WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE,
                 PURPLE_GREEN, RED_YELLOW, BLUE_ORANGE, BLACK_YELLOW)
         val selectable = listOf(RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
         fun options() = all.toCollection(ArrayList<Palette>())
-        fun getByName(name: String): Palette = all.find { it.name.equals(name) } ?: default
+        fun create(name: String): Palette = all.find { it.name.equals(name) } ?: defaultType
         fun prep(color: Int): Paint {
             val paint = inst()
             paint.color = color
@@ -92,7 +94,7 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
 
         private fun createStrokeWidth(type: PaintType): Float {
             val isPoint = PaintType.POINT.equals(type)
-            val pointGrowth = if (isPoint) Growth.create(ConfigData.theme.growthName).dim else 0F
+            val pointGrowth = if (isPoint) ConfigData.growth.dim else 0F
             return ConfigData.stroke.dim + pointGrowth
         }
 
@@ -139,7 +141,7 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         fun findActive(): Palette {
             val colRes = ConfigData.res.getString(R.string.saved_palette)
             val colName = ConfigData.prefs.getString(colRes, Palette.WHITE.name)
-            return Palette.getByName(colName)
+            return create(colName)
         }
     }
 }

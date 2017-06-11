@@ -25,9 +25,7 @@ class OutlineSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = mConfigView.context
-        val outlineName = ConfigData.prefs.getString(ctx.getString(R.string.saved_outline), Theme.default.outlineName)
-        val index = Outline.all.indexOfFirst { it.name.equals(outlineName) } + 1
+        val index = Outline.all.indexOfFirst { it.name.equals(ConfigData.outline.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

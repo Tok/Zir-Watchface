@@ -38,8 +38,7 @@ class DimSelectionAdapter(
         }
 
         fun bindDim(dim: Dim) {
-            val ctx = mView.context
-            mCircle.setCircleColor(ctx.getColor(R.color.black))
+            mCircle.setCircleColor(mView.context.getColor(R.color.black))
             mCircle.alpha = dim.value.toFloat()
             mText.text = dim.name
         }

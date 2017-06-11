@@ -11,7 +11,7 @@ import zir.watchface.DrawUtil
 object Circles {
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE)
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             val outlineP = DrawUtil.makeOutline(p)
             makeSlow(can, data, outlineP)
             makeFast(can, data, outlineP)
@@ -22,7 +22,7 @@ object Circles {
 
     fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE_AMB)
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             makeAmbient(can, data, DrawUtil.makeOutline(p))
         }
         makeAmbient(can, data, p)

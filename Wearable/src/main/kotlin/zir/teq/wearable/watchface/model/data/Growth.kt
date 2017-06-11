@@ -14,9 +14,10 @@ data class Growth(val name: String, val dim: Float) {
         val BOLDER = Type("Bolder", R.dimen.dim_bolder)
         val MEGA = Type("Mega", R.dimen.dim_mega)
         val all = listOf(OFF, HAIR, THIN, NORMAL, BOLD, BOLDER, MEGA)
-        val default = NORMAL
+        private val defaultType = BOLDER
+        fun default() = Growth.create(defaultType.name)
         fun options() = all.map { inst(it) }.toCollection(ArrayList<Growth>())
-        fun create(typeName: String) = inst(all.find { it.name.equals(typeName) } ?: default)
+        fun create(typeName: String) = inst(all.find { it.name.equals(typeName) } ?: defaultType)
         private fun inst(type: Type) = Growth(type.name, ConfigData.res.getDimension(type.dimId))
     }
 }

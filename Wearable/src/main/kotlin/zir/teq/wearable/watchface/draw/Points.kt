@@ -10,7 +10,7 @@ import zir.watchface.DrawUtil
 object Points {
     fun drawActiveCenter(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.POINT)
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             makeCenter(can, data, DrawUtil.makeOutline(p)) //center
         }
         makeCenter(can, data, p) //center
@@ -18,7 +18,7 @@ object Points {
 
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.POINT)
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             val outlineP = DrawUtil.makeOutline(p)
             makeSeconds(can, data, outlineP)
             makeMinAndHr(can, data, outlineP)
@@ -29,7 +29,7 @@ object Points {
 
     fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
         val p = Palette.createPaint(PaintType.POINT)
-        if (ConfigData.theme.hasOutline) {
+        if (ConfigData.hasOutline()) {
             drawAmbientPoints(can, data, DrawUtil.makeOutline(p))
         }
         drawAmbientPoints(can, data, p)

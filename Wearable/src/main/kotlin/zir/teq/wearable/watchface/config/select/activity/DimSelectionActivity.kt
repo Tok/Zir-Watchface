@@ -8,6 +8,7 @@ import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.adapter.DimSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Dim
+import zir.teq.wearable.watchface.model.data.Growth
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -26,9 +27,7 @@ class DimSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val ctx = mConfigView.context
-        val name = ConfigData.prefs.getString(ctx.getString(R.string.saved_dim), Dim.default.name)
-        val index = Dim.all.indexOfFirst { it.name.equals(name) } + 1
+        val index = Dim.all.indexOfFirst { it.name.equals(ConfigData.dim.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 
