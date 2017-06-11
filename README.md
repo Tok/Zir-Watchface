@@ -2,15 +2,27 @@
 ...work in progress...
 
 ## Screenshots
+
+![Elastic Geometry](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/elastic_geometry.png "Elastic Geometry")
+![Elastic Outline](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/elastic_outline.png "Elastic Outline")
+![Green Triangle](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/green_triangle.png "Green Triangle")
+![Hands and Circles](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/hands_and_circles.png "Hands and Circles")
+![Red Geometry](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/red_geometry.png "Red Geometry")
+
+---
+
 ![Preview](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/preview_zir.png "Preview")
 ![Circles](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/theme_circles.png "Circles")
 ![Fields](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/theme_fields.png "Fields")
 ![Geometry](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/theme_geometry.png "Geometry")
 
+---
+
 ## TODO
+
 ### High Priority
-* Move all the variable config data into the ConfigData object.
-* Elasticy
+* ~~Move all the variable config data into the ConfigData object.~~
+* ~~Elasticy~~
 * Separate color selection from palette and allow individual selection.
 * Create a setting to turn the seconds on or off.
 * ~~Replace the ambient mode implementation with a simple color filter and use lower refresh rate~~ 
