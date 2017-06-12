@@ -8,7 +8,7 @@ import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
 object Triangles {
-    val ELASTICITY = 0.5F / DrawUtil.PHI
+    val ELASTICITY = 1F / DrawUtil.PHI
     fun draw(can: Canvas, data: DrawUtil.ActiveFrameData) {
         if (ConfigData.theme.triangles.active) {
             val p = Palette.createPaint(PaintType.SHAPE)
@@ -27,9 +27,9 @@ object Triangles {
             val hmP = DrawUtil.applyElasticity(p, hmFactor, isOutline)
             val hsP = DrawUtil.applyElasticity(p, hsFactor, isOutline)
             val msP = DrawUtil.applyElasticity(p, msFactor, isOutline)
-            can.drawLine(second.p.x, second.p.y, minute.p.x, minute.p.y, hmP)
+            can.drawLine(second.p.x, second.p.y, minute.p.x, minute.p.y, msP)
             can.drawLine(second.p.x, second.p.y, hour.p.x, hour.p.y, hsP)
-            can.drawLine(minute.p.x, minute.p.y, hour.p.x, hour.p.y, msP)
+            can.drawLine(minute.p.x, minute.p.y, hour.p.x, hour.p.y, hmP)
         }
     }
 }

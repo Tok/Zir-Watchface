@@ -148,10 +148,10 @@ class DrawUtil() {
                 return ConfigData.ctx.getColor(R.color.black)
             } else {
                 if (ConfigData.isElasticColor) {
-                    val minRatio = 1F / PHI
-                    val ratio = maxOf(minRatio, minOf(1F, 1F / factor))
-                    //val ratio = maxOf(minRatio, minOf(1F, 1F / factor))
-                    Log.d(TAG, "applyElasticity ratio: $ratio")
+                    val offset = PHI
+                    val minRatio = 1F - (1F / PHI)
+                    val ratio = maxOf(minRatio, minOf(1F, offset - (1F / factor)))
+                    //Log.d(TAG, "applyElasticity ratio: $ratio")
                     //if (factor >= 1) {
                         return ColorUtils.blendARGB(ConfigData.ctx.getColor(R.color.white), p.color, ratio)
                     //} else {
@@ -164,7 +164,7 @@ class DrawUtil() {
         }
         fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean) = applyElasticity(p, factor, isOutline, false)
         fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Paint {
-            Log.d(TAG, "applyElasticity factor: $factor")
+            //Log.d(TAG, "applyElasticity factor: $factor")
             val result = Paint(p)
             result.strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
             result.color = handleColor(p, factor, isOutline)
