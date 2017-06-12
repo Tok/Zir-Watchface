@@ -12,12 +12,25 @@ object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE)
-        if (ConfigData.hasOutline()) {
-            makeSlow(can, data, p, true)
-            makeFast(can, data, p, true)
-        }
-        makeSlow(can, data, p)
-        makeFast(can, data, p)
+        /* TODO ungroup
+        if (ConfigData.isElasticColor) {
+            if (ConfigData.hasOutline()) {
+                makeSlow(can, data, p, true)
+            }
+            makeSlow(can, data, p)
+            if (ConfigData.hasOutline()) {
+                makeFast(can, data, p, true)
+            }
+            makeFast(can, data, p)
+        } else {
+        */
+            if (ConfigData.hasOutline()) {
+                makeSlow(can, data, p, true)
+                makeFast(can, data, p, true)
+            }
+            makeSlow(can, data, p)
+            makeFast(can, data, p)
+        //}
     }
 
     fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
@@ -63,7 +76,7 @@ object Circles {
         if (!areHandsAlmostCollinear(hrRot, secRot)) {
             ref.can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, stretched)
         } else {
-            drawFullLine(ref.can, paint, hrRot, secRot, ref.unit)
+            drawFullLine(ref.can, stretched, hrRot, secRot, ref.unit)
         }
     }
 
