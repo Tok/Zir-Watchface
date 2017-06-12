@@ -8,10 +8,11 @@ import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
 object Hands {
+    val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.HAND)
         if (ConfigData.hasOutline()) {
-            makeActive(can, data, DrawUtil.makeOutline(p))
+            makeActive(can, data, p, true)
         }
         makeActive(can, data, p)
     }
@@ -19,18 +20,21 @@ object Hands {
     fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
         val p = Palette.createPaint(PaintType.SHAPE_AMB) //not HAND_AMB...
         if (ConfigData.hasOutline()) {
-            makeAmbient(can, data, DrawUtil.makeOutline(p))
+            makeAmbient(can, data, p, true)
         }
         makeAmbient(can, data, p)
     }
 
-    private fun makeActive(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+    private fun makeActive(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.hands.active) {
             with(data) {
                 val ref = data.getRef(can)
-                val hP = DrawUtil.applyElasticity(p, ref.unit / DrawUtil.calcDistance(hour.p, ref.center))
-                val mP = DrawUtil.applyElasticity(p, ref.unit / DrawUtil.calcDistance(minute.p, ref.center))
-                val sP = DrawUtil.applyElasticity(p, ref.unit / DrawUtil.calcDistance(second.p, ref.center))
+                val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, ref.center)
+                val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, ref.center)
+                val sFactor = ELASTICITY * unit / DrawUtil.calcDistance(second.p, ref.center)
+                val hP = DrawUtil.applyElasticity(p, hFactor, isOutline)
+                val mP = DrawUtil.applyElasticity(p, mFactor, isOutline)
+                val sP = DrawUtil.applyElasticity(p, sFactor, isOutline)
                 drawHand(ref, sP, second)
                 drawHand(ref, hP, hour)
                 drawHand(ref, mP, minute)
@@ -38,15 +42,18 @@ object Hands {
         }
     }
 
-    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint) {
+    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.hands.ambient) {
             with(data) {
-                val hP = DrawUtil.applyElasticity(p,  unit / DrawUtil.calcDistance(hour.p, center))
-                val mP = DrawUtil.applyElasticity(p,  unit / DrawUtil.calcDistance(minute.p, center))
-                val lineP = DrawUtil.applyElasticity(p,  unit / DrawUtil.calcDistance(minute.p, hour.p))
-                drawHand(data.getRef(can), hP, data.hour)
-                drawHand(data.getRef(can), mP, data.minute)
-                can.drawLine(data.min.x, data.min.y, data.hr.x, data.hr.y, lineP)
+                val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, center)
+                val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, center)
+                val lineFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, hour.p)
+                val hP = DrawUtil.applyElasticity(p, hFactor, isOutline)
+                val mP = DrawUtil.applyElasticity(p, mFactor, isOutline)
+                val lineP = DrawUtil.applyElasticity(p, lineFactor, isOutline)
+                drawHand(getRef(can), hP, hour)
+                drawHand(getRef(can), mP, minute)
+                can.drawLine(min.x, min.y, hr.x, hr.y, lineP)
             }
         }
     }

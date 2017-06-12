@@ -2,6 +2,9 @@ package zir.watchface
 
 import android.content.Context
 import android.graphics.*
+import android.support.annotation.ColorInt
+import android.support.v4.graphics.ColorUtils
+import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
@@ -126,14 +129,46 @@ class DrawUtil() {
             val p = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
             return Math.sqrt(p.toDouble()).toFloat()
         }
-        fun applyElasticity(p: Paint, factor: Float): Paint {
+        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) { ConfigData.outline.dim } else { 0F }
+        private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
+        private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
+            val w = p.strokeWidth
             if (ConfigData.isElastic) {
-                val stretched = Paint(p)
-                stretched.strokeWidth = p.strokeWidth * factor
-                return stretched
+                if (ConfigData.isElasticOutline) {
+                    return applyStretch(isAdd, w + maybeAddOutline(isOutline), factor)
+                } else {
+                    return applyStretch(isAdd, w, factor) + maybeAddOutline(isOutline)
+                }
             } else {
-                return p
+                return w + maybeAddOutline(isOutline)
             }
+        }
+        private fun handleColor(p: Paint, factor: Float, isOutline: Boolean): Int {
+            if (isOutline) {
+                return ConfigData.ctx.getColor(R.color.black)
+            } else {
+                if (ConfigData.isElasticColor) {
+                    val minRatio = 1F / PHI
+                    val ratio = maxOf(minRatio, minOf(1F, 1F / factor))
+                    //val ratio = maxOf(minRatio, minOf(1F, 1F / factor))
+                    Log.d(TAG, "applyElasticity ratio: $ratio")
+                    //if (factor >= 1) {
+                        return ColorUtils.blendARGB(ConfigData.ctx.getColor(R.color.white), p.color, ratio)
+                    //} else {
+                    //    stretched.color = ColorUtils.blendARGB(p.color, ConfigData.ctx.getColor(R.color.black), 1F / factor)
+                    //}
+                } else {
+                    return p.color
+                }
+            }
+        }
+        fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean) = applyElasticity(p, factor, isOutline, false)
+        fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Paint {
+            Log.d(TAG, "applyElasticity factor: $factor")
+            val result = Paint(p)
+            result.strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
+            result.color = handleColor(p, factor, isOutline)
+            return result
         }
         private val TAG = this::class.java.simpleName
         val PHI = 1.618033988F

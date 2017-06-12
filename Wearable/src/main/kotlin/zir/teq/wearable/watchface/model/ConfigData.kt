@@ -87,7 +87,8 @@ object ConfigData {
     var dim = savedDim()
     var isFastUpdate: Boolean = savedFastUpdate()
     var isElastic: Boolean = savedIsElastic()
-
+    var isElasticOutline: Boolean = false //TODO tune
+    var isElasticColor: Boolean = true //TODO tune
     val isAntiAlias = true
     var isAmbient = false
     var isMute = false

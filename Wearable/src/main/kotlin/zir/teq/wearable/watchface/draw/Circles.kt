@@ -9,12 +9,12 @@ import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
 object Circles {
+    val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE)
         if (ConfigData.hasOutline()) {
-            val outlineP = DrawUtil.makeOutline(p)
-            makeSlow(can, data, outlineP)
-            makeFast(can, data, outlineP)
+            makeSlow(can, data, p, true)
+            makeFast(can, data, p, true)
         }
         makeSlow(can, data, p)
         makeFast(can, data, p)
@@ -23,52 +23,48 @@ object Circles {
     fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE_AMB)
         if (ConfigData.hasOutline()) {
-            makeAmbient(can, data, DrawUtil.makeOutline(p))
+            makeAmbient(can, data, p, true)
         }
         makeAmbient(can, data, p)
     }
 
-    private fun makeFast(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+    private fun makeFast(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.circles.active) {
             with (data) {
-                val hsP = DrawUtil.applyElasticity(p, unit / DrawUtil.calcDistance(hr, sec))
-                val msP = DrawUtil.applyElasticity(p, unit / DrawUtil.calcDistance(min, sec))
-                drawLine(getRef(can), hsP, hrRot, secRot, hr, sec)
-                drawLine(getRef(can), msP, minRot, secRot, min, sec)
+                drawLine(getRef(can), p, hrRot, secRot, hr, sec, isOutline)
+                drawLine(getRef(can), p, minRot, secRot, min, sec, isOutline)
             }
         }
     }
 
-    private fun makeSlow(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+    private fun makeSlow(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.circles.active) {
             with (data) {
-                val stretched = DrawUtil.applyElasticity(p, unit / DrawUtil.calcDistance(hr, min))
-                drawLine(getRef(can), stretched, hrRot, minRot, hr, min)
+                drawLine(getRef(can), p, hrRot, minRot, hr, min, isOutline)
             }
         }
     }
 
-    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint) {
+    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.circles.ambient) {
             with (data) {
-                val stretched = DrawUtil.applyElasticity(p, unit / data.ccRadius)
+                val factor = ELASTICITY * unit / data.ccRadius
+                val stretched = DrawUtil.applyElasticity(p, factor, isOutline, true)
                 can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, stretched)
             }
         }
     }
 
-    private fun drawLine(ref: DrawUtil.Ref, paint: Paint, hrRot: Float, secRot: Float, hr: PointF, sec: PointF) {
+    private fun drawLine(ref: DrawUtil.Ref, paint: Paint, hrRot: Float, secRot: Float, hr: PointF, sec: PointF, isOutline: Boolean) {
+        val ccCenter = DrawUtil.calcCircumcenter(ref.center, hr, sec)
+        val ccRadius = DrawUtil.calcDistance(ref.center, ccCenter)
+        val factor = ELASTICITY * ref.unit / ccRadius
+        val stretched = DrawUtil.applyElasticity(paint, factor, isOutline, true)
         if (!areHandsAlmostCollinear(hrRot, secRot)) {
-            drawCircle(ref.can, paint, ref.center, hr, sec)
+            ref.can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, stretched)
         } else {
             drawFullLine(ref.can, paint, hrRot, secRot, ref.unit)
         }
-    }
-
-    private fun drawCircle(can: Canvas, paint: Paint, center: PointF, firstHand: PointF, secondHand: PointF) {
-        val ccCenter = DrawUtil.calcCircumcenter(center, firstHand, secondHand)
-        val ccRadius = DrawUtil.calcDistance(center, ccCenter)
-        can.drawCircle(ccCenter.x, ccCenter.y, ccRadius, paint)
     }
 
     private fun drawFullLine(can: Canvas, paint: Paint, fromHandRot: Float, toHandRot: Float, unit: Float) {
