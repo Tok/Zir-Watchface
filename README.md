@@ -8,6 +8,8 @@
 ![Green Triangle](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/green_triangle.png "Green Triangle")
 ![Hands and Circles](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/hands_and_circles.png "Hands and Circles")
 ![Red Geometry](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/red_geometry.png "Red Geometry")
+![Green Circles](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/green-circles.png "Green Circles")
+![Pink Triangle](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/pink-triangle.png "Pink Triangle")
 
 ---
 
