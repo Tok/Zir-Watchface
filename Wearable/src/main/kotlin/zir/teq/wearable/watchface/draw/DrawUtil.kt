@@ -126,7 +126,15 @@ class DrawUtil() {
             val p = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
             return Math.sqrt(p.toDouble()).toFloat()
         }
-
+        fun applyElasticity(p: Paint, factor: Float): Paint {
+            if (ConfigData.isElastic) {
+                val stretched = Paint(p)
+                stretched.strokeWidth = p.strokeWidth * factor
+                return stretched
+            } else {
+                return p
+            }
+        }
         private val TAG = this::class.java.simpleName
         val PHI = 1.618033988F
         val PI = Math.PI.toFloat() //180 Degree

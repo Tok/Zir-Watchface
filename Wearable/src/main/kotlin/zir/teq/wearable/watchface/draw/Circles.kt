@@ -30,20 +30,30 @@ object Circles {
 
     private fun makeFast(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
         if (ConfigData.theme.circles.active) {
-            drawLine(data.getRef(can), p, data.hrRot, data.secRot, data.hr, data.sec)
-            drawLine(data.getRef(can), p, data.minRot, data.secRot, data.min, data.sec)
+            with (data) {
+                val hsP = DrawUtil.applyElasticity(p, unit / DrawUtil.calcDistance(hr, sec))
+                val msP = DrawUtil.applyElasticity(p, unit / DrawUtil.calcDistance(min, sec))
+                drawLine(getRef(can), hsP, hrRot, secRot, hr, sec)
+                drawLine(getRef(can), msP, minRot, secRot, min, sec)
+            }
         }
     }
 
     private fun makeSlow(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
         if (ConfigData.theme.circles.active) {
-            drawLine(data.getRef(can), p, data.hrRot, data.minRot, data.hr, data.min)
+            with (data) {
+                val stretched = DrawUtil.applyElasticity(p, unit / DrawUtil.calcDistance(hr, min))
+                drawLine(getRef(can), stretched, hrRot, minRot, hr, min)
+            }
         }
     }
 
     private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint) {
         if (ConfigData.theme.circles.ambient) {
-            can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, p)
+            with (data) {
+                val stretched = DrawUtil.applyElasticity(p, unit / data.ccRadius)
+                can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, stretched)
+            }
         }
     }
 

@@ -26,60 +26,29 @@ object Hands {
 
     private fun makeActive(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
         if (ConfigData.theme.hands.active) {
-            if (ConfigData.isElastic) {
-                drawElastic(can, data, p)
-            } else {
-                drawHands(data.getRef(can), p, data.hour, data.minute, data.second)
+            with(data) {
+                val ref = data.getRef(can)
+                val hP = DrawUtil.applyElasticity(p, ref.unit / DrawUtil.calcDistance(hour.p, ref.center))
+                val mP = DrawUtil.applyElasticity(p, ref.unit / DrawUtil.calcDistance(minute.p, ref.center))
+                val sP = DrawUtil.applyElasticity(p, ref.unit / DrawUtil.calcDistance(second.p, ref.center))
+                drawHand(ref, sP, second)
+                drawHand(ref, hP, hour)
+                drawHand(ref, mP, minute)
             }
         }
     }
 
     private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint) {
         if (ConfigData.theme.hands.ambient) {
-            if (ConfigData.isElastic) {
-                drawAmbientElastic(can, data, p)
-            } else {
-                drawHand(data.getRef(can), p, data.hour)
-                drawHand(data.getRef(can), p, data.minute)
-                can.drawLine(data.min.x, data.min.y, data.hr.x, data.hr.y, p)
+            with(data) {
+                val hP = DrawUtil.applyElasticity(p,  unit / DrawUtil.calcDistance(hour.p, center))
+                val mP = DrawUtil.applyElasticity(p,  unit / DrawUtil.calcDistance(minute.p, center))
+                val lineP = DrawUtil.applyElasticity(p,  unit / DrawUtil.calcDistance(minute.p, hour.p))
+                drawHand(data.getRef(can), hP, data.hour)
+                drawHand(data.getRef(can), mP, data.minute)
+                can.drawLine(data.min.x, data.min.y, data.hr.x, data.hr.y, lineP)
             }
         }
-    }
-
-    private fun drawElastic(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
-        val hourPaint = Paint(p)
-        val minutePaint = Paint(p)
-        val secondPaint = Paint(p)
-        val w: Float = p.strokeWidth
-        with(data) {
-            hourPaint.strokeWidth = w * unit / DrawUtil.calcDistance(hour.p, center)
-            minutePaint.strokeWidth = w * unit / DrawUtil.calcDistance(minute.p, center)
-            secondPaint.strokeWidth = w * unit / DrawUtil.calcDistance(second.p, center)
-            drawHand(getRef(can), secondPaint, second)
-            drawHand(getRef(can), hourPaint, hour)
-            drawHand(getRef(can), minutePaint, minute)
-        }
-    }
-
-    private fun drawAmbientElastic(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint) {
-        val hourPaint = Paint(p)
-        val minutePaint = Paint(p)
-        val linePaint = Paint(p)
-        val w: Float = p.strokeWidth
-        with(data) {
-            hourPaint.strokeWidth = w * unit / DrawUtil.calcDistance(hour.p, center)
-            minutePaint.strokeWidth = w * unit / DrawUtil.calcDistance(minute.p, center)
-            linePaint.strokeWidth = w * unit / DrawUtil.calcDistance(minute.p, hour.p)
-            drawHand(getRef(can), hourPaint, data.hour)
-            drawHand(getRef(can), minutePaint, data.minute)
-            can.drawLine(min.x, min.y, hr.x, hr.y, linePaint)
-        }
-    }
-
-    private fun drawHands(ref: DrawUtil.Ref, paint: Paint, hour: DrawUtil.HandData, minute: DrawUtil.HandData, second: DrawUtil.HandData) {
-        drawHand(ref, paint, second)
-        drawHand(ref, paint, hour)
-        drawHand(ref, paint, minute)
     }
 
     private fun drawHand(ref: DrawUtil.Ref, paint: Paint, hand: DrawUtil.HandData) {
