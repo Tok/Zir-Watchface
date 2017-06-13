@@ -6,6 +6,7 @@ import android.content.res.Resources
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.data.*
+import zir.teq.wearable.watchface.model.data.Stack
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
 import java.util.*
@@ -87,11 +88,13 @@ object ConfigData {
     var dim = savedDim()
     var isFastUpdate: Boolean = savedFastUpdate()
     var isElastic: Boolean = savedIsElastic()
-    var isElasticOutline: Boolean = false //TODO tune
+    var isElasticOutline: Boolean = true //TODO tune
     var isElasticColor: Boolean = true //TODO tune
     val isAntiAlias = true
     var isAmbient = false
     var isMute = false
+    val stack = Stack.LEGACY //TODO
+    //TODO create an option to always draw the points on top of everything else
 
     fun hasOutline() = Outline.OFF.name != outline.name
 

@@ -4,32 +4,81 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.Stack
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
+import zir.watchface.DrawUtil.ActiveFrameData
+import zir.watchface.DrawUtil.HandData
 
 object Triangles {
+    //Triangles only exist in active mode
+    data class Factors(val hm: Float, val hs: Float, val ms: Float)
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun draw(can: Canvas, data: DrawUtil.ActiveFrameData) {
+    fun draw(can: Canvas, data: ActiveFrameData) {
         if (ConfigData.theme.triangles.active) {
             val p = Palette.createPaint(PaintType.SHAPE)
-            if (ConfigData.hasOutline()) {
-                drawTriangle(can, data, p, true)
-            }
             drawTriangle(can, data, p)
         }
     }
 
-    private fun drawTriangle(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint, isOutline: Boolean = false) {
+    private fun drawTriangle(can: Canvas, data: ActiveFrameData, p: Paint) {
         with(data) {
             val hmFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, minute.p)
             val hsFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, second.p)
             val msFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, second.p)
-            val hmP = DrawUtil.applyElasticity(p, hmFactor, isOutline)
-            val hsP = DrawUtil.applyElasticity(p, hsFactor, isOutline)
-            val msP = DrawUtil.applyElasticity(p, msFactor, isOutline)
-            can.drawLine(second.p.x, second.p.y, minute.p.x, minute.p.y, msP)
-            can.drawLine(second.p.x, second.p.y, hour.p.x, hour.p.y, hsP)
-            can.drawLine(minute.p.x, minute.p.y, hour.p.x, hour.p.y, hmP)
+            val factors = Factors(hmFactor, hsFactor, msFactor)
+            when (ConfigData.stack) {
+                Stack.LEGACY -> stackLegacy(can, data, p, factors)
+                Stack.FAST_TOP -> stackFastTop(can, data, p, factors)
+                Stack.SLOW_TOP -> stackSlowTop(can, data, p, factors)
+                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
+            }
         }
+    }
+
+    private fun stackLegacy(can: Canvas, data: ActiveFrameData, p: Paint, factors: Factors) {
+        with(data) {
+            if (ConfigData.hasOutline()) {
+                drawLineOutline(can, hour, minute, p, factors.hm)
+                drawLineOutline(can, hour, second, p, factors.hs)
+                drawLineOutline(can, minute, second, p, factors.ms)
+            }
+            drawLine(can, hour, minute, p, factors.hm)
+            drawLine(can, hour, second, p, factors.hs)
+            drawLine(can, minute, second, p, factors.ms)
+        }
+    }
+
+    private fun stackFastTop(can: Canvas, data: ActiveFrameData, p: Paint, factors: Factors) {
+        with(data) {
+            drawLineAndOutline(can, hour, minute, p, factors.hm)
+            drawLineAndOutline(can, hour, second, p, factors.hs)
+            drawLineAndOutline(can, minute, second, p, factors.ms)
+        }
+    }
+
+    private fun stackSlowTop(can: Canvas, data: ActiveFrameData, p: Paint, factors: Factors) {
+        with(data) {
+            drawLineAndOutline(can, minute, second, p, factors.ms)
+            drawLineAndOutline(can, hour, second, p, factors.hs)
+            drawLineAndOutline(can, hour, minute, p, factors.hm)
+        }
+    }
+
+    private fun drawLineAndOutline(can: Canvas, from: HandData, to: HandData, p: Paint, factor: Float) {
+        if (ConfigData.hasOutline()) {
+            drawLineOutline(can, from, to, p, factor)
+        }
+        drawLine(can, from, to, p, factor)
+    }
+
+    private fun drawLineOutline(can: Canvas, from: HandData, to: HandData, p: Paint, factor: Float) {
+        val paint = DrawUtil.applyElasticity(p, factor, true)
+        can.drawLine(from.p.x, from.p.y, to.p.x, to.p.y, paint)
+    }
+
+    private fun drawLine(can: Canvas, from: HandData, to: HandData, p: Paint, factor: Float) {
+        val paint = DrawUtil.applyElasticity(p, factor, false)
+        can.drawLine(from.p.x, from.p.y, to.p.x, to.p.y, paint)
     }
 }

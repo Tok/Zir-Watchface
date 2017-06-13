@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.Stack
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
@@ -12,28 +13,33 @@ object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE)
-        /* TODO ungroup
-        if (ConfigData.isElasticColor) {
-            if (ConfigData.hasOutline()) {
-                makeSlow(can, data, p, true)
+        when (ConfigData.stack) {
+            Stack.LEGACY -> {
+                if (ConfigData.hasOutline()) {
+                    makeSlow(can, data, p, true)
+                    makeFast(can, data, p, true)
+                }
+                makeSlow(can, data, p)
+                makeFast(can, data, p)
             }
-            makeSlow(can, data, p)
-            if (ConfigData.hasOutline()) {
-                makeFast(can, data, p, true)
+            Stack.FAST_TOP -> {
+                if (ConfigData.hasOutline()) { makeSlow(can, data, p, true) }
+                makeSlow(can, data, p)
+                if (ConfigData.hasOutline()) { makeFast(can, data, p, true) }
+                makeFast(can, data, p)
             }
-            makeFast(can, data, p)
-        } else {
-        */
-            if (ConfigData.hasOutline()) {
-                makeSlow(can, data, p, true)
-                makeFast(can, data, p, true)
+            Stack.SLOW_TOP -> {
+                if (ConfigData.hasOutline()) { makeFast(can, data, p, true) }
+                makeFast(can, data, p)
+                if (ConfigData.hasOutline()) { makeSlow(can, data, p, true) }
+                makeSlow(can, data, p)
             }
-            makeSlow(can, data, p)
-            makeFast(can, data, p)
-        //}
+            else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
+        }
     }
 
     fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
+        //No stacking required...
         val p = Palette.createPaint(PaintType.CIRCLE_AMB)
         if (ConfigData.hasOutline()) {
             makeAmbient(can, data, p, true)

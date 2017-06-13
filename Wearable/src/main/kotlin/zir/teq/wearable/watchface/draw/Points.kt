@@ -8,6 +8,7 @@ import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
 object Points {
+    //TODO implement point stacking?
     fun drawActiveCenter(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.POINT)
         if (ConfigData.hasOutline()) {
