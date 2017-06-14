@@ -24,6 +24,7 @@ open class ConfigItem internal constructor(val type: Type,
                 GROWTH -> GrowthConfigItem(type, pref, name)
                 ALPHA -> AlphaConfigItem(type, pref, name)
                 DIM -> DimConfigItem(type, pref, name)
+                STACK -> StackConfigItem(type, pref, name)
                 else -> ConfigItem(type, pref, name)
             }
         }
@@ -41,6 +42,7 @@ open class ConfigItem internal constructor(val type: Type,
         val GROWTH = Type(6, R.string.saved_growth, null, R.string.label_growth, R.drawable.icon_growth)
         val ALPHA = Type(7, R.string.saved_alpha, null, R.string.label_alpha, R.drawable.icon_alpha)
         val DIM = Type(8, R.string.saved_dim, null, R.string.label_dim, R.drawable.icon_dim)
+        val STACK = Type(9, R.string.saved_stack, null, R.string.label_stack, R.drawable.icon_dummy) //TODO replace dummy icon
         val DRAW_HANDS = Type(10, R.string.saved_hands_act, R.string.saved_hands_amb, R.string.label_hands_act)
         val DRAW_TRIANGLES = Type(20, R.string.saved_triangles_act, R.string.saved_triangles_amb, R.string.label_triangles_act)
         val DRAW_CIRCLES = Type(30, R.string.saved_circles_act, R.string.saved_circles_amb, R.string.label_circles_act)
@@ -48,7 +50,7 @@ open class ConfigItem internal constructor(val type: Type,
         val DRAW_TEXT = Type(50, R.string.saved_text_act, R.string.saved_text_amb, R.string.label_text_act)
         val FAST_UPDATE = Type(100, R.string.saved_fast_update, null, R.string.label_fast_update)
         val IS_ELASTIC = Type(110, R.string.saved_is_elastic, null, R.string.label_is_elastic)
-        val ALL_TYPES = listOf<Type>(PALETTE, BACKGROUND, THEME, STROKE, OUTLINE, GROWTH, ALPHA, DIM,
+        val ALL_TYPES = listOf<Type>(PALETTE, BACKGROUND, THEME, STROKE, OUTLINE, GROWTH, STACK, ALPHA, DIM,
                 DRAW_HANDS, DRAW_TRIANGLES, DRAW_CIRCLES, DRAW_POINTS, DRAW_TEXT,
                 FAST_UPDATE, IS_ELASTIC)
         fun valueOf(code: Int) = ALL_TYPES.find { it.code == code }

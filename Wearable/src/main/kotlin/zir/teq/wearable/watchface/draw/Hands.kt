@@ -26,7 +26,7 @@ object Hands {
                 val sFactor = ELASTICITY * unit / DrawUtil.calcDistance(second.p, ref.center)
                 val factors = ActiveFactors(hFactor, mFactor, sFactor)
                 when (ConfigData.stack) {
-                    Stack.LEGACY -> stackLegacyActive(ref, data, p, factors)
+                    Stack.GROUPED -> stackLegacyActive(ref, data, p, factors)
                     Stack.FAST_TOP -> stackFastTopActive(ref, data, p, factors)
                     Stack.SLOW_TOP -> stackSlowTopActive(ref, data, p, factors)
                     else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
@@ -45,7 +45,7 @@ object Hands {
                 val lineFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, hour.p)
                 val factors = AmbientFactors(hFactor, mFactor, lineFactor)
                 when (ConfigData.stack) {
-                    Stack.LEGACY -> stackLegacyAmbient(ref, data, p, factors)
+                    Stack.GROUPED -> stackLegacyAmbient(ref, data, p, factors)
                     Stack.FAST_TOP -> stackFastTopAmbient(ref, data, p, factors)
                     Stack.SLOW_TOP -> stackSlowTopAmbient(ref, data, p, factors)
                     else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)

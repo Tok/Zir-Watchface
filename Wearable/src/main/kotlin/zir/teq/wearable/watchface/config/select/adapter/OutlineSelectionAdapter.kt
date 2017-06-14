@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
-import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.util.ViewHelper
 
 class OutlineSelectionAdapter(
         private val mPrefString: String?,

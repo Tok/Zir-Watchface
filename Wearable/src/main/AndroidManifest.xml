@@ -60,5 +60,6 @@
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.OutlineSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.AlphaSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.DimSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.StackSelectionActivity" />
     </application>
 </manifest>

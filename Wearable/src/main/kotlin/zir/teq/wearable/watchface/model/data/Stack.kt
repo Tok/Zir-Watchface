@@ -1,12 +1,14 @@
 package zir.teq.wearable.watchface.model.data
 
-data class Stack(val name: String) {
+import zir.teq.wearable.watchface.R
+
+data class Stack(val name: String, val iconId: Int) {
     companion object {
-        val LEGACY = Stack("Legacy")
-        val FAST_TOP = Stack("Fast")
-        val SLOW_TOP = Stack("Slow")
-        val all = listOf(LEGACY, FAST_TOP, SLOW_TOP)
-        val default = LEGACY
+        val GROUPED = Stack("Grouped", R.drawable.icon_dummy) //TODO replace icons
+        val FAST_TOP = Stack("Fast", R.drawable.icon_dummy)
+        val SLOW_TOP = Stack("Slow", R.drawable.icon_dummy)
+        val all = listOf(GROUPED, FAST_TOP, SLOW_TOP)
+        val default = GROUPED
         fun options() = all.toCollection(ArrayList())
         fun getByName(name: String): Stack = all.find { it.name.equals(name) } ?: default
     }

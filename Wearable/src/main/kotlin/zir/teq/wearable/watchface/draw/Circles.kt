@@ -14,7 +14,7 @@ object Circles {
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE)
         when (ConfigData.stack) {
-            Stack.LEGACY -> {
+            Stack.GROUPED -> {
                 if (ConfigData.hasOutline()) {
                     makeSlow(can, data, p, true)
                     makeFast(can, data, p, true)

@@ -34,6 +34,13 @@ class DimPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     }
 }
 
+class StackPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
+    init {
+        mButton = view.findViewById(R.id.config_list_item_stack) as Button
+        view.setOnClickListener { super.handleClick(view, StackSelectionActivity.EXTRA) }
+    }
+}
+
 class GrowthPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     init {
         mButton = view.findViewById(R.id.config_list_item_growth) as Button

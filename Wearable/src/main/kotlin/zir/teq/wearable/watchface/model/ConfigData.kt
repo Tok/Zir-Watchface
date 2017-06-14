@@ -22,6 +22,7 @@ object ConfigData {
         stroke = savedStroke()
         background = savedBackground()
         alpha = savedAlpha()
+        stack = savedStack()
         dim = savedDim()
         outline = savedOutline()
         growth = savedGrowth()
@@ -75,6 +76,7 @@ object ConfigData {
     private fun savedStroke() = Stroke.create(prefString(R.string.saved_stroke, Stroke.default().name))
     private fun savedBackground() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
     private fun savedAlpha() = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))
+    private fun savedStack() = Stack.getByName(prefString(R.string.saved_stack, Stack.default.name))
     private fun savedDim() = Dim.getByName(prefString(R.string.saved_dim, Dim.default.name))
     private fun savedOutline() = Outline.create(prefString(R.string.saved_outline, Outline.default().name))
     private fun savedGrowth() = Growth.create(prefString(R.string.saved_growth, Growth.default().name))
@@ -85,6 +87,7 @@ object ConfigData {
     var growth = savedGrowth()
     var background = savedBackground()
     var alpha = savedAlpha()
+    var stack = savedStack()
     var dim = savedDim()
     var isFastUpdate: Boolean = savedFastUpdate()
     var isElastic: Boolean = savedIsElastic()
@@ -93,8 +96,6 @@ object ConfigData {
     val isAntiAlias = true
     var isAmbient = false
     var isMute = false
-    val stack = Stack.LEGACY //TODO
-    //TODO create an option to always draw the points on top of everything else
 
     fun hasOutline() = Outline.OFF.name != outline.name
 

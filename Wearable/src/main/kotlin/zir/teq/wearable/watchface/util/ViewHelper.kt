@@ -53,6 +53,7 @@ object ViewHelper {
             ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_item_stroke))
             ConfigItem.OUTLINE.code -> OutlinePickerViewHolder(createView(group, R.layout.config_list_item_outline))
             ConfigItem.GROWTH.code -> GrowthPickerViewHolder(createView(group, R.layout.config_list_item_growth))
+            ConfigItem.STACK.code -> StackPickerViewHolder(createView(group, R.layout.config_list_item_stack))
             ConfigItem.ALPHA.code -> AlphaPickerViewHolder(createView(group, R.layout.config_list_item_alpha))
             ConfigItem.DIM.code -> DimPickerViewHolder(createView(group, R.layout.config_list_item_dim))
             else -> {

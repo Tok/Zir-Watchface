@@ -16,6 +16,7 @@ import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.OUTLINE
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.PALETTE
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STROKE
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.THEME
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STACK
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
@@ -48,6 +49,7 @@ class ZirWatchConfigAdapter(
             GROWTH.code -> (vh as GrowthPickerViewHolder).setActivity((ci as GrowthConfigItem).activity)
             ALPHA.code -> (vh as AlphaPickerViewHolder).setActivity((ci as AlphaConfigItem).activity)
             DIM.code -> (vh as DimPickerViewHolder).setActivity((ci as DimConfigItem).activity)
+            STACK.code -> (vh as StackPickerViewHolder).setActivity((ci as StackConfigItem).activity)
         }
     }
 

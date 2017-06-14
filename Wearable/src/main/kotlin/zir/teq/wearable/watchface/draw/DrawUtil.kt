@@ -86,6 +86,7 @@ class DrawUtil() {
     }
 
     fun drawActiveFace(can: Canvas, data: ActiveFrameData) {
+        //TODO create an option for always drawing the center point on top of everything else.
         Circles.drawActive(can, data)
         Hands.drawActive(can, data)
         Points.drawActiveCenter(can, data)

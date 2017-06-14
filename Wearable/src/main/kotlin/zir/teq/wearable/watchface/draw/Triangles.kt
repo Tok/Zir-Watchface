@@ -28,7 +28,7 @@ object Triangles {
             val msFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, second.p)
             val factors = Factors(hmFactor, hsFactor, msFactor)
             when (ConfigData.stack) {
-                Stack.LEGACY -> stackLegacy(can, data, p, factors)
+                Stack.GROUPED -> stackLegacy(can, data, p, factors)
                 Stack.FAST_TOP -> stackFastTop(can, data, p, factors)
                 Stack.SLOW_TOP -> stackSlowTop(can, data, p, factors)
                 else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
