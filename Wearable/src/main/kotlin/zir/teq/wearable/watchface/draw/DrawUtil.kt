@@ -10,6 +10,7 @@ import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.Stack
 import zir.teq.wearable.watchface.model.data.Stroke
 import zir.teq.wearable.watchface.model.data.Theme
 import java.util.*
@@ -86,12 +87,22 @@ class DrawUtil() {
     }
 
     fun drawActiveFace(can: Canvas, data: ActiveFrameData) {
-        //TODO create an option for always drawing the center point on top of everything else.
-        Circles.drawActive(can, data)
-        Hands.drawActive(can, data)
-        Points.drawActiveCenter(can, data)
-        Triangles.draw(can, data)
-        Points.drawActive(can, data)
+        when (ConfigData.stack) {
+            Stack.GROUPED -> {
+                Circles.drawActive(can, data)
+                Hands.drawActive(can, data)
+                Points.drawActiveCenter(can, data)
+                Triangles.draw(can, data)
+                Points.drawActive(can, data)
+            }
+            else -> {
+                Circles.drawActive(can, data)
+                Triangles.draw(can, data)
+                Hands.drawActive(can, data)
+                Points.drawActive(can, data)
+                Points.drawActiveCenter(can, data)
+            }
+        }
     }
 
     fun drawAmbientFace(can: Canvas, data: AmbientFrameData) {
