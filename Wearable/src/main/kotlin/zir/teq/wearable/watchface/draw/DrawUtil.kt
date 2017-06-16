@@ -144,25 +144,25 @@ class DrawUtil() {
                 return w + maybeAddOutline(isOutline)
             }
         }
+
+        val MAX_FACTOR = 2.6404555F //max() of all factors. FIXME may require adjustment if points are moved.
+        //WA finds no meaningful closed forms https://www.wolframalpha.com/input/?i=2.6404555
+        val OFFSET = 0.2F //ratio of the states in which the components stay fully colored.
+        val MIN_RATIO = 0.2F //cutoff for the blended color. 0F allows full white.
         private fun handleColor(p: Paint, factor: Float, isOutline: Boolean): Int {
             if (isOutline) {
                 return ConfigData.ctx.getColor(R.color.black)
             } else {
+                if (factor > MAX_FACTOR) Log.w(TAG, "MAX_FACTOR: $MAX_FACTOR factor: $factor")
                 if (ConfigData.isElasticColor) {
-                    val offset = PHI
-                    val minRatio = 1F - (1F / PHI)
-                    val ratio = maxOf(minRatio, minOf(1F, offset - (1F / factor)))
-                    //Log.d(TAG, "applyElasticity ratio: $ratio")
-                    //if (factor >= 1) {
-                        return ColorUtils.blendARGB(ConfigData.ctx.getColor(R.color.white), p.color, ratio)
-                    //} else {
-                    //    stretched.color = ColorUtils.blendARGB(p.color, ConfigData.ctx.getColor(R.color.black), 1F / factor)
-                    //}
+                    val ratio = maxOf(MIN_RATIO, minOf(1F, (factor / MAX_FACTOR) + OFFSET))
+                    return ColorUtils.blendARGB(ConfigData.ctx.getColor(R.color.white), p.color, ratio)
                 } else {
                     return p.color
                 }
             }
         }
+
         fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean) = applyElasticity(p, factor, isOutline, false)
         fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Paint {
             //Log.d(TAG, "applyElasticity factor: $factor")
