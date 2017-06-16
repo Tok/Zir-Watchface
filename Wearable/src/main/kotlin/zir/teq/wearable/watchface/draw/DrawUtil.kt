@@ -115,6 +115,15 @@ class DrawUtil() {
         val PHI = 1.618033988F
         val PI = Math.PI.toFloat() //180 Degree
         val TAU = PI * 2F //180 Degree
+
+        val HALF = 0.5
+        val DEFAULT_WAVENUMBER = 0.05
+        val DEFAULT_VELOCITY = 1.000
+        val H_BAR = 1.0 //replacement for planck constant
+        val MASS = 1.0
+
+        val MAX_RGB = 0xFF
+
         val ONE_MINUTE_AS_RAD = PI / 30F
         val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
         val yOffset: Float = 98F
