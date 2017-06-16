@@ -101,6 +101,14 @@ class DrawUtil() {
     }
 
     companion object {
+        val PHI = 1.618033988F
+        val PI = Math.PI.toFloat() //180 Degree
+        val TAU = PI * 2F //180 Degree
+        val ONE_MINUTE_AS_RAD = PI / 30F
+        val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
+        val yOffset: Float = 98F
+        var xOffset: Float = 0.toFloat()
+
         fun makeOutline(p: Paint): Paint {
             val outLine = Paint(p)
             outLine.strokeWidth = p.strokeWidth + ConfigData.outline.dim
@@ -147,8 +155,8 @@ class DrawUtil() {
 
         val MAX_FACTOR = 2.6404555F //max() of all factors. FIXME may require adjustment if points are moved.
         //WA finds no meaningful closed forms https://www.wolframalpha.com/input/?i=2.6404555
-        val OFFSET = 0.2F //ratio of the states in which the components stay fully colored.
-        val MIN_RATIO = 0.2F //cutoff for the blended color. 0F allows full white.
+        val OFFSET = 1F - (1F / PHI) //ratio of the states in which the components stay fully colored.
+        val MIN_RATIO = 1F - (1F / PHI) //cutoff for the blended color. 0F allows full white.
         private fun handleColor(p: Paint, factor: Float, isOutline: Boolean): Int {
             if (isOutline) {
                 return ConfigData.ctx.getColor(R.color.black)
@@ -172,12 +180,5 @@ class DrawUtil() {
             return result
         }
         private val TAG = this::class.java.simpleName
-        val PHI = 1.618033988F
-        val PI = Math.PI.toFloat() //180 Degree
-        val TAU = PI * 2F //180 Degree
-        val ONE_MINUTE_AS_RAD = PI / 30F
-        val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
-        val yOffset: Float = 98F
-        var xOffset: Float = 0.toFloat()
     }
 }
