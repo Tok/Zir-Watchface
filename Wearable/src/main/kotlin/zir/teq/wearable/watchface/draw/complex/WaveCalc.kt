@@ -1,8 +1,6 @@
 package zir.teq.wearable.watchface.draw.complex
 
-import zir.watchface.DrawUtil.Companion.HALF
-import zir.watchface.DrawUtil.Companion.H_BAR
-import zir.watchface.DrawUtil.Companion.MASS
+import zir.teq.wearable.watchface.draw.complex.data.Operator
 import zir.watchface.DrawUtil.Companion.TAU
 
 /**
@@ -46,6 +44,11 @@ class WaveCalc(private val centerX: Int, private val centerY: Int, private val u
             Math.sqrt(addSquares((x - cX).toDouble(), (y - cY).toDouble()))
 
     companion object {
+        val HALF = 0.5
+        val DEFAULT_WAVENUMBER = 0.05
+        val DEFAULT_VELOCITY = 1.000
+        val H_BAR = 1.0 //replacement for planck constant
+        val MASS = 1.0
         private val INTENSITY_MULTIPLIER = 10.0
     }
 }
