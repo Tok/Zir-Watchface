@@ -112,7 +112,7 @@ class DrawUtil() {
     }
 
     companion object {
-        val PHI = 1.618033988F
+        val PHI = 1.618033988F //TODO change all the Floats to Double?
         val PI = Math.PI.toFloat() //180 Degree
         val TAU = PI * 2F //180 Degree
 
