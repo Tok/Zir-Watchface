@@ -8,7 +8,8 @@ data class Wave(val name: String, val waveNumber: Float,
                 val velocity: Double, val intensity: Double,
                 val spectrum: Spectrum = DEF_SPEC,
                 val isBlur: Boolean = true, val op: Operator = Operator.ADD,
-                val resolution: WaveResolution = DEF_RES) {
+                val activeRes: WaveResolution = ACTIVE_RES,
+                val ambientRes: WaveResolution = AMBIENT_RES) {
     val iconId: Int = R.drawable.icon_dummy //TODO replace
     val isOff = name.equals("Off")
     val isOn = !isOff
@@ -34,7 +35,12 @@ data class Wave(val name: String, val waveNumber: Float,
         val _10_ = WaveResolution(10)
         val _16_ = WaveResolution(16)
         val _20_ = WaveResolution(20)
-        val DEF_RES = _20_
+        val _32_ = WaveResolution(32)
+        val _40_ = WaveResolution(40)
+        val _80_ = WaveResolution(80)
+        val _160_ = WaveResolution(160)
+        val ACTIVE_RES = _20_
+        val AMBIENT_RES = _8_
 
         data class Spectrum(val name: String) //TODO seal
 

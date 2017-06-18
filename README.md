@@ -10,6 +10,7 @@
 ![Red Geometry](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/red_geometry.png "Red Geometry")
 ![Green Circles](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/green-circles.png "Green Circles")
 ![Pink Triangle](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/pink-triangle.png "Pink Triangle")
+![Ambient Wave](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/ambient_wave.png "Ambient Wave")
 
 ---
 

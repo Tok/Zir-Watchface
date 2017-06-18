@@ -13,6 +13,7 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
+import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
@@ -40,7 +41,7 @@ class DrawUtil() {
         }
         if (ConfigData.isAmbient) {
             if (wave.isOn) {
-                val waveData = ActiveWaveFrameData(calendar, bounds, can)
+                val waveData = AmbientWaveFrameData(calendar, bounds, can)
                 drawAmbientWave(can, waveData)
             }
             val data = AmbientFrameData(calendar, bounds, can)
@@ -51,7 +52,7 @@ class DrawUtil() {
         } else {
             val activeData = ActiveFrameData(calendar, bounds, can)
             if (wave.isOn) {
-                val waveData = ActiveWaveFrameData(calendar, bounds, can)
+                val waveData = ActiveWaveFrameData(calendar, bounds, can, ConfigData.wave.activeRes.value)
                 drawActiveWave(can, waveData)
             }
             drawActiveFace(can, activeData)
@@ -94,7 +95,7 @@ class DrawUtil() {
         Points.drawAmbient(can, data)
     }
 
-    fun drawAmbientWave(can: Canvas, data: ActiveWaveFrameData) {
+    fun drawAmbientWave(can: Canvas, data: AmbientWaveFrameData) {
         drawActiveWave(can, data, false)
     }
 
@@ -146,7 +147,7 @@ class DrawUtil() {
         with(data) {
             val terms = mutableListOf<Complex>()
             val wave = ConfigData.wave
-            if (wave.hasCenter) terms.add(WaveCalc.calc(point, scaledCenter, t, centerMass))
+            if (!isActive || wave.hasCenter) terms.add(WaveCalc.calc(point, scaledCenter, t, centerMass))
             if (wave.hasHours) terms.add(WaveCalc.calc(point, waveHr, t, hourMass))
             if (wave.hasMinutes) terms.add(WaveCalc.calc(point, waveMin, t, minuteMass))
             if (isActive && wave.hasSeconds) terms.add(WaveCalc.calc(point, waveSec, t, secondMass))
@@ -189,8 +190,9 @@ class DrawUtil() {
 
     private fun createBlur(script: RenderScript): ScriptIntrinsicBlur {
         val intrinsicBlur = ScriptIntrinsicBlur.create(script, Element.U8_4(script))
-        val blurRadius = ConfigData.wave.resolution.value.toFloat()
-        intrinsicBlur.setRadius(blurRadius)
+        val blurRadius = 4
+        //val blurRadius = ConfigData.wave.resolution.value.toFloat()
+        intrinsicBlur.setRadius(Math.min(blurRadius.toDouble(), 20.0).toFloat())
         return intrinsicBlur
     }
 

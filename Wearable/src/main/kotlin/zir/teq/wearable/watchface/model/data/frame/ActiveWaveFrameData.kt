@@ -3,15 +3,13 @@ package zir.teq.wearable.watchface.model.data.frame
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.graphics.Rect
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.Wave
 import zir.watchface.DrawUtil
 import java.util.*
 
-class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : ActiveFrameData(cal, bounds, can) {
+open class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas, res: Int) : ActiveFrameData(cal, bounds, can) {
     val isUseUneven = false //render an additional line of pixels in the center.
     val timeStamp = cal.timeInMillis
-    val res = ConfigData.wave.resolution.value
     val setOff = if (isUseUneven) 1 else 0
     val w = setOff + (bounds.width() / res)
     val h = setOff + (bounds.height() / res)
