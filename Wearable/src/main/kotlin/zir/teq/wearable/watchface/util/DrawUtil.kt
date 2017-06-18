@@ -145,7 +145,9 @@ class DrawUtil() {
         Points.drawAmbient(can, data)
     }
 
+    val lastFrame = mutableMapOf<Pair<Int, Int>, Complex>()
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData) {
+        val wave = ConfigData.wave
         val t = data.timeStamp * ConfigData.wave.velocity
         val buffer = IntBuffer.allocate(data.w * data.h)
         val xRange = 0..(data.h - 1)
@@ -160,8 +162,19 @@ class DrawUtil() {
                         Operator.ADD -> terms.fold(terms.first()) { total, next -> total.add(next) }
                         else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
                     }
-                    val col = ColorUtil.getColor(all)
-                    buffer.put(col)
+                    if (wave.isKeepState) {
+                        val key = Pair(xInt, yInt)
+                        val last = lastFrame.get(key) ?: all
+                        val newMagnitude = (all.magnitude + (wave.lastWeight * last.magnitude)) / (wave.lastWeight + 1)
+                        val newPhase = (all.phase + (wave.lastWeight * last.phase)) / (wave.lastWeight + 1)
+                        val new = Complex.fromMagnitudeAndPhase(newMagnitude, newPhase)
+                        lastFrame.put(key, new)
+                        val col = ColorUtil.getColor(new)
+                        buffer.put(col)
+                    } else {
+                        val col = ColorUtil.getColor(all)
+                        buffer.put(col)
+                    }
                 }
             }
         }
