@@ -17,6 +17,7 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
+import zir.teq.wearable.watchface.model.data.settings.Wave
 import java.nio.IntBuffer
 import java.util.*
 
@@ -141,26 +142,26 @@ class DrawUtil() {
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData) {
         val t = data.timeStamp * ConfigData.wave.velocity
         val buffer = IntBuffer.allocate(data.w * data.h)
-        for (xInt in 0..(data.h-1)) {
-            for (yInt in 0..(data.w-1)) {
-                val x = xInt.toDouble()
-                val y = yInt.toDouble()
-                with (data) {
-                    val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t).multiply(Complex.ONE)
-                    val hr: Complex = WaveCalc.calc(x, y, waveHr.x.toDouble(), waveHr.y.toDouble(), t)
-                    val min: Complex = WaveCalc.calc(x, y, waveMin.x.toDouble(), waveMin.y.toDouble(), t)
-                    val sec: Complex = WaveCalc.calc(x, y, waveSec.x.toDouble(), waveSec.y.toDouble(), t)
-                    val terms: List<Complex> = listOf(center, hr, min, sec)
-                    val all: Complex = when (ConfigData.wave.op) {
-                        Operator.MULTIPLY -> terms.fold(center) { total, next -> total.multiply(next) }
-                        Operator.ADD -> terms.fold(center) { total, next -> total.add(next) }
-                        else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
-                    }
-                    val col = ColorUtil.getColor(all)
-                    buffer.put(col)
+        val xRange = 0..(data.h-1)
+        val yRange = 0..(data.w-1)
+        xRange.flatMap { xInt -> yRange.map { yInt ->
+            val x = xInt.toDouble()
+            val y = yInt.toDouble()
+            with (data) {
+                val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t, Wave.MASS_HEAVIER) //.multiply(Complex.ONE)
+                val hr: Complex = WaveCalc.calc(x, y, waveHr.x.toDouble(), waveHr.y.toDouble(), t, Wave.MASS_LIGHTER)
+                val min: Complex = WaveCalc.calc(x, y, waveMin.x.toDouble(), waveMin.y.toDouble(), t, Wave.MASS_LIGHT)
+                val sec: Complex = WaveCalc.calc(x, y, waveSec.x.toDouble(), waveSec.y.toDouble(), t,  Wave.MASS_DEFAULT)
+                val terms: List<Complex> = listOf(center, hr, min, sec)
+                val all: Complex = when (ConfigData.wave.op) {
+                    Operator.MULTIPLY -> terms.fold(center) { total, next -> total.multiply(next) }
+                    Operator.ADD -> terms.fold(center) { total, next -> total.add(next) }
+                    else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
                 }
+                val col = ColorUtil.getColor(all)
+                buffer.put(col)
             }
-        }
+        }}
         buffer.rewind()
         drawFromBuffer(can, buffer, data)
     }

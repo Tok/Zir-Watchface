@@ -1,7 +1,8 @@
 package zir.teq.wearable.watchface.util
 
-import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.settings.Wave.Companion.Mass
+import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.watchface.DrawUtil.Companion.TAU
 
 /**
@@ -9,9 +10,9 @@ import zir.watchface.DrawUtil.Companion.TAU
  * Transpiled and rearranged from: https://github.com/Tok/Erwin/tree/master/src/main/java/erwin
  */
 object WaveCalc {
-    fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Double): Complex {
+    fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Double, mass: Mass): Complex {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
-        val phase = (distance + t) * ConfigData.wave.waveNumber
+        val phase = (distance + t) * ConfigData.wave.waveNumber / mass.value
         val mag = calcIntensity(distance, xFrom, yFrom)
         return Complex.fromMagnitudeAndPhase(mag, phase)
     }
