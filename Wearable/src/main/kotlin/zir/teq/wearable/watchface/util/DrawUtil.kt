@@ -73,8 +73,10 @@ class DrawUtil() {
 
     class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : ActiveFrameData(cal, bounds, can) {
         val res = ConfigData.wave.resolution.value
-        val w = can.width / res
-        val h = can.height / res
+        val isUseUneven = true //render an additional line of pixels in the center.
+        val setOff = if (isUseUneven) 1 else 0
+        val w = setOff + (can.width / res)
+        val h = setOff + (can.height / res)
         val scaledUnit: Double = w / 2.0
         val timeStamp = cal.timeInMillis
         val waveSecLength = w * calcDistFromBorder(h, ConfigData.stroke.dim / res)
@@ -148,10 +150,10 @@ class DrawUtil() {
             val x = xInt.toDouble()
             val y = yInt.toDouble()
             with (data) {
-                val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t, Wave.MASS_HEAVIER) //.multiply(Complex.ONE)
-                val hr: Complex = WaveCalc.calc(x, y, waveHr.x.toDouble(), waveHr.y.toDouble(), t, Wave.MASS_LIGHTER)
-                val min: Complex = WaveCalc.calc(x, y, waveMin.x.toDouble(), waveMin.y.toDouble(), t, Wave.MASS_LIGHT)
-                val sec: Complex = WaveCalc.calc(x, y, waveSec.x.toDouble(), waveSec.y.toDouble(), t,  Wave.MASS_DEFAULT)
+                val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t, Wave.DEF_MASS) //.multiply(Complex.ONE)
+                val hr: Complex = WaveCalc.calc(x, y, waveHr.x.toDouble(), waveHr.y.toDouble(), t, Wave.DEF_MASS)
+                val min: Complex = WaveCalc.calc(x, y, waveMin.x.toDouble(), waveMin.y.toDouble(), t, Wave.DEF_MASS)
+                val sec: Complex = WaveCalc.calc(x, y, waveSec.x.toDouble(), waveSec.y.toDouble(), t,  Wave.DEF_MASS)
                 val terms: List<Complex> = listOf(center, hr, min, sec)
                 val all: Complex = when (ConfigData.wave.op) {
                     Operator.MULTIPLY -> terms.fold(center) { total, next -> total.multiply(next) }
@@ -173,9 +175,8 @@ class DrawUtil() {
         val matrix = Matrix()
         matrix.postRotate(-90F)
         val rotated = Bitmap.createBitmap(scaled, 0, 0, scaled.width, scaled.height, matrix, true)
-        val bmpOffset = -ConfigData.wave.resolution.value / 2F
         val blurred = gaussianBlur(rotated)
-        can.drawBitmap(blurred, bmpOffset, bmpOffset, null)
+        can.drawBitmap(blurred, 0F, 0F, null)
     }
 
     private fun gaussianBlur(input: Bitmap): Bitmap {

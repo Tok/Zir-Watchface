@@ -10,6 +10,7 @@ import zir.watchface.DrawUtil.Companion.TAU
  * Transpiled and rearranged from: https://github.com/Tok/Erwin/tree/master/src/main/java/erwin
  */
 object WaveCalc {
+    //TODO provide mass values that are proportional to the size of the calculated components
     fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Double, mass: Mass): Complex {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
         val phase = (distance + t) * ConfigData.wave.waveNumber / mass.value
