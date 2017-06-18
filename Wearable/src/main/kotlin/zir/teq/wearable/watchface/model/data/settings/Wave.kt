@@ -10,6 +10,8 @@ data class Wave(val name: String, val waveNumber: Float,
                 val isBlur: Boolean = true, val op: Operator = Operator.ADD,
                 val resolution: WaveResolution = DEF_RES) {
     val iconId: Int = R.drawable.icon_dummy //TODO replace
+    val isOff = name.equals("Off")
+    val isOn = !isOff
     val hasCenter = false //TODO tune
     val hasHours = true
     val hasMinutes = true
@@ -36,12 +38,15 @@ data class Wave(val name: String, val waveNumber: Float,
 
         data class Spectrum(val name: String) //TODO seal
 
+        val SPEC_BW = Spectrum("Black White")
         val SPEC_PALETTE = Spectrum("Palette")
+        val SPEC_DARK = Spectrum("Dark")
+        val SPEC_DARK_WAVE = Spectrum("Dark Wave")
         val SPEC_FULL = Spectrum("Full")
         val SPEC_LINES = Spectrum("Lines")
         val SPEC_SPOOK = Spectrum("Spook")
         val SPEC_RAIN = Spectrum("Rain")
-        val DEF_SPEC = SPEC_PALETTE
+        val DEF_SPEC = SPEC_BW
 
         data class Mass(val name: String, val value: Double) //TODO seal
 
@@ -54,6 +59,11 @@ data class Wave(val name: String, val waveNumber: Float,
 
         val OFF = Wave("Off", 1F, 0.0, 1.0, SPEC_FULL, false)
         val DEFAULT = Wave("Default", 2F, DEF_VELOCITY * 3, DEF_INTENSITY * 1.5, SPEC_PALETTE, true)
+        val DARK = Wave("Dark", 2F, DEF_VELOCITY * 3, DEF_INTENSITY * 1.5, SPEC_DARK, true)
+        val DARK_WAVE = Wave("Dark Wave", 2F, DEF_VELOCITY * 3, DEF_INTENSITY * 1.5, SPEC_DARK_WAVE, true)
+        val DARK_WAVE_NOBL = Wave("Dark Wave No Blur", 2F, DEF_VELOCITY * 3, DEF_INTENSITY * 1.5, SPEC_DARK_WAVE, false)
+        val BW = Wave("Black White", 2F, DEF_VELOCITY * 3, DEF_INTENSITY * 1.5, SPEC_BW, true)
+        val BW_NOBL = Wave("BW No Blur", 2F, DEF_VELOCITY * 3, DEF_INTENSITY * 1.5, SPEC_BW, false)
         val SPEC = Wave("Spec", 2F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL)
         val NO_BLUR = Wave("No Blur", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL, false)
         val LONG = Wave("Long", 2F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL, false)
@@ -68,8 +78,8 @@ data class Wave(val name: String, val waveNumber: Float,
         val SPOOK = Wave("Spook", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_SPOOK)
         val RAIN = Wave("Rain", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_RAIN)
 
-        val default = NO_BLUR
-        val all = listOf(OFF, DEFAULT, SPEC, NO_BLUR, LONG, SHORT, INTENSE, WEAK,
+        val default = DARK_WAVE
+        val all = listOf(OFF, DEFAULT, DARK, DARK_WAVE, DARK_WAVE_NOBL, BW, BW_NOBL, SPEC, NO_BLUR, LONG, SHORT, INTENSE, WEAK,
                 FAST, SLOW, STANDING, MULTIPLY, LINES, SPOOK, RAIN)
 
         fun options() = all.toCollection(ArrayList())

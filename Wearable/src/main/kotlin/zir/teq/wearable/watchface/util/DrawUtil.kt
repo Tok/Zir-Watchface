@@ -16,7 +16,6 @@ import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
-import zir.teq.wearable.watchface.model.data.settings.Wave
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.model.data.types.PaintType
@@ -35,11 +34,12 @@ class DrawUtil() {
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
 
     fun draw(can: Canvas, bounds: Rect, calendar: Calendar) {
-        if (ConfigData.isAmbient || ConfigData.wave != Wave.OFF) {
+        val wave = ConfigData.wave
+        if (wave.isOff) {
             drawBackground(can)
         }
         if (ConfigData.isAmbient) {
-            if (ConfigData.wave != Wave.OFF) {
+            if (wave.isOn) {
                 val waveData = ActiveWaveFrameData(calendar, bounds, can)
                 drawAmbientWave(can, waveData)
             }
@@ -50,7 +50,7 @@ class DrawUtil() {
             }
         } else {
             val activeData = ActiveFrameData(calendar, bounds, can)
-            if (ConfigData.wave != Wave.OFF) {
+            if (wave.isOn) {
                 val waveData = ActiveWaveFrameData(calendar, bounds, can)
                 drawActiveWave(can, waveData)
             }
