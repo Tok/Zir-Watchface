@@ -76,7 +76,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onDraw(canvas: Canvas, bounds: Rect?) {
             updateWatchPaintStyles()
             mCalendar.timeInMillis = System.currentTimeMillis()
-            drawer.drawBackground(canvas)
+
             drawer.draw(canvas, bounds!!, mCalendar)
         }
 

@@ -22,7 +22,7 @@ object ColorUtil {
         val fraction = p - range
         val rgbValues = when (ConfigData.wave.spectrum) {
             Wave.SPEC_FULL -> getFullSpectrum(range, fraction)
-            Wave.SPEC_LINES -> getLines(range, fraction)
+            Wave.SPEC_LINES -> getLines(range)
             Wave.SPEC_SPOOK -> getSpook(fraction)
             Wave.SPEC_RAIN -> getRain(range, fraction)
             else -> getFullSpectrum(range, fraction)
@@ -45,7 +45,7 @@ object ColorUtil {
         }
     }
 
-    private fun getLines(range: Int, fraction: Double) =
+    private fun getLines(range: Int) =
             if (range == 0) {
                 Triple(1.0, 1.0, 1.0)
             } else {

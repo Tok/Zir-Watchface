@@ -9,15 +9,15 @@ import android.support.v4.graphics.ColorUtils
 import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
-import zir.teq.wearable.watchface.util.ColorUtil
-import zir.teq.wearable.watchface.model.data.types.Complex
-import zir.teq.wearable.watchface.util.WaveCalc
-import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
 import zir.teq.wearable.watchface.model.data.settings.Wave
+import zir.teq.wearable.watchface.model.data.types.Complex
+import zir.teq.wearable.watchface.model.data.types.Operator
+import zir.teq.wearable.watchface.util.ColorUtil
+import zir.teq.wearable.watchface.util.WaveCalc
 import java.nio.IntBuffer
 import java.util.*
 
@@ -40,24 +40,6 @@ class DrawUtil() {
         fun getRef(can: Canvas): Ref = Ref(can, unit, center)
     }
 
-    open class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
-        val ms = cal.get(Calendar.MILLISECOND)
-        val secRot = (ss + ms / 1000F) / 30F * PI
-        val secLength = unit * calcDistFromBorder(can, ConfigData.stroke)
-        val minLength = secLength / PHI
-        val hrLength = minLength / PHI
-        val hr = calcPosition(hrRot, hrLength, unit)
-        val min = calcPosition(minRot, minLength, unit)
-        val sec = calcPosition(secRot, secLength, unit)
-        val circlesActive = ConfigData.theme.circles.active
-        val hrExtended = if (circlesActive) calcPosition(hrRot, secLength, unit) else hr
-        val minExtended = if (circlesActive) calcPosition(minRot, secLength, unit) else min
-        val secExtended = if (circlesActive) calcPosition(secRot, secLength, unit) else sec
-        val hour = HandData(hr, hrRot, hrExtended)
-        val minute = HandData(min, minRot, minExtended)
-        val second = HandData(sec, secRot, secExtended)
-    }
-
     open class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
         val minLength = unit * calcDistFromBorder(can, ConfigData.stroke) / PHI
         val hrLength = minLength / PHI
@@ -71,30 +53,54 @@ class DrawUtil() {
         val ccRadius = calcDistance(min, ccCenter)
     }
 
-    class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : ActiveFrameData(cal, bounds, can) {
-        val res = ConfigData.wave.resolution.value
-        val isUseUneven = true //render an additional line of pixels in the center.
-        val setOff = if (isUseUneven) 1 else 0
-        val w = setOff + (can.width / res)
-        val h = setOff + (can.height / res)
-        val scaledUnit: Double = w / 2.0
-        val timeStamp = cal.timeInMillis
-        val waveSecLength = w * calcDistFromBorder(h, ConfigData.stroke.dim / res)
-        val waveMinLength = waveSecLength / PHI
-        val waveHrLength = waveMinLength / PHI
-        val waveHr = calcPosition(hrRot, waveHrLength, scaledUnit.toFloat())
-        val waveMin = calcPosition(minRot, waveMinLength, scaledUnit.toFloat())
-        val waveSec = calcPosition(secRot, waveSecLength, scaledUnit.toFloat())
+    open class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
+        val ms = cal.get(Calendar.MILLISECOND)
+        val secRot = (ss + ms / 1000F) / 30F * PI
+        val secLength = unit * calcDistFromBorder(can, ConfigData.stroke)
+        val minLength = secLength / PHI
+        val hrLength = minLength / PHI
+        val hr = calcPosition(hrRot, hrLength, unit)
+        val min = calcPosition(minRot, minLength, unit)
+        val sec = calcPosition(secRot, secLength, unit)
+        val circlesActive = ConfigData.theme.circles.active
+        val hrExtended = if (circlesActive) calcPosition(hrRot, secLength, unit) else hr //why secLength?
+        val minExtended = if (circlesActive) calcPosition(minRot, secLength, unit) else min //why secLength?
+        val secExtended = if (circlesActive) calcPosition(secRot, secLength, unit) else sec
+        val hour = HandData(hr, hrRot, hrExtended)
+        val minute = HandData(min, minRot, minExtended)
+        val second = HandData(sec, secRot, secExtended)
     }
 
-    fun drawBackground(can: Canvas) {
-        val color = ConfigData.ctx.getColor(ConfigData.background.id)
-        //can.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-        can.drawColor(color, PorterDuff.Mode.CLEAR)
-        can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), Palette.prep(color))
+    class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : ActiveFrameData(cal, bounds, can) {
+        val isUseUneven = false //render an additional line of pixels in the center.
+        val timeStamp = cal.timeInMillis
+        val res = ConfigData.wave.resolution.value
+        val setOff = if (isUseUneven) 1 else 0
+        val w = setOff + (bounds.width() / res)
+        val h = setOff + (bounds.height() / res)
+
+        val scaledUnit: Float = (bounds.width() - res) / (res * 2F)
+        val scaledCenter = PointF(scaledUnit, scaledUnit)
+
+        val waveSecLength = secLength * scaledUnit / unit
+        val waveMinLength = minLength * scaledUnit / unit
+        val waveHrLength = hrLength * scaledUnit / unit
+
+        val waveHr = calcPosition(hrRot, waveHrLength, scaledUnit)
+        val waveMin = calcPosition(minRot, waveMinLength, scaledUnit)
+        val waveSec = calcPosition(secRot, waveSecLength, scaledUnit)
+
+        val isProportional = false //TODO
+        val centerMass = if (isProportional) Wave.MASS_DEFAULT.value else Wave.MASS_DEFAULT.value
+        val hourMass = if (isProportional) Wave.MASS_DEFAULT.value else Wave.MASS_DEFAULT.value
+        val minuteMass = if (isProportional) hourMass / PHI else Wave.MASS_DEFAULT.value
+        val secondMass = if (isProportional) minuteMass / PHI else Wave.MASS_DEFAULT.value
     }
 
     fun draw(can: Canvas, bounds: Rect, calendar: Calendar) {
+        if (ConfigData.isAmbient || ConfigData.wave != Wave.OFF) {
+            drawBackground(can)
+        }
         if (ConfigData.isAmbient) {
             val data = AmbientFrameData(calendar, bounds, can)
             drawAmbientFace(can, data)
@@ -103,13 +109,11 @@ class DrawUtil() {
             }
         } else {
             val activeData = ActiveFrameData(calendar, bounds, can)
-            val IS_WAVE = true //TODO
-            if (IS_WAVE) {
+            if (ConfigData.wave != Wave.OFF) {
                 val waveData = ActiveWaveFrameData(calendar, bounds, can)
                 drawActiveWave(can, waveData)
             }
             drawActiveFace(can, activeData)
-
             if (ConfigData.theme.text.active) {
                 Text.draw(can, calendar)
             }
@@ -144,39 +148,61 @@ class DrawUtil() {
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData) {
         val t = data.timeStamp * ConfigData.wave.velocity
         val buffer = IntBuffer.allocate(data.w * data.h)
-        val xRange = 0..(data.h-1)
-        val yRange = 0..(data.w-1)
-        xRange.flatMap { xInt -> yRange.map { yInt ->
-            val x = xInt.toDouble()
-            val y = yInt.toDouble()
-            with (data) {
-                val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t, Wave.DEF_MASS) //.multiply(Complex.ONE)
-                val hr: Complex = WaveCalc.calc(x, y, waveHr.x.toDouble(), waveHr.y.toDouble(), t, Wave.DEF_MASS)
-                val min: Complex = WaveCalc.calc(x, y, waveMin.x.toDouble(), waveMin.y.toDouble(), t, Wave.DEF_MASS)
-                val sec: Complex = WaveCalc.calc(x, y, waveSec.x.toDouble(), waveSec.y.toDouble(), t,  Wave.DEF_MASS)
-                val terms: List<Complex> = listOf(center, hr, min, sec)
-                val all: Complex = when (ConfigData.wave.op) {
-                    Operator.MULTIPLY -> terms.fold(center) { total, next -> total.multiply(next) }
-                    Operator.ADD -> terms.fold(center) { total, next -> total.add(next) }
-                    else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
+        val xRange = 0..(data.h - 1)
+        val yRange = 0..(data.w - 1)
+        xRange.flatMap { xInt ->
+            yRange.map { yInt ->
+                with(data) {
+                    val point = PointF(xInt.toFloat(), yInt.toFloat())
+                    val terms = prepareTerms(data, point, t)
+                    val all: Complex = when (ConfigData.wave.op) {
+                        Operator.MULTIPLY -> terms.fold(terms.first()) { total, next -> total.multiply(next) }
+                        Operator.ADD -> terms.fold(terms.first()) { total, next -> total.add(next) }
+                        else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
+                    }
+                    val col = ColorUtil.getColor(all)
+                    buffer.put(col)
                 }
-                val col = ColorUtil.getColor(all)
-                buffer.put(col)
             }
-        }}
+        }
         buffer.rewind()
         drawFromBuffer(can, buffer, data)
+    }
+
+    private fun drawBackground(can: Canvas) {
+        val color = ConfigData.ctx.getColor(ConfigData.background.id)
+        //can.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+        can.drawColor(color, PorterDuff.Mode.CLEAR)
+        can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), Palette.prep(color))
+    }
+
+    private fun prepareTerms(data: ActiveWaveFrameData, point: PointF, t: Double): List<Complex> {
+        with(data) {
+            val terms = mutableListOf<Complex>()
+            val wave = ConfigData.wave
+            if (wave.hasCenter) terms.add(WaveCalc.calc(point, scaledCenter, t, centerMass))
+            if (wave.hasHours) terms.add(WaveCalc.calc(point, waveHr, t, hourMass))
+            if (wave.hasMinutes) terms.add(WaveCalc.calc(point, waveMin, t, minuteMass))
+            if (wave.hasSeconds) terms.add(WaveCalc.calc(point, waveSec, t, secondMass))
+            if (terms.isEmpty()) throw IllegalStateException("Missing terms.")
+            return terms
+        }
     }
 
     private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrameData) {
         val bitmap = Bitmap.createBitmap(data.w, data.h, Bitmap.Config.ARGB_8888);
         bitmap.copyPixelsFromBuffer(buffer)
-        val scaled = Bitmap.createScaledBitmap(bitmap, -can.width, can.height, true);
-        val matrix = Matrix()
-        matrix.postRotate(-90F)
-        val rotated = Bitmap.createBitmap(scaled, 0, 0, scaled.width, scaled.height, matrix, true)
-        val blurred = gaussianBlur(rotated)
+
+        val rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, rotMatrix(), true)
+        val scaled = Bitmap.createScaledBitmap(rotated, -can.width, can.height, true);
+        val blurred = gaussianBlur(scaled)
         can.drawBitmap(blurred, 0F, 0F, null)
+    }
+
+    private fun rotMatrix(): Matrix {
+        val matrix = Matrix()
+        matrix.postRotate(90F)
+        return matrix
     }
 
     private fun gaussianBlur(input: Bitmap): Bitmap {
@@ -250,7 +276,12 @@ class DrawUtil() {
             return Math.sqrt(p.toDouble()).toFloat()
         }
 
-        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) { ConfigData.outline.dim } else { 0F }
+        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) {
+            ConfigData.outline.dim
+        } else {
+            0F
+        }
+
         private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
         private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
             val w = p.strokeWidth
