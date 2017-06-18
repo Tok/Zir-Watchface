@@ -20,9 +20,9 @@
 
 ---
 
-![Waves 1](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/waves_1.png "Waves 1")
-![Waves 2](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/waves_2.png "Waves 2")
-![Waves 3](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/waves_3.png "Waves 3")
+![Wave Spectrum](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_spectrum.png "Wave Spectrum")
+![Wave Traingle](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_triangle.png "Wave Traingle")
+![Wave Lines](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_lines.png "Wave Lines")
 
 ---
 
@@ -43,7 +43,7 @@
 * Center dot should be visually different from the hands, this may be done by using a darker or brighter color.
 * Find a workaround for the problem when all the dots are lined up and the tetrahedron would be a tangent.
 * Consider adding 12 dynamic helplines from the center of the center dot, in case it is unlocked from the center of the watchface.
- 
+
 ### Low Priority
 * Use a blockchain technology to introduce an absolute artifical timesource, that solves all the relativistic issues, where observers in different systems may observe a different times and orders.
 * It should be based on a proof of work algorithm, because the energy spent for finding the block, directly correlates to the mass avaliable in the system that signs it.
