@@ -64,6 +64,13 @@ class DrawUtil() {
         when (ConfigData.stack) {
             Stack.GROUPED -> {
                 Circles.drawActive(can, data)
+                Triangles.draw(can, data)
+                Points.drawActive(can, data)
+                Hands.drawActive(can, data)
+                Points.drawActiveCenter(can, data)
+            }
+            Stack.LEGACY -> {
+                Circles.drawActive(can, data)
                 Hands.drawActive(can, data)
                 Points.drawActiveCenter(can, data)
                 Triangles.draw(can, data)
