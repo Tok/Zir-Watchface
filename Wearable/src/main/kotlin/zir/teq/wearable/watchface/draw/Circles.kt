@@ -13,8 +13,7 @@ import zir.watchface.DrawUtil
 
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun drawActive(can: Canvas, data: ActiveFrameData) {
-        val p = Palette.createPaint(PaintType.CIRCLE)
+    fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
         when (ConfigData.stack) {
             Stack.GROUPED, Stack.LEGACY -> {
                 if (ConfigData.hasOutline()) {

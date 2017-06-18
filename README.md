@@ -22,7 +22,8 @@
 
 ![Wave Spectrum](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_spectrum.png "Wave Spectrum")
 ![Wave Traingle](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_triangle.png "Wave Traingle")
-![Wave Lines](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_lines.png "Wave Lines")
+![Groups Blue](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/groups_blue.png "Groups Blue")
+![Red Tetra](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/red_tetra.png "Red Tetra")
 
 ---
 

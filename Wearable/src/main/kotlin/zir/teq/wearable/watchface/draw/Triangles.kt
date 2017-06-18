@@ -4,9 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
-import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
-import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 import zir.watchface.DrawUtil.HandData
 
@@ -14,9 +12,8 @@ object Triangles {
     //Triangles only exist in active mode
     data class Factors(val hm: Float, val hs: Float, val ms: Float)
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun draw(can: Canvas, data: ActiveFrameData) {
+    fun draw(can: Canvas, data: ActiveFrameData, p: Paint) {
         if (ConfigData.theme.triangles.active) {
-            val p = Palette.createPaint(PaintType.SHAPE)
             drawTriangle(can, data, p)
         }
     }

@@ -19,6 +19,7 @@ import zir.teq.wearable.watchface.model.data.settings.Stroke
 import zir.teq.wearable.watchface.model.data.settings.Wave
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Operator
+import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.util.ColorUtil
 import zir.teq.wearable.watchface.util.WaveCalc
 import java.nio.IntBuffer
@@ -61,27 +62,28 @@ class DrawUtil() {
     }
 
     fun drawActiveFace(can: Canvas, data: ActiveFrameData) {
+        val pal = ConfigData.palette
         when (ConfigData.stack) {
             Stack.GROUPED -> {
-                Circles.drawActive(can, data)
-                Triangles.draw(can, data)
-                Points.drawActive(can, data)
-                Hands.drawActive(can, data)
-                Points.drawActiveCenter(can, data)
+                Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
+                Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE, pal.half()))
+                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT, ConfigData.ctx.getColor(R.color.white)))
+                Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND, pal.light()))
+                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT, ConfigData.ctx.getColor(R.color.white)))
             }
             Stack.LEGACY -> {
-                Circles.drawActive(can, data)
-                Hands.drawActive(can, data)
-                Points.drawActiveCenter(can, data)
-                Triangles.draw(can, data)
-                Points.drawActive(can, data)
+                Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
+                Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND))
+                Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE))
+                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT))
+                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT))
             }
             else -> {
-                Circles.drawActive(can, data)
-                Triangles.draw(can, data)
-                Hands.drawActive(can, data)
-                Points.drawActive(can, data)
-                Points.drawActiveCenter(can, data)
+                Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
+                Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE))
+                Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND))
+                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT))
+                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT))
             }
         }
     }

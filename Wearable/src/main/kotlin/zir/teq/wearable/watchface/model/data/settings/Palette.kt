@@ -50,15 +50,16 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createPaint(type: PaintType): Paint {
+        fun createPaint(type: PaintType): Paint = createPaint(type, null)
+        fun createPaint(type: PaintType, color: Int?): Paint {
             val paint = when (type) {
-                PaintType.SHAPE -> prepareShapePaint(ConfigData.palette.light())
-                PaintType.HAND -> prepareLinePaint(ConfigData.palette.half())
-                PaintType.CIRCLE -> prepareCirclePaint(ConfigData.palette.dark())
-                PaintType.POINT -> preparePointPaint(ConfigData.ctx.getColor(R.color.points))
-                PaintType.SHAPE_AMB -> prepareShapePaint(ConfigData.palette.light())
-                PaintType.HAND_AMB -> prepareLinePaint(ConfigData.palette.half())
-                PaintType.CIRCLE_AMB -> prepareCirclePaint(ConfigData.palette.dark())
+                PaintType.SHAPE -> prepareShapePaint(color ?: ConfigData.palette.light())
+                PaintType.HAND -> prepareLinePaint(color ?: ConfigData.palette.half())
+                PaintType.CIRCLE -> prepareCirclePaint(color ?: ConfigData.palette.dark())
+                PaintType.POINT -> preparePointPaint(color ?: ConfigData.ctx.getColor(R.color.points))
+                PaintType.SHAPE_AMB -> prepareShapePaint(color ?: ConfigData.palette.light())
+                PaintType.HAND_AMB -> prepareLinePaint(color ?: ConfigData.palette.half())
+                PaintType.CIRCLE_AMB -> prepareCirclePaint(color ?: ConfigData.palette.dark())
                 else -> {
                     val msg = "Ignoring paintType: " + type
                     throw IllegalArgumentException(msg)

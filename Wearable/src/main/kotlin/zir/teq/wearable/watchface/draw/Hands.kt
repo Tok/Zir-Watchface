@@ -18,11 +18,10 @@ object Hands {
     data class ActiveFactors(val h: Float, val m: Float, val s: Float)
 
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun drawActive(can: Canvas, data: ActiveFrameData) {
+    fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
         if (ConfigData.theme.hands.active) {
             with(data) {
                 val ref = data.getRef(can)
-                val p = Palette.createPaint(PaintType.HAND)
                 val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, ref.center)
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, ref.center)
                 val sFactor = ELASTICITY * unit / DrawUtil.calcDistance(second.p, ref.center)
