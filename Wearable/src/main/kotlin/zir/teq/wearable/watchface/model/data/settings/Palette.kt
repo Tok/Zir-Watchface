@@ -19,22 +19,26 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / DrawUtil.PHI)
         fun makeLighter(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.white), 1F / DrawUtil.PHI)
         val BLACK = Palette("Black", R.color.black, R.color.dark_gray)
+        val DARK = Palette("Dark", R.color.darker, R.color.dark_gray)
         val WHITE = Palette("White", R.color.dark_grey, R.color.white)
         val RED = Palette("Red", R.color.dark_red, R.color.red)
+        val RED_WHITE = Palette("Red-White", R.color.red, R.color.white)
         val ORANGE = Palette("Orange", R.color.orange_red, R.color.bright_orange)
         val YELLOW = Palette("Yellow", R.color.yellow_dark, R.color.yellow)
         val GREEN = Palette("Green", R.color.dark_green, R.color.green_yellow)
+        val GREEN_R = Palette("Green-R", R.color.green_yellow, R.color.dark_green)
         val BLUE = Palette("Blue", R.color.dark_blue, R.color.deep_sky_blue)
+        val BLUE_R = Palette("Blue-R", R.color.deep_sky_blue, R.color.dark_blue)
         val PURPLE = Palette("Purple", R.color.indigo, R.color.magenta)
         val PURPLE_GREEN = Palette("Purple and Green", R.color.indigo, R.color.green_yellow)
         val RED_YELLOW = Palette("Red and Yellow", R.color.red, R.color.yellow)
         val BLUE_ORANGE = Palette("Blue and Orange", R.color.deep_sky_blue, R.color.bright_orange)
         val BLACK_YELLOW = Palette("Black and Yellow", R.color.black, R.color.yellow)
-        val defaultType = BLACK
+        val defaultType = DARK
         fun default() = create(defaultType.name)
 
-        private val all = listOf(BLACK, WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE,
-                PURPLE_GREEN, RED_YELLOW, BLUE_ORANGE, BLACK_YELLOW)
+        private val all = listOf(BLACK, DARK, WHITE, RED, RED_WHITE, ORANGE, YELLOW, GREEN, GREEN_R,
+                BLUE, BLUE_R, PURPLE, PURPLE_GREEN, RED_YELLOW, BLUE_ORANGE, BLACK_YELLOW)
         val selectable = listOf(RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
         fun options() = all.toCollection(ArrayList<Palette>())
         fun create(name: String): Palette = all.find { it.name.equals(name) } ?: defaultType

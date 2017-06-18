@@ -2,9 +2,10 @@ package zir.teq.wearable.watchface.util
 
 import android.graphics.Color
 import android.support.annotation.ColorInt
-import zir.teq.wearable.watchface.model.data.types.Complex
+import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.Wave
+import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.watchface.DrawUtil.Companion.TAU
 
 
@@ -16,21 +17,35 @@ object ColorUtil {
             return Color.BLACK
         }
         val mag = Math.min(1.0, magnitude)
-        val pha = if (phase < 0.0) phase + TAU else phase
-        val p = pha * 6.0 / TAU
-        val range = Math.min(5.0, Math.max(0.0, p)).toInt()
-        val fraction = p - range
-        val rgbValues = when (ConfigData.wave.spectrum) {
-            Wave.SPEC_FULL -> getFullSpectrum(range, fraction)
-            Wave.SPEC_LINES -> getLines(range)
-            Wave.SPEC_SPOOK -> getSpook(fraction)
-            Wave.SPEC_RAIN -> getRain(range, fraction)
-            else -> getFullSpectrum(range, fraction)
+        val pha: Double = if (phase < 0.0) phase + TAU else phase
+        if (Wave.SPEC_PALETTE == ConfigData.wave.spectrum) {
+            val pp = pha * 2.0 / TAU
+            val range = Math.min(1.0, Math.max(0.0, pp)).toInt()
+            return getFromPalette(range, pp - range)
+        } else {
+            val p = pha * 6.0 / TAU
+            val range = Math.min(5.0, Math.max(0.0, p)).toInt()
+            val fraction = p - range
+            val rgbValues = when (ConfigData.wave.spectrum) {
+                Wave.SPEC_FULL -> getFullSpectrum(range, fraction)
+                Wave.SPEC_LINES -> getLines(range)
+                Wave.SPEC_SPOOK -> getSpook(fraction)
+                Wave.SPEC_RAIN -> getRain(range, fraction)
+                else -> getFullSpectrum(range, fraction)
+            }
+            val red = (rgbValues.first * mag * MAX_RGB).toInt()
+            val green = (rgbValues.second * mag * MAX_RGB).toInt()
+            val blue = (rgbValues.third * mag * MAX_RGB).toInt()
+            return Color.rgb(red, green, blue)
         }
-        val red = (rgbValues.first * mag * MAX_RGB).toInt()
-        val green = (rgbValues.second * mag * MAX_RGB).toInt()
-        val blue = (rgbValues.third * mag * MAX_RGB).toInt()
-        return Color.rgb(red, green, blue)
+    }
+
+    private fun getFromPalette(range: Int, fraction: Double): Int {
+        return when (range) {
+            0 -> ColorUtils.blendARGB(ConfigData.palette.dark(), ConfigData.palette.light(), fraction.toFloat())
+            1 -> ColorUtils.blendARGB(ConfigData.palette.light(), ConfigData.palette.dark(), fraction.toFloat())
+            else -> throw IllegalArgumentException("Out of range: " + range)
+        }
     }
 
     private fun getFullSpectrum(range: Int, fraction: Double): Triple<Double, Double, Double> {

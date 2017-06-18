@@ -14,11 +14,11 @@ data class Wave(val name: String, val waveNumber: Float,
     val hasHours = true
     val hasMinutes = true
     val hasSeconds = true
-    val isKeepState = true
+    val isKeepState = false
     val lastWeight = 100
     companion object {
-        private val DEFAULT_VELOCITY = -0.0002
-        private val DEFAULT_INTENSITY = 7.0
+        private val DEF_VELOCITY = -0.0002
+        private val DEF_INTENSITY = 7.0
 
         data class WaveResolution(val value: Int) {
             fun get() = value
@@ -36,11 +36,12 @@ data class Wave(val name: String, val waveNumber: Float,
 
         data class Spectrum(val name: String) //TODO seal
 
+        val SPEC_PALETTE = Spectrum("Palette")
         val SPEC_FULL = Spectrum("Full")
         val SPEC_LINES = Spectrum("Lines")
         val SPEC_SPOOK = Spectrum("Spook")
         val SPEC_RAIN = Spectrum("Rain")
-        val DEF_SPEC = SPEC_FULL
+        val DEF_SPEC = SPEC_PALETTE
 
         data class Mass(val name: String, val value: Double) //TODO seal
 
@@ -52,22 +53,23 @@ data class Wave(val name: String, val waveNumber: Float,
         val DEF_MASS = MASS_DEFAULT
 
         val OFF = Wave("Off", 1F, 0.0, 1.0, SPEC_FULL, false)
-        val DEFAULT = Wave("Default", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY)
-        val NO_BLUR = Wave("No Blur", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_FULL, false)
-        val LONG = Wave("Long", 2F, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_FULL, false)
-        val SHORT = Wave("Short", 0.5F, DEFAULT_VELOCITY, DEFAULT_INTENSITY)
-        val INTENSE = Wave("Intense", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY * 2, SPEC_FULL, false)
-        val WEAK = Wave("Weak", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_FULL, false)
-        val FAST = Wave("Fast", 1F, DEFAULT_VELOCITY * 2.0, DEFAULT_INTENSITY)
-        val SLOW = Wave("Slow", 1F, DEFAULT_VELOCITY * 0.5, DEFAULT_INTENSITY)
-        val STANDING = Wave("Standing", 1F, 0.0, DEFAULT_INTENSITY)
-        val MULTIPLY = Wave("Multiply", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_FULL, true, Operator.MULTIPLY)
-        val LINES = Wave("Lines", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_LINES, false)
-        val SPOOK = Wave("Spook", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_SPOOK)
-        val RAIN = Wave("Rain", 1F, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_RAIN)
+        val DEFAULT = Wave("Default", 2F, DEF_VELOCITY * 3, DEF_INTENSITY * 1.5, SPEC_PALETTE, true)
+        val SPEC = Wave("Spec", 2F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL)
+        val NO_BLUR = Wave("No Blur", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL, false)
+        val LONG = Wave("Long", 2F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL, false)
+        val SHORT = Wave("Short", 0.5F, DEF_VELOCITY, DEF_INTENSITY)
+        val INTENSE = Wave("Intense", 1F, DEF_VELOCITY, DEF_INTENSITY * 2, SPEC_FULL, false)
+        val WEAK = Wave("Weak", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL, false)
+        val FAST = Wave("Fast", 1F, DEF_VELOCITY * 2.0, DEF_INTENSITY)
+        val SLOW = Wave("Slow", 1F, DEF_VELOCITY * 0.5, DEF_INTENSITY)
+        val STANDING = Wave("Standing", 1F, 0.0, DEF_INTENSITY)
+        val MULTIPLY = Wave("Multiply", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_FULL, true, Operator.MULTIPLY)
+        val LINES = Wave("Lines", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_LINES, false)
+        val SPOOK = Wave("Spook", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_SPOOK)
+        val RAIN = Wave("Rain", 1F, DEF_VELOCITY, DEF_INTENSITY, SPEC_RAIN)
 
         val default = NO_BLUR
-        val all = listOf(OFF, DEFAULT, NO_BLUR, LONG, SHORT, INTENSE, WEAK,
+        val all = listOf(OFF, DEFAULT, SPEC, NO_BLUR, LONG, SHORT, INTENSE, WEAK,
                 FAST, SLOW, STANDING, MULTIPLY, LINES, SPOOK, RAIN)
 
         fun options() = all.toCollection(ArrayList())

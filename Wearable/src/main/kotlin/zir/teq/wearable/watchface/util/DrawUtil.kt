@@ -102,6 +102,10 @@ class DrawUtil() {
             drawBackground(can)
         }
         if (ConfigData.isAmbient) {
+            if (ConfigData.wave != Wave.OFF) {
+                val waveData = ActiveWaveFrameData(calendar, bounds, can)
+                drawAmbientWave(can, waveData)
+            }
             val data = AmbientFrameData(calendar, bounds, can)
             drawAmbientFace(can, data)
             if (ConfigData.theme.text.ambient) {
@@ -145,8 +149,12 @@ class DrawUtil() {
         Points.drawAmbient(can, data)
     }
 
+    fun drawAmbientWave(can: Canvas, data: ActiveWaveFrameData) {
+        drawActiveWave(can, data, false)
+    }
+
     val lastFrame = mutableMapOf<Pair<Int, Int>, Complex>()
-    fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData) {
+    fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData, isActive: Boolean = true) {
         val wave = ConfigData.wave
         val t = data.timeStamp * ConfigData.wave.velocity
         val buffer = IntBuffer.allocate(data.w * data.h)
@@ -156,7 +164,7 @@ class DrawUtil() {
             yRange.map { yInt ->
                 with(data) {
                     val point = PointF(xInt.toFloat(), yInt.toFloat())
-                    val terms = prepareTerms(data, point, t)
+                    val terms = prepareTerms(data, point, t, isActive)
                     val all: Complex = when (ConfigData.wave.op) {
                         Operator.MULTIPLY -> terms.fold(terms.first()) { total, next -> total.multiply(next) }
                         Operator.ADD -> terms.fold(terms.first()) { total, next -> total.add(next) }
@@ -189,14 +197,14 @@ class DrawUtil() {
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), Palette.prep(color))
     }
 
-    private fun prepareTerms(data: ActiveWaveFrameData, point: PointF, t: Double): List<Complex> {
+    private fun prepareTerms(data: ActiveWaveFrameData, point: PointF, t: Double, isActive: Boolean): List<Complex> {
         with(data) {
             val terms = mutableListOf<Complex>()
             val wave = ConfigData.wave
             if (wave.hasCenter) terms.add(WaveCalc.calc(point, scaledCenter, t, centerMass))
             if (wave.hasHours) terms.add(WaveCalc.calc(point, waveHr, t, hourMass))
             if (wave.hasMinutes) terms.add(WaveCalc.calc(point, waveMin, t, minuteMass))
-            if (wave.hasSeconds) terms.add(WaveCalc.calc(point, waveSec, t, secondMass))
+            if (isActive && wave.hasSeconds) terms.add(WaveCalc.calc(point, waveSec, t, secondMass))
             if (terms.isEmpty()) throw IllegalStateException("Missing terms.")
             return terms
         }
