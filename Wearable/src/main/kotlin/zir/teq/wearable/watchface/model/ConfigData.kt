@@ -5,12 +5,10 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.draw.complex.data.Operator
 import zir.teq.wearable.watchface.model.data.*
 import zir.teq.wearable.watchface.model.data.Stack
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
-import zir.watchface.DrawUtil
 import java.util.*
 
 object ConfigData {
@@ -23,6 +21,7 @@ object ConfigData {
         palette = savedPalette()
         stroke = savedStroke()
         background = savedBackground()
+        wave = savedWave()
         alpha = savedAlpha()
         stack = savedStack()
         dim = savedDim()
@@ -76,6 +75,7 @@ object ConfigData {
     private fun savedIsElastic() = prefs.getBoolean(ctx.getString(R.string.saved_is_elastic), isElastic)
     private fun savedPalette() = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
     private fun savedStroke() = Stroke.create(prefString(R.string.saved_stroke, Stroke.default().name))
+    private fun savedWave() = Wave.getByName(prefString(R.string.saved_wave, Wave.default.name))
     private fun savedBackground() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
     private fun savedAlpha() = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))
     private fun savedStack() = Stack.getByName(prefString(R.string.saved_stack, Stack.default.name))
@@ -88,10 +88,10 @@ object ConfigData {
     var outline = savedOutline()
     var growth = savedGrowth()
     var background = savedBackground()
+    var wave = savedWave()
     var alpha = savedAlpha()
     var stack = savedStack()
     var dim = savedDim()
-    var wave = Wave.default //TODO save..
     var isFastUpdate: Boolean = savedFastUpdate()
     var isElastic: Boolean = savedIsElastic()
     var isElasticOutline: Boolean = true //TODO tune

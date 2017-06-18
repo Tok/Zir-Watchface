@@ -14,9 +14,10 @@ import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.DIM
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.GROWTH
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.OUTLINE
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.PALETTE
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STACK
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STROKE
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.THEME
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STACK
+import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.WAVE
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
@@ -44,6 +45,7 @@ class ZirWatchConfigAdapter(
             THEME.code -> (vh as ThemePickerViewHolder).setActivity((ci as ThemeConfigItem).activity)
             PALETTE.code -> (vh as PalettePickerViewHolder).setActivity((ci as PaletteConfigItem).activity)
             BACKGROUND.code -> (vh as BackgroundPickerViewHolder).setActivity((ci as BackgroundConfigItem).activity)
+            WAVE.code -> (vh as WavePickerViewHolder).setActivity((ci as WaveConfigItem).activity)
             STROKE.code -> (vh as StrokePickerViewHolder).setActivity((ci as StrokeConfigItem).activity)
             OUTLINE.code -> (vh as OutlinePickerViewHolder).setActivity((ci as OutlineConfigItem).activity)
             GROWTH.code -> (vh as GrowthPickerViewHolder).setActivity((ci as GrowthConfigItem).activity)

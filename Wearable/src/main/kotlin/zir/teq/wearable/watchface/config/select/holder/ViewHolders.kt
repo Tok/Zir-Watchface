@@ -20,6 +20,13 @@ class BackgroundPickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     }
 }
 
+class WavePickerViewHolder(view: View) : ZirPickerViewHolder(view) {
+    init {
+        mButton = view.findViewById(R.id.config_list_item_wave) as Button
+        view.setOnClickListener { super.handleClick(view, WaveSelectionActivity.EXTRA) }
+    }
+}
+
 class PalettePickerViewHolder(view: View) : ZirPickerViewHolder(view) {
     init {
         mButton = view.findViewById(R.id.config_list_item_palette) as Button

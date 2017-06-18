@@ -1,5 +1,6 @@
 package zir.teq.wearable.watchface.model.data
 
+import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.complex.data.Operator
 import zir.watchface.DrawUtil
 
@@ -8,6 +9,7 @@ data class Wave(val name: String, val waveNumber: Float,
                 val spectrum: Spectrum = DEF_SPEC,
                 val isBlur: Boolean = true, val op: Operator = Operator.ADD,
                 val resolution: WaveResolution = DEF_RES) {
+    val iconId: Int = R.drawable.icon_dummy //TODO replace
     companion object {
         private val DEFAULT_VELOCITY = -0.0001
         private val DEFAULT_INTENSITY = 7.0
@@ -42,8 +44,9 @@ data class Wave(val name: String, val waveNumber: Float,
         val SPOOK = Wave("Spook", DrawUtil.PHI, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_SPOOK)
         val RAIN = Wave("Rain", DrawUtil.PHI, DEFAULT_VELOCITY, DEFAULT_INTENSITY, SPEC_RAIN)
 
-        val all = listOf(OFF, DEFAULT, NO_BLUR, INTENSE, WEAK, FAST, STANDING, MULTIPLY, LINES, SPOOK, RAIN)
         val default = NO_BLUR
-        fun findByName(name: String) = all.find { it.name.equals(name) }
+        val all = listOf(OFF, DEFAULT, NO_BLUR, INTENSE, WEAK, FAST, STANDING, MULTIPLY, LINES, SPOOK, RAIN)
+        fun options() = all.toCollection(ArrayList())
+        fun getByName(name: String): Wave = all.find { it.name.equals(name) } ?: default
     }
 }

@@ -55,6 +55,7 @@
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.ThemeSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.PaletteSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.BackgroundSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.WaveSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.StrokeSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.GrowthSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.OutlineSelectionActivity" />

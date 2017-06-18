@@ -1,15 +1,12 @@
 package zir.teq.wearable.watchface.util
 
 import android.support.v7.widget.RecyclerView
-import android.support.wearable.view.CircledImageView
 import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.*
-import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
 object ViewHelper {
@@ -50,6 +47,7 @@ object ViewHelper {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_item_theme))
             ConfigItem.PALETTE.code -> PalettePickerViewHolder(createView(group, R.layout.config_list_item_palette))
             ConfigItem.BACKGROUND.code -> BackgroundPickerViewHolder(createView(group, R.layout.config_list_item_background))
+            ConfigItem.WAVE.code -> WavePickerViewHolder(createView(group, R.layout.config_list_item_wave))
             ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_item_stroke))
             ConfigItem.OUTLINE.code -> OutlinePickerViewHolder(createView(group, R.layout.config_list_item_outline))
             ConfigItem.GROWTH.code -> GrowthPickerViewHolder(createView(group, R.layout.config_list_item_growth))
