@@ -1,18 +1,23 @@
 package zir.watchface
 
-import android.content.Context
 import android.graphics.*
-import android.support.annotation.ColorInt
+import android.renderscript.Allocation
+import android.renderscript.Element
+import android.renderscript.RenderScript
+import android.renderscript.ScriptIntrinsicBlur
 import android.support.v4.graphics.ColorUtils
 import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
+import zir.teq.wearable.watchface.draw.complex.ColorUtil
+import zir.teq.wearable.watchface.draw.complex.Complex
+import zir.teq.wearable.watchface.draw.complex.WaveCalc
+import zir.teq.wearable.watchface.draw.complex.data.Operator
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Outline
 import zir.teq.wearable.watchface.model.data.Palette
 import zir.teq.wearable.watchface.model.data.Stack
 import zir.teq.wearable.watchface.model.data.Stroke
-import zir.teq.wearable.watchface.model.data.Theme
+import java.nio.IntBuffer
 import java.util.*
 
 
@@ -34,7 +39,7 @@ class DrawUtil() {
         fun getRef(can: Canvas): Ref = Ref(can, unit, center)
     }
 
-    class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas): FrameData(cal, bounds) {
+    open class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
         val ms = cal.get(Calendar.MILLISECOND)
         val secRot = (ss + ms / 1000F) / 30F * PI
         val secLength = unit * calcDistFromBorder(can, ConfigData.stroke)
@@ -52,15 +57,30 @@ class DrawUtil() {
         val second = HandData(sec, secRot, secExtended)
     }
 
-    class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas): FrameData(cal, bounds) {
+    open class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
         val minLength = unit * calcDistFromBorder(can, ConfigData.stroke) / PHI
         val hrLength = minLength / PHI
+
         val hr = calcPosition(hrRot, hrLength, unit)
         val min = calcPosition(minRot, minLength, unit)
         val hour = HandData(hr, hrRot, center)
+
         val minute = HandData(min, minRot, center)
         val ccCenter = calcCircumcenter(center, hr, min)
         val ccRadius = calcDistance(min, ccCenter)
+    }
+
+    class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : ActiveFrameData(cal, bounds, can) {
+        val w = can.width / WaveCalc.RESOLUTION
+        val h = can.height / WaveCalc.RESOLUTION
+        val scaledUnit: Double = w / 2.0
+        val timeStamp = cal.timeInMillis
+        val waveSecLength = w * calcDistFromBorder(h, ConfigData.stroke.dim / WaveCalc.RESOLUTION)
+        val waveMinLength = waveSecLength / PHI
+        val waveHrLength = waveMinLength / PHI
+        val waveHr = calcPosition(hrRot, waveHrLength, scaledUnit.toFloat())
+        val waveMin = calcPosition(minRot, waveMinLength, scaledUnit.toFloat())
+        val waveSec = calcPosition(secRot, waveSecLength, scaledUnit.toFloat())
     }
 
     fun drawBackground(can: Canvas) {
@@ -78,8 +98,14 @@ class DrawUtil() {
                 Text.draw(can, calendar)
             }
         } else {
-            val data = ActiveFrameData(calendar, bounds, can)
-            drawActiveFace(can, data)
+            val activeData = ActiveFrameData(calendar, bounds, can)
+            val IS_WAVE = true //TODO
+            if (IS_WAVE) {
+                val waveData = ActiveWaveFrameData(calendar, bounds, can)
+                drawActiveWave(can, waveData)
+            }
+            drawActiveFace(can, activeData)
+
             if (ConfigData.theme.text.active) {
                 Text.draw(can, calendar)
             }
@@ -111,6 +137,62 @@ class DrawUtil() {
         Points.drawAmbient(can, data)
     }
 
+    fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData) {
+        val t = data.timeStamp * WaveCalc.DEFAULT_VELOCITY //TODO...
+        val buffer = IntBuffer.allocate(data.w * data.h)
+        for (xInt in 0..(data.h-1)) {
+            for (yInt in 0..(data.w-1)) {
+                val x = xInt.toDouble()
+                val y = yInt.toDouble()
+                with (data) {
+                    //val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t).multiply(Complex.ONE)
+                    val hr: Complex = WaveCalc.calc(x, y, waveHr.x.toDouble(), waveHr.y.toDouble(), t)
+                    val min: Complex = WaveCalc.calc(x, y, waveMin.x.toDouble(), waveMin.y.toDouble(), t)
+                    val sec: Complex = WaveCalc.calc(x, y, waveSec.x.toDouble(), waveSec.y.toDouble(), t)
+                    val terms: List<Complex> = listOf(hr, min, sec)
+                    val all: Complex = when (WaveCalc.OP) {
+                        Operator.MULTIPLY -> terms.fold(hr) { total, next -> total.multiply(next) }
+                        Operator.ADD -> terms.fold(hr) { total, next -> total.add(next) }
+                        else -> throw IllegalArgumentException("Unknown operator: " + WaveCalc.OP)
+                    }
+                    val col = ColorUtil.getColor(all)
+                    buffer.put(col)
+                }
+            }
+        }
+        buffer.rewind()
+        drawFromBuffer(can, buffer, data)
+    }
+
+    private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrameData) {
+        val bitmap = Bitmap.createBitmap(data.w, data.h, Bitmap.Config.ARGB_8888);
+        bitmap.copyPixelsFromBuffer(buffer)
+        val scaled = Bitmap.createScaledBitmap(bitmap, -can.width, can.height, true);
+        val matrix = Matrix()
+        matrix.postRotate(-90F)
+        val rotated = Bitmap.createBitmap(scaled, 0, 0, scaled.width, scaled.height, matrix, true)
+        val bmpOffset = -WaveCalc.RESOLUTION / 2F
+        val blurred = blur(rotated)
+        can.drawBitmap(blurred, bmpOffset, bmpOffset, null)
+    }
+
+    private fun blur(bitmap: Bitmap): Bitmap {
+        val BLUR_RADIUS = WaveCalc.RESOLUTION.toFloat()
+
+        val outputBitmap = Bitmap.createBitmap(bitmap)
+        val renderScript = RenderScript.create(ConfigData.ctx)
+        val tmpIn = Allocation.createFromBitmap(renderScript, bitmap)
+        val tmpOut = Allocation.createFromBitmap(renderScript, outputBitmap)
+
+        //Intrinsic Gausian blur filter
+        val theIntrinsic = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
+        theIntrinsic.setRadius(BLUR_RADIUS)
+        theIntrinsic.setInput(tmpIn)
+        theIntrinsic.forEach(tmpOut)
+        tmpOut.copyTo(outputBitmap)
+        return outputBitmap
+    }
+
     companion object {
         val PHI = 1.618033988F //TODO change all the Floats to Double?
         val PI = Math.PI.toFloat() //180 Degree
@@ -127,16 +209,23 @@ class DrawUtil() {
             outLine.color = ConfigData.ctx.getColor(R.color.black)
             return outLine
         }
+
         fun calcDistFromBorder(can: Canvas, stroke: Stroke): Float {
-            val assertedOutlineDimension = 8 //TODO use exact?
-            val totalSetoff = 4F * (stroke.dim + assertedOutlineDimension)
-            return can.height / (can.height + totalSetoff)
+            return calcDistFromBorder(can.height, stroke.dim)
         }
+
+        fun calcDistFromBorder(height: Int, dim: Float): Float {
+            val assertedOutlineDimension = 8 //TODO use exact?
+            val totalSetoff = 4F * (dim + assertedOutlineDimension)
+            return height / (height + totalSetoff)
+        }
+
         fun calcPosition(rot: Float, length: Float, centerOffset: Float): PointF {
             val x = centerOffset + (Math.sin(rot.toDouble()) * length).toFloat()
             val y = centerOffset + (-Math.cos(rot.toDouble()) * length).toFloat()
             return PointF(x, y)
         }
+
         fun calcCircumcenter(a: PointF, b: PointF, c: PointF): PointF {
             val dA = a.x * a.x + a.y * a.y
             val dB = b.x * b.x + b.y * b.y
@@ -146,10 +235,12 @@ class DrawUtil() {
             val y = -(dA * (c.x - b.x) + dB * (a.x - c.x) + dC * (b.x - a.x)) / divisor
             return PointF(x, y)
         }
+
         fun calcDistance(a: PointF, b: PointF): Float {
             val p = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
             return Math.sqrt(p.toDouble()).toFloat()
         }
+
         private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) { ConfigData.outline.dim } else { 0F }
         private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
         private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
@@ -191,6 +282,7 @@ class DrawUtil() {
             result.color = handleColor(p, factor, isOutline)
             return result
         }
+
         private val TAG = this::class.java.simpleName
     }
 }

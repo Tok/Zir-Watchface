@@ -12,9 +12,9 @@ object Points {
     fun drawActiveCenter(can: Canvas, data: DrawUtil.ActiveFrameData) {
         val p = Palette.createPaint(PaintType.POINT)
         if (ConfigData.hasOutline()) {
-            makeCenter(can, data, DrawUtil.makeOutline(p)) //center
+            makeCenter(can, data, DrawUtil.makeOutline(p))
         }
-        makeCenter(can, data, p) //center
+        makeCenter(can, data, p)
     }
 
     fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
@@ -44,27 +44,22 @@ object Points {
         }
     }
 
-    private fun makeCenter(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+    fun makeCenter(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
         if (ConfigData.theme.points.active) {
             can.drawPoint(data.center.x, data.center.y, p)
         }
     }
 
-    private fun makeSeconds(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+    fun makeSeconds(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
         if (ConfigData.theme.points.active) {
             can.drawPoint(data.sec.x, data.sec.y, p)
         }
     }
 
-    private fun makeMinAndHr(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
+    fun makeMinAndHr(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint) {
         if (ConfigData.theme.points.active) {
             can.drawPoint(data.hr.x, data.hr.y, p)
             can.drawPoint(data.min.x, data.min.y, p)
-            /* foreground center point */
-            /*
-            if (theme.circles.active) {
-                can.drawPoint(data.center.x, data.center.y, p)
-            }*/
         }
     }
 }

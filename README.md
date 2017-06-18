@@ -20,6 +20,11 @@
 
 ---
 
+![Waves 1](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/waves_1.png "Waves 1")
+![Waves 2](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/waves_2.png "Waves 2")
+
+---
+
 ## TODO
 
 ### High Priority
@@ -27,7 +32,7 @@
 * ~~Elasticy~~
 * Separate color selection from palette and allow individual selection.
 * Create a setting to turn the seconds on or off.
-* Try turning the dots into wave sources and display the time by generating an interference pattern between them.
+* ~~Try turning the dots into wave sources and display the time by generating an interference pattern between them.~~
 * ~~Replace the ambient mode implementation with a simple color filter and use lower refresh rate~~ 
 * Reduce redundancies and make code more idiomatic.
 
