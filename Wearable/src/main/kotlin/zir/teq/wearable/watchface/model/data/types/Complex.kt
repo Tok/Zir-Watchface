@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.draw.complex
+package zir.teq.wearable.watchface.model.data.types
 
 /**
  * Recreated by Zir on 16.06.2017.

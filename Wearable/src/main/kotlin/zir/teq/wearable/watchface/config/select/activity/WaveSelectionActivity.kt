@@ -7,7 +7,7 @@ import config.select.adapter.WaveSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Wave
+import zir.teq.wearable.watchface.model.data.settings.Wave
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -30,6 +30,6 @@ class WaveSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_WAVE"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_WAVE"
     }
 }

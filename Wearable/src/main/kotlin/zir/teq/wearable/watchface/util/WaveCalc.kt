@@ -1,8 +1,7 @@
-package zir.teq.wearable.watchface.draw.complex
+package zir.teq.wearable.watchface.util
 
-import zir.teq.wearable.watchface.draw.complex.data.Operator
+import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.watchface.DrawUtil.Companion.PHI
 import zir.watchface.DrawUtil.Companion.TAU
 
 /**

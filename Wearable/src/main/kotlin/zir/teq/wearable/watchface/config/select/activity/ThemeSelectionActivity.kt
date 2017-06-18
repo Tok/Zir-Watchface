@@ -7,7 +7,7 @@ import config.select.adapter.ThemeSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Theme
+import zir.teq.wearable.watchface.model.data.settings.Theme
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class ThemeSelectionActivity : Activity() {
@@ -29,6 +29,6 @@ class ThemeSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_THEME"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_THEME"
     }
 }

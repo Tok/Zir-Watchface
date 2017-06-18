@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.settings.Stroke
 
 class StrokeSelectionAdapter(
         private val mPrefString: String?,

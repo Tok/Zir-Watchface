@@ -7,7 +7,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.adapter.BackgroundSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Background
+import zir.teq.wearable.watchface.model.data.settings.Background
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -31,6 +31,6 @@ class BackgroundSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_BACKGROUND"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_BACKGROUND"
     }
 }

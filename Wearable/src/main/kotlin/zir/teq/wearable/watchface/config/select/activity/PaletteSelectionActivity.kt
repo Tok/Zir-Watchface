@@ -7,7 +7,7 @@ import config.select.adapter.PaletteSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -31,6 +31,6 @@ class PaletteSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_COLOR"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_COLOR"
     }
 }

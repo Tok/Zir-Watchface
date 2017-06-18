@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Growth
-import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.settings.Growth
+import zir.teq.wearable.watchface.model.data.settings.Palette
 
 
 class GrowthSelectionAdapter(

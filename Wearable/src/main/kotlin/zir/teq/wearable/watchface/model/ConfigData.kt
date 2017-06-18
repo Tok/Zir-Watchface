@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.model.data.*
-import zir.teq.wearable.watchface.model.data.Stack
+import zir.teq.wearable.watchface.model.data.settings.*
+import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
 import java.util.*

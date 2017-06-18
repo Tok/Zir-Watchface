@@ -11,7 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Theme
+import zir.teq.wearable.watchface.model.data.settings.Theme
 
 class ThemeSelectionAdapter(
         private val mPrefString: String?,

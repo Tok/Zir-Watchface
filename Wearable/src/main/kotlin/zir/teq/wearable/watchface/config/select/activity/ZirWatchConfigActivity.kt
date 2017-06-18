@@ -10,7 +10,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.adapter.ZirWatchConfigAdapter
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class ZirWatchConfigActivity : Activity() {

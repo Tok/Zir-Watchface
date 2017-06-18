@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Alpha
+import zir.teq.wearable.watchface.model.data.settings.Alpha
 import java.util.*
 
 class AlphaSelectionAdapter(

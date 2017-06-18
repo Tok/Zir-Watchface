@@ -7,7 +7,7 @@ import android.support.wearable.view.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.adapter.GrowthSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Growth
+import zir.teq.wearable.watchface.model.data.settings.Growth
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class GrowthSelectionActivity : Activity() {
@@ -29,6 +29,6 @@ class GrowthSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_GROWTH"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_GROWTH"
     }
 }

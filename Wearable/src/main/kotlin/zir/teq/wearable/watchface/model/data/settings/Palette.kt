@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data
+package zir.teq.wearable.watchface.model.data.settings
 
 import android.content.Context
 import android.graphics.*

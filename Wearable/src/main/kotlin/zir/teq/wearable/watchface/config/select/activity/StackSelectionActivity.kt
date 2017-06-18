@@ -7,7 +7,7 @@ import config.select.adapter.StackSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Stack
+import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -30,6 +30,6 @@ class StackSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_STACK"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_STACK"
     }
 }

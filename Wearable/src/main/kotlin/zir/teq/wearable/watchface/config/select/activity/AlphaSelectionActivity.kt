@@ -7,7 +7,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.adapter.AlphaSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Alpha
+import zir.teq.wearable.watchface.model.data.settings.Alpha
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -31,6 +31,6 @@ class AlphaSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_ALPHA"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_ALPHA"
     }
 }

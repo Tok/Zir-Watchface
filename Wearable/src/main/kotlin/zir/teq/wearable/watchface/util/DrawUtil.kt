@@ -9,14 +9,14 @@ import android.support.v4.graphics.ColorUtils
 import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
-import zir.teq.wearable.watchface.draw.complex.ColorUtil
-import zir.teq.wearable.watchface.draw.complex.Complex
-import zir.teq.wearable.watchface.draw.complex.WaveCalc
-import zir.teq.wearable.watchface.draw.complex.data.Operator
+import zir.teq.wearable.watchface.util.ColorUtil
+import zir.teq.wearable.watchface.model.data.types.Complex
+import zir.teq.wearable.watchface.util.WaveCalc
+import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Palette
-import zir.teq.wearable.watchface.model.data.Stack
-import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.settings.Palette
+import zir.teq.wearable.watchface.model.data.settings.Stack
+import zir.teq.wearable.watchface.model.data.settings.Stroke
 import java.nio.IntBuffer
 import java.util.*
 

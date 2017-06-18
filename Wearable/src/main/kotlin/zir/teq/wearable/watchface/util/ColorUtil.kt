@@ -1,9 +1,10 @@
-package zir.teq.wearable.watchface.draw.complex
+package zir.teq.wearable.watchface.util
 
 import android.graphics.Color
 import android.support.annotation.ColorInt
+import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Wave
+import zir.teq.wearable.watchface.model.data.settings.Wave
 import zir.watchface.DrawUtil.Companion.TAU
 
 

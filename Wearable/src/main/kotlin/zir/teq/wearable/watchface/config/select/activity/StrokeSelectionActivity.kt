@@ -7,7 +7,7 @@ import android.support.wearable.view.WearableRecyclerView
 import config.select.adapter.StrokeSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Stroke
+import zir.teq.wearable.watchface.model.data.settings.Stroke
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -30,6 +30,6 @@ class StrokeSelectionActivity : Activity() {
     }
 
     companion object {
-        internal val EXTRA = "zir.teq.wearable.watchface.config.extra.EXTRA_SHARED_STROKE"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_STROKE"
     }
 }

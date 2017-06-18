@@ -3,7 +3,7 @@ package zir.teq.wearable.watchface.draw
 import android.graphics.Canvas
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.Palette
+import zir.teq.wearable.watchface.model.data.settings.Palette
 import java.util.*
 
 object Text {
