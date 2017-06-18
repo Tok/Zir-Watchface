@@ -5,10 +5,12 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.draw.complex.data.Operator
 import zir.teq.wearable.watchface.model.data.*
 import zir.teq.wearable.watchface.model.data.Stack
 import zir.teq.wearable.watchface.model.item.ConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
+import zir.watchface.DrawUtil
 import java.util.*
 
 object ConfigData {
@@ -89,6 +91,7 @@ object ConfigData {
     var alpha = savedAlpha()
     var stack = savedStack()
     var dim = savedDim()
+    var wave = Wave.default //TODO save..
     var isFastUpdate: Boolean = savedFastUpdate()
     var isElastic: Boolean = savedIsElastic()
     var isElasticOutline: Boolean = true //TODO tune

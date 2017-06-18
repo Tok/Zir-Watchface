@@ -71,11 +71,12 @@ class DrawUtil() {
     }
 
     class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : ActiveFrameData(cal, bounds, can) {
-        val w = can.width / WaveCalc.RESOLUTION
-        val h = can.height / WaveCalc.RESOLUTION
+        val res = ConfigData.wave.resolution.value
+        val w = can.width / res
+        val h = can.height / res
         val scaledUnit: Double = w / 2.0
         val timeStamp = cal.timeInMillis
-        val waveSecLength = w * calcDistFromBorder(h, ConfigData.stroke.dim / WaveCalc.RESOLUTION)
+        val waveSecLength = w * calcDistFromBorder(h, ConfigData.stroke.dim / res)
         val waveMinLength = waveSecLength / PHI
         val waveHrLength = waveMinLength / PHI
         val waveHr = calcPosition(hrRot, waveHrLength, scaledUnit.toFloat())
@@ -138,22 +139,22 @@ class DrawUtil() {
     }
 
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData) {
-        val t = data.timeStamp * WaveCalc.DEFAULT_VELOCITY //TODO...
+        val t = data.timeStamp * ConfigData.wave.velocity
         val buffer = IntBuffer.allocate(data.w * data.h)
         for (xInt in 0..(data.h-1)) {
             for (yInt in 0..(data.w-1)) {
                 val x = xInt.toDouble()
                 val y = yInt.toDouble()
                 with (data) {
-                    //val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t).multiply(Complex.ONE)
+                    val center: Complex = WaveCalc.calc(x, y, scaledUnit, scaledUnit, t).multiply(Complex.ONE)
                     val hr: Complex = WaveCalc.calc(x, y, waveHr.x.toDouble(), waveHr.y.toDouble(), t)
                     val min: Complex = WaveCalc.calc(x, y, waveMin.x.toDouble(), waveMin.y.toDouble(), t)
                     val sec: Complex = WaveCalc.calc(x, y, waveSec.x.toDouble(), waveSec.y.toDouble(), t)
-                    val terms: List<Complex> = listOf(hr, min, sec)
-                    val all: Complex = when (WaveCalc.OP) {
-                        Operator.MULTIPLY -> terms.fold(hr) { total, next -> total.multiply(next) }
-                        Operator.ADD -> terms.fold(hr) { total, next -> total.add(next) }
-                        else -> throw IllegalArgumentException("Unknown operator: " + WaveCalc.OP)
+                    val terms: List<Complex> = listOf(center, hr, min, sec)
+                    val all: Complex = when (ConfigData.wave.op) {
+                        Operator.MULTIPLY -> terms.fold(center) { total, next -> total.multiply(next) }
+                        Operator.ADD -> terms.fold(center) { total, next -> total.add(next) }
+                        else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
                     }
                     val col = ColorUtil.getColor(all)
                     buffer.put(col)
@@ -171,26 +172,32 @@ class DrawUtil() {
         val matrix = Matrix()
         matrix.postRotate(-90F)
         val rotated = Bitmap.createBitmap(scaled, 0, 0, scaled.width, scaled.height, matrix, true)
-        val bmpOffset = -WaveCalc.RESOLUTION / 2F
-        val blurred = blur(rotated)
+        val bmpOffset = -ConfigData.wave.resolution.value / 2F
+        val blurred = gaussianBlur(rotated)
         can.drawBitmap(blurred, bmpOffset, bmpOffset, null)
     }
 
-    private fun blur(bitmap: Bitmap): Bitmap {
-        val BLUR_RADIUS = WaveCalc.RESOLUTION.toFloat()
+    private fun gaussianBlur(input: Bitmap): Bitmap {
+        if (!ConfigData.wave.isBlur) {
+            return input
+        } else {
+            val output = Bitmap.createBitmap(input)
+            val script = RenderScript.create(ConfigData.ctx)
+            val blur = createBlur(script)
+            val tmpIn = Allocation.createFromBitmap(script, input)
+            blur.setInput(tmpIn)
+            val tmpOut = Allocation.createFromBitmap(script, output)
+            blur.forEach(tmpOut)
+            tmpOut.copyTo(output)
+            return output
+        }
+    }
 
-        val outputBitmap = Bitmap.createBitmap(bitmap)
-        val renderScript = RenderScript.create(ConfigData.ctx)
-        val tmpIn = Allocation.createFromBitmap(renderScript, bitmap)
-        val tmpOut = Allocation.createFromBitmap(renderScript, outputBitmap)
-
-        //Intrinsic Gausian blur filter
-        val theIntrinsic = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
-        theIntrinsic.setRadius(BLUR_RADIUS)
-        theIntrinsic.setInput(tmpIn)
-        theIntrinsic.forEach(tmpOut)
-        tmpOut.copyTo(outputBitmap)
-        return outputBitmap
+    private fun createBlur(script: RenderScript): ScriptIntrinsicBlur {
+        val intrinsicBlur = ScriptIntrinsicBlur.create(script, Element.U8_4(script))
+        val blurRadius = ConfigData.wave.resolution.value.toFloat()
+        intrinsicBlur.setRadius(blurRadius)
+        return intrinsicBlur
     }
 
     companion object {
