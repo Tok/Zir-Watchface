@@ -3,11 +3,11 @@ package zir.teq.wearable.watchface.draw
 import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
-import zir.watchface.DrawUtil.ActiveFrameData
 import zir.watchface.DrawUtil.HandData
 
 object Triangles {

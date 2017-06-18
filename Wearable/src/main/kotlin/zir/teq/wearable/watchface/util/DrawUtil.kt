@@ -10,6 +10,9 @@ import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
+import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
@@ -29,73 +32,6 @@ import java.util.*
 class DrawUtil() {
     data class HandData(val p: PointF, val radians: Float, val maybeExtended: PointF)
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
-    open class FrameData(cal: Calendar, bounds: Rect) {
-        val hh = cal.get(Calendar.HOUR_OF_DAY)
-        val mm = cal.get(Calendar.MINUTE)
-        val ss = cal.get(Calendar.SECOND)
-        val minRot: Float = (mm + (ss / 60F)) / 30F * PI
-        val hrRot: Float = (hh + (mm / 60F)) / 6F * PI
-        val unit = bounds.width() / 2F
-        val center = PointF(unit, unit)
-        fun getRef(can: Canvas): Ref = Ref(can, unit, center)
-    }
-
-    open class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
-        val minLength = unit * calcDistFromBorder(can, ConfigData.stroke) / PHI
-        val hrLength = minLength / PHI
-
-        val hr = calcPosition(hrRot, hrLength, unit)
-        val min = calcPosition(minRot, minLength, unit)
-        val hour = HandData(hr, hrRot, center)
-
-        val minute = HandData(min, minRot, center)
-        val ccCenter = calcCircumcenter(center, hr, min)
-        val ccRadius = calcDistance(min, ccCenter)
-    }
-
-    open class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
-        val ms = cal.get(Calendar.MILLISECOND)
-        val secRot = (ss + ms / 1000F) / 30F * PI
-        val secLength = unit * calcDistFromBorder(can, ConfigData.stroke)
-        val minLength = secLength / PHI
-        val hrLength = minLength / PHI
-        val hr = calcPosition(hrRot, hrLength, unit)
-        val min = calcPosition(minRot, minLength, unit)
-        val sec = calcPosition(secRot, secLength, unit)
-        val circlesActive = ConfigData.theme.circles.active
-        val hrExtended = if (circlesActive) calcPosition(hrRot, secLength, unit) else hr //why secLength?
-        val minExtended = if (circlesActive) calcPosition(minRot, secLength, unit) else min //why secLength?
-        val secExtended = if (circlesActive) calcPosition(secRot, secLength, unit) else sec
-        val hour = HandData(hr, hrRot, hrExtended)
-        val minute = HandData(min, minRot, minExtended)
-        val second = HandData(sec, secRot, secExtended)
-    }
-
-    class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : ActiveFrameData(cal, bounds, can) {
-        val isUseUneven = false //render an additional line of pixels in the center.
-        val timeStamp = cal.timeInMillis
-        val res = ConfigData.wave.resolution.value
-        val setOff = if (isUseUneven) 1 else 0
-        val w = setOff + (bounds.width() / res)
-        val h = setOff + (bounds.height() / res)
-
-        val scaledUnit: Float = (bounds.width() - res) / (res * 2F)
-        val scaledCenter = PointF(scaledUnit, scaledUnit)
-
-        val waveSecLength = secLength * scaledUnit / unit
-        val waveMinLength = minLength * scaledUnit / unit
-        val waveHrLength = hrLength * scaledUnit / unit
-
-        val waveHr = calcPosition(hrRot, waveHrLength, scaledUnit)
-        val waveMin = calcPosition(minRot, waveMinLength, scaledUnit)
-        val waveSec = calcPosition(secRot, waveSecLength, scaledUnit)
-
-        val isProportional = false //TODO
-        val centerMass = if (isProportional) Wave.MASS_DEFAULT.value else Wave.MASS_DEFAULT.value
-        val hourMass = if (isProportional) Wave.MASS_DEFAULT.value else Wave.MASS_DEFAULT.value
-        val minuteMass = if (isProportional) hourMass / PHI else Wave.MASS_DEFAULT.value
-        val secondMass = if (isProportional) minuteMass / PHI else Wave.MASS_DEFAULT.value
-    }
 
     fun draw(can: Canvas, bounds: Rect, calendar: Calendar) {
         if (ConfigData.isAmbient || ConfigData.wave != Wave.OFF) {

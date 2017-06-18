@@ -4,6 +4,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.types.PaintType
@@ -11,7 +13,7 @@ import zir.watchface.DrawUtil
 
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun drawActive(can: Canvas, data: DrawUtil.ActiveFrameData) {
+    fun drawActive(can: Canvas, data: ActiveFrameData) {
         val p = Palette.createPaint(PaintType.CIRCLE)
         when (ConfigData.stack) {
             Stack.GROUPED -> {
@@ -38,7 +40,7 @@ object Circles {
         }
     }
 
-    fun drawAmbient(can: Canvas, data: DrawUtil.AmbientFrameData) {
+    fun drawAmbient(can: Canvas, data: AmbientFrameData) {
         //No stacking required...
         val p = Palette.createPaint(PaintType.CIRCLE_AMB)
         if (ConfigData.hasOutline()) {
@@ -47,7 +49,7 @@ object Circles {
         makeAmbient(can, data, p)
     }
 
-    private fun makeFast(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint, isOutline: Boolean = false) {
+    private fun makeFast(can: Canvas, data: ActiveFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.circles.active) {
             with (data) {
                 drawLine(getRef(can), p, hrRot, secRot, hr, sec, isOutline)
@@ -56,7 +58,7 @@ object Circles {
         }
     }
 
-    private fun makeSlow(can: Canvas, data: DrawUtil.ActiveFrameData, p: Paint, isOutline: Boolean = false) {
+    private fun makeSlow(can: Canvas, data: ActiveFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.circles.active) {
             with (data) {
                 drawLine(getRef(can), p, hrRot, minRot, hr, min, isOutline)
@@ -64,7 +66,7 @@ object Circles {
         }
     }
 
-    private fun makeAmbient(can: Canvas, data: DrawUtil.AmbientFrameData, p: Paint, isOutline: Boolean = false) {
+    private fun makeAmbient(can: Canvas, data: AmbientFrameData, p: Paint, isOutline: Boolean = false) {
         if (ConfigData.theme.circles.ambient) {
             with (data) {
                 val factor = ELASTICITY * unit / data.ccRadius
