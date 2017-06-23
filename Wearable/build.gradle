@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.2-3'
+    ext.kotlin_version = '1.1.2-5'
     repositories {
         jcenter()
         maven {
@@ -20,10 +20,10 @@ dependencies {
     compile 'com.android.support:percent:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.google.android.gms:play-services-wearable:10.2.6'
-    compile 'com.google.android.gms:play-services-fitness:10.2.6'
+    //compile 'com.google.android.gms:play-services-fitness:10.2.6'
     compile 'com.android.support:support-v13:25.3.1'
-    provided 'com.google.android.wearable:wearable:2.0.2'
-    compile 'com.google.android.support:wearable:2.0.2'
+    provided 'com.google.android.wearable:wearable:2.0.3'
+    compile 'com.google.android.support:wearable:2.0.3'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
