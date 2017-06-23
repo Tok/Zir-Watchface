@@ -21,6 +21,7 @@ object Hands {
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
         if (ConfigData.theme.hands.active) {
             with(data) {
+                can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val ref = data.getRef(can)
                 val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, ref.center)
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, ref.center)
@@ -41,6 +42,7 @@ object Hands {
             with(data) {
                 val ref = data.getRef(can)
                 val p = Palette.createPaint(PaintType.SHAPE_AMB) //FIXME why not HAND_AMB...
+                can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, center)
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, center)
                 val lineFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, hour.p)

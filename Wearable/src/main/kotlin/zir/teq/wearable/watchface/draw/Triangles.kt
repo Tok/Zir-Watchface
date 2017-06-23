@@ -20,6 +20,7 @@ object Triangles {
 
     private fun drawTriangle(can: Canvas, data: ActiveFrameData, p: Paint) {
         with(data) {
+            can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             val hmFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, minute.p)
             val hsFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, second.p)
             val msFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, second.p)

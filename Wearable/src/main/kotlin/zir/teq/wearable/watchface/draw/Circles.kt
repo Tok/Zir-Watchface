@@ -14,6 +14,7 @@ import zir.watchface.DrawUtil
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
         when (ConfigData.stack) {
             Stack.GROUPED, Stack.LEGACY -> {
                 if (ConfigData.hasOutline()) {
@@ -42,6 +43,7 @@ object Circles {
     fun drawAmbient(can: Canvas, data: AmbientFrameData) {
         //No stacking required...
         val p = Palette.createPaint(PaintType.CIRCLE_AMB)
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
         if (ConfigData.hasOutline()) {
             makeAmbient(can, data, p, true)
         }

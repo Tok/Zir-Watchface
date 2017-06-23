@@ -12,6 +12,7 @@ import zir.watchface.DrawUtil
 object Points {
     //TODO implement point stacking?
     fun drawActiveCenter(can: Canvas, data: ActiveFrameData, p: Paint) {
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
         if (ConfigData.hasOutline()) {
             makeCenter(can, data, DrawUtil.makeOutline(p))
         }
@@ -19,6 +20,7 @@ object Points {
     }
 
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
         if (ConfigData.hasOutline()) {
             val outlineP = DrawUtil.makeOutline(p)
             makeSeconds(can, data, outlineP)
@@ -30,6 +32,7 @@ object Points {
 
     fun drawAmbient(can: Canvas, data: AmbientFrameData) {
         val p = Palette.createPaint(PaintType.POINT)
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
         if (ConfigData.hasOutline()) {
             drawAmbientPoints(can, data, DrawUtil.makeOutline(p))
         }
