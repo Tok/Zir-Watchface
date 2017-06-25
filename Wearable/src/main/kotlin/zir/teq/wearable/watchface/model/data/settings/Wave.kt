@@ -27,7 +27,6 @@ data class Wave(val name: String, val waveNumber: Float,
             fun get() = value
         } //TODO seal
 
-        val _1_ = WaveResolution(1)
         val _2_ = WaveResolution(2)
         val _4_ = WaveResolution(4)
         val _5_ = WaveResolution(5)
@@ -39,8 +38,8 @@ data class Wave(val name: String, val waveNumber: Float,
         val _40_ = WaveResolution(40)
         val _80_ = WaveResolution(80)
         val _160_ = WaveResolution(160)
-        val ACTIVE_RES = _20_
-        val AMBIENT_RES = _8_
+        val ACTIVE_RES = _32_
+        val AMBIENT_RES = _4_
 
         data class Spectrum(val name: String) //TODO seal
 
