@@ -13,37 +13,20 @@ object Shapes {
     val ALPHA_FACTOR = 1F / DrawUtil.PHI
     val USE_GRADIENTS = false
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
-        p.style = Paint.Style.FILL
-        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-        if (ConfigData.hasOutline()) {
-            val outlineP = DrawUtil.makeOutline(p)
-            drawShapes(can, data, outlineP)
-        }
-        drawShapes(can, data, p)
-    }
-
-    fun drawAmbient(can: Canvas, data: AmbientFrameData) {
-        val p = Palette.createPaint(PaintType.SHAPE_AMB)
-        p.style = Paint.Style.FILL
-        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-        if (ConfigData.hasOutline()) {
-            drawAmbientShape(can, data, DrawUtil.makeOutline(p))
-        }
-        drawAmbientShape(can, data, p)
-    }
-
-    private fun drawAmbientShape(can: Canvas, data: AmbientFrameData, p: Paint) {
-        if (ConfigData.theme.shapes.ambient) {
-            drawCenterTriangle(can, p, data.center, data.hr, data.min)
-        }
-    }
-
-    private fun drawShapes(can: Canvas, data: ActiveFrameData, p: Paint) {
         if (ConfigData.theme.shapes.active) {
+            p.style = Paint.Style.FILL
             drawCenterTriangle(can, p, data.center, data.hr, data.min)
             drawCenterTriangle(can, p, data.center, data.hr, data.sec)
             drawCenterTriangle(can, p, data.center, data.min, data.sec)
             drawTriangle(can, p, data.hr, data.min, data.sec)
+        }
+    }
+
+    fun drawAmbient(can: Canvas, data: AmbientFrameData) {
+        if (ConfigData.theme.shapes.ambient) {
+            val p = Palette.createPaint(PaintType.SHAPE_AMB)
+            p.style = Paint.Style.FILL
+            drawCenterTriangle(can, p, data.center, data.hr, data.min)
         }
     }
 
