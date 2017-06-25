@@ -35,7 +35,8 @@ object ConfigData {
         val isCirc = savedCircleSetting(savedTheme)
         val isPoints = savedPointsSetting(savedTheme)
         val isText = savedTextSetting(savedTheme)
-        theme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText)
+        val isShapes = savedShapesSetting(savedTheme)
+        theme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText, isShapes)
     }
     private fun prefString(pref: Int, default: String): String {
         return prefs.getString(ctx.getString(pref), default)
@@ -70,6 +71,11 @@ object ConfigData {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_text_act, theme.text.active),
                 prefBoolean(R.string.saved_text_amb, theme.text.ambient))
+    }
+    private fun savedShapesSetting(theme: Theme): Theme.Companion.Setting {
+        return Theme.Companion.Setting(
+                prefBoolean(R.string.saved_shapes_act, theme.shapes.active),
+                prefBoolean(R.string.saved_shapes_amb, theme.shapes.ambient))
     }
     private fun savedFastUpdate() = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), isFastUpdate)
     private fun savedIsElastic() = prefs.getBoolean(ctx.getString(R.string.saved_is_elastic), isElastic)

@@ -30,6 +30,8 @@
     <string name="saved_points_amb">saved_points_amb</string>
     <string name="saved_text_act">saved_text_act</string>
     <string name="saved_text_amb">saved_text_amb</string>
+    <string name="saved_shapes_act">saved_shapes_act</string>
+    <string name="saved_shapes_amb">saved_shapes_amb</string>
 
     <string name="label_theme">Theme</string>
     <string name="label_palette">Palette</string>
@@ -55,4 +57,6 @@
     <string name="label_points_amb">Ambient Points</string>
     <string name="label_text_act">Text</string>
     <string name="label_text_amb">Ambient Text</string>
+    <string name="label_shapes_act">Shapes</string>
+    <string name="label_shapes_amb">Ambient Shapes</string>
 </resources>

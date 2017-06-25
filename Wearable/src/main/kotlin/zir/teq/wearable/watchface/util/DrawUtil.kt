@@ -67,6 +67,7 @@ class DrawUtil() {
         when (ConfigData.stack) {
             Stack.GROUPED -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
+                Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE, pal.half()))
                 Points.drawActive(can, data, Palette.createPaint(PaintType.POINT, ConfigData.ctx.getColor(R.color.white)))
                 Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND, pal.light()))
@@ -74,6 +75,7 @@ class DrawUtil() {
             }
             Stack.LEGACY -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
+                Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND))
                 Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE))
                 Points.drawActive(can, data, Palette.createPaint(PaintType.POINT))
@@ -81,6 +83,7 @@ class DrawUtil() {
             }
             else -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
+                Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE))
                 Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND))
                 Points.drawActive(can, data, Palette.createPaint(PaintType.POINT))
@@ -91,6 +94,7 @@ class DrawUtil() {
 
     fun drawAmbientFace(can: Canvas, data: AmbientFrameData) {
         Circles.drawAmbient(can, data)
+        Shapes.drawAmbient(can, data)
         Hands.drawAmbient(can, data)
         Points.drawAmbient(can, data)
     }
