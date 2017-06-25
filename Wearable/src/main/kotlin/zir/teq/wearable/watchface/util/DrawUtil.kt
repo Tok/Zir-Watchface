@@ -116,8 +116,8 @@ class DrawUtil() {
                     val point = PointF(xInt.toFloat(), yInt.toFloat())
                     val terms = prepareTerms(data, point, t, isActive)
                     val all: Complex = when (ConfigData.wave.op) {
-                        Operator.MULTIPLY -> terms.fold(terms.first()) { total, next -> total.multiply(next) }
-                        Operator.ADD -> terms.fold(terms.first()) { total, next -> total.add(next) }
+                        Operator.MULTIPLY -> terms.fold(terms.first()) { total, next -> total * next }
+                        Operator.ADD -> terms.fold(terms.first()) { total, next -> total + next }
                         else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
                     }
                     if (wave.isKeepState) {
