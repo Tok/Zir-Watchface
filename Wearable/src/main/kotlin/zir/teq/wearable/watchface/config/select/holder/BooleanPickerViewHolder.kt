@@ -7,7 +7,7 @@ import zir.teq.wearable.watchface.model.ConfigData
 
 class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
     init {
-        initButton(view.findViewById(R.id.list_item_checkbox))
+        initButton(view.findViewById<View>(R.id.list_item_checkbox))
         view.setOnClickListener(this)
     }
 

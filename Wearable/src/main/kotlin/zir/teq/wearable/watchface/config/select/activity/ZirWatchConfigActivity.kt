@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.ColorFilter
 import android.os.Bundle
 import android.support.wearable.view.WearableRecyclerView
+import android.view.View
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.adapter.ZirWatchConfigAdapter
@@ -19,7 +20,7 @@ class ZirWatchConfigActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_config)
-        mView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
+        mView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
         val ctx = ConfigData.ctx
         mAdapter = ZirWatchConfigAdapter(ctx,
                 ConfigData.watchFaceServiceClass,

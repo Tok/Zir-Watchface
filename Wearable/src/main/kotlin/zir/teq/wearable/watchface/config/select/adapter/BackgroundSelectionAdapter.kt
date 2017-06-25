@@ -31,8 +31,8 @@ class BackgroundSelectionAdapter(
 
     inner class BackgroundViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById(R.id.list_item_background_cirlce) as CircledImageView
-        val mText = view.findViewById(R.id.list_item_background_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_background_cirlce) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_background_text) as TextView
         init {
             mView.setOnClickListener(this)
         }

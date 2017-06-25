@@ -30,9 +30,9 @@ class PaletteSelectionAdapter(
 
     inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mFirst = view.findViewById(R.id.list_item_palette_first_cirlce) as CircledImageView
-        val mSecond = view.findViewById(R.id.list_item_palette_second_circle) as CircledImageView
-        val mThird = view.findViewById(R.id.list_item_palette_third_circle) as CircledImageView
+        val mFirst = view.findViewById<View>(R.id.list_item_palette_first_cirlce) as CircledImageView
+        val mSecond = view.findViewById<View>(R.id.list_item_palette_second_circle) as CircledImageView
+        val mThird = view.findViewById<View>(R.id.list_item_palette_third_circle) as CircledImageView
         init {
             mView.setOnClickListener(this)
         }

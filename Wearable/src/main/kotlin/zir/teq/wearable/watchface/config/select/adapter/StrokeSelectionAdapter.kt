@@ -29,7 +29,7 @@ class StrokeSelectionAdapter(
     inner class StrokeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val mView: CircledImageView
         init {
-            mView = view.findViewById(R.id.list_item_stroke) as CircledImageView
+            mView = view.findViewById<View>(R.id.list_item_stroke) as CircledImageView
             view.setOnClickListener(this)
         }
 

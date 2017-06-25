@@ -30,7 +30,7 @@ class OutlineSelectionAdapter(
     inner class OutlineViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val mView: CircledImageView
         init {
-            mView = view.findViewById(R.id.list_item_outline) as CircledImageView
+            mView = view.findViewById<View>(R.id.list_item_outline) as CircledImageView
             view.setOnClickListener(this)
         }
 

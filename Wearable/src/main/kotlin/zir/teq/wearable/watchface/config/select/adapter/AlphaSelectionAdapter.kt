@@ -32,8 +32,8 @@ class AlphaSelectionAdapter(
 
     inner class AlphaViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById(R.id.list_item_alpha_cirlce) as CircledImageView
-        val mText = view.findViewById(R.id.list_item_alpha_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_alpha_cirlce) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_alpha_text) as TextView
         init {
             mView.setOnClickListener(this)
         }

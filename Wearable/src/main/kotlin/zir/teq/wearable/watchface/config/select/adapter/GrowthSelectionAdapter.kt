@@ -31,9 +31,9 @@ class GrowthSelectionAdapter(
     }
 
     inner class GrowthViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        val mFirst = view.findViewById(R.id.list_item_growth_current_stroke) as CircledImageView
-        val mSecond = view.findViewById(R.id.list_item_growth_grown_stroke) as CircledImageView
-        val mText = view.findViewById(R.id.list_item_growth_text) as TextView
+        val mFirst = view.findViewById<View>(R.id.list_item_growth_current_stroke) as CircledImageView
+        val mSecond = view.findViewById<View>(R.id.list_item_growth_grown_stroke) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_growth_text) as TextView
         init {
             view.setOnClickListener(this)
         }

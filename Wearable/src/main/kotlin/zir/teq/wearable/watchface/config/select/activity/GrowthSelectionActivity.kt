@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
+import android.view.View
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.adapter.GrowthSelectionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
@@ -18,7 +19,7 @@ class GrowthSelectionActivity : Activity() {
         setContentView(R.layout.selection_growth)
         val sharedGrowthName = intent.getStringExtra(EXTRA)
         mAdapter = GrowthSelectionAdapter(sharedGrowthName, Growth.options())
-        mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
+        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 

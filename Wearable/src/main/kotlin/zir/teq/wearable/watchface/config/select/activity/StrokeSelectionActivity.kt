@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.wearable.view.CurvedChildLayoutManager
 import android.support.wearable.view.WearableRecyclerView
+import android.view.View
 import config.select.adapter.StrokeSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
@@ -19,7 +20,7 @@ class StrokeSelectionActivity : Activity() {
         setContentView(R.layout.selection_stroke)
         val sharedStrokeName = intent.getStringExtra(EXTRA)
         mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options())
-        mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
+        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
     }
 

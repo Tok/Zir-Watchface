@@ -3,6 +3,7 @@ package zir.teq.wearable.watchface.config.select.activity
 import android.app.Activity
 import android.os.Bundle
 import android.support.wearable.view.WearableRecyclerView
+import android.view.View
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.adapter.DimSelectionAdapter
@@ -20,7 +21,7 @@ class DimSelectionActivity : Activity() {
         setContentView(R.layout.selection_alpha)
         val sharedDimId = intent.getStringExtra(EXTRA)
         mAdapter = DimSelectionAdapter(sharedDimId, Dim.options())
-        mConfigView = findViewById(R.id.wearable_recycler_view) as WearableRecyclerView
+        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
         ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
     }
 

@@ -30,8 +30,8 @@ class WaveSelectionAdapter(
 
     inner class WaveViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById(R.id.list_item_wave_circle) as CircledImageView
-        val mText = view.findViewById(R.id.list_item_wave_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_wave_circle) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_wave_text) as TextView
         init {
             mView.setOnClickListener(this)
         }

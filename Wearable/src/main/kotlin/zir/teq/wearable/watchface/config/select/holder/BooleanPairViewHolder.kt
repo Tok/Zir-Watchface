@@ -19,11 +19,11 @@ class BooleanPairViewHolder(view: View) : RecyclerView.ViewHolder(view), View.On
 
     init {
         mLayout = view as LinearLayout
-        mActiveBox = view.findViewById(R.id.list_item_double_check_active) as Button
+        mActiveBox = view.findViewById<View>(R.id.list_item_double_check_active) as Button
         mActiveBox.setOnClickListener(this)
-        mAmbientBox = view.findViewById(R.id.list_item_double_check_ambient) as Button
+        mAmbientBox = view.findViewById<View>(R.id.list_item_double_check_ambient) as Button
         mAmbientBox.setOnClickListener(this)
-        mText = view.findViewById(R.id.list_item_double_check_text) as TextView
+        mText = view.findViewById<View>(R.id.list_item_double_check_text) as TextView
     }
 
     fun updateBoxes(activePref: String, ambientPref: String, text: String) {
