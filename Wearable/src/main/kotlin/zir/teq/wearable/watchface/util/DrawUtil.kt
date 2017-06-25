@@ -123,9 +123,9 @@ class DrawUtil() {
                     if (wave.isKeepState) {
                         val key = Pair(xInt, yInt)
                         val last = lastFrame.get(key) ?: all
-                        val newMagnitude = (all.magnitude + (wave.lastWeight * last.magnitude)) / (wave.lastWeight + 1)
-                        val newPhase = (all.phase + (wave.lastWeight * last.phase)) / (wave.lastWeight + 1)
-                        val new = Complex.fromMagnitudeAndPhase(newMagnitude, newPhase)
+                        val newMagnitude = (all.magnitude + (wave.lastWeight * last.magnitude)) / 2F
+                        val newPhase = (all.phase + (wave.lastWeight * last.phase)) / 2F
+                        val new = Complex.fromMagnitudeAndPhase(newMagnitude.toFloat(), newPhase)
                         lastFrame.put(key, new)
                         val col = ColorUtil.getColor(new)
                         buffer.put(col)

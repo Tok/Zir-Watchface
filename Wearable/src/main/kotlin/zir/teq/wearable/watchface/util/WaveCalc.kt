@@ -17,7 +17,7 @@ object WaveCalc {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
         val phase = (distance + t) * ConfigData.wave.waveNumber / mass
         val mag = calcIntensity(distance, xFrom, yFrom)
-        return Complex.fromMagnitudeAndPhase(mag, phase)
+        return Complex.fromMagnitudeAndPhase(mag.toFloat(), phase)
     }
 
     private fun addSquares(first: Double, second: Double) = first * first + second * second

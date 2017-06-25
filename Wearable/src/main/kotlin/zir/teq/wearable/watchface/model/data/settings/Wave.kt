@@ -17,8 +17,8 @@ data class Wave(val name: String, val waveNumber: Float,
     val hasHours = true
     val hasMinutes = true
     val hasSeconds = true
-    val isKeepState = false
-    val lastWeight = 100
+    val isKeepState = true
+    val lastWeight = 1.0F
     companion object {
         private val DEF_VELOCITY = -0.0002
         private val DEF_INTENSITY = 7.0
