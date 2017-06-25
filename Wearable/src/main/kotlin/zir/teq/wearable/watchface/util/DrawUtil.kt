@@ -17,11 +17,11 @@ import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
+import zir.teq.wearable.watchface.model.data.settings.wave.Layer
+import zir.teq.wearable.watchface.model.data.settings.wave.Resolution
 import zir.teq.wearable.watchface.model.data.types.Complex
-import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.util.ColorUtil
-import zir.teq.wearable.watchface.util.WaveCalc
 import java.nio.IntBuffer
 import java.util.*
 
@@ -52,7 +52,7 @@ class DrawUtil() {
         } else {
             val activeData = ActiveFrameData(calendar, bounds, can)
             if (wave.isOn) {
-                val waveData = ActiveWaveFrameData(calendar, bounds, can, ConfigData.wave.activeRes.value)
+                val waveData = ActiveWaveFrameData(calendar, bounds, can, Resolution.ACTIVE.value)
                 drawActiveWave(can, waveData)
             }
             drawActiveFace(can, activeData)
@@ -105,7 +105,6 @@ class DrawUtil() {
 
     val lastFrame = mutableMapOf<Pair<Int, Int>, Complex>()
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData, isActive: Boolean = true) {
-        val wave = ConfigData.wave
         val t = data.timeStamp * ConfigData.wave.velocity
         val buffer = IntBuffer.allocate(data.w * data.h)
         val xRange = 0..(data.h - 1)
@@ -114,30 +113,28 @@ class DrawUtil() {
             yRange.map { yInt ->
                 with(data) {
                     val point = PointF(xInt.toFloat(), yInt.toFloat())
-                    val terms = prepareTerms(data, point, t, isActive)
-                    val all: Complex = when (ConfigData.wave.op) {
-                        Operator.MULTIPLY -> terms.fold(terms.first()) { total, next -> total * next }
-                        Operator.ADD -> terms.fold(terms.first()) { total, next -> total + next }
-                        else -> throw IllegalArgumentException("Unknown operator: " + ConfigData.wave.op)
-                    }
-                    if (wave.isKeepState) {
-                        val key = Pair(xInt, yInt)
-                        val last = lastFrame.get(key) ?: all
-                        val newMagnitude = (all.magnitude + (wave.lastWeight * last.magnitude)) / 2F
-                        val newPhase = (all.phase + (wave.lastWeight * last.phase)) / 2F
-                        val new = Complex.fromMagnitudeAndPhase(newMagnitude.toFloat(), newPhase)
-                        lastFrame.put(key, new)
-                        val col = ColorUtil.getColor(new)
-                        buffer.put(col)
-                    } else {
-                        val col = ColorUtil.getColor(all)
-                        buffer.put(col)
-                    }
+                    val complexPixel: Complex = Layer.fromData(data, point, t, isActive).get()
+                    buffer.put(findColor(complexPixel, xInt, yInt))
                 }
             }
         }
         buffer.rewind()
         drawFromBuffer(can, buffer, data)
+    }
+
+    private fun findColor(complexPixel: Complex, x: Int, y: Int): Int {
+        val wave = ConfigData.wave
+        if (wave.isKeepState && ConfigData.isAmbient) {
+            val key = Pair(x, y)
+            val last = lastFrame.get(key) ?: complexPixel
+            val newMagnitude = (complexPixel.magnitude + (wave.lastWeight * last.magnitude)) / 2F
+            val newPhase = (complexPixel.phase + (wave.lastWeight * last.phase)) / 2F
+            val new = Complex.fromMagnitudeAndPhase(newMagnitude.toFloat(), newPhase)
+            lastFrame.put(key, new)
+            return ColorUtil.getColor(new)
+        } else {
+            return ColorUtil.getColor(complexPixel)
+        }
     }
 
     private fun drawBackground(can: Canvas) {
@@ -147,27 +144,14 @@ class DrawUtil() {
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), Palette.prep(color))
     }
 
-    private fun prepareTerms(data: ActiveWaveFrameData, point: PointF, t: Double, isActive: Boolean): List<Complex> {
-        with(data) {
-            val terms = mutableListOf<Complex>()
-            val wave = ConfigData.wave
-            if (!isActive || wave.hasCenter) terms.add(WaveCalc.calc(point, scaledCenter, t, centerMass))
-            if (wave.hasHours) terms.add(WaveCalc.calc(point, waveHr, t, hourMass))
-            if (wave.hasMinutes) terms.add(WaveCalc.calc(point, waveMin, t, minuteMass))
-            if (isActive && wave.hasSeconds) terms.add(WaveCalc.calc(point, waveSec, t, secondMass))
-            if (terms.isEmpty()) throw IllegalStateException("Missing terms.")
-            return terms
-        }
-    }
-
     private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrameData) {
         val bitmap = Bitmap.createBitmap(data.w, data.h, Bitmap.Config.ARGB_8888);
         bitmap.copyPixelsFromBuffer(buffer)
 
         val rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, rotMatrix(), true)
-        val scaled = Bitmap.createScaledBitmap(rotated, -can.width, can.height, true);
-        val blurred = gaussianBlur(scaled)
-        can.drawBitmap(blurred, 0F, 0F, null)
+        val blurred = gaussianBlur(rotated)
+        val scaled = Bitmap.createScaledBitmap(blurred, -can.width, can.height, !ConfigData.wave.isPixel);
+        can.drawBitmap(scaled, 0F, 0F, null)
     }
 
     private fun rotMatrix(): Matrix {
@@ -194,9 +178,8 @@ class DrawUtil() {
 
     private fun createBlur(script: RenderScript): ScriptIntrinsicBlur {
         val intrinsicBlur = ScriptIntrinsicBlur.create(script, Element.U8_4(script))
-        val blurRadius = 4
-        //val blurRadius = ConfigData.wave.resolution.value.toFloat()
-        intrinsicBlur.setRadius(Math.min(blurRadius.toDouble(), 20.0).toFloat())
+        val blurRadius =  Resolution.getBlurRadius(!ConfigData.isAmbient)
+        intrinsicBlur.setRadius(blurRadius)
         return intrinsicBlur
     }
 

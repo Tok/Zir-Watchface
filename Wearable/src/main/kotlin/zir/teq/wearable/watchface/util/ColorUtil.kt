@@ -5,7 +5,7 @@ import android.support.annotation.ColorInt
 import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.settings.Wave
+import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.watchface.DrawUtil.Companion.TAU
 
@@ -20,15 +20,15 @@ object ColorUtil {
         val mag = Math.min(1.0, magnitude)
         val pha: Double = if (phase < 0.0) phase + TAU else phase
         val spec = ConfigData.wave.spectrum
-        if (Wave.SPEC_PALETTE == spec || Wave.SPEC_BW == spec ||
-                Wave.SPEC_DARK == spec || Wave.SPEC_DARK_WAVE == spec) {
+        if (Spectrum.PALETTE == spec || Spectrum.BW == spec ||
+                Spectrum.DARK == spec || Spectrum.DARK_WAVE == spec) {
             val pp = pha * 2.0 / TAU
             val range = Math.min(1.0, Math.max(0.0, pp)).toInt()
             return when (spec) {
-                Wave.SPEC_PALETTE -> getFromPalette(range, pp - range)
-                Wave.SPEC_DARK -> getDark(range, pp - range)
-                Wave.SPEC_DARK_WAVE -> getDarkWave(range, pp - range, magnitude)
-                Wave.SPEC_BW -> getBlackWhite(range, pp - range)
+                Spectrum.PALETTE -> getFromPalette(range, pp - range)
+                Spectrum.DARK -> getDark(range, pp - range)
+                Spectrum.DARK_WAVE -> getDarkWave(range, pp - range, magnitude)
+                Spectrum.BW -> getBlackWhite(range, pp - range)
                 else -> getBlackWhite(range, pp - range)
             }
         } else {
@@ -36,10 +36,10 @@ object ColorUtil {
             val range = Math.min(5.0, Math.max(0.0, p)).toInt()
             val fraction = p - range
             val rgbValues = when (spec) {
-                Wave.SPEC_FULL -> getFullSpectrum(range, fraction)
-                Wave.SPEC_LINES -> getLines(range)
-                Wave.SPEC_SPOOK -> getSpook(fraction)
-                Wave.SPEC_RAIN -> getRain(range, fraction)
+                Spectrum.FULL -> getFullSpectrum(range, fraction)
+                Spectrum.LINES -> getLines(range)
+                Spectrum.SPOOK -> getSpook(fraction)
+                Spectrum.RAIN -> getRain(range, fraction)
                 else -> getFullSpectrum(range, fraction)
             }
             val red = (rgbValues.first * mag * MAX_RGB).toInt()

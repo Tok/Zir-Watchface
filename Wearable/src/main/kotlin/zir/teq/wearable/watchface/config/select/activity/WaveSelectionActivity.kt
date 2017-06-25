@@ -8,7 +8,7 @@ import config.select.adapter.WaveSelectionAdapter
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.settings.Wave
+import zir.teq.wearable.watchface.model.data.settings.wave.Wave
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

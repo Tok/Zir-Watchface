@@ -1,9 +1,9 @@
 package zir.teq.wearable.watchface.model.data.frame
 
+import Mass
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.graphics.Rect
-import zir.teq.wearable.watchface.model.data.settings.Wave
 import zir.watchface.DrawUtil
 import java.util.*
 
@@ -25,9 +25,9 @@ open class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas, res: In
     val waveMin = DrawUtil.calcPosition(minRot, waveMinLength, scaledUnit)
     val waveSec = DrawUtil.calcPosition(secRot, waveSecLength, scaledUnit)
 
-    val isProportional = false //TODO
-    val centerMass = if (isProportional) Wave.MASS_DEFAULT.value else Wave.MASS_DEFAULT.value
-    val hourMass = if (isProportional) Wave.MASS_DEFAULT.value else Wave.MASS_DEFAULT.value
-    val minuteMass = if (isProportional) hourMass / DrawUtil.PHI else Wave.MASS_DEFAULT.value
-    val secondMass = if (isProportional) minuteMass / DrawUtil.PHI else Wave.MASS_DEFAULT.value
+    val isProportional = true //TODO
+    val centerMass = if (isProportional) Mass.DEFAULT.value else Mass.DEFAULT.value //FIXME
+    val hourMass = if (isProportional) Mass.DEFAULT.value else Mass.DEFAULT.value //FIXME
+    val minuteMass = if (isProportional) hourMass / DrawUtil.PHI else Mass.DEFAULT.value
+    val secondMass = if (isProportional) minuteMass / DrawUtil.PHI else Mass.DEFAULT.value
 }
