@@ -58,28 +58,24 @@ object Hands {
     }
 
     private fun stackLegacyActive(ref: Ref, data: ActiveFrameData, p: Paint, factors: Hands.ActiveFactors) {
-        if (ConfigData.theme.hands.ambient) {
-            with(data) {
-                drawHandOutline(ref, p, second, factors.s)
-                drawHandOutline(ref, p, hour, factors.h)
-                drawHandOutline(ref, p, minute, factors.m)
-                drawHand(ref, p, second, factors.s)
-                drawHand(ref, p, hour, factors.h)
-                drawHand(ref, p, minute, factors.m)
-            }
+        with(data) {
+            drawHandOutline(ref, p, second, factors.s)
+            drawHandOutline(ref, p, hour, factors.h)
+            drawHandOutline(ref, p, minute, factors.m)
+            drawHand(ref, p, second, factors.s)
+            drawHand(ref, p, hour, factors.h)
+            drawHand(ref, p, minute, factors.m)
         }
     }
 
     private fun stackLegacyAmbient(ref: Ref, data: AmbientFrameData, p: Paint, factors: Hands.AmbientFactors) {
-        if (ConfigData.theme.hands.ambient) {
-            with(data) {
-                drawHandOutline(ref, p, hour, factors.h)
-                drawHandOutline(ref, p, minute, factors.m)
-                drawLineOutline(ref, p, hr, min, factors.line)
-                drawHand(ref, p, hour, factors.h)
-                drawHand(ref, p, minute, factors.m)
-                drawLine(ref, p, hr, min, factors.line)
-            }
+        with(data) {
+            drawHandOutline(ref, p, hour, factors.h)
+            drawHandOutline(ref, p, minute, factors.m)
+            drawLineOutline(ref, p, hr, min, factors.line)
+            drawHand(ref, p, hour, factors.h)
+            drawHand(ref, p, minute, factors.m)
+            drawLine(ref, p, hr, min, factors.line)
         }
     }
 

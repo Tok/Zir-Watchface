@@ -14,76 +14,82 @@ import zir.watchface.DrawUtil
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
-        if (ConfigData.theme.shapes.active) {
-            p.style = Paint.Style.FILL_AND_STROKE
-            p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
-            //TODO gradients?
-        }
-        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-        when (ConfigData.stack) {
-            Stack.GROUPED, Stack.LEGACY -> {
-                if (ConfigData.hasOutline()) {
-                    makeSlow(can, data, p, true)
-                    makeFast(can, data, p, true)
+        if (ConfigData.theme.circles.active) {
+            if (ConfigData.theme.shapes.active) {
+                p.style = Paint.Style.FILL_AND_STROKE
+                p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
+                //TODO gradients?
+            }
+            can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
+            when (ConfigData.stack) {
+                Stack.GROUPED, Stack.LEGACY -> {
+                    if (ConfigData.hasOutline()) {
+                        makeSlow(can, data, p, true)
+                        makeFast(can, data, p, true)
+                    }
+                    makeSlow(can, data, p)
+                    makeFast(can, data, p)
                 }
-                makeSlow(can, data, p)
-                makeFast(can, data, p)
+                Stack.FAST_TOP -> {
+                    if (ConfigData.hasOutline()) {
+                        makeSlow(can, data, p, true)
+                    }
+                    makeSlow(can, data, p)
+                    if (ConfigData.hasOutline()) {
+                        makeFast(can, data, p, true)
+                    }
+                    makeFast(can, data, p)
+                }
+                Stack.SLOW_TOP -> {
+                    if (ConfigData.hasOutline()) {
+                        makeFast(can, data, p, true)
+                    }
+                    makeFast(can, data, p)
+                    if (ConfigData.hasOutline()) {
+                        makeSlow(can, data, p, true)
+                    }
+                    makeSlow(can, data, p)
+                }
+                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
             }
-            Stack.FAST_TOP -> {
-                if (ConfigData.hasOutline()) { makeSlow(can, data, p, true) }
-                makeSlow(can, data, p)
-                if (ConfigData.hasOutline()) { makeFast(can, data, p, true) }
-                makeFast(can, data, p)
-            }
-            Stack.SLOW_TOP -> {
-                if (ConfigData.hasOutline()) { makeFast(can, data, p, true) }
-                makeFast(can, data, p)
-                if (ConfigData.hasOutline()) { makeSlow(can, data, p, true) }
-                makeSlow(can, data, p)
-            }
-            else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
         }
     }
 
     fun drawAmbient(can: Canvas, data: AmbientFrameData) {
         //No stacking required...
-        val p = Palette.createPaint(PaintType.CIRCLE_AMB)
-        if (ConfigData.theme.shapes.ambient) {
-            p.style = Paint.Style.FILL_AND_STROKE
-            p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
-            //TODO gradients?
+        if (ConfigData.theme.circles.ambient) {
+            val p = Palette.createPaint(PaintType.CIRCLE_AMB)
+            if (ConfigData.theme.shapes.ambient) {
+                p.style = Paint.Style.FILL_AND_STROKE
+                p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
+                //TODO gradients?
+            }
+            can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
+            if (ConfigData.hasOutline()) {
+                makeAmbient(can, data, p, true)
+            }
+            makeAmbient(can, data, p)
         }
-        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-        if (ConfigData.hasOutline()) {
-            makeAmbient(can, data, p, true)
-        }
-        makeAmbient(can, data, p)
     }
 
     private fun makeFast(can: Canvas, data: ActiveFrameData, p: Paint, isOutline: Boolean = false) {
-        if (ConfigData.theme.circles.active) {
-            with (data) {
-                drawLine(getRef(can), p, hrRot, secRot, hr, sec, isOutline)
-                drawLine(getRef(can), p, minRot, secRot, min, sec, isOutline)
-            }
+        with(data) {
+            drawLine(getRef(can), p, hrRot, secRot, hr, sec, isOutline)
+            drawLine(getRef(can), p, minRot, secRot, min, sec, isOutline)
         }
     }
 
     private fun makeSlow(can: Canvas, data: ActiveFrameData, p: Paint, isOutline: Boolean = false) {
-        if (ConfigData.theme.circles.active) {
-            with (data) {
-                drawLine(getRef(can), p, hrRot, minRot, hr, min, isOutline)
-            }
+        with(data) {
+            drawLine(getRef(can), p, hrRot, minRot, hr, min, isOutline)
         }
     }
 
     private fun makeAmbient(can: Canvas, data: AmbientFrameData, p: Paint, isOutline: Boolean = false) {
-        if (ConfigData.theme.circles.ambient) {
-            with (data) {
-                val factor = ELASTICITY * unit / data.ccRadius
-                val stretched = DrawUtil.applyElasticity(p, factor, isOutline, true)
-                can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, stretched)
-            }
+        with(data) {
+            val factor = ELASTICITY * unit / data.ccRadius
+            val stretched = DrawUtil.applyElasticity(p, factor, isOutline, true)
+            can.drawCircle(data.ccCenter.x, data.ccCenter.y, data.ccRadius, stretched)
         }
     }
 
