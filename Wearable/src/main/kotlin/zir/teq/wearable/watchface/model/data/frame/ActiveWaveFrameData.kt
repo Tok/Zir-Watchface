@@ -2,6 +2,7 @@ package zir.teq.wearable.watchface.model.data.frame
 
 import Mass
 import android.graphics.Canvas
+import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
 import zir.watchface.DrawUtil
@@ -13,6 +14,9 @@ open class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas, res: In
     val setOff = if (isUseUneven) 1 else 0
     val w = setOff + (bounds.width() / res)
     val h = setOff + (bounds.height() / res)
+    private val xRange = 0..(h - 1)
+    private val yRange = 0..(w - 1)
+    val keys = xRange.flatMap { x -> yRange.map { y -> Point(x, y) } }
 
     val scaledUnit: Float = (bounds.width() - res) / (res * 2F)
     val scaledCenter = PointF(scaledUnit, scaledUnit)

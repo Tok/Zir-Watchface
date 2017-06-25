@@ -10,10 +10,7 @@ import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
-import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
-import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
-import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
+import zir.teq.wearable.watchface.model.data.frame.*
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
@@ -103,29 +100,21 @@ class DrawUtil() {
         drawActiveWave(can, data, false)
     }
 
-    val lastFrame = mutableMapOf<Pair<Int, Int>, Complex>()
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData, isActive: Boolean = true) {
         val t = data.timeStamp * ConfigData.wave.velocity
         val buffer = IntBuffer.allocate(data.w * data.h)
-        val xRange = 0..(data.h - 1)
-        val yRange = 0..(data.w - 1)
-        xRange.flatMap { xInt ->
-            yRange.map { yInt ->
-                with(data) {
-                    val point = PointF(xInt.toFloat(), yInt.toFloat())
-                    val complexPixel: Complex = Layer.fromData(data, point, t, isActive).get()
-                    buffer.put(findColor(complexPixel, xInt, yInt))
-                }
-            }
+        data.keys.forEach { key: Point ->
+            val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()
+            buffer.put(findColor(complexPixel, key))
         }
         buffer.rewind()
         drawFromBuffer(can, buffer, data)
     }
 
-    private fun findColor(complexPixel: Complex, x: Int, y: Int): Int {
+    val lastFrame = mutableMapOf<Point, Complex>()
+    private fun findColor(complexPixel: Complex, key: Point): Int {
         val wave = ConfigData.wave
         if (wave.isKeepState && ConfigData.isAmbient) {
-            val key = Pair(x, y)
             val last = lastFrame.get(key) ?: complexPixel
             val newMagnitude = (complexPixel.magnitude + (wave.lastWeight * last.magnitude)) / 2F
             val newPhase = (complexPixel.phase + (wave.lastWeight * last.phase)) / 2F
