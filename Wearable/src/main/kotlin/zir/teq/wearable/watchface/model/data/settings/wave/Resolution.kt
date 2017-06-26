@@ -1,23 +1,21 @@
 package zir.teq.wearable.watchface.model.data.settings.wave
 
-data class Resolution(val value: Int) {
-    fun get() = value
-    operator fun times(factor: Float) = (value * 0.5).toInt()
+enum class Resolution(val value: Int, val blurRadius: Float) {
+    _2_(2, 1F),
+    _4_(4, 1F),
+    _5_(4, 1F),
+    _8_(8, 1F),
+    _10_(10, 1F),
+    _16_(16, 1F),
+    _20_(20, 1F),
+    _32_(32, 1F),
+    _40_(40, 1F),
+    _80_(80, 1F),
+    _160_(160, 1F);
+
     companion object {
-        //fun getBlurRadius(isActive: Boolean) = (if (isActive) ACTIVE else AMBIENT).value * 0.5F
-        fun getBlurRadius(isActive: Boolean) = 1F
-        val _2_ = Resolution(2)
-        val _4_ = Resolution(4)
-        val _5_ = Resolution(5)
-        val _8_ = Resolution(8)
-        val _10_ = Resolution(10)
-        val _16_ = Resolution(16)
-        val _20_ = Resolution(20)
-        val _32_ = Resolution(32)
-        val _40_ = Resolution(40)
-        val _80_ = Resolution(80)
-        val _160_ = Resolution(160)
         val ACTIVE = _32_
         val AMBIENT = _4_
+        fun get(isActive: Boolean) = if (isActive) ACTIVE else AMBIENT
     }
 }

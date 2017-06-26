@@ -10,7 +10,10 @@ import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.*
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
+import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
+import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
@@ -145,12 +148,7 @@ class DrawUtil() {
         can.drawBitmap(scaled, 0F, 0F, null)
     }
 
-    private fun rotMatrix(): Matrix {
-        val matrix = Matrix()
-        matrix.postRotate(90F)
-        return matrix
-    }
-
+    private fun rotMatrix() = Matrix().apply { postRotate(90F) }
     private fun gaussianBlur(input: Bitmap): Bitmap {
         if (!ConfigData.wave.isBlur) {
             return input
@@ -168,33 +166,23 @@ class DrawUtil() {
     }
 
     private fun createBlur(script: RenderScript): ScriptIntrinsicBlur {
-        val intrinsicBlur = ScriptIntrinsicBlur.create(script, Element.U8_4(script))
-        val blurRadius =  Resolution.getBlurRadius(!ConfigData.isAmbient)
-        intrinsicBlur.setRadius(blurRadius)
-        return intrinsicBlur
+        val blurRadius = Resolution.get(!ConfigData.isAmbient).blurRadius
+        return ScriptIntrinsicBlur.create(script, Element.U8_4(script)).apply { setRadius(blurRadius) }
     }
 
     companion object {
-        val PHI = 1.618033988F //TODO change all the Floats to Double?
-        val PI = Math.PI.toFloat() //180 Degree
-        val TAU = PI * 2F //180 Degree
-
+        val PHI = 1.618033988F
+        val PI = Math.PI.toFloat()
+        val TAU = PI * 2F
         val ONE_MINUTE_AS_RAD = PI / 30F
         val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
-        val yOffset: Float = 98F
-        var xOffset: Float = 0.toFloat()
 
-        fun makeOutline(p: Paint): Paint {
-            val outLine = Paint(p)
-            outLine.strokeWidth = p.strokeWidth + ConfigData.outline.dim
-            outLine.color = ConfigData.ctx.getColor(R.color.black)
-            return outLine
+        fun makeOutline(p: Paint) = Paint(p).apply {
+            strokeWidth = p.strokeWidth + ConfigData.outline.dim
+            color = ConfigData.ctx.getColor(R.color.black)
         }
 
-        fun calcDistFromBorder(can: Canvas, stroke: Stroke): Float {
-            return calcDistFromBorder(can.height, stroke.dim)
-        }
-
+        fun calcDistFromBorder(can: Canvas, stroke: Stroke) = calcDistFromBorder(can.height, stroke.dim)
         fun calcDistFromBorder(height: Int, dim: Float): Float {
             val assertedOutlineDimension = 8 //TODO use exact?
             val totalSetoff = 4F * (dim + assertedOutlineDimension)
@@ -222,12 +210,7 @@ class DrawUtil() {
             return Math.sqrt(p.toDouble()).toFloat()
         }
 
-        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) {
-            ConfigData.outline.dim
-        } else {
-            0F
-        }
-
+        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) ConfigData.outline.dim else 0F
         private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
         private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
             val w = p.strokeWidth
@@ -261,12 +244,9 @@ class DrawUtil() {
         }
 
         fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean) = applyElasticity(p, factor, isOutline, false)
-        fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Paint {
-            //Log.d(TAG, "applyElasticity factor: $factor")
-            val result = Paint(p)
-            result.strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
-            result.color = handleColor(p, factor, isOutline)
-            return result
+        fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean) = Paint(p).apply {
+            strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
+            color = handleColor(p, factor, isOutline)
         }
 
         private val TAG = this::class.java.simpleName

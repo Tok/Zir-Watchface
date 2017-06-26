@@ -8,7 +8,7 @@ data class Wave(val name: String,
                 val waveLength: Float = DEFAULT_WAVE_LENGTH,
                 val velocity: Float = DEFAULT_VELOCITY,
                 val intensity: Float = DEFAULT_INTENSITY,
-                val spectrum: Spectrum = Spectrum.DEFAULT,
+                val spectrum: Spectrum = Spectrum.default,
                 val isBlur: Boolean = true,
                 val isPixel: Boolean = false,
                 val op: Operator = Operator.ADD) {
@@ -27,16 +27,10 @@ data class Wave(val name: String,
         private val DEFAULT_VELOCITY = -0.1F //approx. cycles per second
         private val DEFAULT_WAVE_LENGTH = 1F //units
         private val DEFAULT_INTENSITY = DrawUtil.TAU * DrawUtil.PHI
+
         val OFF = Wave("Off")
         val DEF = Wave(name = "Default")
-        val PALETTE = DEF.copy(name = "Palette", spectrum = Spectrum.PALETTE)
-        val LINES = DEF.copy(name = "Lines", spectrum = Spectrum.LINES)
-        val SPOOK = DEF.copy(name = "Spook", spectrum = Spectrum.SPOOK)
-        val RAIN = DEF.copy(name = "Rain", spectrum = Spectrum.RAIN)
-        val DARK = DEF.copy(name = "Dark", spectrum = Spectrum.DARK)
-        val DARK_WAVE = DEF.copy(name = "Dark Wave", spectrum = Spectrum.DARK_WAVE)
-        val BW = DEF.copy(name = "Black White", spectrum = Spectrum.BW)
-        val FULL = DEF.copy(name = "Full", spectrum = Spectrum.FULL)
+        val SPECS: List<Wave> = Spectrum.values().map { DEF.copy(name = it.getName(), spectrum = it) }
         val PIXEL = OFF.copy(name = "Pixel", isPixel = true, isBlur = false)
         val LONG = DEF.copy(name = "Long", waveLength = DEFAULT_WAVE_LENGTH * 2F)
         val SHORT = DEF.copy(name = "Short", waveLength = DEFAULT_WAVE_LENGTH * 0.5F)
@@ -48,8 +42,8 @@ data class Wave(val name: String,
         val MULTIPLY = DEF.copy(name = "Multiply", op = Operator.MULTIPLY)
 
         val default = DEF
-        val all = listOf(OFF, DEF, PALETTE, LINES, SPOOK, RAIN, DARK, DARK_WAVE, BW, FULL,
-                PIXEL, LONG, SHORT, FAST, SLOW, INTENSE, WEAK, STANDING, MULTIPLY)
+        val noSpec = listOf(OFF, DEF, PIXEL, LONG, SHORT, FAST, SLOW, INTENSE, WEAK, STANDING, MULTIPLY)
+        val all = noSpec + SPECS
 
         fun options() = all.toCollection(ArrayList())
         fun getByName(name: String): Wave = all.find { it.name.equals(name) } ?: default

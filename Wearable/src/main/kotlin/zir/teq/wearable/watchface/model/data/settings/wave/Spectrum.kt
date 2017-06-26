@@ -1,15 +1,9 @@
 package zir.teq.wearable.watchface.model.data.settings.wave
 
-data class Spectrum(val name: String) {
+enum class Spectrum {
+    PALETTE, BW, DARK, DARK_WAVE, FULL, LINES, SPOOK, RAIN;
+    fun getName() = this.name.toLowerCase().capitalize()
     companion object {
-        val PALETTE = Spectrum("Palette")
-        val BW = Spectrum("Black White")
-        val DARK = Spectrum("Dark")
-        val DARK_WAVE = Spectrum("Dark Wave")
-        val FULL = Spectrum("Full")
-        val LINES = Spectrum("Lines")
-        val SPOOK = Spectrum("Spook")
-        val RAIN = Spectrum("Rain")
-        val DEFAULT = FULL
+        val default = PALETTE
     }
 }

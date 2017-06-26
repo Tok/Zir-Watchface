@@ -42,36 +42,34 @@ object ColorUtil {
                 Spectrum.RAIN -> getRain(range, fraction)
                 else -> getFullSpectrum(range, fraction)
             }
-            val red = (rgbValues.first * mag * MAX_RGB).toInt()
-            val green = (rgbValues.second * mag * MAX_RGB).toInt()
-            val blue = (rgbValues.third * mag * MAX_RGB).toInt()
+            val maxMag = mag * MAX_RGB
+            val red = (rgbValues.first * maxMag).toInt()
+            val green = (rgbValues.second * maxMag).toInt()
+            val blue = (rgbValues.third * maxMag).toInt()
             return Color.rgb(red, green, blue)
         }
     }
 
-    private fun getBlackWhite(range: Int, fraction: Double): Int {
-        val black = ConfigData.ctx.getColor(R.color.black)
-        val white = ConfigData.ctx.getColor(R.color.white)
-        return when (range) {
-            0 -> ColorUtils.blendARGB(black, white, fraction.toFloat())
-            1 -> ColorUtils.blendARGB(white, black, fraction.toFloat())
-            else -> throw IllegalArgumentException("Out of range: " + range)
-        }
+    private val BLACK = ConfigData.ctx.getColor(R.color.black)
+    private val WHITE = ConfigData.ctx.getColor(R.color.white)
+    private fun getBlackWhite(range: Int, fraction: Double) = when (range) {
+        0 -> ColorUtils.blendARGB(BLACK, WHITE, fraction.toFloat())
+        1 -> ColorUtils.blendARGB(WHITE, BLACK, fraction.toFloat())
+        else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
-    private fun getFromPalette(range: Int, fraction: Double): Int {
-        return when (range) {
-            0 -> ColorUtils.blendARGB(ConfigData.palette.dark(), ConfigData.palette.light(), fraction.toFloat())
-            1 -> ColorUtils.blendARGB(ConfigData.palette.light(), ConfigData.palette.dark(), fraction.toFloat())
-            else -> throw IllegalArgumentException("Out of range: " + range)
-        }
+    private fun getFromPalette(range: Int, fraction: Double) = when (range) {
+        0 -> ColorUtils.blendARGB(ConfigData.palette.dark(), ConfigData.palette.light(), fraction.toFloat())
+        1 -> ColorUtils.blendARGB(ConfigData.palette.light(), ConfigData.palette.dark(), fraction.toFloat())
+        else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
     private fun getDarkWave(range: Int, fraction: Double, mag: Double): Int {
         val original = getFullSpectrum(range, fraction)
-        val red = (original.first * mag * MAX_RGB).toInt()
-        val green = (original.second * mag * MAX_RGB).toInt()
-        val blue = (original.third * mag * MAX_RGB).toInt()
+        val maxMag = mag * MAX_RGB
+        val red = (original.first * maxMag).toInt()
+        val green = (original.second * maxMag).toInt()
+        val blue = (original.third * maxMag).toInt()
         val g = ((red + green + blue) / 4F).toInt()
         return Color.rgb(g, g, g)
     }
@@ -81,31 +79,20 @@ object ColorUtil {
         return ColorUtils.blendARGB(ConfigData.ctx.getColor(R.color.black), original, 0.5F)
     }
 
-    private fun getFullSpectrum(range: Int, fraction: Double): Triple<Double, Double, Double> {
-        return when (range) {
-            0 -> Triple(1.0, fraction, 0.0)       //Red -> Yellow
-            1 -> Triple(1.0 - fraction, 1.0, 0.0) //Yellow -> Green
-            2 -> Triple(0.0, 1.0, fraction)       //Green -> Cyan
-            3 -> Triple(0.0, 1.0 - fraction, 1.0) //Cyan -> Blue
-            4 -> Triple(fraction, 0.0, 1.0)       //Blue -> Magenta
-            5 -> Triple(1.0, 0.0, 1.0 - fraction) //Magenta -> Red
-            else -> throw IllegalArgumentException("Out of range: " + range)
-        }
+    private fun getFullSpectrum(range: Int, fraction: Double) = when (range) {
+        0 -> Triple(1.0, fraction, 0.0)       //Red -> Yellow
+        1 -> Triple(1.0 - fraction, 1.0, 0.0) //Yellow -> Green
+        2 -> Triple(0.0, 1.0, fraction)       //Green -> Cyan
+        3 -> Triple(0.0, 1.0 - fraction, 1.0) //Cyan -> Blue
+        4 -> Triple(fraction, 0.0, 1.0)       //Blue -> Magenta
+        5 -> Triple(1.0, 0.0, 1.0 - fraction) //Magenta -> Red
+        else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
-    private fun getLines(range: Int) =
-            if (range == 0) {
-                Triple(1.0, 1.0, 1.0)
-            } else {
-                Triple(0.0, 0.0, 0.0)
-            }
-
+    private val BLACK_TRIP = Triple(0.0, 0.0, 0.0)
+    private val WHITE_TRIP = Triple(1.0, 1.0, 1.0)
+    private fun getLines(range: Int) = if (range == 0) WHITE_TRIP else BLACK_TRIP
     private fun getSpook(fraction: Double) = Triple(fraction, fraction, fraction)
-
     private fun getRain(range: Int, fraction: Double) =
-            if (range == 0) {
-                Triple(fraction, fraction, fraction)
-            } else {
-                Triple(0.0, 0.0, 0.0)
-            }
+            if (range == 0) Triple(fraction, fraction, fraction) else BLACK_TRIP
 }
