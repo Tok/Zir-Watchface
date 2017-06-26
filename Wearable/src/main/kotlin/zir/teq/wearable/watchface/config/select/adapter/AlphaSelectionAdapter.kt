@@ -1,7 +1,6 @@
 package zir.teq.wearable.watchface.config.select.adapter
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +9,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Alpha
 import java.util.*
 
 class AlphaSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Alpha>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: ArrayList<Alpha>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             AlphaViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_alpha, parent, false))
 
-    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val alpha = mOptions[position]
         val alphaViewHolder = vh as AlphaViewHolder
         alphaViewHolder.bindAlpha(alpha)
@@ -30,7 +31,7 @@ class AlphaSelectionAdapter(
         return mOptions.size
     }
 
-    inner class AlphaViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class AlphaViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mCircle = view.findViewById<View>(R.id.list_item_alpha_cirlce) as CircledImageView
         val mText = view.findViewById<View>(R.id.list_item_alpha_text) as TextView

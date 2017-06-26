@@ -8,13 +8,13 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.RecHolder
 
 
-open class ZirPickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+open class ZirPickerViewHolder(view: View) : RecHolder(view) {
     private lateinit var mActivity: Class<out Activity>
     lateinit var mButton: Button
     lateinit var mPrefString: String

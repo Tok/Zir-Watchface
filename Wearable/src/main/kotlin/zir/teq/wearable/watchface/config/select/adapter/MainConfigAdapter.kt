@@ -1,12 +1,13 @@
 package zir.teq.wearable.watchface.config.select.adapter
 
-import android.content.ComponentName
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.config.select.holder.*
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.item.*
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.ALPHA
 import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.BACKGROUND
@@ -21,26 +22,15 @@ import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.WAVE
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
-class ZirWatchConfigAdapter(
-        private val mContext: Context,
-        watchFaceServiceClass: Class<*>,
-        private val mSettingsDataSet: ArrayList<ConfigData.ConfigItemType>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val mWatchFaceComponentName: ComponentName
-
-    init {
-        mWatchFaceComponentName = ComponentName(mContext, watchFaceServiceClass)
-    }
-
+typealias ConfigItemTypes = ArrayList<ConfigData.ConfigItemType>
+class MainConfigAdapter(
+        private val mContext: Context, watchFaceServiceClass: Class<*>,
+        private val mSettingsDataSet: ConfigItemTypes) : RecAdapter() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ViewHelper.createViewHolder(viewGroup, viewType)
-
-    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, pos: Int) {
+    override fun onBindViewHolder(vh: RecHolder, pos: Int) {
         val ci = mSettingsDataSet[pos] as ConfigItem
         Log.d(TAG, "onBindViewHolder() ci: $ci")
-        if (ci.type.isPair()) {
-            prepareDoubleCheckHolder(vh as BooleanPairViewHolder, ci)
-        } else {
-            prepareHolder(vh as ZirPickerViewHolder, ci)
-        }
+        prepareHolder(vh, ci)
         when (vh.itemViewType) {
             THEME.code -> (vh as ThemePickerViewHolder).setActivity((ci as ThemeConfigItem).activity)
             PALETTE.code -> (vh as PalettePickerViewHolder).setActivity((ci as PaletteConfigItem).activity)
@@ -65,18 +55,21 @@ class ZirWatchConfigAdapter(
         }
     }
 
-    private fun prepareHolder(holder: ZirPickerViewHolder, item: ConfigItem) {
-        holder.setName(item.name)
-        holder.setSharedPrefString(item.pref)
-        if (item.type.iconId != null) {
-            holder.bindIcon(item.type.iconId, ConfigData.palette.lightId)
+    private fun prepareHolder(vh: RecHolder, item: ConfigItem) {
+        if (item.type.isPair()) {
+            prepareDoubleCheckHolder(vh as BooleanPairViewHolder, item)
+        } else {
+            val holder = vh as ZirPickerViewHolder
+            holder.setName(item.name)
+            holder.setSharedPrefString(item.pref)
+            if (item.type.iconId != null) {
+                holder.bindIcon(item.type.iconId, ConfigData.palette.lightId)
+            }
         }
     }
 
-    override fun getItemViewType(position: Int): Int = mSettingsDataSet[position].configType
-
-    override fun getItemCount(): Int = mSettingsDataSet.size
-
+    override fun getItemViewType(position: Int) = mSettingsDataSet[position].configType
+    override fun getItemCount() = mSettingsDataSet.size
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
         super.onDetachedFromRecyclerView(recyclerView)
     }

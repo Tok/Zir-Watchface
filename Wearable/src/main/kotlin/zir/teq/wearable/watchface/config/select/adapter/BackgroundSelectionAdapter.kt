@@ -1,7 +1,6 @@
 package zir.teq.wearable.watchface.config.select.adapter
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +9,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Background
 
 class BackgroundSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Background>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: ArrayList<Background>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             BackgroundViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_background, parent, false))
 
-    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val bg = mOptions[position]
         val colorViewHolder = vh as BackgroundViewHolder
         colorViewHolder.bindBackground(bg)
@@ -29,7 +30,7 @@ class BackgroundSelectionAdapter(
         return mOptions.size
     }
 
-    inner class BackgroundViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class BackgroundViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mCircle = view.findViewById<View>(R.id.list_item_background_cirlce) as CircledImageView
         val mText = view.findViewById<View>(R.id.list_item_background_text) as TextView

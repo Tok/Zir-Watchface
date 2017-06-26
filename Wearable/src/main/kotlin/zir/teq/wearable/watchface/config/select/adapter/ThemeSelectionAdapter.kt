@@ -2,7 +2,6 @@ package config.select.adapter
 
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +10,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Theme
 
 class ThemeSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Theme>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: ArrayList<Theme>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ThemeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_theme, parent, false))
 
-    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val theme = mOptions[position]
         val themeViewHolder = vh as ThemeViewHolder
         themeViewHolder.bindTheme(theme)
@@ -30,7 +31,7 @@ class ThemeSelectionAdapter(
         return mOptions.size
     }
 
-    inner class ThemeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ThemeViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mCircleView = view.findViewById<View>(R.id.list_item_theme_circle) as CircledImageView
         val mTextView = view.findViewById<View>(R.id.list_item_theme_text) as TextView

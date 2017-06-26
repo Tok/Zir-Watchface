@@ -1,7 +1,6 @@
 package zir.teq.wearable.watchface.config.select.adapter
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +9,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Dim
 
 class DimSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: java.util.ArrayList<Dim>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: java.util.ArrayList<Dim>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             DimViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_dim, parent, false))
 
-    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val dim = mOptions[position]
         val dimViewHolder = vh as DimViewHolder
         dimViewHolder.bindDim(dim)
@@ -29,7 +30,7 @@ class DimSelectionAdapter(
         return mOptions.size
     }
 
-    inner class DimViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class DimViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mCircle = view.findViewById<View>(R.id.list_item_dim_cirlce) as CircledImageView
         val mText = view.findViewById<View>(R.id.list_item_dim_text) as TextView

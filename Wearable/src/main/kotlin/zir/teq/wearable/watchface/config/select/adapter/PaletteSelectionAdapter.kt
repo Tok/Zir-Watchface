@@ -1,7 +1,6 @@
 package config.select.adapter
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +8,18 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Palette
 
 class PaletteSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: java.util.ArrayList<Palette>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: java.util.ArrayList<Palette>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             = ColorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false))
 
-    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val pal = mOptions[position]
         val colorViewHolder = vh as ColorViewHolder
         colorViewHolder.bindPalette(pal)
@@ -28,7 +29,7 @@ class PaletteSelectionAdapter(
         return mOptions.size
     }
 
-    inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ColorViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mFirst = view.findViewById<View>(R.id.list_item_palette_first_cirlce) as CircledImageView
         val mSecond = view.findViewById<View>(R.id.list_item_palette_second_circle) as CircledImageView

@@ -1,7 +1,6 @@
 package zir.teq.wearable.watchface.config.select.adapter
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.CircledImageView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +8,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Growth
 import zir.teq.wearable.watchface.model.data.settings.Palette
 
 
 class GrowthSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Growth>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private val mOptions: ArrayList<Growth>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             GrowthViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_growth, parent, false))
 
-    override fun onBindViewHolder(vh: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val growth = mOptions[position]
         val viewHolder = vh as GrowthViewHolder
         viewHolder.bindGrowth(growth, ConfigData.palette)
@@ -30,7 +31,7 @@ class GrowthSelectionAdapter(
         return mOptions.size
     }
 
-    inner class GrowthViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class GrowthViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mFirst = view.findViewById<View>(R.id.list_item_growth_current_stroke) as CircledImageView
         val mSecond = view.findViewById<View>(R.id.list_item_growth_grown_stroke) as CircledImageView
         val mText = view.findViewById<View>(R.id.list_item_growth_text) as TextView

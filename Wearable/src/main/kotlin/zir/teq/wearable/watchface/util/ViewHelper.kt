@@ -7,27 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.holder.*
+import zir.teq.wearable.watchface.model.RecAdapter
+import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.item.ConfigItem
 
 object ViewHelper {
-    fun initMainConfigView(view: WearableRecyclerView?,
-                           ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
-                           manager: RecyclerView.LayoutManager?): Unit {
-        view!!.setBackgroundColor(R.color.background)
-        init(view, ada, manager)
-    }
-
-    fun initView(view: WearableRecyclerView?,
-                 ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
+    fun initView(view: WearableRecyclerView,
+                 ada: RecAdapter,
                  manager: RecyclerView.LayoutManager?): Unit {
-        view!!.setBackgroundColor(R.color.background)
+        view.setBackgroundColor(R.color.background)
         init(view, ada, manager)
     }
 
-    private fun init(view: WearableRecyclerView?,
-                     ada: RecyclerView.Adapter<RecyclerView.ViewHolder>?,
+    private fun init(view: WearableRecyclerView,
+                     ada: RecAdapter,
                      manager: RecyclerView.LayoutManager?) {
-        view!!.centerEdgeItems = true
+        view.centerEdgeItems = true
         view.layoutManager = manager
         view.adapter = ada
         addCircularGestureToView(view)
@@ -42,7 +37,7 @@ object ViewHelper {
         }
     }
 
-    fun createViewHolder(group: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
         return when (viewType) {
             ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_item_theme))
             ConfigItem.PALETTE.code -> PalettePickerViewHolder(createView(group, R.layout.config_list_item_palette))

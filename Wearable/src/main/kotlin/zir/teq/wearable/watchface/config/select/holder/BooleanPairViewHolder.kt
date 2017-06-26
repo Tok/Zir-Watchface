@@ -1,6 +1,5 @@
 package zir.teq.wearable.watchface.config.select.holder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -8,8 +7,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.RecHolder
 
-class BooleanPairViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class BooleanPairViewHolder(view: View) : RecHolder(view), View.OnClickListener {
     var mLayout: LinearLayout
     var mActiveBox: Button
     var mAmbientBox: Button
