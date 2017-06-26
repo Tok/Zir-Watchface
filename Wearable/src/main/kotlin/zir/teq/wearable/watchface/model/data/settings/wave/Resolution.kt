@@ -4,7 +4,8 @@ data class Resolution(val value: Int) {
     fun get() = value
     operator fun times(factor: Float) = (value * 0.5).toInt()
     companion object {
-        fun getBlurRadius(isActive: Boolean) = (if (isActive) ACTIVE else AMBIENT).value * 0.5F
+        //fun getBlurRadius(isActive: Boolean) = (if (isActive) ACTIVE else AMBIENT).value * 0.5F
+        fun getBlurRadius(isActive: Boolean) = 1F
         val _2_ = Resolution(2)
         val _4_ = Resolution(4)
         val _5_ = Resolution(5)

@@ -1,7 +1,6 @@
 package zir.teq.wearable.watchface.model.data.settings.wave
 
 import android.graphics.Point
-import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
 import zir.teq.wearable.watchface.model.data.types.Complex
@@ -14,10 +13,9 @@ class Layer private constructor(val wave: Wave, val center: Complex?, val hour: 
         val hasNoValue = center == null && hour == null && min == null && sec == null
         if (hasNoValue) throw IllegalStateException("No values provided.")
         return when (wave.op) {
-            Operator.MULTIPLY -> all().fold(all().first()) { total, next -> total * next }
-            Operator.ADD -> all().fold(all().first()) { total, next -> total + next }
+            Operator.MULTIPLY -> all().fold(Complex.ONE) { total, next -> total * next }
+            Operator.ADD -> all().fold(Complex.ZERO) { total, next -> total + next }
             else -> throw IllegalArgumentException("Unknown operator: " + wave.op)
-
         }
     }
 
@@ -25,10 +23,11 @@ class Layer private constructor(val wave: Wave, val center: Complex?, val hour: 
         fun fromData(data: ActiveWaveFrameData, point: Point, t: Double, isActive: Boolean): Layer {
             with(data) {
                 val wave = ConfigData.wave
-                val center: Complex? = if (!isActive || wave.hasCenter) WaveCalc.calc(point, scaledCenter, t, centerMass) else null
-                val hour: Complex? = if (wave.hasHours) WaveCalc.calc(point, waveHr, t, hourMass) else null
-                val min: Complex? = if (wave.hasMinutes) WaveCalc.calc(point, waveMin, t, minuteMass) else null
-                val sec: Complex? = if (isActive && wave.hasSeconds) WaveCalc.calc(point, waveSec, t, secondMass) else null
+                val wl = wave.waveLength
+                val center: Complex? = if (!isActive || wave.hasCenter) WaveCalc.calc(point, scaledCenter, t, wl, centerMass) else null
+                val hour: Complex? = if (wave.hasHours) WaveCalc.calc(point, waveHr, t, wl, hourMass) else null
+                val min: Complex? = if (wave.hasMinutes) WaveCalc.calc(point, waveMin, t, wl, minuteMass) else null
+                val sec: Complex? = if (isActive && wave.hasSeconds) WaveCalc.calc(point, waveSec, t, wl, secondMass) else null
                 return Layer(wave, center, hour, min, sec)
             }
         }

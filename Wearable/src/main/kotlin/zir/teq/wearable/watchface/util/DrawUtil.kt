@@ -101,7 +101,8 @@ class DrawUtil() {
     }
 
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData, isActive: Boolean = true) {
-        val t = data.timeStamp * ConfigData.wave.velocity
+        val velocity = ConfigData.wave.velocity.toDouble()
+        val t = data.scaledUnit * velocity * data.timeStamp / 1000.0
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
             val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()
@@ -114,10 +115,11 @@ class DrawUtil() {
     val lastFrame = mutableMapOf<Point, Complex>()
     private fun findColor(complexPixel: Complex, key: Point): Int {
         val wave = ConfigData.wave
-        if (wave.isKeepState && ConfigData.isAmbient) {
+        if (wave.isKeepState && !ConfigData.isAmbient) {
             val last = lastFrame.get(key) ?: complexPixel
-            val newMagnitude = (complexPixel.magnitude + (wave.lastWeight * last.magnitude)) / 2F
-            val newPhase = (complexPixel.phase + (wave.lastWeight * last.phase)) / 2F
+            val div = 1F + wave.lastWeight
+            val newMagnitude = (complexPixel.magnitude + (wave.lastWeight * last.magnitude)) / div
+            val newPhase = (complexPixel.phase + (wave.lastWeight * last.phase)) / div
             val new = Complex.fromMagnitudeAndPhase(newMagnitude.toFloat(), newPhase)
             lastFrame.put(key, new)
             return ColorUtil.getColor(new)

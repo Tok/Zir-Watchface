@@ -29,9 +29,9 @@ open class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas, res: In
     val waveMin = DrawUtil.calcPosition(minRot, waveMinLength, scaledUnit)
     val waveSec = DrawUtil.calcPosition(secRot, waveSecLength, scaledUnit)
 
-    val isProportional = true //TODO
-    val centerMass = if (isProportional) Mass.DEFAULT.value else Mass.DEFAULT.value //FIXME
-    val hourMass = if (isProportional) Mass.DEFAULT.value else Mass.DEFAULT.value //FIXME
-    val minuteMass = if (isProportional) hourMass / DrawUtil.PHI else Mass.DEFAULT.value
-    val secondMass = if (isProportional) minuteMass / DrawUtil.PHI else Mass.DEFAULT.value
+    val isProportional = false //TODO
+    val centerMass = Mass.DEFAULT.value
+    val hourMass = Mass.DEFAULT.value
+    val minuteMass = if (isProportional) Mass.LIGHT.value else Mass.DEFAULT.value
+    val secondMass = if (isProportional) Mass.LIGHTER.value else Mass.DEFAULT.value
 }

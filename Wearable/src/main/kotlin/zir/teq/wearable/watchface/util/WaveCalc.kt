@@ -11,17 +11,17 @@ import zir.watchface.DrawUtil.Companion.TAU
  * Transpiled and rearranged from: https://github.com/Tok/Erwin/tree/master/src/main/java/erwin
  */
 object WaveCalc {
-    fun calc(from: Point, to: PointF, t: Double, mass: Double) =
-            calc(from.x.toDouble(), from.y.toDouble(), to.x.toDouble(), to.y.toDouble(), t, mass)
+    fun calc(from: Point, to: PointF, t: Double, waveLength: Float, mass: Double) =
+            calc(from.x.toDouble(), from.y.toDouble(), to.x.toDouble(), to.y.toDouble(), t, waveLength, mass)
 
-    fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Double, mass: Double): Complex {
+    fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Double, waveLength: Float, mass: Double): Complex {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
-        val phase = (distance + t) * ConfigData.wave.waveNumber / mass
+        val phase = t + (distance * waveLength) / mass
         val mag = calcIntensity(distance, xFrom, yFrom)
         return Complex.fromMagnitudeAndPhase(mag.toFloat(), phase)
     }
 
-    private fun addSquares(first: Double, second: Double) = first * first + second * second
+    private fun addSquares(first: Double, second: Double) = (first * first) + (second * second)
     private fun calcIntensity(distance: Double, x: Double, y: Double) =
             minOf(1.0, ConfigData.wave.intensity * (x + y) / (Math.pow(distance, 2.0) * TAU))
 
