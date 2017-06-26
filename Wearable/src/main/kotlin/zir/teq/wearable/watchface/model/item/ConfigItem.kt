@@ -35,9 +35,9 @@ open class ConfigItem internal constructor(val type: Type,
             fun isPair() = code in 100..999 //TODO refactor
         }
 
-        val PALETTE = Type(1, R.string.saved_palette, null, R.string.label_palette, R.drawable.icon_color)
-        val BACKGROUND = Type(2, R.string.saved_background, null, R.string.label_background, R.drawable.icon_background)
-        val WAVE = Type(3, R.string.saved_wave, null, R.string.label_wave, R.drawable.icon_wave)
+        val WAVE = Type(1, R.string.saved_wave, null, R.string.label_wave, R.drawable.icon_wave)
+        val PALETTE = Type(2, R.string.saved_palette, null, R.string.label_palette, R.drawable.icon_color)
+        val BACKGROUND = Type(3, R.string.saved_background, null, R.string.label_background, R.drawable.icon_background)
         val THEME = Type(4, R.string.saved_theme, null, R.string.label_theme, R.drawable.icon_theme)
         val STROKE = Type(5, R.string.saved_stroke, null, R.string.label_stroke, R.drawable.icon_stroke)
         val OUTLINE = Type(6, R.string.saved_outline, null, R.string.label_outline, R.drawable.icon_outline)
@@ -53,7 +53,7 @@ open class ConfigItem internal constructor(val type: Type,
         val DRAW_TEXT = Type(500, R.string.saved_text_act, R.string.saved_text_amb, R.string.label_text_act)
         val FAST_UPDATE = Type(1000, R.string.saved_fast_update, null, R.string.label_fast_update)
         val IS_ELASTIC = Type(1100, R.string.saved_is_elastic, null, R.string.label_is_elastic)
-        val ALL_TYPES = listOf<Type>(PALETTE, BACKGROUND, WAVE, THEME, STROKE, OUTLINE, GROWTH,
+        val ALL_TYPES = listOf<Type>(WAVE, PALETTE, BACKGROUND, THEME, STROKE, OUTLINE, GROWTH,
                 STACK, ALPHA, DIM, DRAW_HANDS, DRAW_TRIANGLES, DRAW_CIRCLES, DRAW_POINTS, DRAW_TEXT,
                 FAST_UPDATE, IS_ELASTIC)
         fun valueOf(code: Int) = ALL_TYPES.find { it.code == code }
