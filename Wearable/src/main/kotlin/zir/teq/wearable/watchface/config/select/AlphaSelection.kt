@@ -1,18 +1,55 @@
-package zir.teq.wearable.watchface.config.select.adapter
+package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
+import android.os.Bundle
 import android.support.wearable.view.CircledImageView
+import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Alpha
+import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
+
+class AlphaPickerViewHolder(view: View) : RecSelectionViewHolder(view) {
+    init {
+        mButton = view.findViewById<View>(R.id.config_list_item_alpha) as Button
+        view.setOnClickListener { super.handleClick(view, AlphaSelectionActivity.EXTRA) }
+    }
+}
+
+class AlphaSelectionActivity : Activity() {
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: AlphaSelectionAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.selection_alpha)
+        val sharedAlphaId = intent.getStringExtra(EXTRA)
+        mAdapter = AlphaSelectionAdapter(sharedAlphaId, Alpha.options())
+        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
+        ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val index = Alpha.all.indexOfFirst { it.name.equals(ConfigData.alpha.name) } + 1
+        mConfigView.smoothScrollToPosition(index)
+    }
+
+    companion object {
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_ALPHA"
+    }
+}
 
 class AlphaSelectionAdapter(
         private val mPrefString: String?,

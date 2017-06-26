@@ -1,15 +1,52 @@
-package config.select.adapter
+package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
+import android.os.Bundle
 import android.support.wearable.view.CircledImageView
+import android.support.wearable.view.CurvedChildLayoutManager
+import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Outline
+import zir.teq.wearable.watchface.util.ViewHelper
+
+
+class OutlinePickerViewHolder(view: View) : RecSelectionViewHolder(view) {
+    init {
+        mButton = view.findViewById<View>(R.id.config_list_item_outline) as Button
+        view.setOnClickListener { super.handleClick(view, OutlineSelectionActivity.EXTRA) }
+    }
+}
+
+class OutlineSelectionActivity : Activity() {
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: OutlineSelectionAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.selection_outline)
+        val sharedOutlineName = intent.getStringExtra(EXTRA)
+        mAdapter = OutlineSelectionAdapter(sharedOutlineName, Outline.options())
+        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
+        ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val index = Outline.all.indexOfFirst { it.name.equals(ConfigData.outline.name) } + 1
+        mConfigView.smoothScrollToPosition(index)
+    }
+
+    companion object {
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_OUTLINE"
+    }
+}
 
 class OutlineSelectionAdapter(
         private val mPrefString: String?,

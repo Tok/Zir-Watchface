@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config
+package zir.teq.wearable.watchface.config.manager
 
 import android.content.Context
 import android.support.wearable.view.CurvedChildLayoutManager

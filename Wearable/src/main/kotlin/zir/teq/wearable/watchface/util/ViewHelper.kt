@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.select.holder.*
+import zir.teq.wearable.watchface.config.select.*
+import zir.teq.wearable.watchface.config.holder.*
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.item.ConfigItem
@@ -75,11 +76,11 @@ object ViewHelper {
         return holder
     }
 
-    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): ZirPickerViewHolder {
+    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): RecSelectionViewHolder {
         val ctx = viewGroup.context
         with(ctx.resources) {
             val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_checkbox, viewGroup, false)
-            val holder = BooleanPickerViewHolder(view)
+            val holder = BooleanViewHolder(view)
             holder.setSharedPrefString(getString(type.prefId))
             holder.setName(getString(type.nameId))
             return holder

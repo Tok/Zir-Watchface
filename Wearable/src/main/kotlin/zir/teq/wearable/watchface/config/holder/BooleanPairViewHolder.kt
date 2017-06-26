@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select.holder
+package zir.teq.wearable.watchface.config.holder
 
 import android.view.View
 import android.widget.Button

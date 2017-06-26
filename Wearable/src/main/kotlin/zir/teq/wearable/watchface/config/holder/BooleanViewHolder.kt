@@ -1,11 +1,11 @@
-package zir.teq.wearable.watchface.config.select.holder
+package zir.teq.wearable.watchface.config.holder
 
 import android.view.View
 import android.widget.CheckBox
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 
-class BooleanPickerViewHolder(view: View) : ZirPickerViewHolder(view), View.OnClickListener {
+class BooleanViewHolder(view: View) : RecSelectionViewHolder(view), View.OnClickListener {
     init {
         initButton(view.findViewById<View>(R.id.list_item_checkbox))
         view.setOnClickListener(this)

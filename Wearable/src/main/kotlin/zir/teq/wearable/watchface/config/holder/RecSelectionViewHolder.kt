@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select.holder
+package zir.teq.wearable.watchface.config.holder
 
 import android.app.Activity
 import android.content.Context
@@ -14,7 +14,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.RecHolder
 
 
-open class ZirPickerViewHolder(view: View) : RecHolder(view) {
+open class RecSelectionViewHolder(view: View) : RecHolder(view) {
     private lateinit var mActivity: Class<out Activity>
     lateinit var mButton: Button
     lateinit var mPrefString: String

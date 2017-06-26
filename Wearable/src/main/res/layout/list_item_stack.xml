@@ -8,7 +8,7 @@
     android:descendantFocusability="blocksDescendants"
     android:gravity="center"
     android:orientation="horizontal"
-    tools:context="zir.teq.wearable.watchface.config.select.activity.StackSelectionActivity">
+    tools:context="zir.teq.wearable.watchface.config.select.StackSelectionActivity">
 
     <android.support.wearable.view.CircledImageView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

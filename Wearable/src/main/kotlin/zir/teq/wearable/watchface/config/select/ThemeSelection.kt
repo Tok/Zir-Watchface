@@ -1,18 +1,55 @@
-package config.select.adapter
+package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.support.wearable.view.CircledImageView
+import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Theme
+import zir.teq.wearable.watchface.util.ViewHelper
+
+
+class ThemePickerViewHolder(view: View) : RecSelectionViewHolder(view) {
+    init {
+        mButton = view.findViewById<View>(R.id.config_list_item_theme) as Button
+        view.setOnClickListener { super.handleClick(view, ThemeSelectionActivity.EXTRA) }
+    }
+}
+
+class ThemeSelectionActivity : Activity() {
+    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mAdapter: ThemeSelectionAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.selection_theme)
+        val sharedThemeName = intent.getStringExtra(EXTRA)
+        mAdapter = ThemeSelectionAdapter(sharedThemeName, Theme.options())
+        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
+        ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val index = Theme.all.indexOfFirst { it.name.equals(ConfigData.theme.name) } + 1
+        mConfigView.smoothScrollToPosition(index)
+    }
+
+    companion object {
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_THEME"
+    }
+}
 
 class ThemeSelectionAdapter(
         private val mPrefString: String?,
