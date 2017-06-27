@@ -9,7 +9,7 @@ data class Type(val code: Int,
                 val nameId: Int,
                 val iconId: Int? = null) {
     fun isPair() = code in 100..999 //TODO refactor
-    fun getLayoutId() = if (code in 1..99) { R.layout.config_list_item } else null
+    fun getLayoutId() = if (code in 1..99) { R.layout.list_item_main } else null
     companion object {
         val WAVE = Type(1, R.string.saved_wave, null, R.string.label_wave, R.drawable.icon_wave)
         val PALETTE = Type(2, R.string.saved_palette, null, R.string.label_palette, R.drawable.icon_color)
