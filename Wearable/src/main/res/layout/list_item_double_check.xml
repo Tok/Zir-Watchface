@@ -14,14 +14,14 @@
         android:id="@+id/list_item_double_check_active"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left|center_vertical"
+        android:gravity="start|center_vertical"
         android:minHeight="@dimen/checkbox_min_height" />
 
-    <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    <CheckBox
         android:id="@+id/list_item_double_check_ambient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left|center_vertical"
+        android:gravity="start|center_vertical"
         android:minHeight="@dimen/checkbox_min_height" />
 
     <TextView
