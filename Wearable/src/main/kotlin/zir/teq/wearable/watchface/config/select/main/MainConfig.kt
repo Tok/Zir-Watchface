@@ -11,10 +11,10 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
-import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.config.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
+import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -42,10 +42,7 @@ class MainConfigActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_config)
         mView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        val ctx = ConfigData.ctx
-        mAdapter = MainConfigAdapter(ctx,
-                ConfigData.watchFaceServiceClass,
-                ConfigData.getDataToPopulateAdapter(this))
+        mAdapter = MainConfigAdapter(ConfigData.getDataToPopulateAdapter(this))
         ViewHelper.initView(mView, mAdapter, ScalingLayoutManager(this))
     }
 
@@ -79,9 +76,7 @@ class MainConfigActivity : Activity() {
     }
 }
 
-class MainConfigAdapter(
-        private val mContext: Context, watchFaceServiceClass: Class<*>,
-        private val mSettingsDataSet: ConfigItemTypes) : RecAdapter() {
+class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdapter() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ViewHelper.createViewHolder(viewGroup, viewType)
     override fun onBindViewHolder(vh: RecHolder, pos: Int) {
         val ci = mSettingsDataSet[pos] as ConfigItem

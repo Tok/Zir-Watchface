@@ -17,6 +17,7 @@ import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.Stroke
+import zir.teq.wearable.watchface.model.data.settings.wave.Frame
 import zir.teq.wearable.watchface.model.data.settings.wave.Layer
 import zir.teq.wearable.watchface.model.data.settings.wave.Resolution
 import zir.teq.wearable.watchface.model.data.types.Complex
@@ -30,7 +31,7 @@ import java.util.*
  * Created by Zir on 03.01.2016.
  * Recreated 20.05.2017
  */
-class DrawUtil() {
+class DrawUtil {
     data class HandData(val p: PointF, val radians: Float, val maybeExtended: PointF)
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
 
@@ -108,14 +109,14 @@ class DrawUtil() {
         val t = data.scaledUnit * velocity * data.timeStamp / 1000.0
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
-            val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()
+            val complexPixel: Complex = Layer.fromData(data, key, t.toFloat(), isActive).get()
             buffer.put(findColor(complexPixel, key))
         }
         buffer.rewind()
         drawFromBuffer(can, buffer, data)
     }
 
-    val lastFrame = mutableMapOf<Point, Complex>()
+    val lastFrame = Frame()
     private fun findColor(complexPixel: Complex, key: Point): Int {
         val wave = ConfigData.wave
         if (wave.isKeepState && !ConfigData.isAmbient) {
@@ -225,8 +226,7 @@ class DrawUtil() {
             }
         }
 
-        val MAX_FACTOR = 2.6404555F //max() of all factors. FIXME may require adjustment if points are moved.
-        //WA finds no meaningful closed forms https://www.wolframalpha.com/input/?i=2.6404555
+        val MAX_FACTOR = 2.895378F //max() of all factors. FIXME may require adjustment if points are moved.
         val OFFSET = 1F - (1F / PHI) //ratio of the states in which the components stay fully colored.
         val MIN_RATIO = 1F - (1F / PHI) //cutoff for the blended color. 0F allows full white.
         private fun handleColor(p: Paint, factor: Float, isOutline: Boolean): Int {

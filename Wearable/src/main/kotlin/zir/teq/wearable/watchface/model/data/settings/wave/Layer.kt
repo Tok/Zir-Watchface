@@ -20,7 +20,7 @@ class Layer private constructor(val wave: Wave, val center: Complex?, val hour: 
     }
 
     companion object {
-        fun fromData(data: ActiveWaveFrameData, point: Point, t: Double, isActive: Boolean): Layer {
+        fun fromData(data: ActiveWaveFrameData, point: Point, t: Float, isActive: Boolean): Layer {
             with(data) {
                 val wave = ConfigData.wave
                 val wl = wave.waveLength

@@ -11,10 +11,10 @@ import zir.watchface.DrawUtil.Companion.TAU
  * Transpiled and rearranged from: https://github.com/Tok/Erwin/tree/master/src/main/java/erwin
  */
 object WaveCalc {
-    fun calc(from: Point, to: PointF, t: Double, waveLength: Float, mass: Double) =
+    fun calc(from: Point, to: PointF, t: Float, waveLength: Float, mass: Double) =
             calc(from.x.toDouble(), from.y.toDouble(), to.x.toDouble(), to.y.toDouble(), t, waveLength, mass)
 
-    fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Double, waveLength: Float, mass: Double): Complex {
+    fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Float, waveLength: Float, mass: Double): Complex {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
         val phase = t + (distance * waveLength) / mass
         val mag = calcIntensity(distance, xFrom, yFrom)

@@ -14,7 +14,7 @@ enum class Resolution(val value: Int, val blurRadius: Float) {
     _160_(160, 1F);
 
     companion object {
-        val ACTIVE = _32_
+        val ACTIVE = _10_
         val AMBIENT = _4_
         fun get(isActive: Boolean) = if (isActive) ACTIVE else AMBIENT
     }
