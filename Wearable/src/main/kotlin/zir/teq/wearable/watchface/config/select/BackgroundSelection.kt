@@ -33,7 +33,7 @@ class BackgroundSelectionActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_background)
+        setContentView(R.layout.selection)
         val sharedBackgroundId = intent.getStringExtra(EXTRA)
         mAdapter = BackgroundSelectionAdapter(sharedBackgroundId, Background.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView

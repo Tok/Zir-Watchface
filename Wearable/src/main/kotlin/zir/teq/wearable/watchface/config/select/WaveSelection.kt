@@ -32,7 +32,7 @@ class WaveSelectionActivity : Activity() {
     private lateinit var mAdapter: WaveSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_wave)
+        setContentView(R.layout.selection)
         val sharedWaveName = intent.getStringExtra(EXTRA)
         mAdapter = WaveSelectionAdapter(sharedWaveName, Wave.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView

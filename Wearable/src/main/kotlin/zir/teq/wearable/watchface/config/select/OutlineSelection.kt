@@ -30,7 +30,7 @@ class OutlineSelectionActivity : Activity() {
     private lateinit var mAdapter: OutlineSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_outline)
+        setContentView(R.layout.selection)
         val sharedOutlineName = intent.getStringExtra(EXTRA)
         mAdapter = OutlineSelectionAdapter(sharedOutlineName, Outline.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView

@@ -30,7 +30,7 @@ class StrokeSelectionActivity : Activity() {
     private lateinit var mAdapter: StrokeSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_stroke)
+        setContentView(R.layout.selection)
         val sharedStrokeName = intent.getStringExtra(EXTRA)
         mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView

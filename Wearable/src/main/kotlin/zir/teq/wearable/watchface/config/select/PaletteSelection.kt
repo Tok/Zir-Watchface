@@ -33,7 +33,7 @@ class PaletteSelectionActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_palette)
+        setContentView(R.layout.selection)
         val sharedColorName = intent.getStringExtra(EXTRA)
         mAdapter = PaletteSelectionAdapter(sharedColorName, Palette.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView

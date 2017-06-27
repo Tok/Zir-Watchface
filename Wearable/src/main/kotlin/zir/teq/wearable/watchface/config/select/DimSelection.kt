@@ -33,7 +33,7 @@ class DimSelectionActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_alpha)
+        setContentView(R.layout.selection)
         val sharedDimId = intent.getStringExtra(EXTRA)
         mAdapter = DimSelectionAdapter(sharedDimId, Dim.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView

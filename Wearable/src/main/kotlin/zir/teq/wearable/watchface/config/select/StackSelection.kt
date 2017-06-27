@@ -32,7 +32,7 @@ class StackSelectionActivity : Activity() {
     private lateinit var mAdapter: StackSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_stack)
+        setContentView(R.layout.selection)
         val sharedStackName = intent.getStringExtra(EXTRA)
         mAdapter = StackSelectionAdapter(sharedStackName, Stack.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView

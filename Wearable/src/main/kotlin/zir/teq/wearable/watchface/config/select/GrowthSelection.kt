@@ -32,7 +32,7 @@ class GrowthSelectionActivity : Activity() {
     private lateinit var mAdapter: GrowthSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection_growth)
+        setContentView(R.layout.selection)
         val sharedGrowthName = intent.getStringExtra(EXTRA)
         mAdapter = GrowthSelectionAdapter(sharedGrowthName, Growth.options())
         mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
