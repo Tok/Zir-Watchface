@@ -5,10 +5,10 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.config.select.config.Type
 import zir.teq.wearable.watchface.model.data.settings.*
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
-import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
 import java.util.*
 
@@ -117,8 +117,8 @@ object ConfigData {
 
     fun getDataToPopulateAdapter(activityContext: Context): ArrayList<ConfigItemType> {
         val settingsConfigData = ArrayList<ConfigItemType>()
-        ConfigItem.ALL_TYPES.forEach {
-            settingsConfigData.add(ConfigItem.createInstance(activityContext, it))
+        Type.ALL_TYPES.forEach {
+            settingsConfigData.add(Type.createInstance(activityContext, it))
         }
         return settingsConfigData
     }

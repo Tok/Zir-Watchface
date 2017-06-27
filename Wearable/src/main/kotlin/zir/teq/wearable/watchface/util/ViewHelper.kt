@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.holder.BooleanPairViewHolder
+import zir.teq.wearable.watchface.config.holder.BooleanViewHolder
+import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.select.*
-import zir.teq.wearable.watchface.config.holder.*
+import zir.teq.wearable.watchface.config.select.config.Type
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.config.select.item.ConfigItem
 
 object ViewHelper {
     fun initView(view: WearableRecyclerView,
@@ -40,18 +42,18 @@ object ViewHelper {
 
     fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
         return when (viewType) {
-            ConfigItem.THEME.code -> ThemeViewHolder(createView(group, R.layout.config_list_item_theme))
-            ConfigItem.PALETTE.code -> PaletteViewHolder(createView(group, R.layout.config_list_item_palette))
-            ConfigItem.BACKGROUND.code -> BackgroundViewHolder(createView(group, R.layout.config_list_item_background))
-            ConfigItem.WAVE.code -> WaveViewHolder(createView(group, R.layout.config_list_item_wave))
-            ConfigItem.STROKE.code -> StrokeViewHolder(createView(group, R.layout.config_list_item_stroke))
-            ConfigItem.OUTLINE.code -> OutlineViewHolder(createView(group, R.layout.config_list_item_outline))
-            ConfigItem.GROWTH.code -> GrowthViewHolder(createView(group, R.layout.config_list_item_growth))
-            ConfigItem.STACK.code -> StackViewHolder(createView(group, R.layout.config_list_item_stack))
-            ConfigItem.ALPHA.code -> AlphaViewHolder(createView(group, R.layout.config_list_item_alpha))
-            ConfigItem.DIM.code -> DimViewHolder(createView(group, R.layout.config_list_item_dim))
+            Type.THEME.code -> ThemeViewHolder(createView(group, R.layout.config_list_item_theme))
+            Type.PALETTE.code -> PaletteViewHolder(createView(group, R.layout.config_list_item_palette))
+            Type.BACKGROUND.code -> BackgroundViewHolder(createView(group, R.layout.config_list_item_background))
+            Type.WAVE.code -> WaveViewHolder(createView(group, R.layout.config_list_item_wave))
+            Type.STROKE.code -> StrokeViewHolder(createView(group, R.layout.config_list_item_stroke))
+            Type.OUTLINE.code -> OutlineViewHolder(createView(group, R.layout.config_list_item_outline))
+            Type.GROWTH.code -> GrowthViewHolder(createView(group, R.layout.config_list_item_growth))
+            Type.STACK.code -> StackViewHolder(createView(group, R.layout.config_list_item_stack))
+            Type.ALPHA.code -> AlphaViewHolder(createView(group, R.layout.config_list_item_alpha))
+            Type.DIM.code -> DimViewHolder(createView(group, R.layout.config_list_item_dim))
             else -> {
-                val ci = ConfigItem.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
+                val ci = Type.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
                 if (ci.isPair()) {
                     createDoubleCheckViewHolder(group, ci)
                 } else {
@@ -65,7 +67,7 @@ object ViewHelper {
         return LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
     }
 
-    private fun createDoubleCheckViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): BooleanPairViewHolder {
+    private fun createDoubleCheckViewHolder(viewGroup: ViewGroup, type: Type): BooleanPairViewHolder {
         val ctx = viewGroup.context
         val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_double_check, viewGroup, false)
         val holder = BooleanPairViewHolder(view)
@@ -76,7 +78,7 @@ object ViewHelper {
         return holder
     }
 
-    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: ConfigItem.Companion.Type): RecSelectionViewHolder {
+    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Type): RecSelectionViewHolder {
         val ctx = viewGroup.context
         with(ctx.resources) {
             val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_checkbox, viewGroup, false)

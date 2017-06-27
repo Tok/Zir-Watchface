@@ -16,7 +16,7 @@ import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.config.select.item.ConfigItem
+import zir.teq.wearable.watchface.config.select.config.Item
 import zir.watchface.DrawUtil
 import java.util.*
 
@@ -37,7 +37,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mAmbient: Boolean = false
         private var mLowBitAmbient: Boolean = false
         private var mBurnInProtection: Boolean = false
-        private var mUpdateRateMs = ConfigItem.updateRateMs(mAmbient) //TODO move elsewhere?
+        private var mUpdateRateMs = Item.updateRateMs(mAmbient) //TODO move elsewhere?
 
         private val mTimeZoneReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -54,7 +54,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                         invalidate()
                         if (shouldTimerBeRunning()) {
                             val timeMs = System.currentTimeMillis()
-                            mUpdateRateMs = ConfigItem.updateRateMs(mAmbient)
+                            mUpdateRateMs = Item.updateRateMs(mAmbient)
                             val delayMs = mUpdateRateMs - timeMs % mUpdateRateMs
                             this.sendEmptyMessageDelayed(msgUpdateTime, delayMs)
                         }
@@ -118,7 +118,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onInterruptionFilterChanged(interruptionFilter: Int) {
             super.onInterruptionFilterChanged(interruptionFilter)
             val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
-            val rate = ConfigItem.updateRateMs(inMuteMode)
+            val rate = Item.updateRateMs(inMuteMode)
             setInteractiveUpdateRateMs(rate)
             val isDimmed = ConfigData.isMute != inMuteMode
             if (isDimmed) {

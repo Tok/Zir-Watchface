@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
-import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.teq.wearable.watchface.config.select.main.MainConfigActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
@@ -20,10 +19,6 @@ import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
-
-class PaletteConfigItem(type: Type, pref: String, name: String) : ConfigItem(type, pref, name) {
-    val activity = PaletteSelectionActivity::class.java
-}
 
 class PaletteViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {

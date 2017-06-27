@@ -14,22 +14,11 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
-import zir.teq.wearable.watchface.config.select.*
+import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Palette
-import zir.teq.wearable.watchface.config.select.item.*
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.ALPHA
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.BACKGROUND
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.DIM
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.GROWTH
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.OUTLINE
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.PALETTE
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.STACK
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.STROKE
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.THEME
-import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.WAVE
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
@@ -79,24 +68,16 @@ class MainConfigActivity : Activity() {
 class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdapter() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ViewHelper.createViewHolder(viewGroup, viewType)
     override fun onBindViewHolder(vh: RecHolder, pos: Int) {
-        val ci = mSettingsDataSet[pos] as ConfigItem
+        val ci = mSettingsDataSet[pos] as Item
         Log.d(TAG, "onBindViewHolder() ci: $ci")
         prepareHolder(vh, ci)
-        when (vh.itemViewType) {
-            THEME.code -> (vh as ThemeViewHolder).setActivity((ci as ThemeConfigItem).activity)
-            PALETTE.code -> (vh as PaletteViewHolder).setActivity((ci as PaletteConfigItem).activity)
-            BACKGROUND.code -> (vh as BackgroundViewHolder).setActivity((ci as BackgroundConfigItem).activity)
-            WAVE.code -> (vh as WaveViewHolder).setActivity((ci as WaveConfigItem).activity)
-            STROKE.code -> (vh as StrokeViewHolder).setActivity((ci as StrokeConfigItem).activity)
-            OUTLINE.code -> (vh as OutlineViewHolder).setActivity((ci as OutlineConfigItem).activity)
-            GROWTH.code -> (vh as GrowthViewHolder).setActivity((ci as GrowthConfigItem).activity)
-            ALPHA.code -> (vh as AlphaViewHolder).setActivity((ci as AlphaConfigItem).activity)
-            DIM.code -> (vh as DimViewHolder).setActivity((ci as DimConfigItem).activity)
-            STACK.code -> (vh as StackViewHolder).setActivity((ci as StackConfigItem).activity)
+        when (vh) {
+            is RecSelectionViewHolder -> vh.setActivity((ci).activity)
+            else -> throw IllegalArgumentException("ViewHolder type unknown: $vh")
         }
     }
 
-    private fun prepareDoubleCheckHolder(holder: BooleanPairViewHolder, item: ConfigItem) {
+    private fun prepareDoubleCheckHolder(holder: BooleanPairViewHolder, item: Item) {
         val res = holder.mLayout.context.resources
         with(item.type) {
             val activePref = res.getString(prefId)
@@ -106,7 +87,7 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
         }
     }
 
-    private fun prepareHolder(vh: RecHolder, item: ConfigItem) {
+    private fun prepareHolder(vh: RecHolder, item: Item) {
         if (item.type.isPair()) {
             prepareDoubleCheckHolder(vh as BooleanPairViewHolder, item)
         } else {

@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -20,10 +19,6 @@ import zir.teq.wearable.watchface.model.data.settings.Growth
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
-
-class GrowthConfigItem(type: Type, pref: String, name: String) : ConfigItem(type, pref, name) {
-    val activity = GrowthSelectionActivity::class.java
-}
 
 class GrowthViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
