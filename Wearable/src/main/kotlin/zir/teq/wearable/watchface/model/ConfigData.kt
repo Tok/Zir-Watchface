@@ -5,12 +5,8 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.select.config.Type
 import zir.teq.wearable.watchface.model.data.settings.*
-import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
-import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
-import java.util.*
 
 object ConfigData {
     val ctx = Zir.getAppContext()
@@ -18,6 +14,7 @@ object ConfigData {
     val prefs: SharedPreferences = ctx.getSharedPreferences(
             ctx.getString(R.string.zir_watch_preference_file_key),
             Context.MODE_PRIVATE)
+
     fun updateFromSavedPreferences() {
         palette = savedPalette()
         stroke = savedStroke()
@@ -39,45 +36,55 @@ object ConfigData {
         val isShapes = savedShapesSetting(savedTheme)
         theme = Theme(savedTheme.name, savedTheme.iconId, isHand, isTri, isCirc, isPoints, isText, isShapes)
     }
+
     private fun prefString(pref: Int, default: String): String {
         return prefs.getString(ctx.getString(pref), default)
     }
+
     private fun prefBoolean(pref: Int, default: Boolean): Boolean {
         return prefs.getBoolean(ctx.getString(pref), default)
     }
+
     private fun savedTheme(): Theme {
         return Theme.getByName(prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name))
     }
+
     private fun savedHandSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_hands_act, theme.hands.active),
                 prefBoolean(R.string.saved_hands_amb, theme.hands.ambient))
     }
+
     private fun savedTriangleSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_triangles_act, theme.triangles.active),
                 prefBoolean(R.string.saved_triangles_amb, theme.triangles.ambient))
     }
+
     private fun savedCircleSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_circles_act, theme.circles.active),
                 prefBoolean(R.string.saved_circles_amb, theme.circles.ambient))
     }
+
     private fun savedPointsSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_points_act, theme.points.active),
                 prefBoolean(R.string.saved_points_amb, theme.points.ambient))
     }
+
     private fun savedTextSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_text_act, theme.text.active),
                 prefBoolean(R.string.saved_text_amb, theme.text.ambient))
     }
+
     private fun savedShapesSetting(theme: Theme): Theme.Companion.Setting {
         return Theme.Companion.Setting(
                 prefBoolean(R.string.saved_shapes_act, theme.shapes.active),
                 prefBoolean(R.string.saved_shapes_amb, theme.shapes.ambient))
     }
+
     private fun savedFastUpdate() = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), isFastUpdate)
     private fun savedIsElastic() = prefs.getBoolean(ctx.getString(R.string.saved_is_elastic), isElastic)
     private fun savedPalette() = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
@@ -106,20 +113,4 @@ object ConfigData {
     val isAntiAlias = true
     var isAmbient = false
     var isMute = false
-
-    fun hasOutline() = Outline.OFF.name != outline.name
-
-    interface ConfigItemType {
-        val configType: Int
-    }
-
-    val watchFaceServiceClass: Class<*> get() = ZirWatchFaceService::class.java
-
-    fun getDataToPopulateAdapter(activityContext: Context): ArrayList<ConfigItemType> {
-        val settingsConfigData = ArrayList<ConfigItemType>()
-        Type.ALL_TYPES.forEach {
-            settingsConfigData.add(Type.createInstance(activityContext, it))
-        }
-        return settingsConfigData
-    }
 }

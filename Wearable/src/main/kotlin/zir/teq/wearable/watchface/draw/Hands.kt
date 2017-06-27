@@ -112,14 +112,14 @@ object Hands {
     }
 
     private fun drawLineAndOutline(ref: Ref, p: Paint, from: PointF, to: PointF, factor: Float) {
-        if (ConfigData.hasOutline()) {
+        if (ConfigData.outline.isOn) {
             drawLineOutline(ref, p, from, to, factor)
         }
         drawLine(ref, p, from, to, factor)
     }
 
     private fun drawHandAndOutline(ref: Ref, p: Paint, hand: HandData, factor: Float) {
-        if (ConfigData.hasOutline()) {
+        if (ConfigData.outline.isOn) {
             drawHandOutline(ref, p, hand, factor)
         }
         drawHand(ref, p, hand, factor)

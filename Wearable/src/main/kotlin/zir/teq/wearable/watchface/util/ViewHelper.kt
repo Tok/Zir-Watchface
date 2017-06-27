@@ -41,24 +41,27 @@ object ViewHelper {
     }
 
     fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
-        return when (viewType) {
-            Type.THEME.code -> ThemeViewHolder(createView(group, R.layout.config_list_item_theme))
-            Type.PALETTE.code -> PaletteViewHolder(createView(group, R.layout.config_list_item_palette))
-            Type.BACKGROUND.code -> BackgroundViewHolder(createView(group, R.layout.config_list_item_background))
-            Type.WAVE.code -> WaveViewHolder(createView(group, R.layout.config_list_item_wave))
-            Type.STROKE.code -> StrokeViewHolder(createView(group, R.layout.config_list_item_stroke))
-            Type.OUTLINE.code -> OutlineViewHolder(createView(group, R.layout.config_list_item_outline))
-            Type.GROWTH.code -> GrowthViewHolder(createView(group, R.layout.config_list_item_growth))
-            Type.STACK.code -> StackViewHolder(createView(group, R.layout.config_list_item_stack))
-            Type.ALPHA.code -> AlphaViewHolder(createView(group, R.layout.config_list_item_alpha))
-            Type.DIM.code -> DimViewHolder(createView(group, R.layout.config_list_item_dim))
-            else -> {
-                val ci = Type.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
-                if (ci.isPair()) {
-                    createDoubleCheckViewHolder(group, ci)
-                } else {
-                    createCheckboxViewHolder(group, ci)
-                }
+        val configItem = Type.valueOf(viewType)
+        if (configItem.layoutId != null) {
+            val view = createView(group, configItem.layoutId)
+            return when (configItem) {
+                Type.THEME -> ThemeViewHolder(view)
+                Type.PALETTE -> PaletteViewHolder(view)
+                Type.BACKGROUND -> BackgroundViewHolder(view)
+                Type.WAVE -> WaveViewHolder(view)
+                Type.STROKE -> StrokeViewHolder(view)
+                Type.OUTLINE -> OutlineViewHolder(view)
+                Type.GROWTH -> GrowthViewHolder(view)
+                Type.STACK -> StackViewHolder(view)
+                Type.ALPHA -> AlphaViewHolder(view)
+                Type.DIM -> DimViewHolder(view)
+                else -> throw IllegalArgumentException("Missing layout: $configItem.")
+            }
+        } else {
+            return if (configItem.isPair()) {
+                createDoubleCheckViewHolder(group, configItem)
+            } else {
+                createCheckboxViewHolder(group, configItem)
             }
         }
     }

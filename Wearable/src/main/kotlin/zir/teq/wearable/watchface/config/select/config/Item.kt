@@ -1,15 +1,40 @@
 package zir.teq.wearable.watchface.config.select.config
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Typeface
+import zir.teq.wearable.watchface.config.select.*
+import zir.teq.wearable.watchface.config.select.main.MainConfigActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import java.util.concurrent.TimeUnit
 
+typealias ConfigItemTypes = List<ConfigItemType>
+interface ConfigItemType { val configType: Int }
 open class Item(val type: Type, val pref: String, val name: String,
-                val activity: Class<out Activity>) : ConfigData.ConfigItemType {
+                val activity: Class<out Activity>) : ConfigItemType {
     override val configType: Int get() = type.code
     override fun toString() = name
     companion object {
+        fun createConfig(activityContext: Context): ConfigItemTypes = Type.ALL_TYPES.map {
+            create(activityContext, it) as ConfigItemType
+        }
+        private fun create(ctx: Context, type: Type): Item {
+            val pref = ctx.getString(type.prefId)
+            val name = ctx.getString(type.nameId)
+            return when (type) {
+                Type.THEME -> Item(type, pref, name, ThemeSelectionActivity::class.java)
+                Type.PALETTE -> Item(type, pref, name, PaletteSelectionActivity::class.java)
+                Type.BACKGROUND -> Item(type, pref, name, BackgroundSelectionActivity::class.java)
+                Type.WAVE -> Item(type, pref, name, WaveSelectionActivity::class.java)
+                Type.STROKE -> Item(type, pref, name, StrokeSelectionActivity::class.java)
+                Type.OUTLINE -> Item(type, pref, name, OutlineSelectionActivity::class.java)
+                Type.GROWTH -> Item(type, pref, name, GrowthSelectionActivity::class.java)
+                Type.ALPHA -> Item(type, pref, name, AlphaSelectionActivity::class.java)
+                Type.DIM -> Item(type, pref, name, DimSelectionActivity::class.java)
+                Type.STACK -> Item(type, pref, name, StackSelectionActivity::class.java)
+                else -> Item(type, pref, name, MainConfigActivity::class.java)
+            }
+        }
         val NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
         val MONO_TYPEFACE = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         val FAST_UPDATE_RATE_MS = TimeUnit.MILLISECONDS.toMillis(20)

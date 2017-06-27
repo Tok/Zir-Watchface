@@ -14,15 +14,13 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.select.config.ConfigItemTypes
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
-import java.util.*
-
-typealias ConfigItemTypes = ArrayList<ConfigData.ConfigItemType>
 
 class MainConfigActivity : Activity() {
     private lateinit var mView: WearableRecyclerView
@@ -31,7 +29,7 @@ class MainConfigActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_config)
         mView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        mAdapter = MainConfigAdapter(ConfigData.getDataToPopulateAdapter(this))
+        mAdapter = MainConfigAdapter(Item.createConfig(this))
         ViewHelper.initView(mView, mAdapter, ScalingLayoutManager(this))
     }
 
