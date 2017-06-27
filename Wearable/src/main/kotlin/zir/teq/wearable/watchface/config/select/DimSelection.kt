@@ -22,7 +22,7 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 class DimViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
-        mButton = view.findViewById<View>(R.id.config_list_item_dim) as Button
+        mButton = view.findViewById<View>(R.id.config_list_item) as Button
         view.setOnClickListener { super.handleClick(view, DimSelectionActivity.EXTRA) }
     }
 }

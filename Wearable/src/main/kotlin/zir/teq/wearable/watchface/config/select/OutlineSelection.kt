@@ -20,7 +20,7 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 class OutlineViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
-        mButton = view.findViewById<View>(R.id.config_list_item_outline) as Button
+        mButton = view.findViewById<View>(R.id.config_list_item) as Button
         view.setOnClickListener { super.handleClick(view, OutlineSelectionActivity.EXTRA) }
     }
 }

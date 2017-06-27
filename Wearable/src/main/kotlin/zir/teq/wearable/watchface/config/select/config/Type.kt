@@ -7,20 +7,20 @@ data class Type(val code: Int,
                 val prefId: Int,
                 val secondaryPrefId: Int?,
                 val nameId: Int,
-                val iconId: Int? = null,
-                val layoutId: Int? = null) {
+                val iconId: Int? = null) {
     fun isPair() = code in 100..999 //TODO refactor
+    fun getLayoutId() = if (code in 1..99) { R.layout.config_list_item } else null
     companion object {
-        val WAVE = Type(1, R.string.saved_wave, null, R.string.label_wave, R.drawable.icon_wave, R.layout.config_list_item_wave)
-        val PALETTE = Type(2, R.string.saved_palette, null, R.string.label_palette, R.drawable.icon_color, R.layout.config_list_item_palette)
-        val BACKGROUND = Type(3, R.string.saved_background, null, R.string.label_background, R.drawable.icon_background, R.layout.config_list_item_background)
-        val THEME = Type(4, R.string.saved_theme, null, R.string.label_theme, R.drawable.icon_theme, R.layout.config_list_item_theme)
-        val STROKE = Type(5, R.string.saved_stroke, null, R.string.label_stroke, R.drawable.icon_stroke, R.layout.config_list_item_stroke)
-        val OUTLINE = Type(6, R.string.saved_outline, null, R.string.label_outline, R.drawable.icon_outline, R.layout.config_list_item_outline)
-        val GROWTH = Type(7, R.string.saved_growth, null, R.string.label_growth, R.drawable.icon_growth, R.layout.config_list_item_growth)
-        val ALPHA = Type(8, R.string.saved_alpha, null, R.string.label_alpha, R.drawable.icon_alpha, R.layout.config_list_item_alpha)
-        val DIM = Type(9, R.string.saved_dim, null, R.string.label_dim, R.drawable.icon_dim, R.layout.config_list_item_dim)
-        val STACK = Type(10, R.string.saved_stack, null, R.string.label_stack, R.drawable.icon_stack, R.layout.config_list_item_stack)
+        val WAVE = Type(1, R.string.saved_wave, null, R.string.label_wave, R.drawable.icon_wave)
+        val PALETTE = Type(2, R.string.saved_palette, null, R.string.label_palette, R.drawable.icon_color)
+        val BACKGROUND = Type(3, R.string.saved_background, null, R.string.label_background, R.drawable.icon_background)
+        val THEME = Type(4, R.string.saved_theme, null, R.string.label_theme, R.drawable.icon_theme)
+        val STROKE = Type(5, R.string.saved_stroke, null, R.string.label_stroke, R.drawable.icon_stroke)
+        val OUTLINE = Type(6, R.string.saved_outline, null, R.string.label_outline, R.drawable.icon_outline)
+        val GROWTH = Type(7, R.string.saved_growth, null, R.string.label_growth, R.drawable.icon_growth)
+        val ALPHA = Type(8, R.string.saved_alpha, null, R.string.label_alpha, R.drawable.icon_alpha)
+        val DIM = Type(9, R.string.saved_dim, null, R.string.label_dim, R.drawable.icon_dim)
+        val STACK = Type(10, R.string.saved_stack, null, R.string.label_stack, R.drawable.icon_stack)
 
         val DRAW_HANDS = Type(100, R.string.saved_hands_act, R.string.saved_hands_amb, R.string.label_hands_act)
         val DRAW_TRIANGLES = Type(200, R.string.saved_triangles_act, R.string.saved_triangles_amb, R.string.label_triangles_act)

@@ -42,8 +42,9 @@ object ViewHelper {
 
     fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
         val configItem = Type.valueOf(viewType)
-        if (configItem.layoutId != null) {
-            val view = createView(group, configItem.layoutId)
+        val maybeLayoutId = configItem.getLayoutId()
+        if (maybeLayoutId != null) {
+            val view = createView(group, maybeLayoutId)
             return when (configItem) { //TODO move view holder instantiation to type?
                 Type.THEME -> ThemeViewHolder(view)
                 Type.PALETTE -> PaletteViewHolder(view)

@@ -22,7 +22,7 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 class WaveViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
-        mButton = view.findViewById<View>(R.id.config_list_item_wave) as Button
+        mButton = view.findViewById<View>(R.id.config_list_item) as Button
         view.setOnClickListener { super.handleClick(view, WaveSelectionActivity.EXTRA) }
     }
 }
