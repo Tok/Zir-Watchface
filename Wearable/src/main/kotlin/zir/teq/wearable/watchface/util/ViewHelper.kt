@@ -34,9 +34,9 @@ object ViewHelper {
     private fun addCircularGestureToView(view: WearableRecyclerView) {
         val isGestureActive = false //TODO reactivate?
         if (isGestureActive) {
-            view.setCircularScrollingGestureEnabled(true)
-            view.setBezelWidth(0.5F)
-            view.setScrollDegreesPerScreen(90F)
+            view.isCircularScrollingGestureEnabled = true
+            view.bezelWidth = 0.5F
+            view.scrollDegreesPerScreen = 90F
         }
     }
 
@@ -44,7 +44,7 @@ object ViewHelper {
         val configItem = Type.valueOf(viewType)
         if (configItem.layoutId != null) {
             val view = createView(group, configItem.layoutId)
-            return when (configItem) {
+            return when (configItem) { //TODO move view holder instantiation to type?
                 Type.THEME -> ThemeViewHolder(view)
                 Type.PALETTE -> PaletteViewHolder(view)
                 Type.BACKGROUND -> BackgroundViewHolder(view)
@@ -57,38 +57,34 @@ object ViewHelper {
                 Type.DIM -> DimViewHolder(view)
                 else -> throw IllegalArgumentException("Missing layout: $configItem.")
             }
-        } else {
-            return if (configItem.isPair()) {
-                createDoubleCheckViewHolder(group, configItem)
-            } else {
-                createCheckboxViewHolder(group, configItem)
-            }
-        }
+        } else return selectViewHolder(group, configItem)
     }
 
     private fun createView(viewGroup: ViewGroup, resource: Int): View {
         return LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
     }
 
+    private fun selectViewHolder(group: ViewGroup, type: Type): RecHolder =
+            if (type.isPair()) createDoubleCheckViewHolder(group, type)
+            else createCheckboxViewHolder(group, type)
+
     private fun createDoubleCheckViewHolder(viewGroup: ViewGroup, type: Type): BooleanPairViewHolder {
         val ctx = viewGroup.context
-        val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_double_check, viewGroup, false)
-        val holder = BooleanPairViewHolder(view)
         val activePref = ctx.resources.getString(type.prefId)
         val ambientPref = ctx.resources.getString(type.secondaryPrefId ?: type.prefId)
         val name = ctx.resources.getString(type.nameId)
-        holder.updateBoxes(activePref, ambientPref, name)
-        return holder
+        val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_double_check, viewGroup, false)
+        return BooleanPairViewHolder(view).apply { updateBoxes(activePref, ambientPref, name) }
     }
 
     private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Type): RecSelectionViewHolder {
         val ctx = viewGroup.context
         with(ctx.resources) {
             val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_checkbox, viewGroup, false)
-            val holder = BooleanViewHolder(view)
-            holder.setSharedPrefString(getString(type.prefId))
-            holder.setName(getString(type.nameId))
-            return holder
+            return BooleanViewHolder(view).apply {
+                setSharedPrefString(getString(type.prefId))
+                setName(getString(type.nameId))
+            }
         }
     }
 }
