@@ -11,8 +11,9 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
+import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -20,8 +21,11 @@ import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
+class StackConfigItem(type: Type, pref: String, name: String) : ConfigItem(type, pref, name) {
+    val activity = StackSelectionActivity::class.java
+}
 
-class StackPickerViewHolder(view: View) : RecSelectionViewHolder(view) {
+class StackViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
         mButton = view.findViewById<View>(R.id.config_list_item_stack) as Button
         view.setOnClickListener { super.handleClick(view, StackSelectionActivity.EXTRA) }

@@ -11,15 +11,20 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
+import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Background
 import zir.teq.wearable.watchface.util.ViewHelper
 
-class BackgroundPickerViewHolder(view: View) : RecSelectionViewHolder(view) {
+class BackgroundConfigItem(type: Type, pref: String, name: String) : ConfigItem(type, pref, name) {
+    val activity = BackgroundSelectionActivity::class.java
+}
+
+class BackgroundViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
         mButton = view.findViewById<View>(R.id.config_list_item_background) as Button
         view.setOnClickListener { super.handleClick(view, BackgroundSelectionActivity.EXTRA) }

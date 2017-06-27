@@ -10,7 +10,7 @@ import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.config.holder.*
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.item.ConfigItem
+import zir.teq.wearable.watchface.config.select.item.ConfigItem
 
 object ViewHelper {
     fun initView(view: WearableRecyclerView,
@@ -40,16 +40,16 @@ object ViewHelper {
 
     fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
         return when (viewType) {
-            ConfigItem.THEME.code -> ThemePickerViewHolder(createView(group, R.layout.config_list_item_theme))
-            ConfigItem.PALETTE.code -> PalettePickerViewHolder(createView(group, R.layout.config_list_item_palette))
-            ConfigItem.BACKGROUND.code -> BackgroundPickerViewHolder(createView(group, R.layout.config_list_item_background))
-            ConfigItem.WAVE.code -> WavePickerViewHolder(createView(group, R.layout.config_list_item_wave))
-            ConfigItem.STROKE.code -> StrokePickerViewHolder(createView(group, R.layout.config_list_item_stroke))
-            ConfigItem.OUTLINE.code -> OutlinePickerViewHolder(createView(group, R.layout.config_list_item_outline))
-            ConfigItem.GROWTH.code -> GrowthPickerViewHolder(createView(group, R.layout.config_list_item_growth))
-            ConfigItem.STACK.code -> StackPickerViewHolder(createView(group, R.layout.config_list_item_stack))
-            ConfigItem.ALPHA.code -> AlphaPickerViewHolder(createView(group, R.layout.config_list_item_alpha))
-            ConfigItem.DIM.code -> DimPickerViewHolder(createView(group, R.layout.config_list_item_dim))
+            ConfigItem.THEME.code -> ThemeViewHolder(createView(group, R.layout.config_list_item_theme))
+            ConfigItem.PALETTE.code -> PaletteViewHolder(createView(group, R.layout.config_list_item_palette))
+            ConfigItem.BACKGROUND.code -> BackgroundViewHolder(createView(group, R.layout.config_list_item_background))
+            ConfigItem.WAVE.code -> WaveViewHolder(createView(group, R.layout.config_list_item_wave))
+            ConfigItem.STROKE.code -> StrokeViewHolder(createView(group, R.layout.config_list_item_stroke))
+            ConfigItem.OUTLINE.code -> OutlineViewHolder(createView(group, R.layout.config_list_item_outline))
+            ConfigItem.GROWTH.code -> GrowthViewHolder(createView(group, R.layout.config_list_item_growth))
+            ConfigItem.STACK.code -> StackViewHolder(createView(group, R.layout.config_list_item_stack))
+            ConfigItem.ALPHA.code -> AlphaViewHolder(createView(group, R.layout.config_list_item_alpha))
+            ConfigItem.DIM.code -> DimViewHolder(createView(group, R.layout.config_list_item_dim))
             else -> {
                 val ci = ConfigItem.valueOf(viewType) ?: throw IllegalArgumentException("Unknown type $viewType for group: $group")
                 if (ci.isPair()) {

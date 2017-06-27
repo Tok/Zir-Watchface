@@ -7,7 +7,7 @@ import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
-import zir.teq.wearable.watchface.model.item.ConfigItem
+import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.watchface.DrawUtil
 
 data class Palette(val name: String, val darkId: Int, val lightId: Int) {

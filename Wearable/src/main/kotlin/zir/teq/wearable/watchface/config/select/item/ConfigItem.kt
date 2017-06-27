@@ -1,8 +1,9 @@
-package zir.teq.wearable.watchface.model.item
+package zir.teq.wearable.watchface.config.select.item
 
 import android.content.Context
 import android.graphics.Typeface
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.model.ConfigData
 import java.util.concurrent.TimeUnit
 

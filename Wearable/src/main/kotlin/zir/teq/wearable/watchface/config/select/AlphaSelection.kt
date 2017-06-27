@@ -11,8 +11,9 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
+import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
+import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -20,7 +21,11 @@ import zir.teq.wearable.watchface.model.data.settings.Alpha
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
-class AlphaPickerViewHolder(view: View) : RecSelectionViewHolder(view) {
+class AlphaConfigItem(type: Type, pref: String, name: String) : ConfigItem(type, pref, name) {
+    val activity = AlphaSelectionActivity::class.java
+}
+
+class AlphaViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
         mButton = view.findViewById<View>(R.id.config_list_item_alpha) as Button
         view.setOnClickListener { super.handleClick(view, AlphaSelectionActivity.EXTRA) }
@@ -72,6 +77,7 @@ class AlphaSelectionAdapter(
         val mView = view as LinearLayout
         val mCircle = view.findViewById<View>(R.id.list_item_alpha_cirlce) as CircledImageView
         val mText = view.findViewById<View>(R.id.list_item_alpha_text) as TextView
+
         init {
             mView.setOnClickListener(this)
         }

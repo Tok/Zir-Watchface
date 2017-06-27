@@ -8,7 +8,7 @@ import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.data.settings.*
 import zir.teq.wearable.watchface.model.data.settings.Stack
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
-import zir.teq.wearable.watchface.model.item.ConfigItem
+import zir.teq.wearable.watchface.config.select.item.ConfigItem
 import zir.teq.wearable.watchface.watchface.ZirWatchFaceService
 import java.util.*
 

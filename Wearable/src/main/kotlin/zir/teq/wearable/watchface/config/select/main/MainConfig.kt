@@ -19,17 +19,17 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.Palette
-import zir.teq.wearable.watchface.model.item.*
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.ALPHA
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.BACKGROUND
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.DIM
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.GROWTH
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.OUTLINE
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.PALETTE
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STACK
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.STROKE
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.THEME
-import zir.teq.wearable.watchface.model.item.ConfigItem.Companion.WAVE
+import zir.teq.wearable.watchface.config.select.item.*
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.ALPHA
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.BACKGROUND
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.DIM
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.GROWTH
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.OUTLINE
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.PALETTE
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.STACK
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.STROKE
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.THEME
+import zir.teq.wearable.watchface.config.select.item.ConfigItem.Companion.WAVE
 import zir.teq.wearable.watchface.util.ViewHelper
 import java.util.*
 
@@ -83,16 +83,16 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
         Log.d(TAG, "onBindViewHolder() ci: $ci")
         prepareHolder(vh, ci)
         when (vh.itemViewType) {
-            THEME.code -> (vh as ThemePickerViewHolder).setActivity((ci as ThemeConfigItem).activity)
-            PALETTE.code -> (vh as PalettePickerViewHolder).setActivity((ci as PaletteConfigItem).activity)
-            BACKGROUND.code -> (vh as BackgroundPickerViewHolder).setActivity((ci as BackgroundConfigItem).activity)
-            WAVE.code -> (vh as WavePickerViewHolder).setActivity((ci as WaveConfigItem).activity)
-            STROKE.code -> (vh as StrokePickerViewHolder).setActivity((ci as StrokeConfigItem).activity)
-            OUTLINE.code -> (vh as OutlinePickerViewHolder).setActivity((ci as OutlineConfigItem).activity)
-            GROWTH.code -> (vh as GrowthPickerViewHolder).setActivity((ci as GrowthConfigItem).activity)
-            ALPHA.code -> (vh as AlphaPickerViewHolder).setActivity((ci as AlphaConfigItem).activity)
-            DIM.code -> (vh as DimPickerViewHolder).setActivity((ci as DimConfigItem).activity)
-            STACK.code -> (vh as StackPickerViewHolder).setActivity((ci as StackConfigItem).activity)
+            THEME.code -> (vh as ThemeViewHolder).setActivity((ci as ThemeConfigItem).activity)
+            PALETTE.code -> (vh as PaletteViewHolder).setActivity((ci as PaletteConfigItem).activity)
+            BACKGROUND.code -> (vh as BackgroundViewHolder).setActivity((ci as BackgroundConfigItem).activity)
+            WAVE.code -> (vh as WaveViewHolder).setActivity((ci as WaveConfigItem).activity)
+            STROKE.code -> (vh as StrokeViewHolder).setActivity((ci as StrokeConfigItem).activity)
+            OUTLINE.code -> (vh as OutlineViewHolder).setActivity((ci as OutlineConfigItem).activity)
+            GROWTH.code -> (vh as GrowthViewHolder).setActivity((ci as GrowthConfigItem).activity)
+            ALPHA.code -> (vh as AlphaViewHolder).setActivity((ci as AlphaConfigItem).activity)
+            DIM.code -> (vh as DimViewHolder).setActivity((ci as DimConfigItem).activity)
+            STACK.code -> (vh as StackViewHolder).setActivity((ci as StackConfigItem).activity)
         }
     }
 
