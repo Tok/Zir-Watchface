@@ -56,7 +56,7 @@ class BackgroundSelectionAdapter(
         private val mOptions: ArrayList<Background>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            BackgroundViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_background, parent, false))
+            BackgroundViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val bg = mOptions[position]
@@ -70,8 +70,8 @@ class BackgroundSelectionAdapter(
 
     inner class BackgroundViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById<View>(R.id.list_item_background_cirlce) as CircledImageView
-        val mText = view.findViewById<View>(R.id.list_item_background_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_text) as TextView
         init {
             mView.setOnClickListener(this)
         }

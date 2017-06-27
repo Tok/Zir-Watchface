@@ -54,7 +54,7 @@ class StackSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Stack>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            StackViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_stack, parent, false))
+            StackViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val stack = mOptions[position]
@@ -68,8 +68,8 @@ class StackSelectionAdapter(
 
     inner class StackViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById<View>(R.id.list_item_stack_circle) as CircledImageView
-        val mText = view.findViewById<View>(R.id.list_item_stack_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_text) as TextView
         init {
             mView.setOnClickListener(this)
         }

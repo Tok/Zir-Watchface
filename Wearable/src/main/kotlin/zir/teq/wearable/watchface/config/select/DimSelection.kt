@@ -56,7 +56,7 @@ class DimSelectionAdapter(
         private val mOptions: java.util.ArrayList<Dim>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            DimViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_dim, parent, false))
+            DimViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val dim = mOptions[position]
@@ -70,8 +70,8 @@ class DimSelectionAdapter(
 
     inner class DimViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById<View>(R.id.list_item_dim_cirlce) as CircledImageView
-        val mText = view.findViewById<View>(R.id.list_item_dim_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_text) as TextView
         init {
             mView.setOnClickListener(this)
         }

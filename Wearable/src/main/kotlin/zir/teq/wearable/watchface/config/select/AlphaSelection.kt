@@ -57,7 +57,7 @@ class AlphaSelectionAdapter(
         private val mOptions: ArrayList<Alpha>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            AlphaViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_alpha, parent, false))
+            AlphaViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val alpha = mOptions[position]
@@ -71,8 +71,8 @@ class AlphaSelectionAdapter(
 
     inner class AlphaViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById<View>(R.id.list_item_alpha_cirlce) as CircledImageView
-        val mText = view.findViewById<View>(R.id.list_item_alpha_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_text) as TextView
 
         init {
             mView.setOnClickListener(this)

@@ -56,7 +56,7 @@ class ThemeSelectionAdapter(
         private val mOptions: ArrayList<Theme>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            ThemeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_theme, parent, false))
+            ThemeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val theme = mOptions[position]
@@ -70,8 +70,8 @@ class ThemeSelectionAdapter(
 
     inner class ThemeViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircleView = view.findViewById<View>(R.id.list_item_theme_circle) as CircledImageView
-        val mTextView = view.findViewById<View>(R.id.list_item_theme_text) as TextView
+        val mCircleView = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
+        val mTextView = view.findViewById<View>(R.id.list_item_text) as TextView
         init {
             mView.setOnClickListener(this)
         }

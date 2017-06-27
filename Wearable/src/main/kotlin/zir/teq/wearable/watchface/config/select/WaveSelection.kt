@@ -54,7 +54,7 @@ class WaveSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Wave>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            WaveViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_wave, parent, false))
+            WaveViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val wave = mOptions[position]
@@ -68,8 +68,8 @@ class WaveSelectionAdapter(
 
     inner class WaveViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById<View>(R.id.list_item_wave_circle) as CircledImageView
-        val mText = view.findViewById<View>(R.id.list_item_wave_text) as TextView
+        val mCircle = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
+        val mText = view.findViewById<View>(R.id.list_item_text) as TextView
         init {
             mView.setOnClickListener(this)
         }
