@@ -7,7 +7,6 @@ import android.graphics.ColorFilter
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.WearableRecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
@@ -67,21 +66,9 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ViewHelper.createViewHolder(viewGroup, viewType)
     override fun onBindViewHolder(vh: RecHolder, pos: Int) {
         val ci = mSettingsDataSet[pos] as Item
-        Log.d(TAG, "onBindViewHolder() ci: $ci")
         prepareHolder(vh, ci)
-        when (vh) {
-            is RecSelectionViewHolder -> vh.setActivity((ci).activity)
-            else -> throw IllegalArgumentException("ViewHolder type unknown: $vh")
-        }
-    }
-
-    private fun prepareDoubleCheckHolder(holder: BooleanPairViewHolder, item: Item) {
-        val res = holder.mLayout.context.resources
-        with(item.type) {
-            val activePref = res.getString(prefId)
-            val ambientPref = res.getString(secondaryPrefId ?: prefId)
-            val name = res.getString(nameId)
-            holder.updateBoxes(activePref, ambientPref, name)
+        if (vh is RecSelectionViewHolder) {
+            vh.setActivity((ci).activity)
         }
     }
 
@@ -98,13 +85,19 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
         }
     }
 
+    private fun prepareDoubleCheckHolder(holder: BooleanPairViewHolder, item: Item) {
+        val res = holder.mLayout.context.resources
+        with(item.type) {
+            val activePref = res.getString(prefId)
+            val ambientPref = res.getString(secondaryPrefId ?: prefId)
+            val name = res.getString(nameId)
+            holder.updateBoxes(activePref, ambientPref, name)
+        }
+    }
+
     override fun getItemViewType(position: Int) = mSettingsDataSet[position].configType
     override fun getItemCount() = mSettingsDataSet.size
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
         super.onDetachedFromRecyclerView(recyclerView)
-    }
-
-    companion object {
-        private val TAG = this::class.java.simpleName
     }
 }
