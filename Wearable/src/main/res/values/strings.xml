@@ -20,7 +20,7 @@
     <string name="saved_fast_update">saved_fast_update</string>
     <string name="saved_is_elastic">saved_is_elastic</string>
 
-    <string name="label_theme">Theme</string>
+    <string name="label_components">Components</string>
     <string name="label_palette">Palette</string>
     <string name="label_background">Background</string>
     <string name="label_wave">Wave</string>

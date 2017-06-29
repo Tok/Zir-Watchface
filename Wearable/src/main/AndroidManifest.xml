@@ -52,7 +52,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="zir.teq.wearable.watchface.config.select.ThemeSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.ComponentSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.PaletteSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.BackgroundSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.WaveSelectionActivity" />

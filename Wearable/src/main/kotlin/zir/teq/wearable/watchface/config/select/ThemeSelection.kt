@@ -23,14 +23,14 @@ import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
-class ThemeViewHolder(view: View) : RecSelectionViewHolder(view) {
+class ComponentViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
         mButton = view.findViewById<View>(R.id.list_item_main) as Button
         view.setOnClickListener { super.handleClick(view, Theme.EXTRA) }
     }
 }
 
-class ThemeSelectionActivity : Activity() {
+class ComponentSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
     private lateinit var mAdapter: ComponentSelectionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {

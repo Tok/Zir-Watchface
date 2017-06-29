@@ -44,7 +44,7 @@ object ViewHelper {
         if (maybeLayoutId != null) {
             val view = createView(group, maybeLayoutId)
             return when (configItem) { //TODO move view holder instantiation to type?
-                Type.THEME -> ThemeViewHolder(view)
+                Type.COMPONENT -> ComponentViewHolder(view)
                 Type.PALETTE -> PaletteViewHolder(view)
                 Type.BACKGROUND -> BackgroundViewHolder(view)
                 Type.WAVE -> WaveViewHolder(view)

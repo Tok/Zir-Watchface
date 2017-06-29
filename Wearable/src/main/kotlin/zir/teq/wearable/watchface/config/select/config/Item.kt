@@ -20,7 +20,7 @@ open class Item(val type: Type, val pref: String, val name: String,
             val pref = ctx.getString(type.prefId)
             val name = ctx.getString(type.nameId)
             return when (type) {
-                Type.THEME -> Item(type, pref, name, ThemeSelectionActivity::class.java)
+                Type.COMPONENT -> Item(type, pref, name, ComponentSelectionActivity::class.java)
                 Type.PALETTE -> Item(type, pref, name, PaletteSelectionActivity::class.java)
                 Type.BACKGROUND -> Item(type, pref, name, BackgroundSelectionActivity::class.java)
                 Type.WAVE -> Item(type, pref, name, WaveSelectionActivity::class.java)

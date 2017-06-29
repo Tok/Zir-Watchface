@@ -40,7 +40,7 @@ class MainConfigActivity : Activity() {
                     updateItemColor(ctx, R.drawable.icon_color, filter)
                     updateItemColor(ctx, R.drawable.icon_background, filter)
                     updateItemColor(ctx, R.drawable.icon_stroke, filter)
-                    updateItemColor(ctx, R.drawable.icon_theme, filter)
+                    updateItemColor(ctx, R.drawable.icon_components, filter)
                     updateItemColor(ctx, R.drawable.icon_outline, filter)
                     updateItemColor(ctx, R.drawable.icon_growth, filter)
                     updateItemColor(ctx, R.drawable.icon_alpha, filter)
