@@ -147,7 +147,8 @@ class DrawUtil {
         val color = ConfigData.ctx.getColor(ConfigData.background.id)
         //can.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         can.drawColor(color, PorterDuff.Mode.CLEAR)
-        can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), Palette.prep(color))
+        val paint = Palette.createPaint(PaintType.BACKGROUND, color)
+        can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), paint)
     }
 
     private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrameData) {

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.ColorFilter
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.WearableRecyclerView
@@ -32,19 +33,11 @@ class MainConfigActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            PALETTE.code -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    val ctx = mView.context
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                PALETTE.code -> {
                     val filter = Palette.createFilter(ConfigData.palette)
-                    updateItemColor(ctx, R.drawable.icon_color, filter)
-                    updateItemColor(ctx, R.drawable.icon_background, filter)
-                    updateItemColor(ctx, R.drawable.icon_stroke, filter)
-                    updateItemColor(ctx, R.drawable.icon_components, filter)
-                    updateItemColor(ctx, R.drawable.icon_outline, filter)
-                    updateItemColor(ctx, R.drawable.icon_growth, filter)
-                    updateItemColor(ctx, R.drawable.icon_alpha, filter)
-                    updateItemColor(ctx, R.drawable.icon_dim, filter)
+                    DRAWABLE_IDS.forEach { updateItemColor(mView.context, filter, it) }
                 }
             }
         }
@@ -52,12 +45,26 @@ class MainConfigActivity : Activity() {
 
     companion object {
         data class UpdateReq(val code: Int)
+
         val PALETTE = UpdateReq(1000)
-        fun updateItemColor(ctx: Context, id: Int, filter: ColorFilter) {
-            val drawable = ctx.resources.getDrawable(id, null)
-            drawable.colorFilter = filter
-            drawable.invalidateSelf()
-        }
+
+        private val DRAWABLE_IDS = listOf<Int>(
+                R.drawable.icon_color,
+                R.drawable.icon_background,
+                R.drawable.icon_stroke,
+                R.drawable.icon_components,
+                R.drawable.icon_outline,
+                R.drawable.icon_growth,
+                R.drawable.icon_alpha,
+                R.drawable.icon_dim
+        )
+
+        private fun updateItemColor(ctx: Context, filter: ColorFilter, id: Int): Drawable =
+                ctx.resources.getDrawable(id, null).apply {
+                    colorFilter = filter
+                    invalidateSelf()
+                }
+
     }
 }
 

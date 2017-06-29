@@ -1,7 +1,10 @@
 package zir.teq.wearable.watchface.model.data.settings
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.support.annotation.ColorInt
 import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
@@ -39,24 +42,19 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         val selectable = listOf(RED, YELLOW, GREEN, BLUE, PURPLE)
         fun options() = all.toCollection(ArrayList<Palette>())
         fun create(name: String): Palette = all.find { it.name.equals(name) } ?: defaultType
-        fun prep(color: Int): Paint {
-            val paint = inst()
-            paint.color = color
-            //paint.isAntiAlias = true
-            //paint.isDither = true
-            return paint
-        }
+
 
         fun createPaint(type: PaintType): Paint = createPaint(type, null)
-        fun createPaint(type: PaintType, color: Int?): Paint {
+        fun createPaint(type: PaintType, @ColorInt color: Int?): Paint {
             val paint = when (type) {
-                PaintType.SHAPE -> prepareShapePaint(color ?: ConfigData.palette.light())
-                PaintType.HAND -> prepareLinePaint(color ?: ConfigData.palette.half())
-                PaintType.CIRCLE -> prepareCirclePaint(color ?: ConfigData.palette.dark())
-                PaintType.POINT -> preparePointPaint(color ?: ConfigData.ctx.getColor(R.color.points))
-                PaintType.SHAPE_AMB -> prepareShapePaint(color ?: ConfigData.palette.light())
-                PaintType.HAND_AMB -> prepareLinePaint(color ?: ConfigData.palette.half())
-                PaintType.CIRCLE_AMB -> prepareCirclePaint(color ?: ConfigData.palette.dark())
+                PaintType.SHAPE -> preparePaint(color ?: ConfigData.palette.light())
+                PaintType.HAND -> preparePaint(color ?: ConfigData.palette.half())
+                PaintType.CIRCLE -> prepareStrokePaint(color ?: ConfigData.palette.dark())
+                PaintType.POINT -> prepareStrokePaint(color ?: ConfigData.ctx.getColor(R.color.points))
+                PaintType.SHAPE_AMB -> preparePaint(color ?: ConfigData.palette.light())
+                PaintType.HAND_AMB -> preparePaint(color ?: ConfigData.palette.half())
+                PaintType.CIRCLE_AMB -> prepareStrokePaint(color ?: ConfigData.palette.dark())
+                PaintType.BACKGROUND -> preparePaint(color ?: R.color.background)
                 else -> {
                     val msg = "Ignoring paintType: " + type
                     throw IllegalArgumentException(msg)
@@ -74,23 +72,17 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             return paint
         }
 
-        fun createTextPaint(): Paint {
-            val paint = inst()
-            paint.typeface = Item.MONO_TYPEFACE
-            paint.isFakeBoldText = true
-            paint.color = ConfigData.ctx.getColor(R.color.text)
-            paint.alpha = ConfigData.alpha.value
-            paint.isAntiAlias = ConfigData.isAntiAlias
-            addShadows(paint)
-            return paint
-        }
-
-        private fun addShadows(paint: Paint) {
+        fun createTextPaint(): Paint = inst().apply {
+            typeface = Item.MONO_TYPEFACE
+            isFakeBoldText = true
+            color = ConfigData.ctx.getColor(R.color.text)
+            alpha = ConfigData.alpha.value
+            isAntiAlias = ConfigData.isAntiAlias
             if (ConfigData.isAmbient) {
-                paint.clearShadowLayer()
+                clearShadowLayer()
             } else {
                 val blurRadius = 5F
-                paint.setShadowLayer(blurRadius, 0F, 0F, Color.BLACK)
+                setShadowLayer(blurRadius, 0F, 0F, Color.BLACK)
             }
         }
 
@@ -100,44 +92,14 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
             return ConfigData.stroke.dim + pointGrowth
         }
 
-        private fun inst(): Paint {
-            val paint = Paint()
-            paint.isAntiAlias = true
-            return paint
+        private fun inst() = Paint().apply { isAntiAlias = true; isDither = true }
+        private fun preparePaint(@ColorInt col: Int) = inst().apply {
+            strokeCap = Paint.Cap.ROUND; color = col
+        }
+        private fun prepareStrokePaint(@ColorInt col: Int) = preparePaint(col).apply {
+            style = Paint.Style.STROKE
         }
 
-        private fun prepareLinePaint(@ColorInt color: Int): Paint {
-            val paint = inst()
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = color
-            return paint
-        }
-
-        private fun prepareShapePaint(@ColorInt color: Int): Paint {
-            val paint = inst()
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = color
-            return paint
-        }
-
-        private fun prepareCirclePaint(@ColorInt color: Int): Paint {
-            val paint = inst()
-            paint.style = Paint.Style.STROKE
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = color
-            return paint
-        }
-
-        private fun preparePointPaint(@ColorInt color: Int): Paint {
-            val paint = inst()
-            paint.style = Paint.Style.STROKE
-            paint.strokeCap = Paint.Cap.ROUND
-            paint.color = color
-            return paint
-        }
-
-        fun createFilter(pal: Palette): ColorFilter {
-            return PorterDuffColorFilter(pal.half(), PorterDuff.Mode.MULTIPLY)
-        }
+        fun createFilter(pal: Palette) = PorterDuffColorFilter(pal.half(), PorterDuff.Mode.MULTIPLY)
     }
 }

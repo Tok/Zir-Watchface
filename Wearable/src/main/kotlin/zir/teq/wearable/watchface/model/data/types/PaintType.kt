@@ -9,5 +9,6 @@ data class PaintType(val name: String, val isAmbient: Boolean) {
         val CIRCLE = PaintType("CIRCLE", false)
         val CIRCLE_AMB = PaintType("CIRCLE_AMB", true)
         val POINT = PaintType("POINT", false)
+        val BACKGROUND = PaintType("Background", false)
     }
 }
