@@ -21,18 +21,11 @@ data class Type(val code: Int,
         val ALPHA = Type(8, R.string.saved_alpha, null, R.string.label_alpha, R.drawable.icon_alpha)
         val DIM = Type(9, R.string.saved_dim, null, R.string.label_dim, R.drawable.icon_dim)
         val STACK = Type(10, R.string.saved_stack, null, R.string.label_stack, R.drawable.icon_stack)
-
-        val DRAW_HANDS = Type(100, R.string.saved_hands_act, R.string.saved_hands_amb, R.string.label_hands_act)
-        val DRAW_TRIANGLES = Type(200, R.string.saved_triangles_act, R.string.saved_triangles_amb, R.string.label_triangles_act)
-        val DRAW_CIRCLES = Type(300, R.string.saved_circles_act, R.string.saved_circles_amb, R.string.label_circles_act)
-        val DRAW_POINTS = Type(400, R.string.saved_points_act, R.string.saved_points_amb, R.string.label_points_act)
-        val DRAW_TEXT = Type(500, R.string.saved_text_act, R.string.saved_text_amb, R.string.label_text_act)
-
         val FAST_UPDATE = Type(1000, R.string.saved_fast_update, null, R.string.label_fast_update)
         val IS_ELASTIC = Type(1100, R.string.saved_is_elastic, null, R.string.label_is_elastic)
+
         val ALL_TYPES = listOf<Type>(WAVE, PALETTE, BACKGROUND, THEME, STROKE, OUTLINE, GROWTH,
-                STACK, ALPHA, DIM, DRAW_HANDS, DRAW_TRIANGLES, DRAW_CIRCLES, DRAW_POINTS, DRAW_TEXT,
-                FAST_UPDATE, IS_ELASTIC)
+                STACK, ALPHA, DIM, FAST_UPDATE, IS_ELASTIC)
 
         fun valueOf(code: Int): Type = ALL_TYPES.find { it.code == code }
                 ?: throw IllegalArgumentException("Type code unknown: $code.")

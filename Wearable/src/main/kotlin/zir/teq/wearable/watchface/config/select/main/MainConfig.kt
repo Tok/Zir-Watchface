@@ -10,7 +10,6 @@ import android.support.wearable.view.WearableRecyclerView
 import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.config.ConfigItemTypes
@@ -73,25 +72,11 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
     }
 
     private fun prepareHolder(vh: RecHolder, item: Item) {
-        if (item.type.isPair()) {
-            prepareDoubleCheckHolder(vh as BooleanPairViewHolder, item)
-        } else {
-            val holder = vh as RecSelectionViewHolder
-            holder.setName(item.name)
-            holder.setSharedPrefString(item.pref)
-            if (item.type.iconId != null) {
-                holder.bindIcon(item.type.iconId, ConfigData.palette.lightId)
-            }
-        }
-    }
-
-    private fun prepareDoubleCheckHolder(holder: BooleanPairViewHolder, item: Item) {
-        val res = holder.mLayout.context.resources
-        with(item.type) {
-            val activePref = res.getString(prefId)
-            val ambientPref = res.getString(secondaryPrefId ?: prefId)
-            val name = res.getString(nameId)
-            holder.updateBoxes(activePref, ambientPref, name)
+        val holder = vh as RecSelectionViewHolder
+        holder.setName(item.name)
+        holder.setSharedPrefString(item.pref)
+        if (item.type.iconId != null) {
+            holder.bindIcon(item.type.iconId, ConfigData.palette.lightId)
         }
     }
 

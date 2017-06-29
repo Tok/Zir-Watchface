@@ -3,10 +3,8 @@ package zir.teq.wearable.watchface.util
 import android.support.v7.widget.RecyclerView
 import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.config.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.select.*
@@ -58,25 +56,11 @@ object ViewHelper {
                 Type.DIM -> DimViewHolder(view)
                 else -> throw IllegalArgumentException("Missing layout: $configItem.")
             }
-        } else return selectViewHolder(group, configItem)
+        } else return createCheckboxViewHolder(group, configItem)
     }
 
-    private fun createView(viewGroup: ViewGroup, resource: Int): View {
-        return LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
-    }
-
-    private fun selectViewHolder(group: ViewGroup, type: Type): RecHolder =
-            if (type.isPair()) createDoubleCheckViewHolder(group, type)
-            else createCheckboxViewHolder(group, type)
-
-    private fun createDoubleCheckViewHolder(viewGroup: ViewGroup, type: Type): BooleanPairViewHolder {
-        val ctx = viewGroup.context
-        val activePref = ctx.resources.getString(type.prefId)
-        val ambientPref = ctx.resources.getString(type.secondaryPrefId ?: type.prefId)
-        val name = ctx.resources.getString(type.nameId)
-        val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_double_check, viewGroup, false)
-        return BooleanPairViewHolder(view).apply { updateBoxes(activePref, ambientPref, name) }
-    }
+    private fun createView(viewGroup: ViewGroup, resource: Int) =
+            LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
 
     private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Type): RecSelectionViewHolder {
         val ctx = viewGroup.context

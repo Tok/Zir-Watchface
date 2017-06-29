@@ -20,19 +20,6 @@
     <string name="saved_fast_update">saved_fast_update</string>
     <string name="saved_is_elastic">saved_is_elastic</string>
 
-    <string name="saved_hands_act">saved_hands_act</string>
-    <string name="saved_hands_amb">saved_hands_amb</string>
-    <string name="saved_triangles_act">saved_triangles_act</string>
-    <string name="saved_triangles_amb">saved_triangles_amb</string>
-    <string name="saved_circles_act">saved_circles_act</string>
-    <string name="saved_circles_amb">saved_circles_amb</string>
-    <string name="saved_points_act">saved_points_act</string>
-    <string name="saved_points_amb">saved_points_amb</string>
-    <string name="saved_text_act">saved_text_act</string>
-    <string name="saved_text_amb">saved_text_amb</string>
-    <string name="saved_shapes_act">saved_shapes_act</string>
-    <string name="saved_shapes_amb">saved_shapes_amb</string>
-
     <string name="label_theme">Theme</string>
     <string name="label_palette">Palette</string>
     <string name="label_background">Background</string>

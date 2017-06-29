@@ -8,7 +8,10 @@ import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
 import zir.teq.wearable.watchface.model.data.settings.Stack
+import zir.teq.wearable.watchface.model.data.types.Component.Companion.HAND
 import zir.teq.wearable.watchface.model.data.types.PaintType
+import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
+import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
 import zir.watchface.DrawUtil
 import zir.watchface.DrawUtil.HandData
 import zir.watchface.DrawUtil.Ref
@@ -19,7 +22,7 @@ object Hands {
 
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
-        if (ConfigData.theme.hands.active) {
+        if (ConfigData.theme.get(HAND to ACTIVE)) {
             with(data) {
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val ref = data.getRef(can)
@@ -38,10 +41,10 @@ object Hands {
     }
 
     fun drawAmbient(can: Canvas, data: AmbientFrameData) {
-        if (ConfigData.theme.hands.active) {
+        if (ConfigData.theme.get(HAND to AMBIENT)) {
             with(data) {
                 val ref = data.getRef(can)
-                val p = Palette.createPaint(PaintType.SHAPE_AMB) //FIXME why not HAND_AMB...
+                val p = Palette.createPaint(PaintType.HAND_AMB)
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, center)
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, center)

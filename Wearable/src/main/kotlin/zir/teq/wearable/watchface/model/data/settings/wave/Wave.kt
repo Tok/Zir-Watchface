@@ -19,7 +19,7 @@ data class Wave(val name: String,
     val hasHours = true
     val hasMinutes = true
     val hasSeconds = true
-    val isKeepState = true
+    val isKeepState = false
     val lastWeight = 1F / Math.E.toFloat()
     fun frequency() = 1F / waveLength
 

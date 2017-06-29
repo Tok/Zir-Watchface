@@ -20,8 +20,11 @@ import zir.teq.wearable.watchface.model.data.settings.Stroke
 import zir.teq.wearable.watchface.model.data.settings.wave.Frame
 import zir.teq.wearable.watchface.model.data.settings.wave.Layer
 import zir.teq.wearable.watchface.model.data.settings.wave.Resolution
+import zir.teq.wearable.watchface.model.data.settings.wave.Wave
 import zir.teq.wearable.watchface.model.data.types.Complex
+import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.PaintType
+import zir.teq.wearable.watchface.model.data.types.State
 import zir.teq.wearable.watchface.util.ColorUtil
 import java.nio.IntBuffer
 import java.util.*
@@ -41,25 +44,33 @@ class DrawUtil {
             drawBackground(can)
         }
         if (ConfigData.isAmbient) {
-            if (wave.isOn) {
-                val waveData = AmbientWaveFrameData(calendar, bounds, can)
-                drawAmbientWave(can, waveData)
-            }
-            val data = AmbientFrameData(calendar, bounds, can)
-            drawAmbientFace(can, data)
-            if (ConfigData.theme.text.ambient) {
-                Text.draw(can, calendar)
-            }
+            drawAmbient(can, bounds, calendar, wave)
         } else {
-            val activeData = ActiveFrameData(calendar, bounds, can)
-            if (wave.isOn) {
-                val waveData = ActiveWaveFrameData(calendar, bounds, can, Resolution.ACTIVE.value)
-                drawActiveWave(can, waveData)
-            }
-            drawActiveFace(can, activeData)
-            if (ConfigData.theme.text.active) {
-                Text.draw(can, calendar)
-            }
+            drawActive(can, bounds, calendar, wave)
+        }
+    }
+
+    private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar, wave: Wave) {
+        val activeData = ActiveFrameData(calendar, bounds, can)
+        if (wave.isOn) {
+            val waveData = ActiveWaveFrameData(calendar, bounds, can, Resolution.ACTIVE.value)
+            drawActiveWave(can, waveData)
+        }
+        drawActiveFace(can, activeData)
+        if (ConfigData.theme.get(Component.TEXT to State.ACTIVE)) {
+            Text.draw(can, calendar)
+        }
+    }
+
+    private fun drawAmbient(can: Canvas, bounds: Rect, calendar: Calendar, wave: Wave) {
+        if (wave.isOn) {
+            val waveData = AmbientWaveFrameData(calendar, bounds, can)
+            drawAmbientWave(can, waveData)
+        }
+        val data = AmbientFrameData(calendar, bounds, can)
+        drawAmbientFace(can, data)
+        if (ConfigData.theme.get(Component.TEXT to State.AMBIENT)) {
+            Text.draw(can, calendar)
         }
     }
 
@@ -248,7 +259,6 @@ class DrawUtil {
             strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
             color = handleColor(p, factor, isOutline)
         }
-
         private val TAG = this::class.java.simpleName
     }
 }

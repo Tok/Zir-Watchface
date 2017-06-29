@@ -6,13 +6,16 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
 import zir.teq.wearable.watchface.model.data.settings.Palette
+import zir.teq.wearable.watchface.model.data.types.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.data.types.PaintType
+import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
+import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
 import zir.watchface.DrawUtil
 
 object Points {
     //TODO implement point stacking?
     fun drawActiveCenter(can: Canvas, data: ActiveFrameData, p: Paint) {
-        if (ConfigData.theme.points.active) {
+        if (ConfigData.theme.get(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             if (ConfigData.outline.isOn) {
                 makeCenter(can, data, DrawUtil.makeOutline(p))
@@ -22,7 +25,7 @@ object Points {
     }
 
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
-        if (ConfigData.theme.points.active) {
+        if (ConfigData.theme.get(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             if (ConfigData.outline.isOn) {
                 val outlineP = DrawUtil.makeOutline(p)
@@ -35,7 +38,7 @@ object Points {
     }
 
     fun drawAmbient(can: Canvas, data: AmbientFrameData) {
-        if (ConfigData.theme.points.ambient) {
+        if (ConfigData.theme.get(POINTS to AMBIENT)) {
             val p = Palette.createPaint(PaintType.POINT)
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             if (ConfigData.outline.isOn) {
