@@ -8,7 +8,7 @@ data class Type(val code: Int,
                 val secondaryPrefId: Int?,
                 val nameId: Int,
                 val iconId: Int? = null) {
-    fun getLayoutId() = if (code in 1..99) { R.layout.list_item_main } else null
+    fun getLayoutId() = if (code in 1..99) R.layout.list_item_main else R.layout.list_item_checkbox
     companion object {
         val COMPONENT = Type(1, R.string.saved_theme, null, R.string.label_components, R.drawable.icon_components)
         val WAVE = Type(2, R.string.saved_wave, null, R.string.label_wave, R.drawable.icon_wave)
@@ -23,7 +23,7 @@ data class Type(val code: Int,
         val FAST_UPDATE = Type(1000, R.string.saved_fast_update, null, R.string.label_fast_update)
         val IS_ELASTIC = Type(1100, R.string.saved_is_elastic, null, R.string.label_is_elastic)
 
-        val ALL_TYPES = listOf<Type>(WAVE, PALETTE, BACKGROUND, COMPONENT, STROKE, OUTLINE, GROWTH,
+        val ALL_TYPES = listOf<Type>(COMPONENT, WAVE, PALETTE, BACKGROUND, STROKE, OUTLINE, GROWTH,
                 STACK, ALPHA, DIM, FAST_UPDATE, IS_ELASTIC)
 
         fun valueOf(code: Int): Type = ALL_TYPES.find { it.code == code }

@@ -40,9 +40,9 @@ object ViewHelper {
 
     fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
         val configItem = Type.valueOf(viewType)
-        val maybeLayoutId = configItem.getLayoutId()
-        if (maybeLayoutId != null) {
-            val view = createView(group, maybeLayoutId)
+        val layoutId = configItem.getLayoutId()
+        if (layoutId != null) {
+            val view = createView(group, layoutId)
             return when (configItem) { //TODO move view holder instantiation to type?
                 Type.COMPONENT -> ComponentViewHolder(view)
                 Type.PALETTE -> PaletteViewHolder(view)
@@ -54,9 +54,9 @@ object ViewHelper {
                 Type.STACK -> StackViewHolder(view)
                 Type.ALPHA -> AlphaViewHolder(view)
                 Type.DIM -> DimViewHolder(view)
-                else -> throw IllegalArgumentException("Missing layout: $configItem.")
+                else -> createCheckboxViewHolder(group, configItem)
             }
-        } else return createCheckboxViewHolder(group, configItem)
+        } else throw IllegalStateException("Missing layout: $configItem.")
     }
 
     private fun createView(viewGroup: ViewGroup, resource: Int) =
