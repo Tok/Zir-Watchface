@@ -29,7 +29,7 @@ class MainConfigActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_config)
         mView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        mAdapter = MainConfigAdapter(Item.createConfig(this))
+        mAdapter = MainConfigAdapter(Item.createMainConfig(this))
         ViewHelper.initView(mView, mAdapter, ScalingLayoutManager(this))
     }
 

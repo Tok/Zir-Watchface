@@ -13,7 +13,12 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.watchface.DrawUtil
 
-data class Palette(val name: String, val darkId: Int, val lightId: Int) {
+interface ColorConfigItem {
+    val configId: Int
+}
+
+data class Palette(override val configId: Int, val name: String, val darkId: Int, val lightId: Int) : ColorConfigItem {
+
     fun dark() = ConfigData.ctx.getColor(darkId)
     fun half() = ColorUtils.blendARGB(ConfigData.ctx.getColor(darkId), ConfigData.ctx.getColor(lightId), 0.5F)
     fun light() = ConfigData.ctx.getColor(lightId)
@@ -21,28 +26,26 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
     companion object {
         fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / DrawUtil.PHI)
         fun makeLighter(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.white), 1F / DrawUtil.PHI)
-        val BLACK = Palette("Black", R.color.black, R.color.dark_gray)
-        val DARK = Palette("Dark", R.color.darker, R.color.dark_gray)
-        val WHITE = Palette("White", R.color.dark_grey, R.color.white)
-        val RED = Palette("Red", R.color.dark_red, R.color.red)
-        val YELLOW = Palette("Yellow", R.color.yellow_dark, R.color.yellow)
-        val GREEN = Palette("Green", R.color.dark_green, R.color.green_yellow)
-        val BLUE = Palette("Blue", R.color.dark_blue, R.color.deep_sky_blue)
-        val PURPLE = Palette("Purple", R.color.indigo, R.color.magenta)
-        val PURPLE_GREEN = Palette("Purple and Green", R.color.indigo, R.color.green_yellow)
-        val BLUE_ORANGE = Palette("Blue and Orange", R.color.deep_sky_blue, R.color.bright_orange)
-        val RED_YELLOW = Palette("Red and Yellow", R.color.red, R.color.yellow)
+        val BLACK = Palette(1010, "Black", R.color.black, R.color.dark_gray)
+        val DARK = Palette(1020, "Dark", R.color.darker, R.color.dark_gray)
+        val WHITE = Palette(1030, "White", R.color.dark_grey, R.color.white)
+        val RED = Palette(1040, "Red", R.color.dark_red, R.color.red)
+        val YELLOW = Palette(1050, "Yellow", R.color.yellow_dark, R.color.yellow)
+        val GREEN = Palette(1060, "Green", R.color.dark_green, R.color.green_yellow)
+        val BLUE = Palette(1070, "Blue", R.color.dark_blue, R.color.deep_sky_blue)
+        val PURPLE = Palette(1080, "Purple", R.color.indigo, R.color.magenta)
+        val PURPLE_GREEN = Palette(1090, "Purple and Green", R.color.indigo, R.color.green_yellow)
+        val BLUE_ORANGE = Palette(1100, "Blue and Orange", R.color.deep_sky_blue, R.color.bright_orange)
+        val RED_YELLOW = Palette(1110, "Red and Yellow", R.color.red, R.color.yellow)
 
         val defaultType = DARK
         fun default() = create(defaultType.name)
 
-        private val all = listOf(BLACK, DARK, WHITE,
+        val ALL = listOf(BLACK, DARK, WHITE,
                 RED, YELLOW, GREEN, BLUE, PURPLE,
                 PURPLE_GREEN, BLUE_ORANGE, RED_YELLOW)
         val selectable = listOf(RED, YELLOW, GREEN, BLUE, PURPLE)
-        fun options() = all.toCollection(ArrayList<Palette>())
-        fun create(name: String): Palette = all.find { it.name.equals(name) } ?: defaultType
-
+        fun create(name: String): Palette = ALL.find { it.name.equals(name) } ?: defaultType
 
         fun createPaint(type: PaintType): Paint = createPaint(type, null)
         fun createPaint(type: PaintType, @ColorInt color: Int?): Paint {
@@ -96,6 +99,7 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) {
         private fun preparePaint(@ColorInt col: Int) = inst().apply {
             strokeCap = Paint.Cap.ROUND; color = col
         }
+
         private fun prepareStrokePaint(@ColorInt col: Int) = preparePaint(col).apply {
             style = Paint.Style.STROKE
         }

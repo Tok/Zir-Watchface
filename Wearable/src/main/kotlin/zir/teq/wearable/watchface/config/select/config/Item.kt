@@ -15,7 +15,8 @@ open class Item(val type: Type, val pref: String, val name: String,
     override val configType: Int get() = type.code
     override fun toString() = name
     companion object {
-        fun createConfig(activityContext: Context): ConfigItemTypes = Type.ALL_TYPES.map { create(activityContext, it) }
+        fun createMainConfig(ctx: Context): ConfigItemTypes = Type.MAIN_TYPES.map { create(ctx, it) }
+        fun createBackgroundItem(ctx: Context): Item = create(ctx, Type.BACKGROUND)
         private fun create(ctx: Context, type: Type): Item {
             val pref = ctx.getString(type.prefId)
             val name = ctx.getString(type.nameId)
