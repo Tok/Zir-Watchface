@@ -15,6 +15,7 @@ import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.config.ConfigItemTypes
 import zir.teq.wearable.watchface.config.select.config.Item
+import zir.teq.wearable.watchface.config.select.config.MainType
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -82,8 +83,9 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
         val holder = vh as RecSelectionViewHolder
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
-        if (item.type.iconId != null) {
-            holder.bindIcon(item.type.iconId, ConfigData.palette.lightId)
+        val type = item.type
+        when (type) {
+            is MainType -> holder.bindIcon((item.type as MainType).iconId, ConfigData.palette.lightId)
         }
     }
 
