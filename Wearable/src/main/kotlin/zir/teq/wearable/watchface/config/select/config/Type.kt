@@ -20,8 +20,8 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
 
     companion object {
         val COMPONENT = MainType(1, R.string.saved_theme, R.string.label_components, R.drawable.icon_components)
+        val PALETTE = MainType(3, R.string.saved_palette, R.string.label_colors, R.drawable.icon_color)
         val WAVE = MainType(2, R.string.saved_wave, R.string.label_wave, R.drawable.icon_wave)
-        val PALETTE = MainType(3, R.string.saved_palette, R.string.label_palette, R.drawable.icon_color)
         val STROKE = MainType(5, R.string.saved_stroke, R.string.label_stroke, R.drawable.icon_stroke)
         val OUTLINE = MainType(6, R.string.saved_outline, R.string.label_outline, R.drawable.icon_outline)
         val GROWTH = MainType(7, R.string.saved_growth, R.string.label_growth, R.drawable.icon_growth)
@@ -32,7 +32,7 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val IS_ELASTIC = CheckboxType(1100, R.string.saved_is_elastic, R.string.label_is_elastic)
         val BACKGROUND = ColorType(100, R.string.saved_background, R.string.label_background, R.drawable.icon_background)
 
-        private val ALL_TYPES = listOf<Type>(COMPONENT, WAVE, PALETTE, STROKE, OUTLINE, GROWTH,
+        private val ALL_TYPES = listOf<Type>(COMPONENT, PALETTE, WAVE, STROKE, OUTLINE, GROWTH,
                 STACK, ALPHA, DIM, FAST_UPDATE, IS_ELASTIC, BACKGROUND)
         val MAIN_TYPES = ALL_TYPES.filter { it is MainType }
         val CHECKBOX_TYPES = ALL_TYPES.filter { it is CheckboxType }
