@@ -9,13 +9,22 @@ import zir.teq.wearable.watchface.model.ConfigData
 import java.util.concurrent.TimeUnit
 
 typealias ConfigItemTypes = List<ConfigItemType>
-interface ConfigItemType { val configType: Int }
+interface ConfigItemType {
+    val configType: Int
+}
+
 open class Item(val type: Type, val pref: String, val name: String,
                 val activity: Class<out Activity>) : ConfigItemType {
     override val configType: Int get() = type.code
     override fun toString() = name
+
     companion object {
-        fun createMainConfig(ctx: Context): ConfigItemTypes = Type.MAIN_TYPES.map { create(ctx, it) }
+        fun createMainConfig(ctx: Context): ConfigItemTypes {
+            val mainTypes = Type.MAIN_TYPES.map { create(ctx, it) }
+            val cbTypes = Type.CHECKBOX_TYPES.map { create(ctx, it) }
+            return mainTypes + cbTypes
+        }
+
         fun createBackgroundItem(ctx: Context): Item = create(ctx, Type.BACKGROUND)
         private fun create(ctx: Context, type: Type): Item {
             val pref = ctx.getString(type.prefId)
@@ -34,6 +43,7 @@ open class Item(val type: Type, val pref: String, val name: String,
                 else -> Item(type, pref, name, MainConfigActivity::class.java)
             }
         }
+
         val NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
         val MONO_TYPEFACE = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         val FAST_UPDATE_RATE_MS = TimeUnit.MILLISECONDS.toMillis(20)

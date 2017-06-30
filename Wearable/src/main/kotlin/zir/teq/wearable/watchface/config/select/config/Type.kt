@@ -35,6 +35,7 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         private val ALL_TYPES = listOf<Type>(COMPONENT, WAVE, PALETTE, STROKE, OUTLINE, GROWTH,
                 STACK, ALPHA, DIM, FAST_UPDATE, IS_ELASTIC, BACKGROUND)
         val MAIN_TYPES = ALL_TYPES.filter { it is MainType }
+        val CHECKBOX_TYPES = ALL_TYPES.filter { it is CheckboxType }
         val COLOR_TYPES = ALL_TYPES.filter { it is ColorType }
         val COMPONENT_TYPES = ALL_TYPES.filter { it is CheckboxType }
 
