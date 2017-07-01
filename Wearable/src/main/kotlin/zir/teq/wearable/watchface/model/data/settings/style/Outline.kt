@@ -1,10 +1,10 @@
-package zir.teq.wearable.watchface.model.data.settings
+package zir.teq.wearable.watchface.model.data.settings.style
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 
 data class Outline(val name: String, val dim: Float) {
-    val isOn = Outline.OFF.name != this.name
+    val isOn = OFF.name != this.name
     companion object {
         data class Type(val name: String, val dimId: Int)
         val OFF = Type("Off", R.dimen.dim_off)

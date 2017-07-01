@@ -6,8 +6,8 @@ import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
-import zir.teq.wearable.watchface.model.data.settings.Palette
-import zir.teq.wearable.watchface.model.data.settings.Stack
+import zir.teq.wearable.watchface.model.data.settings.color.Palette
+import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.CIRCLE
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.data.types.PaintType

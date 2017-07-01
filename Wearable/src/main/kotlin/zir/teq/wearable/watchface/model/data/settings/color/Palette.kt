@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.settings
+package zir.teq.wearable.watchface.model.data.settings.color
 
 import android.content.Context
 import android.graphics.Color

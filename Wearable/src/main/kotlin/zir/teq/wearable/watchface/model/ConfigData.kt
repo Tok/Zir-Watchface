@@ -5,7 +5,10 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.model.data.settings.*
+import zir.teq.wearable.watchface.model.data.settings.color.Background
+import zir.teq.wearable.watchface.model.data.settings.color.Palette
+import zir.teq.wearable.watchface.model.data.settings.component.Theme
+import zir.teq.wearable.watchface.model.data.settings.style.*
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
 
 object ConfigData {
@@ -41,7 +44,7 @@ object ConfigData {
     private fun savedWave() = Wave.getByName(prefString(R.string.saved_wave, Wave.default.name))
 
     var style = updateStyle()
-    private fun updateStyle() = Style("Current", savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())
+    private fun updateStyle() = Style(savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())
     private fun savedAlpha() = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))
     private fun savedDim() = Dim.getByName(prefString(R.string.saved_dim, Dim.default.name))
     private fun savedStack() = Stack.getByName(prefString(R.string.saved_stack, Stack.default.name))

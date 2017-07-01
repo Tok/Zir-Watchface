@@ -19,7 +19,7 @@ import zir.teq.wearable.watchface.config.select.config.MainType
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.Palette
+import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 class MainConfigActivity : Activity() {

@@ -4,7 +4,7 @@ import android.graphics.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
-import zir.teq.wearable.watchface.model.data.settings.Palette
+import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE

@@ -16,7 +16,7 @@ import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.Stack
+import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

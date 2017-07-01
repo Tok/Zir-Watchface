@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.settings
+package zir.teq.wearable.watchface.model.data.settings.component
 
 
 import android.util.Log
@@ -29,13 +29,15 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 else -> it to false
-            }}).toMap())
+            }
+        }).toMap())
         val SHAPES = Theme("Shape", R.drawable.icon_dummy, (Component.KEYS.map {
             when (it) {
                 Component.createKey(SHAPE, ACTIVE) -> it to true
                 Component.createKey(SHAPE, AMBIENT) -> it to true
                 else -> it to false
-            }}).toMap())
+            }
+        }).toMap())
         val ORIGINAL = Theme("Original", R.drawable.theme_default, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
@@ -45,7 +47,8 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 else -> it to false
-            }}).toMap())
+            }
+        }).toMap())
         val FIELDS = Theme("Fields", R.drawable.theme_fields, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
@@ -55,7 +58,8 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 else -> it to false
-            }}).toMap())
+            }
+        }).toMap())
         val CIRCLES = Theme("Circles", R.drawable.theme_circles, (Component.KEYS.map {
             when (it) {
                 Component.createKey(CIRCLE, ACTIVE) -> it to true
@@ -63,7 +67,8 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 else -> it to false
-            }}).toMap())
+            }
+        }).toMap())
         val GEOMETRY = Theme("Geometry", R.drawable.theme_geometry, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
@@ -75,7 +80,8 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 else -> it to false
-            }}).toMap())
+            }
+        }).toMap())
         val default = ORIGINAL
         val ALL = listOf(PLAIN, SHAPES, ORIGINAL, FIELDS, CIRCLES, GEOMETRY)
         fun getByName(name: String): Theme = ALL.find { it.name.equals(name) } ?: default

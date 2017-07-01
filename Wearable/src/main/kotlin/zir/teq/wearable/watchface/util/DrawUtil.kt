@@ -14,9 +14,9 @@ import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
 import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
-import zir.teq.wearable.watchface.model.data.settings.Palette
-import zir.teq.wearable.watchface.model.data.settings.Stack
-import zir.teq.wearable.watchface.model.data.settings.Stroke
+import zir.teq.wearable.watchface.model.data.settings.color.Palette
+import zir.teq.wearable.watchface.model.data.settings.style.Stack
+import zir.teq.wearable.watchface.model.data.settings.style.Stroke
 import zir.teq.wearable.watchface.model.data.settings.wave.Frame
 import zir.teq.wearable.watchface.model.data.settings.wave.Layer
 import zir.teq.wearable.watchface.model.data.settings.wave.Resolution

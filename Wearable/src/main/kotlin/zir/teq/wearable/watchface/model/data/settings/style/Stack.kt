@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.settings
+package zir.teq.wearable.watchface.model.data.settings.style
 
 import zir.teq.wearable.watchface.R
 

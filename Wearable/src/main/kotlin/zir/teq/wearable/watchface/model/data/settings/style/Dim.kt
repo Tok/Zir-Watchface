@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.settings
+package zir.teq.wearable.watchface.model.data.settings.style
 
 data class Dim(val name: String, val value: Int) {
     companion object {

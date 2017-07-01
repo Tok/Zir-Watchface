@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.settings
+package zir.teq.wearable.watchface.model.data.settings.color
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.config.Type
