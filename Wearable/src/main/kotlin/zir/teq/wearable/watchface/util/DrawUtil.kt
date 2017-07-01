@@ -227,7 +227,7 @@ class DrawUtil {
         private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
         private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
             val w = p.strokeWidth
-            if (ConfigData.isElastic) {
+            if (ConfigData.savedIsElastic()) {
                 if (ConfigData.isElasticOutline) {
                     return applyStretch(isAdd, w + maybeAddOutline(isOutline), factor)
                 } else {
