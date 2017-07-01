@@ -39,7 +39,7 @@ class StrokeSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Stroke.all.indexOfFirst { it.name.equals(ConfigData.stroke.name) }
+        val index = Stroke.all.indexOfFirst { it.name.equals(ConfigData.style.stroke.name) }
         mConfigView.smoothScrollToPosition(index)
     }
 
@@ -72,7 +72,7 @@ class StrokeSelectionAdapter(
         }
 
         fun bindStroke(stroke: Stroke) {
-            val oDim = Math.max(1F, ConfigData.outline.dim)
+            val oDim = Math.max(1F, ConfigData.style.outline.dim)
             mView.setCircleBorderWidth(oDim)
             mView.circleRadius = stroke.dim + oDim
             mView.setCircleColor(ConfigData.palette.half())
@@ -83,7 +83,6 @@ class StrokeSelectionAdapter(
             val stroke = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                ConfigData.stroke = stroke
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, stroke.name)
                 editor.commit()

@@ -41,7 +41,7 @@ class GrowthSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Growth.all.indexOfFirst { it.name.equals(ConfigData.growth.name) } + 1
+        val index = Growth.all.indexOfFirst { it.name.equals(ConfigData.style.growth.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 
@@ -76,8 +76,8 @@ class GrowthSelectionAdapter(
         }
 
         fun bindGrowth(growth: Growth, pal: Palette) {
-            val dim: Float = (GrowthSelectionAdapter.DISPLAY_ITEM_FACTOR * (ConfigData.stroke.dim + ConfigData.outline.dim))
-            val oDim = Math.max(1F, ConfigData.outline.dim)
+            val dim: Float = (GrowthSelectionAdapter.DISPLAY_ITEM_FACTOR * ConfigData.style.growthFactor())
+            val oDim = Math.max(1F, ConfigData.style.outline.dim)
             mFirst.circleRadius = dim
             mFirst.setCircleColor(pal.light())
             mFirst.setCircleBorderWidth(oDim)
@@ -103,7 +103,6 @@ class GrowthSelectionAdapter(
     }
 
     fun updateSavedValue(growth: Growth) {
-        ConfigData.growth = growth
         val editor = ConfigData.prefs.edit()
         editor.putString(mPrefString, growth.name)
         editor.commit()

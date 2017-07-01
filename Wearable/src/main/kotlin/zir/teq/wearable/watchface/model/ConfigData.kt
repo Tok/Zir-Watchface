@@ -15,16 +15,11 @@ object ConfigData {
             ctx.getString(R.string.zir_watch_preference_file_key),
             Context.MODE_PRIVATE)
 
+    private fun updateStyle() = Style("Current", savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())
     fun updateFromSavedPreferences() {
         palette = savedPalette()
-        stroke = savedStroke()
         background = savedBackground()
         wave = savedWave()
-        alpha = savedAlpha()
-        stack = savedStack()
-        dim = savedDim()
-        outline = savedOutline()
-        growth = savedGrowth()
         isFastUpdate = savedFastUpdate()
         isElastic = savedIsElastic()
 
@@ -45,14 +40,7 @@ object ConfigData {
     private fun savedOutline() = Outline.create(prefString(R.string.saved_outline, Outline.default().name))
     private fun savedGrowth() = Growth.create(prefString(R.string.saved_growth, Growth.default().name))
 
-    var alpha = savedAlpha()
-    var dim = savedDim()
-    var stack = savedStack()
-    var stroke = savedStroke()
-    var growth = savedGrowth()
-    var outline = savedOutline()
-    var style = Style("Current", alpha, dim, stack, stroke, growth, outline)
-
+    var style = updateStyle()
     var palette = savedPalette()
     var theme = savedTheme()
     var background = savedBackground()

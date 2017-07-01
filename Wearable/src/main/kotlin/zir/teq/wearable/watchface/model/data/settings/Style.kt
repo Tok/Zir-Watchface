@@ -8,6 +8,7 @@ class StyleConfigItem() : ColorConfigItem {
 
 data class Style(val name: String, val alpha: Alpha, val dim: Dim, val stack: Stack,
                  val stroke: Stroke, val growth: Growth, val outline: Outline) {
+    fun growthFactor() = stroke.dim + outline.dim
     companion object {
         val DEFAULT = Style("Default", Alpha.default, Dim.default, Stack.default,
                 Stroke.default(), Growth.default(), Outline.default())

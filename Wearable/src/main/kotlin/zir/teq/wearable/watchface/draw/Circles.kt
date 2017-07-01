@@ -24,9 +24,9 @@ object Circles {
                 //TODO gradients?
             }
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            when (ConfigData.stack) {
+            when (ConfigData.style.stack) {
                 Stack.GROUPED, Stack.LEGACY -> {
-                    if (ConfigData.outline.isOn) {
+                    if (ConfigData.style.outline.isOn) {
                         makeSlow(can, data, p, true)
                         makeFast(can, data, p, true)
                     }
@@ -34,26 +34,26 @@ object Circles {
                     makeFast(can, data, p)
                 }
                 Stack.FAST_TOP -> {
-                    if (ConfigData.outline.isOn) {
+                    if (ConfigData.style.outline.isOn) {
                         makeSlow(can, data, p, true)
                     }
                     makeSlow(can, data, p)
-                    if (ConfigData.outline.isOn) {
+                    if (ConfigData.style.outline.isOn) {
                         makeFast(can, data, p, true)
                     }
                     makeFast(can, data, p)
                 }
                 Stack.SLOW_TOP -> {
-                    if (ConfigData.outline.isOn) {
+                    if (ConfigData.style.outline.isOn) {
                         makeFast(can, data, p, true)
                     }
                     makeFast(can, data, p)
-                    if (ConfigData.outline.isOn) {
+                    if (ConfigData.style.outline.isOn) {
                         makeSlow(can, data, p, true)
                     }
                     makeSlow(can, data, p)
                 }
-                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
+                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style.stack)
             }
         }
     }
@@ -68,7 +68,7 @@ object Circles {
                 //TODO gradients?
             }
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.outline.isOn) {
+            if (ConfigData.style.outline.isOn) {
                 makeAmbient(can, data, p, true)
             }
             makeAmbient(can, data, p)

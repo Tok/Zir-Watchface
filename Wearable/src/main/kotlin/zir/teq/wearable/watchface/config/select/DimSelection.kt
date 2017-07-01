@@ -42,7 +42,7 @@ class DimSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Dim.all.indexOfFirst { it.name.equals(ConfigData.dim.name) } + 1
+        val index = Dim.all.indexOfFirst { it.name.equals(ConfigData.style.dim.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 
@@ -77,7 +77,7 @@ class DimSelectionAdapter(
         }
 
         fun bindDim(dim: Dim) {
-            val oDim = Math.max(1F, ConfigData.outline.dim)
+            val oDim = Math.max(1F, ConfigData.style.outline.dim)
             mCircle.setCircleBorderWidth(oDim)
             mCircle.setCircleColor(mView.context.getColor(R.color.black))
             mCircle.alpha = dim.value.toFloat()
@@ -89,7 +89,6 @@ class DimSelectionAdapter(
             val dim: Dim = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                ConfigData.dim = dim
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, dim.name)
                 editor.commit()

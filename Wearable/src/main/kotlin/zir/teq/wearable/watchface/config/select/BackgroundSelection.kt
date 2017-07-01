@@ -77,7 +77,7 @@ class BackgroundSelectionAdapter(
         }
 
         fun bindBackground(background: Background) {
-            val oDim = Math.max(1F, ConfigData.outline.dim)
+            val oDim = Math.max(1F, ConfigData.style.outline.dim)
             mCircle.setCircleBorderWidth(oDim)
             mCircle.setCircleColor(mCircle.context.getColor(background.id))
             mText.text = background.name

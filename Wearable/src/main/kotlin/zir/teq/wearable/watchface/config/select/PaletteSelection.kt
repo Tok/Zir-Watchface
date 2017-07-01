@@ -95,7 +95,7 @@ class PaletteSelectionAdapter(private val pref: String, private val options: Lis
         }
 
         fun bindPalette(pal: Palette) {
-            val oDim = Math.max(1F, ConfigData.outline.dim)
+            val oDim = Math.max(1F, ConfigData.style.outline.dim)
             with(mFirst) {
                 setCircleColor(pal.dark())
                 setCircleBorderWidth(oDim)
@@ -115,13 +115,11 @@ class PaletteSelectionAdapter(private val pref: String, private val options: Lis
             val activity = view.context as Activity
             val item = options[position]
             if (item is Palette) {
-                if (pref != null && !pref.isEmpty()) {
-                    ConfigData.palette = item
-                    val editor = ConfigData.prefs.edit()
-                    editor.putString(pref, item.name)
-                    editor.apply()
-                    activity.setResult(Activity.RESULT_OK)
-                }
+                ConfigData.palette = item
+                val editor = ConfigData.prefs.edit()
+                editor.putString(pref, item.name)
+                editor.apply()
+                activity.setResult(Activity.RESULT_OK)
                 activity.finish()
             }
         }

@@ -76,7 +76,7 @@ class DrawUtil {
 
     fun drawActiveFace(can: Canvas, data: ActiveFrameData) {
         val pal = ConfigData.palette
-        when (ConfigData.stack) {
+        when (ConfigData.style.stack) {
             Stack.GROUPED -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
                 Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
@@ -191,7 +191,7 @@ class DrawUtil {
         val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
 
         fun makeOutline(p: Paint) = Paint(p).apply {
-            strokeWidth = p.strokeWidth + ConfigData.outline.dim
+            strokeWidth = p.strokeWidth + ConfigData.style.outline.dim
             color = ConfigData.ctx.getColor(R.color.black)
         }
 
@@ -223,7 +223,7 @@ class DrawUtil {
             return Math.sqrt(p.toDouble()).toFloat()
         }
 
-        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) ConfigData.outline.dim else 0F
+        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) ConfigData.style.outline.dim else 0F
         private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
         private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
             val w = p.strokeWidth

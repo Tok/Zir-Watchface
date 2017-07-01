@@ -43,7 +43,7 @@ class AlphaSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Alpha.all.indexOfFirst { it.name.equals(ConfigData.alpha.name) } + 1
+        val index = Alpha.all.indexOfFirst { it.name.equals(ConfigData.style.alpha.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 
@@ -79,7 +79,7 @@ class AlphaSelectionAdapter(
         }
 
         fun bindAlpha(alpha: Alpha) {
-            val oDim = Math.max(1F, ConfigData.outline.dim)
+            val oDim = Math.max(1F, ConfigData.style.outline.dim)
             mCircle.setCircleBorderWidth(oDim)
             mCircle.setCircleColor(ConfigData.palette.half())
             mCircle.alpha = 256 - alpha.value.toFloat() //Inverse of how it's used in draw util.
@@ -91,7 +91,6 @@ class AlphaSelectionAdapter(
             val alpha: Alpha = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                ConfigData.alpha = alpha
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, alpha.name)
                 editor.commit()

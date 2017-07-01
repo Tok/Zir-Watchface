@@ -41,7 +41,7 @@ class StackSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Stack.all.indexOfFirst { it.name.equals(ConfigData.stack.name) }
+        val index = Stack.all.indexOfFirst { it.name.equals(ConfigData.style.stack.name) }
         mConfigView.smoothScrollToPosition(index)
     }
 
@@ -84,7 +84,6 @@ class StackSelectionAdapter(
             val stack: Stack = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                ConfigData.stack = stack
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, stack.name)
                 editor.commit()

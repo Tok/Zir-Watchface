@@ -39,7 +39,7 @@ class OutlineSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Outline.all.indexOfFirst { it.name.equals(ConfigData.outline.name) } + 1
+        val index = Outline.all.indexOfFirst { it.name.equals(ConfigData.style.outline.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 
@@ -91,7 +91,6 @@ class OutlineSelectionAdapter(
     }
 
     fun updateSavedValue(outline: Outline) {
-        ConfigData.outline = outline
         val editor = ConfigData.prefs.edit()
         editor.putString(mPrefString, outline.name)
         editor.commit()

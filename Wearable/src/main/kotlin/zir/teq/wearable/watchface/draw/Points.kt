@@ -17,7 +17,7 @@ object Points {
     fun drawActiveCenter(can: Canvas, data: ActiveFrameData, p: Paint) {
         if (ConfigData.theme.get(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.outline.isOn) {
+            if (ConfigData.style.outline.isOn) {
                 makeCenter(can, data, DrawUtil.makeOutline(p))
             }
             makeCenter(can, data, p)
@@ -27,7 +27,7 @@ object Points {
     fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
         if (ConfigData.theme.get(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.outline.isOn) {
+            if (ConfigData.style.outline.isOn) {
                 val outlineP = DrawUtil.makeOutline(p)
                 makeSeconds(can, data, outlineP)
                 makeMinAndHr(can, data, outlineP)
@@ -41,7 +41,7 @@ object Points {
         if (ConfigData.theme.get(POINTS to AMBIENT)) {
             val p = Palette.createPaint(PaintType.POINT)
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.outline.isOn) {
+            if (ConfigData.style.outline.isOn) {
                 drawAmbientPoints(can, data, DrawUtil.makeOutline(p))
             }
             drawAmbientPoints(can, data, p)

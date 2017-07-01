@@ -64,11 +64,11 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
                 }
             }
             paint.strokeWidth = createStrokeWidth(type)
-            paint.alpha = ConfigData.alpha.value
+            paint.alpha = ConfigData.style.alpha.value
             paint.isAntiAlias = ConfigData.isAntiAlias
 
             //apply dimming..
-            val dimValue = ConfigData.dim.value
+            val dimValue = ConfigData.style.dim.value
             val dimColor = Color.argb(255, dimValue, dimValue, dimValue)
             paint.colorFilter = PorterDuffColorFilter(dimColor, PorterDuff.Mode.MULTIPLY)
 
@@ -79,7 +79,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
             typeface = Item.MONO_TYPEFACE
             isFakeBoldText = true
             color = ConfigData.ctx.getColor(R.color.text)
-            alpha = ConfigData.alpha.value
+            alpha = ConfigData.style.alpha.value
             isAntiAlias = ConfigData.isAntiAlias
             if (ConfigData.isAmbient) {
                 clearShadowLayer()
@@ -91,8 +91,8 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
 
         private fun createStrokeWidth(type: PaintType): Float {
             val isPoint = PaintType.POINT.equals(type)
-            val pointGrowth = if (isPoint) ConfigData.growth.dim else 0F
-            return ConfigData.stroke.dim + pointGrowth
+            val pointGrowth = if (isPoint) ConfigData.style.growth.dim else 0F
+            return ConfigData.style.stroke.dim + pointGrowth
         }
 
         private fun inst() = Paint().apply { isAntiAlias = true; isDither = true }

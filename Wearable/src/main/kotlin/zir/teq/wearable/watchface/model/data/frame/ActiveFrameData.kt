@@ -12,7 +12,7 @@ import java.util.*
 open class ActiveFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {
     val ms = cal.get(Calendar.MILLISECOND)
     val secRot = (ss + ms / 1000F) / 30F * DrawUtil.PI
-    val secLength = unit * DrawUtil.calcDistFromBorder(can, ConfigData.stroke)
+    val secLength = unit * DrawUtil.calcDistFromBorder(can, ConfigData.style.stroke)
     val minLength = secLength / DrawUtil.PHI
     val hrLength = minLength / DrawUtil.PHI
     val hr = DrawUtil.calcPosition(hrRot, hrLength, unit)

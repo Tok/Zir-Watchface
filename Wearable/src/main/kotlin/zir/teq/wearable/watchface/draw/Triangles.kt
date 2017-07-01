@@ -27,18 +27,18 @@ object Triangles {
             val hsFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, second.p)
             val msFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, second.p)
             val factors = Factors(hmFactor, hsFactor, msFactor)
-            when (ConfigData.stack) {
+            when (ConfigData.style.stack) {
                 Stack.GROUPED, Stack.LEGACY -> stackLegacy(can, data, p, factors)
                 Stack.FAST_TOP -> stackFastTop(can, data, p, factors)
                 Stack.SLOW_TOP -> stackSlowTop(can, data, p, factors)
-                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.stack)
+                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style.stack)
             }
         }
     }
 
     private fun stackLegacy(can: Canvas, data: ActiveFrameData, p: Paint, factors: Factors) {
         with(data) {
-            if (ConfigData.outline.isOn) {
+            if (ConfigData.style.outline.isOn) {
                 drawLineOutline(can, hour, minute, p, factors.hm)
                 drawLineOutline(can, hour, second, p, factors.hs)
                 drawLineOutline(can, minute, second, p, factors.ms)
@@ -66,7 +66,7 @@ object Triangles {
     }
 
     private fun drawLineAndOutline(can: Canvas, from: HandData, to: HandData, p: Paint, factor: Float) {
-        if (ConfigData.outline.isOn) {
+        if (ConfigData.style.outline.isOn) {
             drawLineOutline(can, from, to, p, factor)
         }
         drawLine(can, from, to, p, factor)
