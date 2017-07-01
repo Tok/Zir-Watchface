@@ -25,13 +25,15 @@ open class Item(val type: Type, val pref: String, val name: String,
             return mainTypes + cbTypes
         }
 
+        fun createStyleConfig(ctx: Context) = Type.STYLE_TYPES.map { create(ctx, it) }
         fun createBackgroundItem(ctx: Context): Item = create(ctx, Type.BACKGROUND)
-        private fun create(ctx: Context, type: Type): Item {
+        private fun create(ctx: Context, type: Type): Item { //TODO refactor
             val pref = ctx.getString(type.prefId)
             val name = ctx.getString(type.nameId)
             return when (type) {
                 Type.COMPONENT -> Item(type, pref, name, ComponentSelectionActivity::class.java)
                 Type.PALETTE -> Item(type, pref, name, PaletteSelectionActivity::class.java)
+                Type.STYLE -> Item(type, pref, name, StyleSelectionActivity::class.java)
                 Type.BACKGROUND -> Item(type, pref, name, BackgroundSelectionActivity::class.java)
                 Type.WAVE -> Item(type, pref, name, WaveSelectionActivity::class.java)
                 Type.STROKE -> Item(type, pref, name, StrokeSelectionActivity::class.java)

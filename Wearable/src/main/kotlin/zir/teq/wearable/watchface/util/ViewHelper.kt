@@ -44,6 +44,7 @@ object ViewHelper {
         return when (configItem) { //TODO move view holder instantiation to type?
             Type.COMPONENT -> ComponentViewHolder(view)
             Type.PALETTE -> PaletteViewHolder(view)
+            Type.STYLE -> StyleViewHolder(view)
             Type.BACKGROUND -> BackgroundViewHolder(view)
             Type.WAVE -> WaveViewHolder(view)
             Type.STROKE -> StrokeViewHolder(view)

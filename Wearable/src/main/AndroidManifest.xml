@@ -48,6 +48,7 @@
             android:label="@string/zir_watch_config">
             <intent-filter>
                 <action android:name="zir.teq.wearable.watchface.CONFIG_ZIR_WATCH" />
+
                 <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -56,11 +57,12 @@
         <activity android:name="zir.teq.wearable.watchface.config.select.PaletteSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.BackgroundSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.WaveSelectionActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.StrokeSelectionActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.GrowthSelectionActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.OutlineSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.StyleSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.AlphaSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.DimSelectionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.StackSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.StrokeSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.GrowthSelectionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.OutlineSelectionActivity" />
     </application>
 </manifest>

@@ -57,7 +57,8 @@ class MainConfigActivity : Activity() {
                 R.drawable.icon_outline,
                 R.drawable.icon_growth,
                 R.drawable.icon_alpha,
-                R.drawable.icon_dim
+                R.drawable.icon_dim,
+                R.drawable.icon_dummy
         )
 
         private fun updateItemColor(ctx: Context, filter: ColorFilter, id: Int): Drawable =

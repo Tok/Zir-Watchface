@@ -9,6 +9,7 @@
 
     <string name="saved_theme">saved_theme</string>
     <string name="saved_palette">saved_palette</string>
+    <string name="saved_style">saved_style</string>
     <string name="saved_stroke">saved_stroke</string>
     <string name="saved_wave">saved_wave</string>
     <string name="saved_outline">saved_outline</string>
@@ -22,6 +23,7 @@
 
     <string name="label_components">Components</string>
     <string name="label_colors">Colors</string>
+    <string name="label_style">Style</string>
     <string name="label_background">Background</string>
     <string name="label_wave">Wave</string>
     <string name="label_stroke">Stroke</string>
