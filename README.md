@@ -49,4 +49,4 @@
 ### Low Priority
 * Use a blockchain technology to introduce an absolute artifical timesource, that solves all the relativistic issues, where observers in different systems may observe a different times and orders.
 * It should be based on a proof of work algorithm, because the energy spent for finding the block, directly correlates to the mass avaliable in the system that signs it.
-* Reduce the blocksize down to the planck-time.
+* Reduce the blocksize down to ~~the planck-time~~ 1.039 THz.
