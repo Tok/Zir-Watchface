@@ -1,13 +1,20 @@
 buildscript {
-    ext.kotlin_version = '1.1.3'
+    ext.kotlin_version = '1.2.31'
+    ext.android_version = '27.1.1'
+    ext.wearable_version = '2.3.0'
+    ext.services_version = '12.0.1'
     repositories {
         jcenter()
         maven {
             url 'http://oss.sonatype.org/content/repositories/releases'
         }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -16,15 +23,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 dependencies {
-    compile 'com.android.support:palette-v7:25.3.1'
-    compile 'com.android.support:percent:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.google.android.gms:play-services-wearable:11.0.1'
-    //compile 'com.google.android.gms:play-services-fitness:10.2.6'
-    compile 'com.android.support:support-v13:25.3.1'
-    provided 'com.google.android.wearable:wearable:2.0.3'
-    compile 'com.google.android.support:wearable:2.0.3'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compileOnly "com.google.android.wearable:wearable:$wearable_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:palette-v7:$android_version"
+    implementation "com.android.support:percent:$android_version"
+    implementation "com.android.support:recyclerview-v7:$android_version"
+    implementation "com.android.support:support-v13:$android_version"
+    implementation "com.google.android.support:wearable:$wearable_version"
+    implementation "com.google.android.gms:play-services-wearable:$services_version"
 }
 
 List<String> dirs = [
@@ -33,13 +39,13 @@ List<String> dirs = [
         'template']
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         versionCode 1
         versionName "1.0"
         minSdkVersion 24
-        targetSdkVersion 26
+        targetSdkVersion 27
         multiDexEnabled true
     }
     compileOptions {
@@ -60,4 +66,8 @@ android {
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
 }

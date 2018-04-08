@@ -21,13 +21,11 @@ open class RecSelectionViewHolder(view: View) : RecHolder(view) {
 
     fun handleClick(view: View, extra: String) = handleClick(view, extra, NO_REQ)
     fun handleClick(view: View, extra: String, req: Int) {
-        if (mActivity is Class<out Activity>) {
-            val launchIntent = Intent(view.context, mActivity)
-            val pref = mPrefString
-            launchIntent.putExtra(extra, pref)
-            val activity = view.context as Activity
-            activity.startActivityForResult(launchIntent, req)
-        }
+        val launchIntent = Intent(view.context, mActivity)
+        val pref = mPrefString
+        launchIntent.putExtra(extra, pref)
+        val activity = view.context as Activity
+        activity.startActivityForResult(launchIntent, req)
     }
 
     fun setActivity(activity: Class<out Activity>) {

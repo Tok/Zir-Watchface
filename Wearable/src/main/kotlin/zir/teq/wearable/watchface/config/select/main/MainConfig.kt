@@ -92,7 +92,4 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
 
     override fun getItemViewType(position: Int) = mSettingsDataSet[position].configType
     override fun getItemCount() = mSettingsDataSet.size
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
-        super.onDetachedFromRecyclerView(recyclerView)
-    }
 }

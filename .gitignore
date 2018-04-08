@@ -1,6 +1,7 @@
 .gradle/
 .idea/
 build/
+!Wearable/build/outputs/apk/release/Wearable-release-unsigned.apk
 captures/
 hooks/
 info/exclude
