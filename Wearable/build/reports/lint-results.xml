@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 3.1.1">
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.border_color` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;border_color&quot;>#000000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.background_ambient` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;background_ambient&quot;>#424242&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.fire_brick` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;fire_brick&quot;>#aa2222&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="22"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.orange_red` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;orange_red&quot;>#ff4500&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="25"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.dark_orange` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;dark_orange&quot;>#ff8c00&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="26"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.orange` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;orange&quot;>#ffa500&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="27"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.gold` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;gold&quot;>#ffd700&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="31"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.lime_green` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;lime_green&quot;>#32cd32&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="35"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.blue` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;blue&quot;>#0000ff&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="39"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.dark_violet` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;color name=&quot;dark_violet&quot;>#9400d3&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
+            line="43"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.theme_circle_radius` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;theme_circle_radius&quot;>44.5dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.item_picker_radius` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;item_picker_radius&quot;>27.5dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.list_item_radius` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;list_item_radius&quot;>44.5dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="6"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.list_item_palette_radius` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;list_item_palette_radius&quot;>27.5dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.list_item_theme_radius` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;list_item_theme_radius&quot;>27.5dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="8"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.list_item_list_margin` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;list_item_list_margin&quot;>-13dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="17"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.list_item_border_width` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;list_item_border_width&quot;>5dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="19"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.list_item_palette_border_width` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;list_item_palette_border_width&quot;>5dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="24"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.list_item_theme_list_margin` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;list_item_theme_list_margin&quot;>-13dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="26"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.text_size` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;text_size&quot;>55dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="38"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.text_size_round` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;text_size_round&quot;>55dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="39"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.dimen.text_x_offset_round` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;dimen name=&quot;text_x_offset_round&quot;>34dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
+            line="41"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.icon_growth_giga` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_giga.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.icon_outline_giga` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_giga.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.icon_outline_ultra` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_ultra.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.icon_stroke_bolder` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_bolder.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.icon_stroke_off` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_off.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.layout.list_item_circle_only` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\layout\list_item_circle_only.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.layout.list_item_color` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="&lt;android.support.wearable.view.CircledImageView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\layout\list_item_color.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.layout.list_item_outline` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="&lt;android.support.wearable.view.CircledImageView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\layout\list_item_outline.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.layout.list_item_stroke` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="&lt;android.support.wearable.view.CircledImageView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\layout\list_item_stroke.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_hands_act` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_hands_act&quot;>Hands&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="39"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_hands_amb` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_hands_amb&quot;>Ambient Hands&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="40"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_circles_act` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_circles_act&quot;>Circles&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="41"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_circles_amb` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_circles_amb&quot;>Ambient Circles&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="42"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_triangles_act` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_triangles_act&quot;>Triangles&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="43"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_triangles_amb` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_triangles_amb&quot;>Ambient Triangles&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_points_act` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_points_act&quot;>Points&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="45"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_points_amb` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_points_amb&quot;>Ambient Points&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="46"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_text_act` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_text_act&quot;>Text&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="47"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_text_amb` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_text_amb&quot;>Ambient Text&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="48"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_shapes_act` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_shapes_act&quot;>Shapes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="49"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.label_shapes_amb` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;string name=&quot;label_shapes_amb&quot;>Ambient Shapes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
+            line="50"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.style.ListItemCircleStyle` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;style name=&quot;ListItemCircleStyle&quot; parent=&quot;android:Widget.Holo.Button.Borderless&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\styles.xml"
+            line="15"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.style.ListItemGrowthCircleStyle` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="    &lt;style name=&quot;ListItemGrowthCircleStyle&quot; parent=&quot;android:Widget.Holo.Button.Borderless&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\styles.xml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        severity="Warning"
+        message="Missing the following drawables in `drawable-hdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (40 more)"
+        category="Usability:Icons"
+        priority="4"
+        summary="Icon densities validation"
+        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.&#xA;&#xA;Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-hdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        severity="Warning"
+        message="Missing the following drawables in `drawable-mdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (40 more)"
+        category="Usability:Icons"
+        priority="4"
+        summary="Icon densities validation"
+        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.&#xA;&#xA;Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-mdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        severity="Warning"
+        message="Missing the following drawables in `drawable-xhdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (40 more)"
+        category="Usability:Icons"
+        priority="4"
+        summary="Icon densities validation"
+        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.&#xA;&#xA;Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xhdpi"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_bold.png, icon_outline_bold.png, icon_stroke_bold.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_bold.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_bold.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_bold.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_bolder.png, icon_outline_bolder.png, icon_stroke_bolder.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_bolder.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_bolder.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_bolder.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_giga.png, icon_outline_giga.png, icon_stroke_giga.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_giga.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_giga.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_giga.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_hair.png, icon_outline_hair.png, icon_stroke_hair.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_hair.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_hair.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_hair.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_mega.png, icon_outline_mega.png, icon_stroke_mega.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_mega.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_mega.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_mega.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_normal.png, icon_outline_normal.png, icon_stroke_normal.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_normal.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_normal.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_normal.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_off.png, icon_outline_off.png, icon_stroke_off.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_off.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_off.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_off.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_growth_thin.png, icon_outline_thin.png, icon_stroke_thin.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_thin.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_thin.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_thin.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: icon_outline_ultra.png, icon_stroke_ultra.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_ultra.png"/>
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_ultra.png"/>
+    </issue>
+
+    <issue
+        id="IconMissingDensityFolder"
+        severity="Warning"
+        message="Missing density variation folders in `src\\main\\res`: drawable-xxhdpi"
+        category="Usability:Icons"
+        priority="3"
+        summary="Missing density folder"
+        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as `drawable-hdpi`.&#xA;&#xA;Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
+        url="http://developer.android.com/guide/practices/screens_support.html"
+        urls="http://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res"/>
+    </issue>
+
+    <issue
+        id="GoogleAppIndexingWarning"
+        severity="Warning"
+        message="App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent filter. See issue explanation for more details."
+        category="Usability"
+        priority="5"
+        summary="Missing support for Firebase App Indexing"
+        explanation="Adds URLs to get your app into the Google index, to get installs and traffic to your app from Google Search."
+        url="https://g.co/AppIndexing/AndroidStudio"
+        urls="https://g.co/AppIndexing/AndroidStudio"
+        errorLine1="    &lt;application"
+        errorLine2="    ^"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\AndroidManifest.xml"
+            line="7"
+            column="5"/>
+    </issue>
+
+</issues>
