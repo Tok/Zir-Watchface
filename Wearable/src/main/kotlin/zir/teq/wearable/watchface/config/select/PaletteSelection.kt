@@ -2,9 +2,9 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
+import android.support.wear.widget.CircularProgressLayout
 import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
-import android.support.wearable.view.CircledImageView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,28 +88,23 @@ class PaletteSelectionAdapter(private val pref: String, private val options: Lis
     override fun getItemCount() = options.size
     inner class ColorViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mFirst = view.findViewById<View>(R.id.list_item_palette_first_cirlce) as CircledImageView
-        val mSecond = view.findViewById<View>(R.id.list_item_palette_second_circle) as CircledImageView
-        val mThird = view.findViewById<View>(R.id.list_item_palette_third_circle) as CircledImageView
+        val mFirst: CircularProgressLayout = view.findViewById(R.id.list_item_palette_first_cirlce)
+        val mSecond: CircularProgressLayout = view.findViewById(R.id.list_item_palette_second_circle)
+        val mThird: CircularProgressLayout = view.findViewById(R.id.list_item_palette_third_circle)
+        val mLayouts = listOf(mFirst, mSecond, mThird)
 
         init {
             mView.setOnClickListener(this)
         }
 
         fun bindPalette(pal: Palette) {
-            val oDim = Math.max(1F, ConfigData.style.outline.dim)
-            with(mFirst) {
-                setCircleColor(pal.dark())
-                setCircleBorderWidth(oDim)
+            mLayouts.forEach { layout ->
+                layout.foreground = mView.context.getDrawable(R.drawable.icon_dummy)
+                layout.strokeWidth = 1F
             }
-            with(mSecond) {
-                setCircleColor(pal.half())
-                setCircleBorderWidth(oDim)
-            }
-            with(mThird) {
-                setCircleColor(pal.light())
-                setCircleBorderWidth(oDim)
-            }
+            mFirst.setBackgroundColor(pal.dark())
+            mSecond.setBackgroundColor(pal.half())
+            mThird.setBackgroundColor(pal.light())
         }
 
         override fun onClick(view: View) {
