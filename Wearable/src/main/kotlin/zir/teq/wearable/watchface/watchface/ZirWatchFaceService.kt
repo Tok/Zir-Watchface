@@ -46,18 +46,18 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             }
         }
 
-        val mUpdateTimeHandler: Handler = object : Handler() {
+        val mUpdateTimeHandler = ZirHandler(this) as Handler
+
+        fun handleMessage(message: Message) {
             val msgUpdateTime = 0
-            override fun handleMessage(message: Message) {
-                when (message.what) {
-                    msgUpdateTime -> {
-                        invalidate()
-                        if (shouldTimerBeRunning()) {
-                            val timeMs = System.currentTimeMillis()
-                            mUpdateRateMs = Item.updateRateMs(mAmbient)
-                            val delayMs = mUpdateRateMs - timeMs % mUpdateRateMs
-                            this.sendEmptyMessageDelayed(msgUpdateTime, delayMs)
-                        }
+            when (message.what) {
+                msgUpdateTime -> {
+                    invalidate()
+                    if (shouldTimerBeRunning()) {
+                        val timeMs = System.currentTimeMillis()
+                        mUpdateRateMs = Item.updateRateMs(mAmbient)
+                        val delayMs = mUpdateRateMs - timeMs % mUpdateRateMs
+                        mUpdateTimeHandler.sendEmptyMessageDelayed(msgUpdateTime, delayMs)
                     }
                 }
             }
