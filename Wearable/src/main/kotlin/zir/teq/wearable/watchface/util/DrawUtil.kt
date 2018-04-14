@@ -8,6 +8,7 @@ import android.renderscript.ScriptIntrinsicBlur
 import android.support.v4.graphics.ColorUtils
 import android.util.Log
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
@@ -81,9 +82,9 @@ class DrawUtil {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
                 Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE, pal.half()))
-                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT, ConfigData.ctx.getColor(R.color.white)))
+                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
                 Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND, pal.light()))
-                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT, ConfigData.ctx.getColor(R.color.white)))
+                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
             }
             Stack.LEGACY -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
@@ -144,7 +145,7 @@ class DrawUtil {
     }
 
     private fun drawBackground(can: Canvas) {
-        val color = ConfigData.ctx.getColor(ConfigData.background.id)
+        val color = Zir.color(ConfigData.background.id)
         //can.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         can.drawColor(color, PorterDuff.Mode.CLEAR)
         val paint = Palette.createPaint(PaintType.BACKGROUND, color)
@@ -167,7 +168,7 @@ class DrawUtil {
             return input
         } else {
             val output = Bitmap.createBitmap(input)
-            val script = RenderScript.create(ConfigData.ctx)
+            val script = RenderScript.create(Zir.ctx())
             val blur = createBlur(script)
             val tmpIn = Allocation.createFromBitmap(script, input)
             blur.setInput(tmpIn)
@@ -192,7 +193,7 @@ class DrawUtil {
 
         fun makeOutline(p: Paint) = Paint(p).apply {
             strokeWidth = p.strokeWidth + ConfigData.style.outline.dim
-            color = ConfigData.ctx.getColor(R.color.black)
+            color = Zir.color(R.color.black)
         }
 
         fun calcDistFromBorder(can: Canvas, stroke: Stroke) = calcDistFromBorder(can.height, stroke.dim)
@@ -243,12 +244,12 @@ class DrawUtil {
         val MIN_RATIO = 1F - (1F / PHI) //cutoff for the blended color. 0F allows full white.
         private fun handleColor(p: Paint, factor: Float, isOutline: Boolean): Int {
             if (isOutline) {
-                return ConfigData.ctx.getColor(R.color.black)
+                return Zir.color(R.color.black)
             } else {
                 if (factor > MAX_FACTOR) Log.w(TAG, "MAX_FACTOR: $MAX_FACTOR factor: $factor")
                 if (ConfigData.isElasticColor) {
                     val ratio = maxOf(MIN_RATIO, minOf(1F, (factor / MAX_FACTOR) + OFFSET))
-                    return ColorUtils.blendARGB(ConfigData.ctx.getColor(R.color.white), p.color, ratio)
+                    return ColorUtils.blendARGB(Zir.color(R.color.white), p.color, ratio)
                 } else {
                     return p.color
                 }

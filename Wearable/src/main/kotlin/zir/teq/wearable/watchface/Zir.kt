@@ -11,6 +11,10 @@ class Zir : Application() {
 
     companion object {
         private lateinit var mAppContext: Context
-        fun getAppContext() = mAppContext
+        fun ctx() = mAppContext
+        fun prefs(name: String, code: Int) = ctx().getSharedPreferences(name, code)
+        fun res() = ctx().resources
+        fun string(id: Int) = ctx().getString(id)
+        fun color(id: Int) = ctx().getColor(id)
     }
 }

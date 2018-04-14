@@ -12,10 +12,9 @@ import zir.teq.wearable.watchface.model.data.settings.style.*
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
 
 object ConfigData {
-    val ctx = Zir.getAppContext()
-    val res: Resources = ctx.resources
-    val prefs: SharedPreferences = ctx.getSharedPreferences(
-            ctx.getString(R.string.zir_watch_preference_file_key),
+    val res: Resources = Zir.res()
+    val prefs: SharedPreferences = Zir.ctx().getSharedPreferences(
+            Zir.string(R.string.zir_watch_preference_file_key),
             Context.MODE_PRIVATE)
 
     fun updateFromSavedPreferences() {
@@ -27,12 +26,12 @@ object ConfigData {
         style = updateStyle()
     }
 
-    private fun prefString(pref: Int, default: String) = prefs.getString(ctx.getString(pref), default)
+    private fun prefString(pref: Int, default: String) = prefs.getString(Zir.string(pref), default)
 
     var theme = savedTheme()
-    private fun savedTheme() = Theme.getByName(prefs.getString(ctx.getString(R.string.saved_theme), Theme.default.name))
-    fun savedFastUpdate() = prefs.getBoolean(ctx.getString(R.string.saved_fast_update), true)
-    fun savedIsElastic() = prefs.getBoolean(ctx.getString(R.string.saved_is_elastic), false)
+    private fun savedTheme() = Theme.getByName(prefs.getString(Zir.string(R.string.saved_theme), Theme.default.name))
+    fun savedFastUpdate() = prefs.getBoolean(Zir.string(R.string.saved_fast_update), true)
+    fun savedIsElastic() = prefs.getBoolean(Zir.string(R.string.saved_is_elastic), false)
     var isElasticOutline: Boolean = true //TODO tune
     var isElasticColor: Boolean = true //TODO tune
 

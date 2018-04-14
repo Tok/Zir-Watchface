@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.config.select.config.Type
@@ -73,13 +74,12 @@ class PaletteSelectionAdapter(private val pref: String, private val options: Lis
         when (item) {
             is Palette -> (vh as ColorViewHolder).bindPalette(item)
             is BackgroundConfigItem -> {
-                val ctx = ConfigData.ctx
                 with(vh as RecSelectionViewHolder) {
-                    setName(ctx.getString(R.string.label_background))
-                    setSharedPrefString(ctx.getString(R.string.saved_background))
+                    setName(Zir.string(R.string.label_background))
+                    setSharedPrefString(Zir.string(R.string.saved_background))
                     val bgTintId = null //TODO implement
                     bindIcon(R.drawable.icon_background, bgTintId)
-                    setActivity(Item.createBackgroundItem(ctx).activity)
+                    setActivity(Item.createBackgroundItem(Zir.ctx()).activity)
                 }
             }
         }

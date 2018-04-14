@@ -14,7 +14,6 @@ import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.util.Log
 import android.view.SurfaceHolder
-import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.watchface.DrawUtil
@@ -27,8 +26,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
     inner class Engine : CanvasWatchFaceService.Engine() {
         private val MSG_UPDATE_TIME = 0
-
-        val ctx = Zir.getAppContext()
         val drawer = DrawUtil()
 
         private var mCalendar: Calendar = Calendar.getInstance()

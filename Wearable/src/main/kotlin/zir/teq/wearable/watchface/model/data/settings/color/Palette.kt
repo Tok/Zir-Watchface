@@ -8,6 +8,7 @@ import android.graphics.PorterDuffColorFilter
 import android.support.annotation.ColorInt
 import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
@@ -18,9 +19,9 @@ interface ColorConfigItem {
 }
 
 data class Palette(override val configId: Int, val name: String, val darkId: Int, val lightId: Int) : ColorConfigItem {
-    fun dark() = ConfigData.ctx.getColor(darkId)
-    fun half() = ColorUtils.blendARGB(ConfigData.ctx.getColor(darkId), ConfigData.ctx.getColor(lightId), 0.5F)
-    fun light() = ConfigData.ctx.getColor(lightId)
+    fun dark() = Zir.color(darkId)
+    fun half() = ColorUtils.blendARGB(Zir.color(darkId), Zir.color(lightId), 0.5F)
+    fun light() = Zir.color(lightId)
 
     companion object {
         fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / DrawUtil.PHI)
@@ -52,7 +53,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
                 PaintType.SHAPE -> preparePaint(color ?: ConfigData.palette.light())
                 PaintType.HAND -> preparePaint(color ?: ConfigData.palette.half())
                 PaintType.CIRCLE -> prepareStrokePaint(color ?: ConfigData.palette.dark())
-                PaintType.POINT -> prepareStrokePaint(color ?: ConfigData.ctx.getColor(R.color.points))
+                PaintType.POINT -> prepareStrokePaint(color ?: Zir.color(R.color.points))
                 PaintType.SHAPE_AMB -> preparePaint(color ?: ConfigData.palette.light())
                 PaintType.HAND_AMB -> preparePaint(color ?: ConfigData.palette.half())
                 PaintType.CIRCLE_AMB -> prepareStrokePaint(color ?: ConfigData.palette.dark())
@@ -77,7 +78,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
         fun createTextPaint(): Paint = inst().apply {
             typeface = Item.MONO_TYPEFACE
             isFakeBoldText = true
-            color = ConfigData.ctx.getColor(R.color.text)
+            color = Zir.color(R.color.text)
             alpha = ConfigData.style.alpha.value
             isAntiAlias = ConfigData.isAntiAlias
             if (ConfigData.isAmbient) {

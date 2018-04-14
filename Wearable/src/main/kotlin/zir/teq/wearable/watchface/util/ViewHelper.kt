@@ -5,6 +5,7 @@ import android.support.wear.widget.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.select.*
@@ -17,7 +18,7 @@ object ViewHelper {
     fun initView(view: WearableRecyclerView,
                  ada: RecAdapter,
                  manager: RecyclerView.LayoutManager): Unit {
-        view.setBackgroundColor(ConfigData.ctx.getColor(R.color.background))
+        view.setBackgroundColor(Zir.color(R.color.background))
         view.setEdgeItemsCenteringEnabled(true)
         view.layoutManager = manager
         view.adapter = ada

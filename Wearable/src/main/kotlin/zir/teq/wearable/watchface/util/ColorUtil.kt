@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.support.annotation.ColorInt
 import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.model.data.types.Complex
@@ -53,8 +54,8 @@ object ColorUtil {
         }
     }
 
-    val BLACK = ConfigData.ctx.getColor(R.color.black)
-    val WHITE = ConfigData.ctx.getColor(R.color.white)
+    val BLACK = Zir.color(R.color.black)
+    val WHITE = Zir.color(R.color.white)
     private fun getBlackWhite(range: Int, fraction: Double) = when (range) {
         0 -> ColorUtils.blendARGB(BLACK, WHITE, fraction.toFloat())
         1 -> ColorUtils.blendARGB(WHITE, BLACK, fraction.toFloat())
@@ -79,7 +80,7 @@ object ColorUtil {
 
     private fun getDark(range: Int, fraction: Double): Int {
         val original = getFromPalette(range, fraction)
-        return ColorUtils.blendARGB(ConfigData.ctx.getColor(R.color.black), original, 0.5F)
+        return ColorUtils.blendARGB(Zir.color(R.color.black), original, 0.5F)
     }
 
     private fun getFullSpectrum(range: Int, fraction: Double) = when (range) {
