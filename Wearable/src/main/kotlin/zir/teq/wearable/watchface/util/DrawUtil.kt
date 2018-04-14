@@ -260,6 +260,7 @@ class DrawUtil {
             strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
             color = handleColor(p, factor, isOutline)
         }
+
         private val TAG = this::class.java.simpleName
     }
 }

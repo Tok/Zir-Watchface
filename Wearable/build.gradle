@@ -1,20 +1,19 @@
 buildscript {
+    ext.gradle_version = '3.1.1'
     ext.kotlin_version = '1.2.31'
     ext.android_version = '27.1.1'
     ext.wearable_version = '2.3.0'
     ext.services_version = '12.0.1'
     repositories {
+        mavenCentral()
         jcenter()
+        google()
         maven {
             url 'http://oss.sonatype.org/content/repositories/releases'
         }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -24,6 +23,8 @@ apply plugin: 'kotlin-android'
 
 dependencies {
     compileOnly "com.google.android.wearable:wearable:$wearable_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:wear:$android_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:palette-v7:$android_version"
     implementation "com.android.support:percent:$android_version"
@@ -66,8 +67,6 @@ android {
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://maven.google.com/'
-        name 'Google'
-    }
+    jcenter()
+    google()
 }

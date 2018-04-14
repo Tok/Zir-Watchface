@@ -2,8 +2,9 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.wearable.view.CircledImageView
-import android.support.wearable.view.WearableRecyclerView
+import android.support.wear.widget.CircularProgressLayout
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -30,13 +30,16 @@ class StackViewHolder(view: View) : RecSelectionViewHolder(view) {
 class StackSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
     private lateinit var mAdapter: StackSelectionAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection)
+        setContentView(R.layout.zir_list)
         val sharedStackName = intent.getStringExtra(EXTRA)
         mAdapter = StackSelectionAdapter(sharedStackName, Stack.options())
-        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
+        mConfigView = findViewById(R.id.zir_list_view)
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mConfigView, mAdapter, mManager)
     }
 
     override fun onStart() {
@@ -54,7 +57,7 @@ class StackSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Stack>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            StackViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+            StackViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val stack = mOptions[position]
@@ -68,14 +71,15 @@ class StackSelectionAdapter(
 
     inner class StackViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircle = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
-        val mText = view.findViewById<View>(R.id.list_item_text) as TextView
+        val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
+        val mText: TextView = view.findViewById(R.id.list_item_text)
+
         init {
             mView.setOnClickListener(this)
         }
 
         fun bindStack(stack: Stack) {
-            mCircle.setImageResource(stack.iconId)
+            mCircle.setBackgroundResource(stack.iconId)
             mText.text = stack.name
         }
 
@@ -86,7 +90,7 @@ class StackSelectionAdapter(
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, stack.name)
-                editor.commit()
+                editor.apply()
                 activity.setResult(Activity.RESULT_OK)
             }
             activity.finish()

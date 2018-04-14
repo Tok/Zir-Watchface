@@ -12,8 +12,11 @@ import zir.watchface.DrawUtil.Companion.TAU
 
 object ColorUtil {
     val MAX_RGB = 0xFF
-    @ColorInt fun getColor(c: Complex): Int = getColorFromMagnitudeAndPhase(c.magnitude, c.phase)
-    @ColorInt fun getColorFromMagnitudeAndPhase(magnitude: Double, phase: Double): Int {
+    @ColorInt
+    fun getColor(c: Complex): Int = getColorFromMagnitudeAndPhase(c.magnitude, c.phase)
+
+    @ColorInt
+    fun getColorFromMagnitudeAndPhase(magnitude: Double, phase: Double): Int {
         if (magnitude <= 1.0 / MAX_RGB) {
             return Color.BLACK
         }
@@ -50,8 +53,8 @@ object ColorUtil {
         }
     }
 
-    private val BLACK = ConfigData.ctx.getColor(R.color.black)
-    private val WHITE = ConfigData.ctx.getColor(R.color.white)
+    val BLACK = ConfigData.ctx.getColor(R.color.black)
+    val WHITE = ConfigData.ctx.getColor(R.color.white)
     private fun getBlackWhite(range: Int, fraction: Double) = when (range) {
         0 -> ColorUtils.blendARGB(BLACK, WHITE, fraction.toFloat())
         1 -> ColorUtils.blendARGB(WHITE, BLACK, fraction.toFloat())

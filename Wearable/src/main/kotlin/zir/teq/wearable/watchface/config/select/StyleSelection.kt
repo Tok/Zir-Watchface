@@ -2,13 +2,13 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.wearable.view.WearableRecyclerView
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.config.ConfigItemTypes
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.config.select.config.StyleType
@@ -26,15 +26,17 @@ class StyleViewHolder(view: View) : RecSelectionViewHolder(view) {
 }
 
 class StyleSelectionActivity : Activity() {
-    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mView: WearableRecyclerView
     private lateinit var mAdapter: StyleSelectionAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection)
+        setContentView(R.layout.zir_list)
         mAdapter = StyleSelectionAdapter(Item.createStyleConfig(this))
-        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
+        mView = findViewById(R.id.zir_list_view)
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mView, mAdapter, mManager)
     }
 
     companion object {

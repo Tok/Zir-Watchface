@@ -17,10 +17,11 @@ import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
 
 
 data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean>,
-                 override val configId: Int = 0): ComponentConfigItem {
+                 override val configId: Int = 0) : ComponentConfigItem {
     fun get(pair: Pair<Component, State>) = get(pair.first, pair.second)
     fun get(comp: Component, state: State) = get(Component.createKey(comp, state))
     fun get(key: String): Boolean = map.get(key) ?: false
+
     companion object {
         val PLAIN = Theme("Plain", R.drawable.theme_plain, (Component.KEYS.map {
             when (it) {

@@ -30,7 +30,7 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
 
         val WAVE = MainType(3000, R.string.saved_wave, R.string.label_wave, R.drawable.icon_wave)
 
-        val STYLE = MainType(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_dummy) //TODO add icon.
+        val STYLE = MainType(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style)
         val ALPHA = StyleType(4010, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha)
         val DIM = StyleType(4020, R.string.saved_dim, R.string.label_dim, R.drawable.icon_dim)
         val STACK = StyleType(4030, R.string.saved_stack, R.string.label_stack, R.drawable.icon_stack)

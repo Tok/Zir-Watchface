@@ -2,13 +2,15 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.wearable.view.CircledImageView
-import android.support.wearable.view.CurvedChildLayoutManager
-import android.support.wearable.view.WearableRecyclerView
+import android.support.wear.widget.CircularProgressLayout
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
@@ -28,13 +30,16 @@ class OutlineViewHolder(view: View) : RecSelectionViewHolder(view) {
 class OutlineSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
     private lateinit var mAdapter: OutlineSelectionAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection)
+        setContentView(R.layout.zir_list)
         val sharedOutlineName = intent.getStringExtra(EXTRA)
         mAdapter = OutlineSelectionAdapter(sharedOutlineName, Outline.options())
-        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
+        mConfigView = findViewById(R.id.zir_list_view)
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mConfigView, mAdapter, mManager)
     }
 
     override fun onStart() {
@@ -53,7 +58,7 @@ class OutlineSelectionAdapter(
         private val mOptions: ArrayList<Outline>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            OutlineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_outline, parent, false))
+            OutlineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val outline = mOptions[position]
@@ -66,16 +71,19 @@ class OutlineSelectionAdapter(
     }
 
     inner class OutlineViewHolder(view: View) : RecHolder(view), View.OnClickListener {
-        val mView: CircledImageView
+        val mView = view as LinearLayout
+        val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
+        val mText: TextView = view.findViewById(R.id.list_item_text)
+
         init {
-            mView = view.findViewById<View>(R.id.list_item_outline) as CircledImageView
             view.setOnClickListener(this)
         }
 
         fun bindOutline(outline: Outline) {
-            val oDim = Math.max(1F, outline.dim)
-            mView.setCircleBorderWidth(oDim)
-            mView.setCircleColor(ConfigData.palette.half())
+            mCircle.foreground = mView.context.getDrawable(outline.iconId)
+            mCircle.backgroundColor = ConfigData.palette.half()
+            mText.text = outline.name
+            mCircle.strokeWidth = 1F
         }
 
         override fun onClick(view: View) {
@@ -93,6 +101,6 @@ class OutlineSelectionAdapter(
     fun updateSavedValue(outline: Outline) {
         val editor = ConfigData.prefs.edit()
         editor.putString(mPrefString, outline.name)
-        editor.commit()
+        editor.apply()
     }
 }

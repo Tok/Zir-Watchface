@@ -18,7 +18,6 @@ interface ColorConfigItem {
 }
 
 data class Palette(override val configId: Int, val name: String, val darkId: Int, val lightId: Int) : ColorConfigItem {
-
     fun dark() = ConfigData.ctx.getColor(darkId)
     fun half() = ColorUtils.blendARGB(ConfigData.ctx.getColor(darkId), ConfigData.ctx.getColor(lightId), 0.5F)
     fun light() = ConfigData.ctx.getColor(lightId)

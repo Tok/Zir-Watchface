@@ -1,7 +1,7 @@
 package zir.teq.wearable.watchface.util
 
 import android.support.v7.widget.RecyclerView
-import android.support.wearable.view.WearableRecyclerView
+import android.support.wear.widget.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
@@ -9,32 +9,27 @@ import zir.teq.wearable.watchface.config.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.config.select.config.Type
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 
 object ViewHelper {
     fun initView(view: WearableRecyclerView,
                  ada: RecAdapter,
-                 manager: RecyclerView.LayoutManager?): Unit {
-        view.setBackgroundColor(R.color.background)
-        init(view, ada, manager)
-    }
-
-    private fun init(view: WearableRecyclerView,
-                     ada: RecAdapter,
-                     manager: RecyclerView.LayoutManager?) {
-        view.centerEdgeItems = true
+                 manager: RecyclerView.LayoutManager): Unit {
+        view.setBackgroundColor(ConfigData.ctx.getColor(R.color.background))
+        view.setEdgeItemsCenteringEnabled(true)
         view.layoutManager = manager
         view.adapter = ada
         addCircularGestureToView(view)
     }
 
     private fun addCircularGestureToView(view: WearableRecyclerView) {
-        val isGestureActive = false //TODO reactivate?
+        val isGestureActive = false
         if (isGestureActive) {
-            view.isCircularScrollingGestureEnabled = true
-            view.bezelWidth = 0.5F
-            view.scrollDegreesPerScreen = 90F
+            view.setCircularScrollingGestureEnabled(true);
+            view.setBezelFraction(0.5F)
+            view.setScrollDegreesPerScreen(90F)
         }
     }
 

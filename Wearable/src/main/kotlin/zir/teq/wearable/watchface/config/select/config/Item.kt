@@ -9,6 +9,7 @@ import zir.teq.wearable.watchface.model.ConfigData
 import java.util.concurrent.TimeUnit
 
 typealias ConfigItemTypes = List<ConfigItemType>
+
 interface ConfigItemType {
     val configType: Int
 }

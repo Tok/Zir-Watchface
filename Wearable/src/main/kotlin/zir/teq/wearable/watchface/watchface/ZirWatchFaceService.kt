@@ -15,8 +15,8 @@ import android.support.wearable.watchface.WatchFaceStyle
 import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.config.select.config.Item
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.watchface.DrawUtil
 import java.util.*
 
@@ -46,7 +46,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             }
         }
 
-        internal val mUpdateTimeHandler: Handler = object : Handler() {
+        val mUpdateTimeHandler: Handler = object : Handler() {
             val msgUpdateTime = 0
             override fun handleMessage(message: Message) {
                 when (message.what) {

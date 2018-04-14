@@ -2,13 +2,15 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.wearable.view.CircledImageView
-import android.support.wearable.view.CurvedChildLayoutManager
-import android.support.wearable.view.WearableRecyclerView
+import android.support.wear.widget.CircularProgressLayout
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
@@ -28,13 +30,16 @@ class StrokeViewHolder(view: View) : RecSelectionViewHolder(view) {
 class StrokeSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
     private lateinit var mAdapter: StrokeSelectionAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection)
+        setContentView(R.layout.zir_list)
         val sharedStrokeName = intent.getStringExtra(EXTRA)
         mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options())
-        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
+        mConfigView = findViewById(R.id.zir_list_view)
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mConfigView, mAdapter, mManager)
     }
 
     override fun onStart() {
@@ -52,7 +57,7 @@ class StrokeSelectionAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Stroke>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            StrokeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_stroke, parent, false))
+            StrokeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val stroke = mOptions[position]
@@ -65,17 +70,19 @@ class StrokeSelectionAdapter(
     }
 
     inner class StrokeViewHolder(view: View) : RecHolder(view), View.OnClickListener {
-        val mView: CircledImageView
+        val mView = view as LinearLayout
+        val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
+        val mText: TextView = view.findViewById(R.id.list_item_text)
+
         init {
-            mView = view.findViewById<View>(R.id.list_item_stroke) as CircledImageView
             view.setOnClickListener(this)
         }
 
         fun bindStroke(stroke: Stroke) {
-            val oDim = Math.max(1F, ConfigData.style.outline.dim)
-            mView.setCircleBorderWidth(oDim)
-            mView.circleRadius = stroke.dim + oDim
-            mView.setCircleColor(ConfigData.palette.half())
+            mCircle.foreground = mView.context.getDrawable(stroke.iconId)
+            mCircle.backgroundColor = ConfigData.palette.half()
+            mText.text = stroke.name
+            mCircle.strokeWidth = 1F
         }
 
         override fun onClick(view: View) {
@@ -85,7 +92,7 @@ class StrokeSelectionAdapter(
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, stroke.name)
-                editor.commit()
+                editor.apply()
                 activity.setResult(Activity.RESULT_OK)
             }
             activity.finish()

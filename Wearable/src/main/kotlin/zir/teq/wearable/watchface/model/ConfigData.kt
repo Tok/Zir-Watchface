@@ -26,6 +26,7 @@ object ConfigData {
         wave = savedWave()
         style = updateStyle()
     }
+
     private fun prefString(pref: Int, default: String) = prefs.getString(ctx.getString(pref), default)
 
     var theme = savedTheme()

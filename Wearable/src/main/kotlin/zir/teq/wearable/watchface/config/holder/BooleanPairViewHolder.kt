@@ -44,7 +44,7 @@ class BooleanPairViewHolder(view: View) : RecHolder(view), View.OnClickListener 
             val editor = ConfigData.prefs.edit()
             editor.putBoolean(mActivePref, (mActiveBox as CheckBox).isChecked())
             editor.putBoolean(mAmbientPref, (mAmbientBox as CheckBox).isChecked())
-            editor.commit()
+            editor.apply()
         }
     }
 }

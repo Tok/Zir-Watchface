@@ -6,13 +6,11 @@ import android.content.Intent
 import android.graphics.ColorFilter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.wearable.view.WearableRecyclerView
-import android.view.View
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.config.ConfigItemTypes
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.config.select.config.MainType
@@ -22,15 +20,18 @@ import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
+
 class MainConfigActivity : Activity() {
     private lateinit var mView: WearableRecyclerView
     private lateinit var mAdapter: MainConfigAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.zir_config)
-        mView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
+        setContentView(R.layout.zir_list)
+        mView = findViewById(R.id.zir_list_view)
         mAdapter = MainConfigAdapter(Item.createMainConfig(this))
-        ViewHelper.initView(mView, mAdapter, ScalingLayoutManager(this))
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mView, mAdapter, mManager)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -48,8 +49,7 @@ class MainConfigActivity : Activity() {
         data class UpdateReq(val code: Int)
 
         val PALETTE = UpdateReq(1000)
-
-        private val DRAWABLE_IDS = listOf<Int>(
+        private val DRAWABLE_IDS = listOf(
                 R.drawable.icon_color,
                 R.drawable.icon_background,
                 R.drawable.icon_stroke,

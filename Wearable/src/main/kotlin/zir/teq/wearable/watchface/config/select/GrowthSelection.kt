@@ -2,9 +2,9 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.wearable.view.CircledImageView
-import android.support.wearable.view.CurvedChildLayoutManager
-import android.support.wearable.view.WearableRecyclerView
+import android.support.wear.widget.CircularProgressLayout
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +15,8 @@ import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.style.Growth
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
+import zir.teq.wearable.watchface.model.data.settings.style.Growth
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -30,13 +30,16 @@ class GrowthViewHolder(view: View) : RecSelectionViewHolder(view) {
 class GrowthSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
     private lateinit var mAdapter: GrowthSelectionAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection)
+        setContentView(R.layout.zir_list)
         val sharedGrowthName = intent.getStringExtra(EXTRA)
         mAdapter = GrowthSelectionAdapter(sharedGrowthName, Growth.options())
-        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initView(mConfigView, mAdapter, CurvedChildLayoutManager(this))
+        mConfigView = findViewById(R.id.zir_list_view)
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mConfigView, mAdapter, mManager)
     }
 
     override fun onStart() {
@@ -68,25 +71,21 @@ class GrowthSelectionAdapter(
     }
 
     inner class GrowthViewHolder(view: View) : RecHolder(view), View.OnClickListener {
-        val mFirst = view.findViewById<View>(R.id.list_item_growth_current_stroke) as CircledImageView
-        val mSecond = view.findViewById<View>(R.id.list_item_growth_grown_stroke) as CircledImageView
-        val mText = view.findViewById<View>(R.id.list_item_growth_text) as TextView
+        val mFirst: CircularProgressLayout = view.findViewById(R.id.list_item_growth_current_stroke)
+        val mSecond: CircularProgressLayout = view.findViewById(R.id.list_item_growth_grown_stroke)
+        val mText: TextView = view.findViewById(R.id.list_item_growth_text)
+
         init {
             view.setOnClickListener(this)
         }
 
         fun bindGrowth(growth: Growth, pal: Palette) {
-            val dim: Float = (GrowthSelectionAdapter.DISPLAY_ITEM_FACTOR * ConfigData.style.growthFactor())
-            val oDim = Math.max(1F, ConfigData.style.outline.dim)
-            mFirst.circleRadius = dim
-            mFirst.setCircleColor(pal.light())
-            mFirst.setCircleBorderWidth(oDim)
-
-            val growthDim: Float = dim + growth.dim
-            mSecond.circleRadius = growthDim
-            mSecond.setCircleColor(pal.light())
-            mSecond.setCircleBorderWidth(oDim)
-
+            mFirst.setBackgroundColor(pal.light())
+            mFirst.foreground = mText.context.getDrawable(R.drawable.icon_growth_off)
+            mFirst.strokeWidth = 1F
+            mSecond.setBackgroundColor(pal.light())
+            mSecond.foreground = mText.context.getDrawable(growth.iconId)
+            mSecond.strokeWidth = 1F
             mText.text = growth.name
         }
 
@@ -105,7 +104,7 @@ class GrowthSelectionAdapter(
     fun updateSavedValue(growth: Growth) {
         val editor = ConfigData.prefs.edit()
         editor.putString(mPrefString, growth.name)
-        editor.commit()
+        editor.apply()
     }
 
     companion object {

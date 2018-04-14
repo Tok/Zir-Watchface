@@ -6,6 +6,7 @@ import zir.teq.wearable.watchface.config.select.config.Type
 class BackgroundConfigItem() : ColorConfigItem {
     override val configId: Int = Type.BACKGROUND.code
 }
+
 data class Background(val name: String, val id: Int) {
     //TODO reimplement Bip and low bit ambient support?
     //val makeDark = isAmbient && (isLowBitAmbient || isBurnInProtection)

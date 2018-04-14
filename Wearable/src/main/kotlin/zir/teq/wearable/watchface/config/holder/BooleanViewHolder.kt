@@ -23,7 +23,7 @@ class BooleanViewHolder(view: View) : RecSelectionViewHolder(view), View.OnClick
             val editor = ConfigData.prefs.edit()
             val checkBox = mButton as CheckBox
             editor.putBoolean(mPrefString, checkBox.isChecked())
-            editor.commit()
+            editor.apply()
         }
     }
 }

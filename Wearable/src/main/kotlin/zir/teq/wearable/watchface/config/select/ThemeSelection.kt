@@ -2,8 +2,9 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.wearable.view.CircledImageView
-import android.support.wearable.view.WearableRecyclerView
+import android.support.wear.widget.CircularProgressLayout
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -31,34 +31,37 @@ class ComponentViewHolder(view: View) : RecSelectionViewHolder(view) {
 }
 
 class ComponentSelectionActivity : Activity() {
-    private lateinit var mConfigView: WearableRecyclerView
+    private lateinit var mView: WearableRecyclerView
     private lateinit var mAdapter: ComponentSelectionAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection)
+        setContentView(R.layout.zir_list)
         val items = Component.ALL + Theme.ALL.toList()
         mAdapter = ComponentSelectionAdapter(items)
-        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
+        mView = findViewById(R.id.zir_list_view)
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mView, mAdapter, mManager)
     }
 
     override fun onStart() {
         super.onStart()
         val index = Theme.ALL.indexOfFirst { it.name.equals(ConfigData.theme.name) } + 1
-        mConfigView.smoothScrollToPosition(index)
+        mView.smoothScrollToPosition(index)
     }
 }
 
 class ComponentSelectionAdapter(private val options: List<ComponentConfigItem>) : RecAdapter() {
     override fun getItemViewType(position: Int) = options[position].configId
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-        return when (viewType) {
-            0 -> ThemeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
-            else -> {
-                val comp = Component.valueOf(viewType) as Component
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_double_check, parent, false)
-                return BooleanPairViewHolder(view).apply { updateBoxes(comp.activeKey, comp.ambientKey, comp.name) }
-            }
+        val inflater = LayoutInflater.from(parent.context)
+        return if (Component.isDoubleBoolean(viewType)) {
+            val comp = Component.valueOf(viewType) as Component
+            val view = inflater.inflate(R.layout.list_item_double_check, parent, false)
+            BooleanPairViewHolder(view).apply { updateBoxes(comp.activeKey, comp.ambientKey, comp.name) }
+        } else {
+            val view = inflater.inflate(R.layout.list_item_circle_text, parent, false)
+            ThemeViewHolder(view)
         }
     }
 
@@ -78,15 +81,15 @@ class ComponentSelectionAdapter(private val options: List<ComponentConfigItem>) 
 
     inner class ThemeViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
-        val mCircleView = view.findViewById<View>(R.id.list_item_cirlce) as CircledImageView
-        val mTextView = view.findViewById<View>(R.id.list_item_text) as TextView
+        val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
+        val mTextView: TextView = view.findViewById(R.id.list_item_text)
 
         init {
             mView.setOnClickListener(this)
         }
 
         fun bindTheme(theme: Theme) {
-            mCircleView.setImageResource(theme.iconId)
+            mCircle.setBackgroundResource(theme.iconId)
             mTextView.text = theme.name
         }
 

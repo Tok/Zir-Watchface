@@ -2,8 +2,9 @@ package zir.teq.wearable.watchface.config.select
 
 import android.app.Activity
 import android.os.Bundle
+import android.support.wear.widget.WearableLinearLayoutManager
+import android.support.wear.widget.WearableRecyclerView
 import android.support.wearable.view.CircledImageView
-import android.support.wearable.view.WearableRecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.manager.ScalingLayoutManager
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.config.select.config.Type
 import zir.teq.wearable.watchface.config.select.main.MainConfigActivity
@@ -34,15 +34,17 @@ class PaletteViewHolder(view: View) : RecSelectionViewHolder(view) {
 class PaletteSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
     private lateinit var mAdapter: PaletteSelectionAdapter
+    private lateinit var mManager: WearableLinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.selection)
+        setContentView(R.layout.zir_list)
         val sharedColorName = intent.getStringExtra(EXTRA)
         val items = listOf(BackgroundConfigItem()) + Palette.ALL
         mAdapter = PaletteSelectionAdapter(sharedColorName, items)
-        mConfigView = findViewById<View>(R.id.wearable_recycler_view) as WearableRecyclerView
-        ViewHelper.initView(mConfigView, mAdapter, ScalingLayoutManager(this))
+        mConfigView = findViewById(R.id.zir_list_view)
+        mManager = WearableLinearLayoutManager(this)
+        ViewHelper.initView(mConfigView, mAdapter, mManager)
     }
 
     override fun onStart() {

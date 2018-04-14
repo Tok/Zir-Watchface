@@ -13,6 +13,7 @@ import zir.watchface.DrawUtil.HandData
 object Triangles {
     //Triangles only exist in active mode
     data class Factors(val hm: Float, val hs: Float, val ms: Float)
+
     val ELASTICITY = 1F / DrawUtil.PHI
     fun draw(can: Canvas, data: ActiveFrameData, p: Paint) {
         if (ConfigData.theme.get(Component.TRIANGLE to State.ACTIVE)) {
