@@ -1,6 +1,9 @@
 # Zir-Watchface
 ...work in progress...
 
+## Latest Release
+![Wearable APK](https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/outputs/apk/release "Wearable APK")
+
 ## Screenshots
 
 ![Elastic Geometry](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/elastic_geometry.png "Elastic Geometry")
