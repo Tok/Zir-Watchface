@@ -2,7 +2,7 @@
 ...work in progress...
 
 ## Latest Release
-![Wearable APK](https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/outputs/apk/release "Wearable APK")
+(https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/outputs/apk/release "Wearable APK")
 
 ## Screenshots
 
