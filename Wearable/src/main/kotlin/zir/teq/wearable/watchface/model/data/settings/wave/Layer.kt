@@ -8,7 +8,7 @@ import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.util.WaveCalc
 
 class Layer private constructor(val wave: Wave, val center: Complex?, val hour: Complex?, val min: Complex?, val sec: Complex?) {
-    fun all(): List<Complex> = listOfNotNull<Complex>(center, hour, min, sec)
+    fun all(): List<Complex> = listOfNotNull(center, hour, min, sec)
     fun get(): Complex {
         val hasNoValue = center == null && hour == null && min == null && sec == null
         if (hasNoValue) throw IllegalStateException("No values provided.")

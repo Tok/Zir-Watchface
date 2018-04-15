@@ -6,6 +6,7 @@ enum class Resolution(val value: Int, val blurRadius: Float) {
     _5_(4, 1F),
     _8_(8, 1F),
     _10_(10, 1F),
+    _12_(12, 1F),
     _16_(16, 1F),
     _20_(20, 1F),
     _32_(32, 1F),
@@ -14,8 +15,9 @@ enum class Resolution(val value: Int, val blurRadius: Float) {
     _160_(160, 1F);
 
     companion object {
-        val ACTIVE = _10_
-        val AMBIENT = _4_
+        val ACTIVE = _12_ //TODO implement selection
+        val AMBIENT = _4_ //TODO implement selection
+        val DEFAULT = ACTIVE
         fun get(isActive: Boolean) = if (isActive) ACTIVE else AMBIENT
     }
 }

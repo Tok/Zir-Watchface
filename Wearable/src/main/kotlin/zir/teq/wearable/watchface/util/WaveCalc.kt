@@ -11,20 +11,20 @@ import zir.watchface.DrawUtil.Companion.TAU
  * Transpiled and rearranged from: https://github.com/Tok/Erwin/tree/master/src/main/java/erwin
  */
 object WaveCalc {
-    fun calc(from: Point, to: PointF, t: Float, waveLength: Float, mass: Double) =
-            calc(from.x.toDouble(), from.y.toDouble(), to.x.toDouble(), to.y.toDouble(), t, waveLength, mass)
+    fun calc(from: Point, to: PointF, t: Float, waveLength: Float, mass: Float) =
+            calc(from.x.toFloat(), from.y.toFloat(), to.x, to.y, t, waveLength, mass)
 
-    fun calc(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double, t: Float, waveLength: Float, mass: Double): Complex {
+    fun calc(xFrom: Float, yFrom: Float, xTo: Float, yTo: Float, t: Float, waveLength: Float, mass: Float): Complex {
         val distance = calcDistance(xFrom, yFrom, xTo, yTo)
         val phase = t + (distance * waveLength) / mass
         val mag = calcIntensity(distance, xFrom, yFrom)
-        return Complex.fromMagnitudeAndPhase(mag.toFloat(), phase)
+        return Complex.fromMagnitudeAndPhase(mag, phase)
     }
 
-    private fun addSquares(first: Double, second: Double) = (first * first) + (second * second)
-    private fun calcIntensity(distance: Double, x: Double, y: Double) =
-            minOf(1.0, ConfigData.wave.intensity * (x + y) / (Math.pow(distance, 2.0) * TAU))
+    private fun addSquares(first: Float, second: Float): Float = (first * first) + (second * second)
+    private fun calcIntensity(distance: Float, x: Float, y: Float): Float =
+            minOf(1.0, ConfigData.wave.intensity * (x + y) / (Math.pow(distance.toDouble(), 2.0) * TAU)).toFloat()
 
-    private fun calcDistance(xFrom: Double, yFrom: Double, xTo: Double, yTo: Double) =
-            Math.sqrt(addSquares((xFrom - xTo), (yFrom - yTo)))
+    private fun calcDistance(xFrom: Float, yFrom: Float, xTo: Float, yTo: Float): Float =
+            Math.sqrt(addSquares(xFrom - xTo, yFrom - yTo).toDouble()).toFloat()
 }

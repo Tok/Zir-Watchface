@@ -137,6 +137,7 @@ class DrawUtil {
             val newMagnitude = (complexPixel.magnitude + (wave.lastWeight * last.magnitude)) / div
             val newPhase = (complexPixel.phase + (wave.lastWeight * last.phase)) / div
             val new = Complex.fromMagnitudeAndPhase(newMagnitude.toFloat(), newPhase)
+
             lastFrame.put(key, new)
             return ColorUtil.getColor(new)
         } else {

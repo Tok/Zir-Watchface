@@ -1,9 +1,9 @@
 import zir.watchface.DrawUtil
 
-enum class Mass(val value: Double) {
-    DEFAULT(1.0),
-    LIGHT(1.0 / DrawUtil.PHI.toDouble()),
-    LIGHTER(1.0 / (DrawUtil.PHI.toDouble() * DrawUtil.PHI.toDouble())),
-    HEAVY(DrawUtil.PHI.toDouble()),
-    HEAVIER(DrawUtil.PHI.toDouble() * DrawUtil.PHI.toDouble());
+enum class Mass(val value: Float) {
+    DEFAULT(1F),
+    LIGHT(1F / DrawUtil.PHI),
+    LIGHTER(1F / (DrawUtil.PHI * DrawUtil.PHI)),
+    HEAVY(DrawUtil.PHI),
+    HEAVIER(DrawUtil.PHI * DrawUtil.PHI);
 }
