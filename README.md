@@ -36,8 +36,9 @@ https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/outputs/apk/rele
 ## Reports
 
 ### Lint
-https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/reports/lint-results.html
-https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/reports/lint-results-release-fatal.html
+
+* [Results](https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/reports/lint-results.html)
+* [Fatal](https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/reports/lint-results-release-fatal.html)
 
 ## TODO
 

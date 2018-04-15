@@ -176,16 +176,17 @@ document.getElementById(id).style.display = 'none';
       <span class="mdl-layout-title">Lint Report: 59 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sat Apr 14 22:18:17 CEST 2018      </nav>
+Check performed at Sun Apr 15 17:08:03 CEST 2018      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Issue Types</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (1)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (45)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (3)</a>
-      <a class="mdl-navigation__link" href="#IconDuplicates"><i class="material-icons warning-icon">warning</i>Duplicated icons under different names (9)</a>
+      <a class="mdl-navigation__link" href="#IconDuplicates"><i class="material-icons warning-icon">warning</i>Duplicated icons under different names (8)</a>
       <a class="mdl-navigation__link" href="#IconMissingDensityFolder"><i class="material-icons warning-icon">warning</i>Missing density folder (1)</a>
       <a class="mdl-navigation__link" href="#GoogleAppIndexingWarning"><i class="material-icons warning-icon">warning</i>Missing support for Firebase App Indexing (1)</a>
     </nav>
@@ -200,6 +201,11 @@ Check performed at Sat Apr 14 22:18:17 CEST 2018      </nav>
   </div>
               <div class="mdl-card__supporting-text">
 <table class="overview">
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
@@ -211,7 +217,7 @@ Check performed at Sat Apr 14 22:18:17 CEST 2018      </nav>
 <td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#IconDensities">IconDensities</a>: Icon densities validation</td></tr>
 <tr>
-<td class="countColumn">9</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">8</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#IconDuplicates">IconDuplicates</a>: Duplicated icons under different names</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -226,6 +232,54 @@ Check performed at Sat Apr 14 22:18:17 CEST 2018      </nav>
 <br/>              </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="OverviewCardLink" onclick="hideid('OverviewCard');">
+Dismiss</button>            </div>
+            </div>
+          </section>
+<a name="Correctness"></a>
+<a name="GradleDependency"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="GradleDependencyCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Obsolete Gradle Dependency</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:34</span>: <span class="message">A newer version of com.google.android.gms:play-services-wearable than 12.0.1 is available: 15.0.0</span><br /><pre class="errorlines">
+<span class="lineno"> 31 </span>    implementation <span class="string">"com.android.support:recyclerview-v7:$android_version"</span>
+<span class="lineno"> 32 </span>    implementation <span class="string">"com.android.support:support-v13:$android_version"</span>
+<span class="lineno"> 33 </span>    implementation <span class="string">"com.google.android.support:wearable:$wearable_version"</span>
+<span class="caretline"><span class="lineno"> 34 </span>    <span class="warning">implementation <span class="string">"com.google.android.gms:play-services-wearable:$services_version"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 35 </span>}
+<span class="lineno"> 36 </span>
+<span class="lineno"> 37 </span>List&lt;String> dirs = [
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationGradleDependency" style="display: none;">
+This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "GradleDependency" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">GradleDependency</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGradleDependencyLink" onclick="reveal('explanationGradleDependency');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GradleDependencyCardLink" onclick="hideid('GradleDependencyCard');">
 Dismiss</button>            </div>
             </div>
           </section>
@@ -715,133 +769,102 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_bold.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_bold.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_bold.png, icon_outline_bold.png, icon_stroke_bold.png</span><br />
-<ul></ul><button id="Location1DivLink" onclick="reveal('Location1Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_bold.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_bold.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_bold.png, icon_stroke_bold.png</span><br />
+<ul></ul><button id="Location1DivLink" onclick="reveal('Location1Div');" />+ 1 Additional Locations...</button>
 <div id="Location1Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_bold.png">../../src/main/res/drawable-xxxhdpi/icon_outline_bold.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_bold.png">../../src/main/res/drawable-xxxhdpi/icon_growth_bold.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_bold.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_bold.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_bold.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_bold.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_bold.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_bold.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
+</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_bolder.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_bolder.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_bolder.png, icon_outline_bolder.png, icon_stroke_bolder.png</span><br />
-<ul></ul><button id="Location2DivLink" onclick="reveal('Location2Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_bolder.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_bolder.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_bolder.png, icon_stroke_bolder.png</span><br />
+<ul></ul><button id="Location2DivLink" onclick="reveal('Location2Div');" />+ 1 Additional Locations...</button>
 <div id="Location2Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_bolder.png">../../src/main/res/drawable-xxxhdpi/icon_outline_bolder.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_bolder.png">../../src/main/res/drawable-xxxhdpi/icon_growth_bolder.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_bolder.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_bolder.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_bolder.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_bolder.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_bolder.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_bolder.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
+</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_giga.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_giga.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_giga.png, icon_outline_giga.png, icon_stroke_giga.png</span><br />
-<ul></ul><button id="Location3DivLink" onclick="reveal('Location3Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_giga.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_giga.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_giga.png, icon_stroke_giga.png</span><br />
+<ul></ul><button id="Location3DivLink" onclick="reveal('Location3Div');" />+ 1 Additional Locations...</button>
 <div id="Location3Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_giga.png">../../src/main/res/drawable-xxxhdpi/icon_outline_giga.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_giga.png">../../src/main/res/drawable-xxxhdpi/icon_growth_giga.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_giga.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_giga.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_giga.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_giga.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_giga.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_giga.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
+</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_hair.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_hair.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_hair.png, icon_outline_hair.png, icon_stroke_hair.png</span><br />
-<ul></ul><button id="Location4DivLink" onclick="reveal('Location4Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_hair.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_hair.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_hair.png, icon_stroke_hair.png</span><br />
+<ul></ul><button id="Location4DivLink" onclick="reveal('Location4Div');" />+ 1 Additional Locations...</button>
 <div id="Location4Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_hair.png">../../src/main/res/drawable-xxxhdpi/icon_outline_hair.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_hair.png">../../src/main/res/drawable-xxxhdpi/icon_growth_hair.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_hair.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_hair.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_hair.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_hair.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_hair.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_hair.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
+</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_mega.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_mega.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_mega.png, icon_outline_mega.png, icon_stroke_mega.png</span><br />
-<ul></ul><button id="Location5DivLink" onclick="reveal('Location5Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_mega.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_mega.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_mega.png, icon_stroke_mega.png</span><br />
+<ul></ul><button id="Location5DivLink" onclick="reveal('Location5Div');" />+ 1 Additional Locations...</button>
 <div id="Location5Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_mega.png">../../src/main/res/drawable-xxxhdpi/icon_outline_mega.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_mega.png">../../src/main/res/drawable-xxxhdpi/icon_growth_mega.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_mega.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_mega.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_mega.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_mega.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_mega.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_mega.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
+</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-<button class="mdl-button mdl-js-button mdl-button--primary" id="IconDuplicatesDivLink" onclick="reveal('IconDuplicatesDiv');" />+ 4 More Occurrences...</button>
-<div id="IconDuplicatesDiv" style="display: none">
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_normal.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_normal.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_normal.png, icon_outline_normal.png, icon_stroke_normal.png</span><br />
-<ul></ul><button id="Location6DivLink" onclick="reveal('Location6Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_normal.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_normal.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_normal.png, icon_stroke_normal.png</span><br />
+<ul></ul><button id="Location6DivLink" onclick="reveal('Location6Div');" />+ 1 Additional Locations...</button>
 <div id="Location6Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_normal.png">../../src/main/res/drawable-xxxhdpi/icon_outline_normal.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_normal.png">../../src/main/res/drawable-xxxhdpi/icon_growth_normal.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_normal.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_normal.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_normal.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_normal.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_normal.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_normal.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
+</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_off.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_off.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_off.png, icon_outline_off.png, icon_stroke_off.png</span><br />
-<ul></ul><button id="Location7DivLink" onclick="reveal('Location7Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_off.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_off.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_off.png, icon_stroke_off.png</span><br />
+<ul></ul><button id="Location7DivLink" onclick="reveal('Location7Div');" />+ 1 Additional Locations...</button>
 <div id="Location7Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_off.png">../../src/main/res/drawable-xxxhdpi/icon_outline_off.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_off.png">../../src/main/res/drawable-xxxhdpi/icon_growth_off.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_off.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_off.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_off.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_off.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_off.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_off.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
+</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_thin.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_thin.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_thin.png, icon_outline_thin.png, icon_stroke_thin.png</span><br />
-<ul></ul><button id="Location8DivLink" onclick="reveal('Location8Div');" />+ 2 Additional Locations...</button>
+<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_thin.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_thin.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_growth_thin.png, icon_stroke_thin.png</span><br />
+<ul></ul><button id="Location8DivLink" onclick="reveal('Location8Div');" />+ 1 Additional Locations...</button>
 <div id="Location8Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_thin.png">../../src/main/res/drawable-xxxhdpi/icon_outline_thin.png</a></span>
 <li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_thin.png">../../src/main/res/drawable-xxxhdpi/icon_growth_thin.png</a></span>
 </ul>
 </div><br/><br/>
 <table>
 <tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_growth_thin.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_growth_thin.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_thin.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_thin.png" /></a>
 </td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_thin.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_thin.png" /></a>
-</td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th><th>xxxhdpi</th></tr>
-</table>
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_ultra.png">../../src/main/res/drawable-xxxhdpi/icon_stroke_ultra.png</a></span>: <span class="message">The following unrelated icon files have identical contents: icon_outline_ultra.png, icon_stroke_ultra.png</span><br />
-<ul></ul><button id="Location9DivLink" onclick="reveal('Location9Div');" />+ 1 Additional Locations...</button>
-<div id="Location9Div" style="display: none">
-Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_ultra.png">../../src/main/res/drawable-xxxhdpi/icon_outline_ultra.png</a></span>
-</ul>
-</div><br/><br/>
-<table>
-<tr><td><a href="../../src/main/res/drawable-xxxhdpi/icon_outline_ultra.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_outline_ultra.png" /></a>
-</td><td><a href="../../src/main/res/drawable-xxxhdpi/icon_stroke_ultra.png"><img border="0" align="top" src="../../src/main/res/drawable-xxxhdpi/icon_stroke_ultra.png" /></a>
 </td></tr><tr><th>xxxhdpi</th><th>xxxhdpi</th></tr>
 </table>
-</div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationIconDuplicates" style="display: none;">
 If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.<br/>To suppress this error, use the issue id "IconDuplicates" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>

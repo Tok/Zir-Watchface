@@ -2,6 +2,23 @@
 <issues format="4" by="lint 3.1.1">
 
     <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.google.android.gms:play-services-wearable than 12.0.1 is available: 15.0.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation &quot;com.google.android.gms:play-services-wearable:$services_version&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\build.gradle"
+            line="34"
+            column="5"/>
+    </issue>
+
+    <issue
         id="UnusedResources"
         severity="Warning"
         message="The resource `R.color.border_color` appears to be unused"
@@ -791,7 +808,7 @@
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_bold.png, icon_outline_bold.png, icon_stroke_bold.png"
+        message="The following unrelated icon files have identical contents: icon_growth_bold.png, icon_stroke_bold.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -799,15 +816,13 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_bold.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_bold.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_bold.png"/>
     </issue>
 
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_bolder.png, icon_outline_bolder.png, icon_stroke_bolder.png"
+        message="The following unrelated icon files have identical contents: icon_growth_bolder.png, icon_stroke_bolder.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -815,15 +830,13 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_bolder.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_bolder.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_bolder.png"/>
     </issue>
 
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_giga.png, icon_outline_giga.png, icon_stroke_giga.png"
+        message="The following unrelated icon files have identical contents: icon_growth_giga.png, icon_stroke_giga.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -831,15 +844,13 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_giga.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_giga.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_giga.png"/>
     </issue>
 
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_hair.png, icon_outline_hair.png, icon_stroke_hair.png"
+        message="The following unrelated icon files have identical contents: icon_growth_hair.png, icon_stroke_hair.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -847,15 +858,13 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_hair.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_hair.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_hair.png"/>
     </issue>
 
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_mega.png, icon_outline_mega.png, icon_stroke_mega.png"
+        message="The following unrelated icon files have identical contents: icon_growth_mega.png, icon_stroke_mega.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -863,15 +872,13 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_mega.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_mega.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_mega.png"/>
     </issue>
 
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_normal.png, icon_outline_normal.png, icon_stroke_normal.png"
+        message="The following unrelated icon files have identical contents: icon_growth_normal.png, icon_stroke_normal.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -879,15 +886,13 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_normal.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_normal.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_normal.png"/>
     </issue>
 
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_off.png, icon_outline_off.png, icon_stroke_off.png"
+        message="The following unrelated icon files have identical contents: icon_growth_off.png, icon_stroke_off.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -895,15 +900,13 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_off.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_off.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_off.png"/>
     </issue>
 
     <issue
         id="IconDuplicates"
         severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_growth_thin.png, icon_outline_thin.png, icon_stroke_thin.png"
+        message="The following unrelated icon files have identical contents: icon_growth_thin.png, icon_stroke_thin.png"
         category="Usability:Icons"
         priority="3"
         summary="Duplicated icons under different names"
@@ -911,23 +914,7 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_thin.png"/>
         <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_thin.png"/>
-        <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_growth_thin.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        severity="Warning"
-        message="The following unrelated icon files have identical contents: icon_outline_ultra.png, icon_stroke_ultra.png"
-        category="Usability:Icons"
-        priority="3"
-        summary="Duplicated icons under different names"
-        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
-        <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_stroke_ultra.png"/>
-        <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\drawable-xxxhdpi\icon_outline_ultra.png"/>
     </issue>
 
     <issue
