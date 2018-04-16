@@ -13,8 +13,8 @@ class Layer private constructor(val wave: Wave, val center: Complex?, val hour: 
         val hasNoValue = center == null && hour == null && min == null && sec == null
         if (hasNoValue) throw IllegalStateException("No values provided.")
         return when (wave.op) {
-            Operator.MULTIPLY -> all().fold(Complex.ONE) { total, next -> total * next }
-            Operator.ADD -> all().fold(Complex.ZERO) { total, next -> total + next }
+            Operator.MULTIPLY -> Complex.multiplyAll(all())
+            Operator.ADD -> Complex.addAll(all())
             else -> throw IllegalArgumentException("Unknown operator: " + wave.op)
         }
     }

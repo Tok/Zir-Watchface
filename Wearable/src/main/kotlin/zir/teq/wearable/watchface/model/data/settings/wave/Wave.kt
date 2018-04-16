@@ -15,7 +15,7 @@ data class Wave(val name: String,
     val iconId: Int = R.drawable.icon_dummy //TODO replace
     val isOff = name.equals("Off")
     val isOn = !isOff
-    val hasCenter = true //TODO tune
+    val hasCenter = false //TODO tune (performance)
     val hasHours = true
     val hasMinutes = true
     val hasSeconds = true
