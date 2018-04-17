@@ -337,7 +337,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
-            line="26"
+            line="27"
             column="12"/>
     </issue>
 
@@ -354,7 +354,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
-            line="38"
+            line="39"
             column="12"/>
     </issue>
 
@@ -371,7 +371,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
-            line="39"
+            line="40"
             column="12"/>
     </issue>
 
@@ -388,7 +388,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\dimens.xml"
-            line="41"
+            line="42"
             column="12"/>
     </issue>
 

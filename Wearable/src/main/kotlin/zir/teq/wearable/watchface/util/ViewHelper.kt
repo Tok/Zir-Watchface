@@ -10,7 +10,6 @@ import zir.teq.wearable.watchface.config.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.config.select.config.Type
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 
