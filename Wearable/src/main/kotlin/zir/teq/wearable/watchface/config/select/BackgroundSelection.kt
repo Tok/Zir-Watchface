@@ -78,9 +78,10 @@ class BackgroundSelectionAdapter(
         }
 
         fun bindBackground(background: Background) {
-            mCircle.setBackgroundResource(background.id)
+            mCircle.foreground = mView.context.getDrawable(R.drawable.icon_dummy)
             mCircle.backgroundColor = mCircle.context.getColor(background.id)
             mText.text = background.name
+            mCircle.strokeWidth = 1F
         }
 
         override fun onClick(view: View) {
