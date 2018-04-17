@@ -20,11 +20,9 @@
         android:layout_height="@dimen/list_item_circle_dim"
         android:layout_marginBottom="0dp"
         android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="@dimen/list_item_palette_circle_margin"
         android:background="@drawable/shape_circle"
-        android:clickable="false"
-        android:descendantFocusability="blocksDescendants"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
         android:gravity="center"
         android:orientation="horizontal" />
 
@@ -35,11 +33,9 @@
         android:layout_height="@dimen/list_item_circle_dim"
         android:layout_marginBottom="0dp"
         android:layout_marginTop="0dp"
+        android:layout_marginLeft="@dimen/list_item_palette_circle_margin"
+        android:layout_marginRight="@dimen/list_item_palette_circle_margin"
         android:background="@drawable/shape_circle"
-        android:clickable="false"
-        android:descendantFocusability="blocksDescendants"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
         android:gravity="center"
         android:orientation="horizontal" />
 
@@ -50,11 +46,9 @@
         android:layout_height="@dimen/list_item_circle_dim"
         android:layout_marginBottom="0dp"
         android:layout_marginTop="0dp"
+        android:layout_marginLeft="@dimen/list_item_palette_circle_margin"
+        android:layout_marginRight="0dp"
         android:background="@drawable/shape_circle"
-        android:clickable="false"
-        android:descendantFocusability="blocksDescendants"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
         android:gravity="center"
         android:orientation="horizontal" />
 </LinearLayout>
