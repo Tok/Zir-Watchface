@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select
+package zir.teq.wearable.watchface.config.select.main.style
 
 import android.app.Activity
 import android.os.Bundle
@@ -16,27 +16,28 @@ import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.style.Dim
+import zir.teq.wearable.watchface.model.data.settings.style.Alpha
 import zir.teq.wearable.watchface.util.ViewHelper
+import java.util.*
 
 
-class DimViewHolder(view: View) : RecSelectionViewHolder(view) {
+class AlphaViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
         mButton = view.findViewById<View>(R.id.list_item_main) as Button
-        view.setOnClickListener { super.handleClick(view, DimSelectionActivity.EXTRA) }
+        view.setOnClickListener { super.handleClick(view, AlphaSelectionActivity.EXTRA) }
     }
 }
 
-class DimSelectionActivity : Activity() {
+class AlphaSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
-    private lateinit var mAdapter: DimSelectionAdapter
+    private lateinit var mAdapter: AlphaSelectionAdapter
     private lateinit var mManager: WearableLinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedDimId = intent.getStringExtra(EXTRA)
-        mAdapter = DimSelectionAdapter(sharedDimId, Dim.options())
+        val sharedAlphaId = intent.getStringExtra(EXTRA)
+        mAdapter = AlphaSelectionAdapter(sharedAlphaId, Alpha.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mConfigView, mAdapter, mManager)
@@ -44,33 +45,33 @@ class DimSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Dim.all.indexOfFirst { it.name.equals(ConfigData.style.dim.name) } + 1
+        val index = Alpha.all.indexOfFirst { it.name.equals(ConfigData.style.alpha.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {
-        internal val EXTRA = this::class.java.getPackage().name + "SHARED_DIM"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_ALPHA"
     }
 }
 
-class DimSelectionAdapter(
+class AlphaSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: java.util.ArrayList<Dim>) : RecAdapter() {
+        private val mOptions: ArrayList<Alpha>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            DimViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
+            AlphaViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
-        val dim = mOptions[position]
-        val dimViewHolder = vh as DimViewHolder
-        dimViewHolder.bindDim(dim)
+        val alpha = mOptions[position]
+        val alphaViewHolder = vh as AlphaViewHolder
+        alphaViewHolder.bindAlpha(alpha)
     }
 
     override fun getItemCount(): Int {
         return mOptions.size
     }
 
-    inner class DimViewHolder(view: View) : RecHolder(view), View.OnClickListener {
+    inner class AlphaViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
         val mText: TextView = view.findViewById(R.id.list_item_text)
@@ -79,21 +80,21 @@ class DimSelectionAdapter(
             mView.setOnClickListener(this)
         }
 
-        fun bindDim(dim: Dim) {
+        fun bindAlpha(alpha: Alpha) {
             mCircle.foreground = mView.context.getDrawable(R.drawable.icon_dummy)
-            mCircle.backgroundColor = mView.context.getColor(R.color.black)
-            mCircle.alpha = dim.value.toFloat()
+            mCircle.backgroundColor = ConfigData.palette.half()
+            mCircle.alpha = 256 - alpha.value.toFloat() //Inverse of how it's used in draw util.
             mCircle.strokeWidth = 1F
-            mText.text = dim.name
+            mText.text = alpha.name
         }
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val dim: Dim = mOptions[position]
+            val alpha: Alpha = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs.edit()
-                editor.putString(mPrefString, dim.name)
+                editor.putString(mPrefString, alpha.name)
                 editor.apply()
                 activity.setResult(Activity.RESULT_OK)
             }

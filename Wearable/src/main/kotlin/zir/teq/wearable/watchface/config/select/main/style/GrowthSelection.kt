@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select
+package zir.teq.wearable.watchface.config.select.main.style
 
 import android.app.Activity
 import android.os.Bundle

@@ -3,8 +3,12 @@ package zir.teq.wearable.watchface.config.select.config
 import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
-import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.config.select.main.MainConfigActivity
+import zir.teq.wearable.watchface.config.select.main.color.BackgroundSelectionActivity
+import zir.teq.wearable.watchface.config.select.main.color.PaletteSelectionActivity
+import zir.teq.wearable.watchface.config.select.main.component.ComponentSelectionActivity
+import zir.teq.wearable.watchface.config.select.main.style.*
+import zir.teq.wearable.watchface.config.select.main.wave.WaveSelectionActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import java.util.concurrent.TimeUnit
 

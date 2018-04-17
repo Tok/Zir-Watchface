@@ -1,10 +1,7 @@
 package zir.teq.wearable.watchface.config.select.main
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.ColorFilter
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
@@ -17,7 +14,6 @@ import zir.teq.wearable.watchface.config.select.config.MainType
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -37,10 +33,7 @@ class MainConfigActivity : Activity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                PALETTE.code -> {
-                    val filter = Palette.createFilter(ConfigData.palette)
-                    DRAWABLE_IDS.forEach { updateItemColor(mView.context, filter, it) }
-                }
+                PALETTE.code -> mAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -49,24 +42,6 @@ class MainConfigActivity : Activity() {
         data class UpdateReq(val code: Int)
 
         val PALETTE = UpdateReq(1000)
-        private val DRAWABLE_IDS = listOf(
-                R.drawable.icon_color,
-                R.drawable.icon_background,
-                R.drawable.icon_stroke,
-                R.drawable.icon_components,
-                R.drawable.icon_outline,
-                R.drawable.icon_growth,
-                R.drawable.icon_alpha,
-                R.drawable.icon_dim,
-                R.drawable.icon_dummy
-        )
-
-        private fun updateItemColor(ctx: Context, filter: ColorFilter, id: Int): Drawable =
-                ctx.resources.getDrawable(id, null).apply {
-                    colorFilter = filter
-                    invalidateSelf()
-                }
-
     }
 }
 

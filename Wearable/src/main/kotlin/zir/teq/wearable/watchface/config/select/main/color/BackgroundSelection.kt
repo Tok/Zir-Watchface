@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select
+package zir.teq.wearable.watchface.config.select.main.color
 
 import android.app.Activity
 import android.os.Bundle
@@ -16,27 +16,27 @@ import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.style.Stroke
+import zir.teq.wearable.watchface.model.data.settings.color.Background
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
-class StrokeViewHolder(view: View) : RecSelectionViewHolder(view) {
+class BackgroundViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
         mButton = view.findViewById<View>(R.id.list_item_main) as Button
-        view.setOnClickListener { super.handleClick(view, StrokeSelectionActivity.EXTRA) }
+        view.setOnClickListener { super.handleClick(view, BackgroundSelectionActivity.EXTRA) }
     }
 }
 
-class StrokeSelectionActivity : Activity() {
+class BackgroundSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
-    private lateinit var mAdapter: StrokeSelectionAdapter
+    private lateinit var mAdapter: BackgroundSelectionAdapter
     private lateinit var mManager: WearableLinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedStrokeName = intent.getStringExtra(EXTRA)
-        mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options())
+        val sharedBackgroundId = intent.getStringExtra(EXTRA)
+        mAdapter = BackgroundSelectionAdapter(sharedBackgroundId, Background.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mConfigView, mAdapter, mManager)
@@ -44,54 +44,54 @@ class StrokeSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Stroke.all.indexOfFirst { it.name.equals(ConfigData.style.stroke.name) }
+        val index = Background.all.indexOfFirst { it.name.equals(ConfigData.background.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {
-        internal val EXTRA = this::class.java.getPackage().name + "SHARED_STROKE"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_BACKGROUND"
     }
 }
 
-class StrokeSelectionAdapter(
+class BackgroundSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Stroke>) : RecAdapter() {
+        private val mOptions: ArrayList<Background>) : RecAdapter() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            StrokeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
+            BackgroundViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
-        val stroke = mOptions[position]
-        val strokeViewHolder = vh as StrokeViewHolder
-        strokeViewHolder.bindStroke(stroke)
+        val bg = mOptions[position]
+        val colorViewHolder = vh as BackgroundViewHolder
+        colorViewHolder.bindBackground(bg)
     }
 
-    override fun getItemCount(): Int {
-        return mOptions.size
-    }
+    override fun getItemCount(): Int = mOptions.size
 
-    inner class StrokeViewHolder(view: View) : RecHolder(view), View.OnClickListener {
+    inner class BackgroundViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
         val mText: TextView = view.findViewById(R.id.list_item_text)
 
         init {
-            view.setOnClickListener(this)
+            mView.setOnClickListener(this)
         }
 
-        fun bindStroke(stroke: Stroke) {
-            mCircle.foreground = mView.context.getDrawable(stroke.iconId)
-            mCircle.backgroundColor = ConfigData.palette.half()
-            mText.text = stroke.name
+        fun bindBackground(background: Background) {
+            mCircle.foreground = mView.context.getDrawable(R.drawable.icon_dummy)
+            mCircle.backgroundColor = mCircle.context.getColor(background.id)
+            mText.text = background.name
             mCircle.strokeWidth = 1F
         }
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val stroke = mOptions[position]
+            val background: Background = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
+                ConfigData.background = background
                 val editor = ConfigData.prefs.edit()
-                editor.putString(mPrefString, stroke.name)
+                editor.putString(mPrefString, background.name)
                 editor.apply()
                 activity.setResult(Activity.RESULT_OK)
             }

@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select
+package zir.teq.wearable.watchface.config.select.main.style
 
 import android.app.Activity
 import android.os.Bundle
@@ -16,28 +16,27 @@ import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.style.Alpha
+import zir.teq.wearable.watchface.model.data.settings.style.Stroke
 import zir.teq.wearable.watchface.util.ViewHelper
-import java.util.*
 
 
-class AlphaViewHolder(view: View) : RecSelectionViewHolder(view) {
+class StrokeViewHolder(view: View) : RecSelectionViewHolder(view) {
     init {
         mButton = view.findViewById<View>(R.id.list_item_main) as Button
-        view.setOnClickListener { super.handleClick(view, AlphaSelectionActivity.EXTRA) }
+        view.setOnClickListener { super.handleClick(view, StrokeSelectionActivity.EXTRA) }
     }
 }
 
-class AlphaSelectionActivity : Activity() {
+class StrokeSelectionActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
-    private lateinit var mAdapter: AlphaSelectionAdapter
+    private lateinit var mAdapter: StrokeSelectionAdapter
     private lateinit var mManager: WearableLinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedAlphaId = intent.getStringExtra(EXTRA)
-        mAdapter = AlphaSelectionAdapter(sharedAlphaId, Alpha.options())
+        val sharedStrokeName = intent.getStringExtra(EXTRA)
+        mAdapter = StrokeSelectionAdapter(sharedStrokeName, Stroke.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mConfigView, mAdapter, mManager)
@@ -45,56 +44,54 @@ class AlphaSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Alpha.all.indexOfFirst { it.name.equals(ConfigData.style.alpha.name) } + 1
+        val index = Stroke.all.indexOfFirst { it.name.equals(ConfigData.style.stroke.name) }
         mConfigView.smoothScrollToPosition(index)
     }
 
     companion object {
-        internal val EXTRA = this::class.java.getPackage().name + "SHARED_ALPHA"
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_STROKE"
     }
 }
 
-class AlphaSelectionAdapter(
+class StrokeSelectionAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Alpha>) : RecAdapter() {
-
+        private val mOptions: ArrayList<Stroke>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            AlphaViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
+            StrokeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
-        val alpha = mOptions[position]
-        val alphaViewHolder = vh as AlphaViewHolder
-        alphaViewHolder.bindAlpha(alpha)
+        val stroke = mOptions[position]
+        val strokeViewHolder = vh as StrokeViewHolder
+        strokeViewHolder.bindStroke(stroke)
     }
 
     override fun getItemCount(): Int {
         return mOptions.size
     }
 
-    inner class AlphaViewHolder(view: View) : RecHolder(view), View.OnClickListener {
+    inner class StrokeViewHolder(view: View) : RecHolder(view), View.OnClickListener {
         val mView = view as LinearLayout
         val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
         val mText: TextView = view.findViewById(R.id.list_item_text)
 
         init {
-            mView.setOnClickListener(this)
+            view.setOnClickListener(this)
         }
 
-        fun bindAlpha(alpha: Alpha) {
-            mCircle.foreground = mView.context.getDrawable(R.drawable.icon_dummy)
+        fun bindStroke(stroke: Stroke) {
+            mCircle.foreground = mView.context.getDrawable(stroke.iconId)
             mCircle.backgroundColor = ConfigData.palette.half()
-            mCircle.alpha = 256 - alpha.value.toFloat() //Inverse of how it's used in draw util.
+            mText.text = stroke.name
             mCircle.strokeWidth = 1F
-            mText.text = alpha.name
         }
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val alpha: Alpha = mOptions[position]
+            val stroke = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs.edit()
-                editor.putString(mPrefString, alpha.name)
+                editor.putString(mPrefString, stroke.name)
                 editor.apply()
                 activity.setResult(Activity.RESULT_OK)
             }

@@ -8,8 +8,12 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.select.*
 import zir.teq.wearable.watchface.config.select.config.Type
+import zir.teq.wearable.watchface.config.select.main.color.BackgroundViewHolder
+import zir.teq.wearable.watchface.config.select.main.color.PaletteViewHolder
+import zir.teq.wearable.watchface.config.select.main.component.ComponentViewHolder
+import zir.teq.wearable.watchface.config.select.main.style.*
+import zir.teq.wearable.watchface.config.select.main.wave.WaveViewHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 
