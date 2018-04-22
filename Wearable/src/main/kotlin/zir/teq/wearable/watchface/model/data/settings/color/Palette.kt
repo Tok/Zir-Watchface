@@ -26,25 +26,24 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
     companion object {
         fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / DrawUtil.PHI)
         fun makeLighter(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.white), 1F / DrawUtil.PHI)
-        val BLACK = Palette(1010, "Black", R.color.black, R.color.dark_gray)
         val DARK = Palette(1020, "Dark", R.color.darker, R.color.dark_gray)
         val WHITE = Palette(1030, "White", R.color.dark_grey, R.color.white)
-        val RED = Palette(1040, "Red", R.color.dark_red, R.color.red)
-        val YELLOW = Palette(1050, "Yellow", R.color.yellow_dark, R.color.yellow)
-        val GREEN = Palette(1060, "Green", R.color.dark_green, R.color.green_yellow)
-        val BLUE = Palette(1070, "Blue", R.color.dark_blue, R.color.deep_sky_blue)
+        val RED = Palette(1040, "Red", R.color.fire_brick, R.color.red)
+        val BLUE = Palette(1050, "Blue", R.color.dark_blue, R.color.deep_sky_blue)
+        val YELLOW = Palette(1060, "", R.color.yellow_dark, R.color.yellow)
+        val GREEN = Palette(1070, "Green", R.color.dark_green, R.color.green_yellow)
         val PURPLE = Palette(1080, "Purple", R.color.indigo, R.color.magenta)
-        val PURPLE_GREEN = Palette(1090, "Purple and Green", R.color.indigo, R.color.green_yellow)
-        val BLUE_ORANGE = Palette(1100, "Blue and Orange", R.color.deep_sky_blue, R.color.bright_orange)
-        val RED_YELLOW = Palette(1110, "Red and Yellow", R.color.red, R.color.yellow)
+        val RED_YELLOW = Palette(1090, "Red and Yellow", R.color.red, R.color.yellow)
+        val PURPLE_GREEN = Palette(1100, "Purple and Green", R.color.dark_violet, R.color.lime_green)
+        val BLUE_ORANGE = Palette(1110, "Blue and Orange", R.color.deep_sky_blue, R.color.orange)
+        val ICE = Palette(1120, "Ice", R.color.blue, R.color.white)
 
         val defaultType = DARK
         fun default() = create(defaultType.name)
 
-        val ALL = listOf(BLACK, DARK, WHITE,
-                RED, YELLOW, GREEN, BLUE, PURPLE,
-                PURPLE_GREEN, BLUE_ORANGE, RED_YELLOW)
-        val selectable = listOf(RED, YELLOW, GREEN, BLUE, PURPLE)
+        val ALL = listOf(DARK, WHITE, RED, BLUE, YELLOW, GREEN,
+                PURPLE, RED_YELLOW, PURPLE_GREEN, BLUE_ORANGE, ICE)
+        val selectable = listOf(RED, BLUE, YELLOW, GREEN, PURPLE)
         fun create(name: String): Palette = ALL.find { it.name.equals(name) } ?: defaultType
 
         fun createPaint(type: PaintType): Paint = createPaint(type, null)

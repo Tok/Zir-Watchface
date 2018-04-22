@@ -2,23 +2,6 @@
 <issues format="4" by="lint 3.1.1">
 
     <issue
-        id="GradleDependency"
-        severity="Warning"
-        message="A newer version of com.google.android.gms:play-services-wearable than 12.0.1 is available: 15.0.0"
-        category="Correctness"
-        priority="4"
-        summary="Obsolete Gradle Dependency"
-        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
-        errorLine1="    implementation &quot;com.google.android.gms:play-services-wearable:$services_version&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio">
-        <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\build.gradle"
-            line="34"
-            column="5"/>
-    </issue>
-
-    <issue
         id="UnusedResources"
         severity="Warning"
         message="The resource `R.color.border_color` appears to be unused"
@@ -55,17 +38,17 @@
     <issue
         id="UnusedResources"
         severity="Warning"
-        message="The resource `R.color.fire_brick` appears to be unused"
+        message="The resource `R.color.dark_red` appears to be unused"
         category="Performance"
         priority="3"
         summary="Unused resources"
         explanation="Unused resources make applications larger and slow down builds."
-        errorLine1="    &lt;color name=&quot;fire_brick&quot;>#aa2222&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~~~~~~~"
+        errorLine1="    &lt;color name=&quot;dark_red&quot;>#770000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
-            line="22"
+            line="21"
             column="12"/>
     </issue>
 
@@ -106,17 +89,17 @@
     <issue
         id="UnusedResources"
         severity="Warning"
-        message="The resource `R.color.orange` appears to be unused"
+        message="The resource `R.color.bright_orange` appears to be unused"
         category="Performance"
         priority="3"
         summary="Unused resources"
         explanation="Unused resources make applications larger and slow down builds."
-        errorLine1="    &lt;color name=&quot;orange&quot;>#ffa500&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~~~"
+        errorLine1="    &lt;color name=&quot;bright_orange&quot;>#ffcc00&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~"
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
-            line="27"
+            line="28"
             column="12"/>
     </issue>
 
@@ -134,57 +117,6 @@
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
             line="31"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        severity="Warning"
-        message="The resource `R.color.lime_green` appears to be unused"
-        category="Performance"
-        priority="3"
-        summary="Unused resources"
-        explanation="Unused resources make applications larger and slow down builds."
-        errorLine1="    &lt;color name=&quot;lime_green&quot;>#32cd32&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~~~~~~~"
-        quickfix="studio">
-        <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
-            line="35"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        severity="Warning"
-        message="The resource `R.color.blue` appears to be unused"
-        category="Performance"
-        priority="3"
-        summary="Unused resources"
-        explanation="Unused resources make applications larger and slow down builds."
-        errorLine1="    &lt;color name=&quot;blue&quot;>#0000ff&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~"
-        quickfix="studio">
-        <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
-            line="39"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        severity="Warning"
-        message="The resource `R.color.dark_violet` appears to be unused"
-        category="Performance"
-        priority="3"
-        summary="Unused resources"
-        explanation="Unused resources make applications larger and slow down builds."
-        errorLine1="    &lt;color name=&quot;dark_violet&quot;>#9400d3&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~~~~~~~~"
-        quickfix="studio">
-        <location
-            file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\color.xml"
-            line="43"
             column="12"/>
     </issue>
 
