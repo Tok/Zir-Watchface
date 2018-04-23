@@ -16,7 +16,7 @@ import android.util.Log
 import android.view.SurfaceHolder
 import zir.teq.wearable.watchface.config.select.config.Item
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.watchface.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 
 class ZirWatchFaceService : CanvasWatchFaceService() {

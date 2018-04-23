@@ -2,10 +2,10 @@ package zir.teq.wearable.watchface.model.data.settings.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.data.types.Operator
-import zir.watchface.DrawUtil.Companion.PHI
+import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 data class Wave(val name: String,
-                val waveLength: Float,
+                val frequency: Float,
                 val velocity: Float,
                 val intensity: Float,
                 val spectrum: Spectrum,
@@ -19,31 +19,53 @@ data class Wave(val name: String,
     val hasHours = true
     val hasMinutes = true
     val hasSeconds = true
-    val isKeepState = false
-    val lastWeight = 1F / Math.E.toFloat()
-    fun frequency() = 1F / waveLength
 
     companion object {
-        private val DEFAULT_VELOCITY = -1F //approx. cycles per second //FIXME
-        private val DEFAULT_WAVE_LENGTH = 1F //units //FIXME
-        private val DEFAULT_INTENSITY = 7F //~brightness
+        private val DEFAULT_VELOCITY = -1F / PHI //cycles per second (negative out, positive in)
+        private val DEFAULT_FREQUENCY = 1F / PHI //waves per units
+        private val DEFAULT_INTENSITY = 7F //~bightness
 
         val OFF = Wave("Off", 0F, 0F, 0F, Spectrum.default)
-        val DEF = Wave("Default", DEFAULT_WAVE_LENGTH, DEFAULT_VELOCITY, DEFAULT_INTENSITY, Spectrum.default)
-        val SPECS: List<Wave> = Spectrum.values().map { DEF.copy(name = it.getName(), spectrum = it) }
-        val PIXEL = DEF.copy(name = "Pixel", isPixel = true, isBlur = false)
-        val LONG = DEF.copy(name = "Long", waveLength = DEFAULT_WAVE_LENGTH * PHI)
-        val SHORT = DEF.copy(name = "Short", waveLength = DEFAULT_WAVE_LENGTH / PHI)
-        val FAST = DEF.copy(name = "Fast", velocity = DEFAULT_VELOCITY * PHI)
-        val SLOW = DEF.copy(name = "Slow", velocity = DEFAULT_VELOCITY / PHI)
-        val INTENSE = DEF.copy(name = "Intense", intensity = DEFAULT_INTENSITY * PHI)
-        val WEAK = DEF.copy(name = "Weak", intensity = DEFAULT_INTENSITY / PHI)
-        val STANDING = DEF.copy(name = "Full", velocity = 0F)
-        val MULTIPLY = DEF.copy(name = "Multiply", op = Operator.MULTIPLY)
+
+        //TODO implement separate selections
+        private val DEF = Wave("Default", DEFAULT_FREQUENCY, DEFAULT_VELOCITY, DEFAULT_INTENSITY, Spectrum.default)
+        private val DEFSPECS: List<Wave> = Spectrum.values().map {
+            DEF.copy(name = "Def " + it.getName(), spectrum = it)
+        }
+
+        private val PIXEL = DEF.copy(name = "Pixel", isPixel = true, isBlur = false)
+        private val PIXELSPECS: List<Wave> = Spectrum.values().map {
+            PIXEL.copy(name = "Pixel " + it.getName(), spectrum = it)
+        }
+
+        private val SLOW = DEF.copy(name = "Slow", velocity = DEFAULT_VELOCITY / PHI)
+        private val SLOWSPECS: List<Wave> = Spectrum.values().map {
+            SLOW.copy(name = "Slow " + it.getName(), spectrum = it)
+        }
+
+        private val STANDING = DEF.copy(name = "Standing", velocity = 0F)
+        private val STANDSPECS: List<Wave> = Spectrum.values().map {
+            STANDING.copy(name = "Stand " + it.getName(), spectrum = it)
+        }
+
+        private val INTENSE = DEF.copy(name = "Intense", intensity = DEFAULT_INTENSITY * PHI)
+        private val INTENSESPECS: List<Wave> = Spectrum.values().map {
+            INTENSE.copy(name = "Intense " + it.getName(), spectrum = it)
+        }
+
+        private val LONG = DEF.copy(name = "Long", frequency = DEFAULT_FREQUENCY / PHI)
+        private val LONGSPECS: List<Wave> = Spectrum.values().map {
+            LONG.copy(name = "Long " + it.getName(), spectrum = it)
+        }
+
+        private val MULTIPLY = DEF.copy(name = "Multiply", op = Operator.MULTIPLY)
+        private val MULTISPECS: List<Wave> = Spectrum.values().map {
+            MULTIPLY.copy(name = "Multi " + it.getName(), spectrum = it)
+        }
 
         val default = DEF
-        val noSpec = listOf(OFF, DEF, PIXEL, LONG, SHORT, FAST, SLOW, INTENSE, WEAK, STANDING, MULTIPLY)
-        val all = noSpec + SPECS
+        val all = listOf(OFF) + listOf(DEF) +
+                DEFSPECS + PIXELSPECS + SLOWSPECS + STANDSPECS + INTENSESPECS + LONGSPECS + MULTISPECS
 
         fun options() = all.toCollection(ArrayList())
         fun getByName(name: String): Wave = all.find { it.name.equals(name) } ?: default

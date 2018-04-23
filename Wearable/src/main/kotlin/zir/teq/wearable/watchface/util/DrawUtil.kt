@@ -1,4 +1,4 @@
-package zir.watchface
+package zir.teq.wearable.watchface.util
 
 import android.graphics.*
 import android.renderscript.Allocation
@@ -18,7 +18,6 @@ import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.settings.style.Stroke
-import zir.teq.wearable.watchface.model.data.settings.wave.Frame
 import zir.teq.wearable.watchface.model.data.settings.wave.Layer
 import zir.teq.wearable.watchface.model.data.settings.wave.Resolution
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
@@ -117,32 +116,15 @@ class DrawUtil {
     }
 
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData, isActive: Boolean = true) {
-        val velocity = ConfigData.wave.velocity.toDouble()
-        val t = data.scaledUnit * velocity * data.timeStamp / 1000.0
+        val t = ConfigData.wave.velocity * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
-            val complexPixel: Complex = Layer.fromData(data, key, t.toFloat(), isActive).get()
-            buffer.put(findColor(complexPixel, key))
+            val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()
+            val color: Int = ColorUtil.getColor(complexPixel)
+            buffer.put(color)
         }
         buffer.rewind()
         drawFromBuffer(can, buffer, data)
-    }
-
-    val lastFrame = Frame()
-    private fun findColor(complexPixel: Complex, key: Point): Int {
-        val wave = ConfigData.wave
-        if (wave.isKeepState && !ConfigData.isAmbient) {
-            val last = lastFrame.get(key) ?: complexPixel
-            val div = 1F + wave.lastWeight
-            val newMagnitude = (complexPixel.magnitude + (wave.lastWeight * last.magnitude)) / div
-            val newPhase = (complexPixel.phase + (wave.lastWeight * last.phase)) / div
-            val new = Complex.fromMagnitudeAndPhase(newMagnitude, newPhase)
-
-            lastFrame.put(key, new)
-            return ColorUtil.getColor(new)
-        } else {
-            return ColorUtil.getColor(complexPixel)
-        }
     }
 
     private fun drawBackground(can: Canvas) {

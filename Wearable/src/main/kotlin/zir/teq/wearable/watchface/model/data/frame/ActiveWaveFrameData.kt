@@ -5,12 +5,12 @@ import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
-import zir.watchface.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 
 open class ActiveWaveFrameData(cal: Calendar, bounds: Rect, can: Canvas, res: Int) : ActiveFrameData(cal, bounds, can) {
     val isUseUneven = false //render an additional line of pixels in the center.
-    val timeStamp = cal.timeInMillis
+    val timeStampMs = cal.timeInMillis
     val setOff = if (isUseUneven) 1 else 0
     val w = setOff + (bounds.width() / res)
     val h = setOff + (bounds.height() / res)

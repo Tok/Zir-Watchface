@@ -1,4 +1,4 @@
-import zir.watchface.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil
 
 enum class Mass(val value: Float) {
     DEFAULT(1F),

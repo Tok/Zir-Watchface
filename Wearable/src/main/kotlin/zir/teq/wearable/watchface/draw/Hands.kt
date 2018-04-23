@@ -12,9 +12,9 @@ import zir.teq.wearable.watchface.model.data.types.Component.Companion.HAND
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
-import zir.watchface.DrawUtil
-import zir.watchface.DrawUtil.HandData
-import zir.watchface.DrawUtil.Ref
+import zir.teq.wearable.watchface.util.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil.HandData
+import zir.teq.wearable.watchface.util.DrawUtil.Ref
 
 object Hands {
     data class AmbientFactors(val h: Float, val m: Float, val line: Float)

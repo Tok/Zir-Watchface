@@ -60,24 +60,7 @@ data class Complex(val re: Float, val im: Float = 0F) {
                 Complex(magnitude * Math.cos(phase.toDouble()).toFloat(),
                         magnitude * Math.sin(phase.toDouble()).toFloat())
 
-        fun addAll(list: List<Complex>): Complex {
-            //all().fold(Complex.ZERO) { total, next -> total + next }
-            //^ implemented on a float tuple in order to prevent excessive complex instantiation
-            val sum: Pair<Float, Float> = list.map { Pair(it.re, it.im) }
-                    .fold(Pair(0F, 0F)) { total, next ->
-                        Pair(total.first + next.first, total.second + next.first)
-                    }
-            return Complex(sum.first, sum.second)
-        }
-
-        fun multiplyAll(list: List<Complex>): Complex {
-            //list.fold(Complex.ONE) { total, next -> total * next }
-            //^ implemented on a float tuple in order to prevent excessive complex instantiation
-            val sum: Pair<Float, Float> = list.map { Pair(it.re, it.im) }
-                    .fold(Pair(1F, 1F)) { total, next ->
-                        Pair(total.first * next.first, total.second * next.first)
-                    }
-            return Complex(sum.first, sum.second)
-        }
+        fun addAll(list: List<Complex>) = list.fold(Complex.ZERO) { total, next -> total + next }
+        fun multiplyAll(list: List<Complex>) = list.fold(Complex.ONE) { total, next -> total * next }
     }
 }

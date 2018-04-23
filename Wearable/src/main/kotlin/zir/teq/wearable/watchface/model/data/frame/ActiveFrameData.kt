@@ -5,7 +5,7 @@ import android.graphics.Rect
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.State
-import zir.watchface.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 
 

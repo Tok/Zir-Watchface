@@ -3,7 +3,8 @@ package zir.teq.wearable.watchface.model.data.settings.wave
 enum class Resolution(val value: Int, val blurRadius: Float) {
     _2_(2, 1F),
     _4_(4, 1F),
-    _5_(4, 1F),
+    _5_(5, 1F),
+    _6_(6, 1F),
     _8_(8, 1F),
     _10_(10, 1F),
     _12_(12, 1F),

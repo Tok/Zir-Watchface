@@ -50,7 +50,7 @@ class PaletteSelectionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Palette.selectable.indexOfFirst { it.equals(ConfigData.palette) } + 1
+        val index = Palette.ALL.indexOfFirst { it.equals(ConfigData.palette) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

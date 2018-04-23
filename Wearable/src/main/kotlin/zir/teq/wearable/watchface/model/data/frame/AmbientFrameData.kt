@@ -3,7 +3,7 @@ package zir.teq.wearable.watchface.model.data.frame
 import android.graphics.Canvas
 import android.graphics.Rect
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.watchface.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 
 open class AmbientFrameData(cal: Calendar, bounds: Rect, can: Canvas) : FrameData(cal, bounds) {

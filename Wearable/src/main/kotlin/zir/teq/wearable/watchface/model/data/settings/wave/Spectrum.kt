@@ -6,6 +6,6 @@ enum class Spectrum {
     fun getName() = this.name.toLowerCase().capitalize()
 
     companion object {
-        val default = DARK_WAVE
+        val default = BW
     }
 }

@@ -7,8 +7,8 @@ import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.State
-import zir.watchface.DrawUtil
-import zir.watchface.DrawUtil.HandData
+import zir.teq.wearable.watchface.util.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil.HandData
 
 object Triangles {
     //Triangles only exist in active mode

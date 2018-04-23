@@ -12,7 +12,7 @@ import zir.teq.wearable.watchface.model.data.types.Component.Companion.CIRCLE
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
-import zir.watchface.DrawUtil
+import zir.teq.wearable.watchface.util.DrawUtil
 
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI

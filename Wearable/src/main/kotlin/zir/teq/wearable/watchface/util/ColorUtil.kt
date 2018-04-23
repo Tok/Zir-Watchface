@@ -9,10 +9,11 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Rgb
-import zir.watchface.DrawUtil.Companion.TAU
+import zir.teq.wearable.watchface.util.DrawUtil.Companion.TAU
 
 object ColorUtil {
     val MAX_RGB = 0xFF
+
     @ColorInt
     fun getColor(c: Complex): Int = getColorFromMagnitudeAndPhase(c.magnitude, c.phase)
 
@@ -57,14 +58,14 @@ object ColorUtil {
     val BLACK = Zir.color(R.color.black)
     val WHITE = Zir.color(R.color.white)
     private fun getBlackWhite(range: Int, fraction: Float) = when (range) {
-        0 -> ColorUtils.blendARGB(BLACK, WHITE, fraction.toFloat())
-        1 -> ColorUtils.blendARGB(WHITE, BLACK, fraction.toFloat())
+        0 -> ColorUtils.blendARGB(BLACK, WHITE, fraction)
+        1 -> ColorUtils.blendARGB(WHITE, BLACK, fraction)
         else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
     private fun getFromPalette(range: Int, fraction: Float) = when (range) {
-        0 -> ColorUtils.blendARGB(ConfigData.palette.dark(), ConfigData.palette.light(), fraction.toFloat())
-        1 -> ColorUtils.blendARGB(ConfigData.palette.light(), ConfigData.palette.dark(), fraction.toFloat())
+        0 -> ColorUtils.blendARGB(ConfigData.palette.dark(), ConfigData.palette.light(), fraction)
+        1 -> ColorUtils.blendARGB(ConfigData.palette.light(), ConfigData.palette.dark(), fraction)
         else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
