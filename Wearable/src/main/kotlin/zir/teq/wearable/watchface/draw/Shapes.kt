@@ -2,8 +2,8 @@ package zir.teq.wearable.watchface.draw
 
 import android.graphics.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
-import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
+import zir.teq.wearable.watchface.model.data.frame.data.ActiveData
+import zir.teq.wearable.watchface.model.data.frame.data.AmbientData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.data.types.PaintType
@@ -15,7 +15,7 @@ import zir.teq.wearable.watchface.util.DrawUtil
 object Shapes {
     val ALPHA_FACTOR = 1F / DrawUtil.PHI
     val USE_GRADIENTS = false
-    fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
+    fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
         if (ConfigData.theme.get(SHAPE to ACTIVE)) {
             p.style = Paint.Style.FILL
             drawCenterTriangle(can, p, data.center, data.hr, data.min)
@@ -25,7 +25,7 @@ object Shapes {
         }
     }
 
-    fun drawAmbient(can: Canvas, data: AmbientFrameData) {
+    fun drawAmbient(can: Canvas, data: AmbientData) {
         if (ConfigData.theme.get(SHAPE to AMBIENT)) {
             val p = Palette.createPaint(PaintType.SHAPE_AMB)
             p.style = Paint.Style.FILL

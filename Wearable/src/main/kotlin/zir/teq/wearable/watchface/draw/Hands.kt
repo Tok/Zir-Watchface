@@ -4,8 +4,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
-import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
+import zir.teq.wearable.watchface.model.data.frame.data.ActiveData
+import zir.teq.wearable.watchface.model.data.frame.data.AmbientData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.HAND
@@ -21,7 +21,7 @@ object Hands {
     data class ActiveFactors(val h: Float, val m: Float, val s: Float)
 
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun drawActive(can: Canvas, data: ActiveFrameData, p: Paint) {
+    fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
         if (ConfigData.theme.get(HAND to ACTIVE)) {
             with(data) {
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
@@ -40,7 +40,7 @@ object Hands {
         }
     }
 
-    fun drawAmbient(can: Canvas, data: AmbientFrameData) {
+    fun drawAmbient(can: Canvas, data: AmbientData) {
         if (ConfigData.theme.get(HAND to AMBIENT)) {
             with(data) {
                 val ref = data.getRef(can)
@@ -60,7 +60,7 @@ object Hands {
         }
     }
 
-    private fun stackLegacyActive(ref: Ref, data: ActiveFrameData, p: Paint, factors: Hands.ActiveFactors) {
+    private fun stackLegacyActive(ref: Ref, data: ActiveData, p: Paint, factors: Hands.ActiveFactors) {
         with(data) {
             drawHandOutline(ref, p, second, factors.s)
             drawHandOutline(ref, p, hour, factors.h)
@@ -71,7 +71,7 @@ object Hands {
         }
     }
 
-    private fun stackLegacyAmbient(ref: Ref, data: AmbientFrameData, p: Paint, factors: Hands.AmbientFactors) {
+    private fun stackLegacyAmbient(ref: Ref, data: AmbientData, p: Paint, factors: Hands.AmbientFactors) {
         with(data) {
             drawHandOutline(ref, p, hour, factors.h)
             drawHandOutline(ref, p, minute, factors.m)
@@ -82,7 +82,7 @@ object Hands {
         }
     }
 
-    private fun stackFastTopActive(ref: Ref, data: ActiveFrameData, p: Paint, factors: Hands.ActiveFactors) {
+    private fun stackFastTopActive(ref: Ref, data: ActiveData, p: Paint, factors: Hands.ActiveFactors) {
         with(data) {
             drawHandAndOutline(ref, p, hour, factors.h)
             drawHandAndOutline(ref, p, minute, factors.m)
@@ -90,7 +90,7 @@ object Hands {
         }
     }
 
-    private fun stackFastTopAmbient(ref: Ref, data: AmbientFrameData, p: Paint, factors: Hands.AmbientFactors) {
+    private fun stackFastTopAmbient(ref: Ref, data: AmbientData, p: Paint, factors: Hands.AmbientFactors) {
         with(data) {
             drawHandAndOutline(ref, p, hour, factors.h)
             drawHandAndOutline(ref, p, minute, factors.m)
@@ -98,7 +98,7 @@ object Hands {
         }
     }
 
-    private fun stackSlowTopActive(ref: Ref, data: ActiveFrameData, p: Paint, factors: Hands.ActiveFactors) {
+    private fun stackSlowTopActive(ref: Ref, data: ActiveData, p: Paint, factors: Hands.ActiveFactors) {
         with(data) {
             drawHandAndOutline(ref, p, second, factors.s)
             drawHandAndOutline(ref, p, minute, factors.m)
@@ -106,7 +106,7 @@ object Hands {
         }
     }
 
-    private fun stackSlowTopAmbient(ref: Ref, data: AmbientFrameData, p: Paint, factors: Hands.AmbientFactors) {
+    private fun stackSlowTopAmbient(ref: Ref, data: AmbientData, p: Paint, factors: Hands.AmbientFactors) {
         with(data) {
             drawLineAndOutline(ref, p, hr, min, factors.line)
             drawHandAndOutline(ref, p, minute, factors.m)

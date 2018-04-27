@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.holder.BooleanViewHolder
-import zir.teq.wearable.watchface.config.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.select.config.Type
-import zir.teq.wearable.watchface.config.select.main.color.BackgroundViewHolder
-import zir.teq.wearable.watchface.config.select.main.color.PaletteViewHolder
-import zir.teq.wearable.watchface.config.select.main.component.ComponentViewHolder
-import zir.teq.wearable.watchface.config.select.main.style.*
-import zir.teq.wearable.watchface.config.select.main.wave.WaveViewHolder
+import zir.teq.wearable.watchface.config.general.holder.BooleanViewHolder
+import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
+import zir.teq.wearable.watchface.config.general.Type
+import zir.teq.wearable.watchface.config.select.color.holder.BackgroundViewHolder
+import zir.teq.wearable.watchface.config.select.color.holder.PaletteViewHolder
+import zir.teq.wearable.watchface.config.select.component.holder.ComponentViewHolder
+import zir.teq.wearable.watchface.config.select.style.holder.*
+import zir.teq.wearable.watchface.config.select.wave.holder.WaveViewHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 

@@ -11,10 +11,10 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
-import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
-import zir.teq.wearable.watchface.model.data.frame.AmbientFrameData
-import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrameData
+import zir.teq.wearable.watchface.model.data.frame.data.ActiveData
+import zir.teq.wearable.watchface.model.data.frame.data.ActiveWaveData
+import zir.teq.wearable.watchface.model.data.frame.data.AmbientData
+import zir.teq.wearable.watchface.model.data.frame.data.AmbientWaveData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.settings.style.Stroke
@@ -25,7 +25,6 @@ import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State
-import zir.teq.wearable.watchface.util.ColorUtil
 import java.nio.IntBuffer
 import java.util.*
 
@@ -51,9 +50,9 @@ class DrawUtil {
     }
 
     private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar, wave: Wave) {
-        val activeData = ActiveFrameData(calendar, bounds, can)
+        val activeData = ActiveData(calendar, bounds, can)
         if (wave.isOn) {
-            val waveData = ActiveWaveFrameData(calendar, bounds, can, Resolution.ACTIVE.value)
+            val waveData = ActiveWaveData(calendar, bounds, can, Resolution.ACTIVE.value)
             drawActiveWave(can, waveData)
         }
         drawActiveFace(can, activeData)
@@ -64,17 +63,17 @@ class DrawUtil {
 
     private fun drawAmbient(can: Canvas, bounds: Rect, calendar: Calendar, wave: Wave) {
         if (wave.isOn) {
-            val waveData = AmbientWaveFrameData(calendar, bounds, can)
+            val waveData = AmbientWaveData(calendar, bounds, can)
             drawAmbientWave(can, waveData)
         }
-        val data = AmbientFrameData(calendar, bounds, can)
+        val data = AmbientData(calendar, bounds, can)
         drawAmbientFace(can, data)
         if (ConfigData.theme.get(Component.TEXT to State.AMBIENT)) {
             Text.draw(can, calendar)
         }
     }
 
-    fun drawActiveFace(can: Canvas, data: ActiveFrameData) {
+    fun drawActiveFace(can: Canvas, data: ActiveData) {
         val pal = ConfigData.palette
         when (ConfigData.style.stack) {
             Stack.GROUPED -> {
@@ -104,18 +103,18 @@ class DrawUtil {
         }
     }
 
-    fun drawAmbientFace(can: Canvas, data: AmbientFrameData) {
+    fun drawAmbientFace(can: Canvas, data: AmbientData) {
         Circles.drawAmbient(can, data)
         Shapes.drawAmbient(can, data)
         Hands.drawAmbient(can, data)
         Points.drawAmbient(can, data)
     }
 
-    fun drawAmbientWave(can: Canvas, data: AmbientWaveFrameData) {
+    fun drawAmbientWave(can: Canvas, data: AmbientWaveData) {
         drawActiveWave(can, data, false)
     }
 
-    fun drawActiveWave(can: Canvas, data: ActiveWaveFrameData, isActive: Boolean = true) {
+    fun drawActiveWave(can: Canvas, data: ActiveWaveData, isActive: Boolean = true) {
         val t = ConfigData.wave.velocity * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
@@ -135,7 +134,7 @@ class DrawUtil {
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), paint)
     }
 
-    private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrameData) {
+    private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveData) {
         val bitmap = Bitmap.createBitmap(data.w, data.h, Bitmap.Config.ARGB_8888);
         bitmap.copyPixelsFromBuffer(buffer)
 

@@ -1,6 +1,6 @@
 package zir.teq.wearable.watchface.model.data.settings.style
 
-import zir.teq.wearable.watchface.config.select.config.Type
+import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.model.data.settings.color.ColorConfigItem
 
 class StyleConfigItem() : ColorConfigItem {

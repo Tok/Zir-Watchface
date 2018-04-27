@@ -3,7 +3,7 @@ package zir.teq.wearable.watchface.draw
 import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.ActiveFrameData
+import zir.teq.wearable.watchface.model.data.frame.data.ActiveData
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.State
@@ -15,13 +15,13 @@ object Triangles {
     data class Factors(val hm: Float, val hs: Float, val ms: Float)
 
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun draw(can: Canvas, data: ActiveFrameData, p: Paint) {
+    fun draw(can: Canvas, data: ActiveData, p: Paint) {
         if (ConfigData.theme.get(Component.TRIANGLE to State.ACTIVE)) {
             drawTriangle(can, data, p)
         }
     }
 
-    private fun drawTriangle(can: Canvas, data: ActiveFrameData, p: Paint) {
+    private fun drawTriangle(can: Canvas, data: ActiveData, p: Paint) {
         with(data) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             val hmFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, minute.p)
@@ -37,7 +37,7 @@ object Triangles {
         }
     }
 
-    private fun stackLegacy(can: Canvas, data: ActiveFrameData, p: Paint, factors: Factors) {
+    private fun stackLegacy(can: Canvas, data: ActiveData, p: Paint, factors: Factors) {
         with(data) {
             if (ConfigData.style.outline.isOn) {
                 drawLineOutline(can, hour, minute, p, factors.hm)
@@ -50,7 +50,7 @@ object Triangles {
         }
     }
 
-    private fun stackFastTop(can: Canvas, data: ActiveFrameData, p: Paint, factors: Factors) {
+    private fun stackFastTop(can: Canvas, data: ActiveData, p: Paint, factors: Factors) {
         with(data) {
             drawLineAndOutline(can, hour, minute, p, factors.hm)
             drawLineAndOutline(can, hour, second, p, factors.hs)
@@ -58,7 +58,7 @@ object Triangles {
         }
     }
 
-    private fun stackSlowTop(can: Canvas, data: ActiveFrameData, p: Paint, factors: Factors) {
+    private fun stackSlowTop(can: Canvas, data: ActiveData, p: Paint, factors: Factors) {
         with(data) {
             drawLineAndOutline(can, minute, second, p, factors.ms)
             drawLineAndOutline(can, hour, second, p, factors.hs)

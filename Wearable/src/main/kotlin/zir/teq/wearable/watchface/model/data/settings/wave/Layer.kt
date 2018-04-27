@@ -2,7 +2,7 @@ package zir.teq.wearable.watchface.model.data.settings.wave
 
 import android.graphics.Point
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrameData
+import zir.teq.wearable.watchface.model.data.frame.data.ActiveWaveData
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.util.WaveCalc
@@ -20,7 +20,7 @@ class Layer private constructor(val wave: Wave, val center: Complex?, val hour: 
     }
 
     companion object {
-        fun fromData(data: ActiveWaveFrameData, point: Point, t: Float, isActive: Boolean): Layer {
+        fun fromData(data: ActiveWaveData, point: Point, t: Float, isActive: Boolean): Layer {
             with(data) {
                 val wave = ConfigData.wave
                 val freq = wave.frequency

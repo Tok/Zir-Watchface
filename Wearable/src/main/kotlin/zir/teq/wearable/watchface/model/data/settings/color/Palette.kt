@@ -9,7 +9,7 @@ import android.support.annotation.ColorInt
 import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.select.config.Item
+import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.util.DrawUtil
