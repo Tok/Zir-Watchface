@@ -28,7 +28,7 @@ class GrowthActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Growth.all.indexOfFirst { it.name.equals(ConfigData.style.growth.name) } + 1
+        val index = Growth.all.indexOfFirst { it.name.equals(ConfigData.style().growth.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

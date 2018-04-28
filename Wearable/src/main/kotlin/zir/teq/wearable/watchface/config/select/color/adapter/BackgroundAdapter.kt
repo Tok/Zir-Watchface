@@ -50,7 +50,6 @@ class BackgroundAdapter(
             val background: Background = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                ConfigData.background = background
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, background.name)
                 editor.apply()

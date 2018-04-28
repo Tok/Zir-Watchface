@@ -73,7 +73,6 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
             val activity = view.context as Activity
             val item = options[position]
             if (item is Palette) {
-                ConfigData.palette = item
                 val editor = ConfigData.prefs.edit()
                 editor.putString(pref, item.name)
                 editor.apply()

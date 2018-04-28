@@ -27,7 +27,7 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
         holder.setSharedPrefString(item.pref)
         val type = item.type
         when (type) {
-            is MainType -> holder.bindIcon((item.type as MainType).iconId, ConfigData.palette.lightId)
+            is MainType -> holder.bindIcon((item.type as MainType).iconId, ConfigData.palette().lightId)
         }
     }
 

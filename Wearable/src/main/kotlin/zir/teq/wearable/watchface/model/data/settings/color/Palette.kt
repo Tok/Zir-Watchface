@@ -56,14 +56,15 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
 
         fun createPaint(type: PaintType): Paint = createPaint(type, null)
         fun createPaint(type: PaintType, @ColorInt color: Int?): Paint {
+            val pal = ConfigData.palette()
             val paint = when (type) {
-                PaintType.SHAPE -> preparePaint(color ?: ConfigData.palette.light())
-                PaintType.HAND -> preparePaint(color ?: ConfigData.palette.half())
-                PaintType.CIRCLE -> prepareStrokePaint(color ?: ConfigData.palette.dark())
+                PaintType.SHAPE -> preparePaint(color ?: pal.light())
+                PaintType.HAND -> preparePaint(color ?: pal.half())
+                PaintType.CIRCLE -> prepareStrokePaint(color ?: pal.dark())
                 PaintType.POINT -> prepareStrokePaint(color ?: Zir.color(R.color.points))
-                PaintType.SHAPE_AMB -> preparePaint(color ?: ConfigData.palette.light())
-                PaintType.HAND_AMB -> preparePaint(color ?: ConfigData.palette.half())
-                PaintType.CIRCLE_AMB -> prepareStrokePaint(color ?: ConfigData.palette.dark())
+                PaintType.SHAPE_AMB -> preparePaint(color ?: pal.light())
+                PaintType.HAND_AMB -> preparePaint(color ?: pal.half())
+                PaintType.CIRCLE_AMB -> prepareStrokePaint(color ?: pal.dark())
                 PaintType.BACKGROUND -> preparePaint(color ?: R.color.background)
                 else -> {
                     val msg = "Ignoring paintType: " + type
@@ -71,11 +72,11 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
                 }
             }
             paint.strokeWidth = createStrokeWidth(type)
-            paint.alpha = ConfigData.style.alpha.value
+            paint.alpha = ConfigData.style().alpha.value
             paint.isAntiAlias = ConfigData.isAntiAlias
 
             //apply dimming..
-            val dimValue = ConfigData.style.dim.value
+            val dimValue = ConfigData.style().dim.value
             val dimColor = Color.argb(255, dimValue, dimValue, dimValue)
             paint.colorFilter = PorterDuffColorFilter(dimColor, PorterDuff.Mode.MULTIPLY)
 
@@ -86,7 +87,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
             typeface = Item.MONO_TYPEFACE
             isFakeBoldText = true
             color = Zir.color(R.color.text)
-            alpha = ConfigData.style.alpha.value
+            alpha = ConfigData.style().alpha.value
             isAntiAlias = ConfigData.isAntiAlias
             if (ConfigData.isAmbient) {
                 clearShadowLayer()
@@ -98,8 +99,8 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
 
         private fun createStrokeWidth(type: PaintType): Float {
             val isPoint = PaintType.POINT.equals(type)
-            val pointGrowth = if (isPoint) ConfigData.style.growth.dim else 0F
-            return ConfigData.style.stroke.dim + pointGrowth
+            val pointGrowth = if (isPoint) ConfigData.style().growth.dim else 0F
+            return ConfigData.style().stroke.dim + pointGrowth
         }
 
         private fun inst() = Paint().apply { isAntiAlias = true; isDither = true }

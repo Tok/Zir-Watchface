@@ -42,7 +42,7 @@ class OutlineAdapter(
 
         fun bindOutline(outline: Outline) {
             mCircle.foreground = mView.context.getDrawable(outline.iconId)
-            mCircle.backgroundColor = ConfigData.palette.half()
+            mCircle.backgroundColor = ConfigData.palette().half()
             mText.text = outline.name
             mCircle.strokeWidth = 1F
         }

@@ -28,7 +28,7 @@ class StackActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Stack.all.indexOfFirst { it.name.equals(ConfigData.style.stack.name) }
+        val index = Stack.all.indexOfFirst { it.name.equals(ConfigData.style().stack.name) }
         mConfigView.smoothScrollToPosition(index)
     }
 

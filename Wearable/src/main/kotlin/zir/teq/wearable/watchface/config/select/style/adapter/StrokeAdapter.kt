@@ -41,7 +41,7 @@ class StrokeAdapter(
 
         fun bindStroke(stroke: Stroke) {
             mCircle.foreground = mView.context.getDrawable(stroke.iconId)
-            mCircle.backgroundColor = ConfigData.palette.half()
+            mCircle.backgroundColor = ConfigData.palette().half()
             mText.text = stroke.name
             mCircle.strokeWidth = 1F
         }

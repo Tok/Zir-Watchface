@@ -24,7 +24,7 @@ object WaveCalc {
 
     private fun addSquares(first: Float, second: Float): Float = (first * first) + (second * second)
     private fun calcIntensity(distance: Float, x: Float, y: Float): Float =
-            minOf(1.0, ConfigData.wave.intensity * (x + y) /
+            minOf(1.0, ConfigData.waveIntensity().value * (x + y) /
                     (Math.pow(distance.toDouble(), 2.0) * TAU)).toFloat()
 
     private fun calcDistance(xFrom: Float, yFrom: Float, xTo: Float, yTo: Float): Float =

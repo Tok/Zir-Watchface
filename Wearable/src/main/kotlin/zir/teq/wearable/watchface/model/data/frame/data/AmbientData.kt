@@ -8,7 +8,7 @@ import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 
 open class AmbientData(cal: Calendar, bounds: Rect, can: Canvas) : Frame(cal, bounds) {
-    val minLength = unit * DrawUtil.calcDistFromBorder(can, ConfigData.style.stroke) / DrawUtil.PHI
+    val minLength = unit * DrawUtil.calcDistFromBorder(can, ConfigData.style().stroke) / DrawUtil.PHI
     val hrLength = minLength / DrawUtil.PHI
 
     val hr = DrawUtil.calcPosition(hrRot, hrLength, unit)

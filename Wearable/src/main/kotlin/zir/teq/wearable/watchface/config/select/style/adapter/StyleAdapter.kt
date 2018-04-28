@@ -22,7 +22,7 @@ class StyleAdapter(private val options: ConfigItemTypes) : RecAdapter() {
             is RecSelectionViewHolder -> {
                 holder.setName(item.name)
                 holder.setSharedPrefString(item.pref)
-                holder.bindIcon((item.type as StyleType).iconId, ConfigData.palette.lightId)
+                holder.bindIcon((item.type as StyleType).iconId, ConfigData.palette().lightId)
                 holder.setActivity(item.activity)
             }
         }

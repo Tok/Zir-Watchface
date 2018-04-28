@@ -38,7 +38,7 @@ class DrawUtil {
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
 
     fun draw(can: Canvas, bounds: Rect, calendar: Calendar) {
-        val wave = ConfigData.wave
+        val wave = ConfigData.wave()
         if (wave.isOff) {
             drawBackground(can)
         }
@@ -56,7 +56,7 @@ class DrawUtil {
             drawActiveWave(can, waveData)
         }
         drawActiveFace(can, activeData)
-        if (ConfigData.theme.get(Component.TEXT to State.ACTIVE)) {
+        if (ConfigData.theme().get(Component.TEXT to State.ACTIVE)) {
             Text.draw(can, calendar)
         }
     }
@@ -68,14 +68,14 @@ class DrawUtil {
         }
         val data = AmbientData(calendar, bounds, can)
         drawAmbientFace(can, data)
-        if (ConfigData.theme.get(Component.TEXT to State.AMBIENT)) {
+        if (ConfigData.theme().get(Component.TEXT to State.AMBIENT)) {
             Text.draw(can, calendar)
         }
     }
 
     fun drawActiveFace(can: Canvas, data: ActiveData) {
-        val pal = ConfigData.palette
-        when (ConfigData.style.stack) {
+        val pal = ConfigData.palette()
+        when (ConfigData.style().stack) {
             Stack.GROUPED -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
                 Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
@@ -115,7 +115,7 @@ class DrawUtil {
     }
 
     fun drawActiveWave(can: Canvas, data: ActiveWaveData, isActive: Boolean = true) {
-        val t = ConfigData.wave.velocity() * (data.timeStampMs % 60000) / 1000
+        val t = ConfigData.wave().velocity() * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
             val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()
@@ -127,7 +127,7 @@ class DrawUtil {
     }
 
     private fun drawBackground(can: Canvas) {
-        val color = Zir.color(ConfigData.background.id)
+        val color = Zir.color(ConfigData.background().id)
         //can.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         can.drawColor(color, PorterDuff.Mode.CLEAR)
         val paint = Palette.createPaint(PaintType.BACKGROUND, color)
@@ -140,13 +140,13 @@ class DrawUtil {
 
         val rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, rotMatrix(), true)
         val blurred = gaussianBlur(rotated)
-        val scaled = Bitmap.createScaledBitmap(blurred, -can.width, can.height, !ConfigData.savedWaveIsPixelated());
+        val scaled = Bitmap.createScaledBitmap(blurred, -can.width, can.height, !ConfigData.waveIsPixelated());
         can.drawBitmap(scaled, 0F, 0F, null)
     }
 
     private fun rotMatrix() = Matrix().apply { postRotate(90F) }
     private fun gaussianBlur(input: Bitmap): Bitmap {
-        val isBlur = !ConfigData.savedWaveIsPixelated()
+        val isBlur = !ConfigData.waveIsPixelated()
         if (isBlur) {
             val output = Bitmap.createBitmap(input)
             val script = RenderScript.create(Zir.ctx())
@@ -175,7 +175,7 @@ class DrawUtil {
         val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
 
         fun makeOutline(p: Paint) = Paint(p).apply {
-            strokeWidth = p.strokeWidth + ConfigData.style.outline.dim
+            strokeWidth = p.strokeWidth + ConfigData.style().outline.dim
             color = Zir.color(R.color.black)
         }
 
@@ -207,11 +207,11 @@ class DrawUtil {
             return Math.sqrt(p.toDouble()).toFloat()
         }
 
-        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) ConfigData.style.outline.dim else 0F
+        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) ConfigData.style().outline.dim else 0F
         private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
         private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
             val w = p.strokeWidth
-            if (ConfigData.savedIsElastic()) {
+            if (ConfigData.isElastic()) {
                 if (ConfigData.isElasticOutline) {
                     return applyStretch(isAdd, w + maybeAddOutline(isOutline), factor)
                 } else {

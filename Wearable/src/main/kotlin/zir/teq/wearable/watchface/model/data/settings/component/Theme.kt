@@ -91,7 +91,6 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
         val EXTRA = this::class.java.getPackage().name + PREF
 
         fun saveComponentStates(theme: Theme) {
-            ConfigData.theme = theme
             val editor = ConfigData.prefs.edit()
             editor.putString(PREF, theme.name)
             Log.d(TAG, "theme: $theme, Component.KEYS: " + Component.KEYS)

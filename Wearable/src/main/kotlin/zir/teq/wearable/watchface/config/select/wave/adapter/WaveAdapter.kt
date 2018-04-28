@@ -51,7 +51,6 @@ class WaveAdapter(
             val wave: Wave = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                ConfigData.wave = wave
                 val editor = ConfigData.prefs.edit()
                 editor.putString(mPrefString, wave.name)
                 editor.apply()

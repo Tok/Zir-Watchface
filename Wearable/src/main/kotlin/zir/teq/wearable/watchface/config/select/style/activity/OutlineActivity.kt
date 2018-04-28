@@ -28,7 +28,7 @@ class OutlineActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Outline.all.indexOfFirst { it.name.equals(ConfigData.style.outline.name) } + 1
+        val index = Outline.all.indexOfFirst { it.name.equals(ConfigData.style().outline.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

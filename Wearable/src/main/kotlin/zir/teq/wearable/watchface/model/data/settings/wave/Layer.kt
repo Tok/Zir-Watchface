@@ -22,8 +22,8 @@ class Layer private constructor(val wave: Wave, val center: Complex?, val hour: 
     companion object {
         fun fromData(data: ActiveWaveData, point: Point, t: Float, isActive: Boolean): Layer {
             with(data) {
-                val wave = ConfigData.wave
-                val freq = wave.frequency
+                val wave = ConfigData.wave()
+                val freq = ConfigData.waveFrequency().value
                 val center: Complex? = if (!isActive || wave.hasCenter) WaveCalc.calc(point, scaledCenter, t, freq, centerMass) else null
                 val hour: Complex? = if (wave.hasHours) WaveCalc.calc(point, waveHr, t, freq, hourMass) else null
                 val min: Complex? = if (wave.hasMinutes) WaveCalc.calc(point, waveMin, t, freq, minuteMass) else null

@@ -13,8 +13,7 @@ import zir.teq.wearable.watchface.config.select.color.holder.BackgroundViewHolde
 import zir.teq.wearable.watchface.config.select.color.holder.PaletteViewHolder
 import zir.teq.wearable.watchface.config.select.component.holder.ComponentViewHolder
 import zir.teq.wearable.watchface.config.select.style.holder.*
-import zir.teq.wearable.watchface.config.select.wave.holder.WavePropsViewHolder
-import zir.teq.wearable.watchface.config.select.wave.holder.WaveViewHolder
+import zir.teq.wearable.watchface.config.select.wave.holder.*
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 
@@ -48,6 +47,9 @@ object ViewHelper {
             Type.BACKGROUND -> BackgroundViewHolder(view)
             Type.WAVE -> WaveViewHolder(view)
             Type.WAVE_PROPS -> WavePropsViewHolder(view)
+            Type.WAVE_VELOCITY -> WaveVelocityViewHolder(view)
+            Type.WAVE_FREQUENCY -> WaveFrequencyViewHolder(view)
+            Type.WAVE_INTENSITY -> WaveIntensityViewHolder(view)
             Type.STROKE -> StrokeViewHolder(view)
             Type.OUTLINE -> OutlineViewHolder(view)
             Type.GROWTH -> GrowthViewHolder(view)

@@ -43,7 +43,7 @@ class AlphaAdapter(
 
         fun bindAlpha(alpha: Alpha) {
             mCircle.foreground = mView.context.getDrawable(R.drawable.icon_dummy)
-            mCircle.backgroundColor = ConfigData.palette.half()
+            mCircle.backgroundColor = ConfigData.palette().half()
             mCircle.alpha = 256 - alpha.value.toFloat() //Inverse of how it's used in draw util.
             mCircle.strokeWidth = 1F
             mText.text = alpha.name

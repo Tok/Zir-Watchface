@@ -76,7 +76,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         }
 
         private fun loadSavedPreferences() {
-            ConfigData.updateFromSavedPreferences()
             updateWatchPaintStyles()
         }
 

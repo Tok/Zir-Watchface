@@ -28,7 +28,7 @@ class BackgroundActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Background.all.indexOfFirst { it.name.equals(ConfigData.background.name) } + 1
+        val index = Background.all.indexOfFirst { it.name.equals(ConfigData.background().name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

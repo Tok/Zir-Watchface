@@ -24,7 +24,7 @@ class GrowthAdapter(
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val growth = mOptions[position]
         val viewHolder = vh as GrowthViewHolder
-        viewHolder.bindGrowth(growth, ConfigData.palette)
+        viewHolder.bindGrowth(growth, ConfigData.palette())
     }
 
     override fun getItemCount(): Int {

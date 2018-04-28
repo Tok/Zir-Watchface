@@ -6,7 +6,6 @@ import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.wave.adapter.WavePropsAdapter
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.WaveProps
 import zir.teq.wearable.watchface.util.ViewHelper
 
@@ -22,12 +21,6 @@ class WavePropsActivity : Activity() {
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mView, mAdapter, mManager)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val index = WaveProps.ALL.indexOfFirst { it.name.equals(ConfigData.savedWaveIsPixelated()) } + 1
-        mView.smoothScrollToPosition(index)
     }
 
     companion object {

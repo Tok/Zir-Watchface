@@ -22,7 +22,7 @@ object Hands {
 
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme.get(HAND to ACTIVE)) {
+        if (ConfigData.theme().get(HAND to ACTIVE)) {
             with(data) {
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val ref = data.getRef(can)
@@ -30,18 +30,18 @@ object Hands {
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, ref.center)
                 val sFactor = ELASTICITY * unit / DrawUtil.calcDistance(second.p, ref.center)
                 val factors = ActiveFactors(hFactor, mFactor, sFactor)
-                when (ConfigData.style.stack) {
+                when (ConfigData.style().stack) {
                     Stack.GROUPED, Stack.LEGACY -> stackLegacyActive(ref, data, p, factors)
                     Stack.FAST_TOP -> stackFastTopActive(ref, data, p, factors)
                     Stack.SLOW_TOP -> stackSlowTopActive(ref, data, p, factors)
-                    else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style.stack)
+                    else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style().stack)
                 }
             }
         }
     }
 
     fun drawAmbient(can: Canvas, data: AmbientData) {
-        if (ConfigData.theme.get(HAND to AMBIENT)) {
+        if (ConfigData.theme().get(HAND to AMBIENT)) {
             with(data) {
                 val ref = data.getRef(can)
                 val p = Palette.createPaint(PaintType.HAND_AMB)
@@ -50,11 +50,11 @@ object Hands {
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, center)
                 val lineFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, hour.p)
                 val factors = AmbientFactors(hFactor, mFactor, lineFactor)
-                when (ConfigData.style.stack) {
+                when (ConfigData.style().stack) {
                     Stack.GROUPED, Stack.LEGACY -> stackLegacyAmbient(ref, data, p, factors)
                     Stack.FAST_TOP -> stackFastTopAmbient(ref, data, p, factors)
                     Stack.SLOW_TOP -> stackSlowTopAmbient(ref, data, p, factors)
-                    else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style.stack)
+                    else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style().stack)
                 }
             }
         }
@@ -115,14 +115,14 @@ object Hands {
     }
 
     private fun drawLineAndOutline(ref: Ref, p: Paint, from: PointF, to: PointF, factor: Float) {
-        if (ConfigData.style.outline.isOn) {
+        if (ConfigData.style().outline.isOn) {
             drawLineOutline(ref, p, from, to, factor)
         }
         drawLine(ref, p, from, to, factor)
     }
 
     private fun drawHandAndOutline(ref: Ref, p: Paint, hand: HandData, factor: Float) {
-        if (ConfigData.style.outline.isOn) {
+        if (ConfigData.style().outline.isOn) {
             drawHandOutline(ref, p, hand, factor)
         }
         drawHand(ref, p, hand, factor)

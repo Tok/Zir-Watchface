@@ -17,16 +17,16 @@ import zir.teq.wearable.watchface.util.DrawUtil
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme.get(CIRCLE to ACTIVE)) {
-            if (ConfigData.theme.get(SHAPE to ACTIVE)) {
+        if (ConfigData.theme().get(CIRCLE to ACTIVE)) {
+            if (ConfigData.theme().get(SHAPE to ACTIVE)) {
                 p.style = Paint.Style.FILL_AND_STROKE
                 p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
                 //TODO gradients?
             }
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            when (ConfigData.style.stack) {
+            when (ConfigData.style().stack) {
                 Stack.GROUPED, Stack.LEGACY -> {
-                    if (ConfigData.style.outline.isOn) {
+                    if (ConfigData.style().outline.isOn) {
                         makeSlow(can, data, p, true)
                         makeFast(can, data, p, true)
                     }
@@ -34,41 +34,41 @@ object Circles {
                     makeFast(can, data, p)
                 }
                 Stack.FAST_TOP -> {
-                    if (ConfigData.style.outline.isOn) {
+                    if (ConfigData.style().outline.isOn) {
                         makeSlow(can, data, p, true)
                     }
                     makeSlow(can, data, p)
-                    if (ConfigData.style.outline.isOn) {
+                    if (ConfigData.style().outline.isOn) {
                         makeFast(can, data, p, true)
                     }
                     makeFast(can, data, p)
                 }
                 Stack.SLOW_TOP -> {
-                    if (ConfigData.style.outline.isOn) {
+                    if (ConfigData.style().outline.isOn) {
                         makeFast(can, data, p, true)
                     }
                     makeFast(can, data, p)
-                    if (ConfigData.style.outline.isOn) {
+                    if (ConfigData.style().outline.isOn) {
                         makeSlow(can, data, p, true)
                     }
                     makeSlow(can, data, p)
                 }
-                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style.stack)
+                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style().stack)
             }
         }
     }
 
     fun drawAmbient(can: Canvas, data: AmbientData) {
         //No stacking required...
-        if (ConfigData.theme.get(CIRCLE to ACTIVE)) {
+        if (ConfigData.theme().get(CIRCLE to ACTIVE)) {
             val p = Palette.createPaint(PaintType.CIRCLE_AMB)
-            if (ConfigData.theme.get(SHAPE to ACTIVE)) {
+            if (ConfigData.theme().get(SHAPE to ACTIVE)) {
                 p.style = Paint.Style.FILL_AND_STROKE
                 p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
                 //TODO gradients?
             }
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.style.outline.isOn) {
+            if (ConfigData.style().outline.isOn) {
                 makeAmbient(can, data, p, true)
             }
             makeAmbient(can, data, p)

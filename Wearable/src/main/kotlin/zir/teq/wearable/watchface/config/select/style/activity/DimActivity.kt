@@ -28,7 +28,7 @@ class DimActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Dim.all.indexOfFirst { it.name.equals(ConfigData.style.dim.name) } + 1
+        val index = Dim.all.indexOfFirst { it.name.equals(ConfigData.style().dim.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

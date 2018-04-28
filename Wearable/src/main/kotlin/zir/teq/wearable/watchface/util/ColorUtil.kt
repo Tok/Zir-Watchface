@@ -24,7 +24,7 @@ object ColorUtil {
         }
         val mag = Math.min(1F, magnitude)
         val pha: Float = if (phase < 0.0) phase + TAU else phase
-        val spec = ConfigData.wave.spectrum
+        val spec = ConfigData.wave().spectrum
         if (Spectrum.PALETTE == spec || Spectrum.BW == spec ||
                 Spectrum.DARK == spec || Spectrum.DARK_WAVE == spec) {
             val pp = pha * 2F / TAU
@@ -64,8 +64,8 @@ object ColorUtil {
     }
 
     private fun getFromPalette(range: Int, fraction: Float) = when (range) {
-        0 -> ColorUtils.blendARGB(ConfigData.palette.dark(), ConfigData.palette.light(), fraction)
-        1 -> ColorUtils.blendARGB(ConfigData.palette.light(), ConfigData.palette.dark(), fraction)
+        0 -> ColorUtils.blendARGB(ConfigData.palette().dark(), ConfigData.palette().light(), fraction)
+        1 -> ColorUtils.blendARGB(ConfigData.palette().light(), ConfigData.palette().dark(), fraction)
         else -> throw IllegalArgumentException("Out of range: " + range)
     }
 

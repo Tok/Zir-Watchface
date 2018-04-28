@@ -8,6 +8,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.wave.adapter.WaveAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
+import zir.teq.wearable.watchface.model.data.types.WaveFrequency
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -27,11 +28,14 @@ class WaveActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Wave.all.indexOfFirst { it.name.equals(ConfigData.wave.name) }
+        val index = Wave.ALL.indexOfFirst { it.equals(ConfigData.wave()) } + 1
         mView.smoothScrollToPosition(index)
     }
 
     companion object {
         internal val EXTRA = this::class.java.getPackage().name + "SHARED_WAVE"
+        internal val EXTRA_VELOCITY = this::class.java.getPackage().name + "SHARED_WAVE_VELOCITY"
+        internal val EXTRA_FREQUENCY = this::class.java.getPackage().name + "SHARED_WAVE_FREQUENCY"
+        internal val EXTRA_INTENSITY = this::class.java.getPackage().name + "SHARED_WAVE_INTENSITY"
     }
 }

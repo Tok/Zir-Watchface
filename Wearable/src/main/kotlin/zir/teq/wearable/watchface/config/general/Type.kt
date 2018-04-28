@@ -1,10 +1,7 @@
 package zir.teq.wearable.watchface.config.general
 
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.general.types.CheckboxType
-import zir.teq.wearable.watchface.config.general.types.ColorType
-import zir.teq.wearable.watchface.config.general.types.MainType
-import zir.teq.wearable.watchface.config.general.types.StyleType
+import zir.teq.wearable.watchface.config.general.types.*
 
 abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
     abstract fun layoutId(): Int
@@ -20,6 +17,9 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val WAVE_IS_PIXEL = CheckboxType(3510, R.string.saved_wave_is_pixelated, R.string.label_wave_is_pixelated)
         val WAVE_IS_MULTIPLY = CheckboxType(3520, R.string.saved_wave_is_multiply, R.string.label_wave_is_multiply)
         val WAVE_IS_STANDING = CheckboxType(3530, R.string.saved_wave_is_standing, R.string.label_wave_is_standing)
+        val WAVE_VELOCITY = WaveType(3600, R.string.saved_wave_velocity, R.string.label_wave_velocity, R.drawable.icon_dummy)
+        val WAVE_FREQUENCY = WaveType(3700, R.string.saved_wave_frequency, R.string.label_wave_frequency, R.drawable.icon_dummy)
+        val WAVE_INTENSITY = WaveType(3800, R.string.saved_wave_intensity, R.string.label_wave_intensity, R.drawable.icon_dummy)
 
         val STYLE = MainType(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style)
         val ALPHA = StyleType(4010, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha)
@@ -36,9 +36,11 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
                 COMPONENT,
                 PALETTE, BACKGROUND,
                 WAVE, WAVE_PROPS, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_STANDING,
+                WAVE_VELOCITY, WAVE_FREQUENCY, WAVE_INTENSITY,
                 STYLE, ALPHA, DIM, STACK, GROWTH, STROKE, OUTLINE,
                 FAST_UPDATE, IS_ELASTIC)
         val MAIN_TYPES = ALL_TYPES.filter { it is MainType }
+        val WAVE_TYPES = ALL_TYPES.filter { it is WaveType }
         val STYLE_TYPES = ALL_TYPES.filter { it is StyleType }
         val CHECKBOX_TYPES = ALL_TYPES.filter { it is CheckboxType }
 

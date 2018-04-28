@@ -8,8 +8,7 @@ import zir.teq.wearable.watchface.config.select.color.activity.BackgroundActivit
 import zir.teq.wearable.watchface.config.select.color.activity.PaletteActivity
 import zir.teq.wearable.watchface.config.select.component.activity.ComponentActivity
 import zir.teq.wearable.watchface.config.select.style.activity.*
-import zir.teq.wearable.watchface.config.select.wave.activity.WaveActivity
-import zir.teq.wearable.watchface.config.select.wave.activity.WavePropsActivity
+import zir.teq.wearable.watchface.config.select.wave.activity.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.ConfigItemTypes
 import java.util.concurrent.TimeUnit
@@ -39,6 +38,9 @@ open class Item(val type: Type, val pref: String, val name: String,
                 Type.BACKGROUND -> Item(type, pref, name, BackgroundActivity::class.java)
                 Type.WAVE -> Item(type, pref, name, WaveActivity::class.java)
                 Type.WAVE_PROPS -> Item(type, pref, name, WavePropsActivity::class.java)
+                Type.WAVE_VELOCITY -> Item(type, pref, name, WaveVelocityActivity::class.java)
+                Type.WAVE_FREQUENCY -> Item(type, pref, name, WaveFrequencyActivity::class.java)
+                Type.WAVE_INTENSITY -> Item(type, pref, name, WaveIntensityActivity::class.java)
                 Type.STROKE -> Item(type, pref, name, StrokeActivity::class.java)
                 Type.OUTLINE -> Item(type, pref, name, OutlineActivity::class.java)
                 Type.GROWTH -> Item(type, pref, name, GrowthActivity::class.java)
@@ -55,7 +57,7 @@ open class Item(val type: Type, val pref: String, val name: String,
         val NORMAL_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1)
         val MUTE_UPDATE_RATE_MS = TimeUnit.MINUTES.toMillis(1)
         fun updateRateMs(inMuteMode: Boolean) = if (inMuteMode) activeUpdateRateMs() else ambientUpdateRateMs()
-        private fun ambientUpdateRateMs() = if (ConfigData.savedFastUpdate()) FAST_UPDATE_RATE_MS else NORMAL_UPDATE_RATE_MS
-        private fun activeUpdateRateMs() = if (ConfigData.savedFastUpdate()) NORMAL_UPDATE_RATE_MS else MUTE_UPDATE_RATE_MS
+        private fun ambientUpdateRateMs() = if (ConfigData.isFastUpdate()) FAST_UPDATE_RATE_MS else NORMAL_UPDATE_RATE_MS
+        private fun activeUpdateRateMs() = if (ConfigData.isFastUpdate()) NORMAL_UPDATE_RATE_MS else MUTE_UPDATE_RATE_MS
     }
 }

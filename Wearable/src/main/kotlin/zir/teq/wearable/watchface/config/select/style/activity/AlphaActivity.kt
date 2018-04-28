@@ -28,7 +28,7 @@ class AlphaActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Alpha.all.indexOfFirst { it.name.equals(ConfigData.style.alpha.name) } + 1
+        val index = Alpha.all.indexOfFirst { it.name.equals(ConfigData.style().alpha.name) } + 1
         mConfigView.smoothScrollToPosition(index)
     }
 

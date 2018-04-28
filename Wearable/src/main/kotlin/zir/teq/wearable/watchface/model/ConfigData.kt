@@ -11,6 +11,9 @@ import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.settings.style.*
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
 import zir.teq.wearable.watchface.model.data.types.Operator
+import zir.teq.wearable.watchface.model.data.types.WaveFrequency
+import zir.teq.wearable.watchface.model.data.types.WaveIntensity
+import zir.teq.wearable.watchface.model.data.types.WaveVelocity
 
 object ConfigData {
     val res: Resources = Zir.res()
@@ -18,38 +21,27 @@ object ConfigData {
             Zir.string(R.string.zir_watch_preference_file_key),
             Context.MODE_PRIVATE)
 
-    fun updateFromSavedPreferences() {
-        val savedTheme = savedTheme()
-        theme = Theme.loadComponentStates(savedTheme.name, savedTheme.iconId)
-        palette = savedPalette()
-        background = savedBackground()
-        wave = savedWave()
-        style = updateStyle()
-    }
-
     private fun prefString(pref: Int, default: String) = prefs.getString(Zir.string(pref), default)
 
-    var theme = savedTheme()
-    private fun savedTheme() = Theme.getByName(prefs.getString(Zir.string(R.string.saved_theme), Theme.default.name))
-    fun savedFastUpdate() = prefs.getBoolean(Zir.string(R.string.saved_fast_update), true)
-    fun savedIsElastic() = prefs.getBoolean(Zir.string(R.string.saved_is_elastic), false)
+    fun theme() = Theme.getByName(prefs.getString(Zir.string(R.string.saved_theme), Theme.default.name))
+    fun isFastUpdate() = prefs.getBoolean(Zir.string(R.string.saved_fast_update), true)
+    fun isElastic() = prefs.getBoolean(Zir.string(R.string.saved_is_elastic), false)
     var isElasticOutline: Boolean = true //TODO tune
     var isElasticColor: Boolean = true //TODO tune
 
-    var palette = savedPalette()
-    private fun savedPalette() = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
-    var background = savedBackground()
-    private fun savedBackground() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
+    fun palette() = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
+    fun background() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
 
-    var wave = savedWave()
-    private fun savedWave() = Wave.getByName(prefString(R.string.saved_wave, Wave.default.name))
-    fun savedWaveIsPixelated() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_pixelated), false)
-    fun savedWaveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
-    fun waveOperator() = if (!savedWaveIsMultiply()) Operator.ADD else Operator.MULTIPLY
-    fun savedWaveIsStanding() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_standing), false)
+    fun wave() = Wave.getByName(prefString(R.string.saved_wave, Wave.default.name))
+    fun waveIsPixelated() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_pixelated), false)
+    fun waveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
+    fun waveOperator() = if (!waveIsMultiply()) Operator.ADD else Operator.MULTIPLY
+    fun waveIsStanding() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_standing), false)
+    fun waveVelocity() = WaveVelocity.getByName(prefString(R.string.saved_wave_velocity, WaveVelocity.default.name))
+    fun waveFrequency() = WaveFrequency.getByName(prefString(R.string.saved_wave_frequency, WaveFrequency.default.name))
+    fun waveIntensity() = WaveIntensity.getByName(prefString(R.string.saved_wave_intensity, WaveIntensity.default.name))
 
-    var style = updateStyle()
-    private fun updateStyle() = Style(savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())
+    fun style() = Style(savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())
     private fun savedAlpha() = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))
     private fun savedDim() = Dim.getByName(prefString(R.string.saved_dim, Dim.default.name))
     private fun savedStack() = Stack.getByName(prefString(R.string.saved_stack, Stack.default.name))
