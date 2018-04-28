@@ -55,6 +55,7 @@
         <activity android:name="zir.teq.wearable.watchface.config.select.color.activity.PaletteActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.color.activity.BackgroundActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WavePropsActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.StyleActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.AlphaActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.DimActivity" />

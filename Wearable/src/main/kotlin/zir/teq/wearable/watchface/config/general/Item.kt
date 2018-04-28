@@ -9,6 +9,7 @@ import zir.teq.wearable.watchface.config.select.color.activity.PaletteActivity
 import zir.teq.wearable.watchface.config.select.component.activity.ComponentActivity
 import zir.teq.wearable.watchface.config.select.style.activity.*
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveActivity
+import zir.teq.wearable.watchface.config.select.wave.activity.WavePropsActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.ConfigItemTypes
 import java.util.concurrent.TimeUnit
@@ -37,6 +38,7 @@ open class Item(val type: Type, val pref: String, val name: String,
                 Type.STYLE -> Item(type, pref, name, StyleActivity::class.java)
                 Type.BACKGROUND -> Item(type, pref, name, BackgroundActivity::class.java)
                 Type.WAVE -> Item(type, pref, name, WaveActivity::class.java)
+                Type.WAVE_PROPS -> Item(type, pref, name, WavePropsActivity::class.java)
                 Type.STROKE -> Item(type, pref, name, StrokeActivity::class.java)
                 Type.OUTLINE -> Item(type, pref, name, OutlineActivity::class.java)
                 Type.GROWTH -> Item(type, pref, name, GrowthActivity::class.java)

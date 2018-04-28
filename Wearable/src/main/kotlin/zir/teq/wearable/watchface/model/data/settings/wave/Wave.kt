@@ -1,6 +1,7 @@
 package zir.teq.wearable.watchface.model.data.settings.wave
 
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
@@ -9,8 +10,6 @@ data class Wave(val name: String,
                 val velocity: Float,
                 val intensity: Float,
                 val spectrum: Spectrum,
-                val isBlur: Boolean = true,
-                val isPixel: Boolean = false,
                 val op: Operator = Operator.ADD) {
     val iconId: Int = R.drawable.icon_dummy //TODO replace
     val isOff = name.equals("Off")
@@ -31,11 +30,6 @@ data class Wave(val name: String,
         private val DEF = Wave("Default", DEFAULT_FREQUENCY, DEFAULT_VELOCITY, DEFAULT_INTENSITY, Spectrum.default)
         private val DEFSPECS: List<Wave> = Spectrum.values().map {
             DEF.copy(name = "Def " + it.getName(), spectrum = it)
-        }
-
-        private val PIXEL = DEF.copy(name = "Pixel", isPixel = true, isBlur = false)
-        private val PIXELSPECS: List<Wave> = Spectrum.values().map {
-            PIXEL.copy(name = "Pixel " + it.getName(), spectrum = it)
         }
 
         private val SLOW = DEF.copy(name = "Slow", velocity = DEFAULT_VELOCITY / PHI)
@@ -65,7 +59,7 @@ data class Wave(val name: String,
 
         val default = DEF
         val all = listOf(OFF) + listOf(DEF) +
-                DEFSPECS + PIXELSPECS + SLOWSPECS + STANDSPECS + INTENSESPECS + LONGSPECS + MULTISPECS
+                DEFSPECS + SLOWSPECS + STANDSPECS + INTENSESPECS + LONGSPECS + MULTISPECS
 
         fun options() = all.toCollection(ArrayList())
         fun getByName(name: String): Wave = all.find { it.name.equals(name) } ?: default

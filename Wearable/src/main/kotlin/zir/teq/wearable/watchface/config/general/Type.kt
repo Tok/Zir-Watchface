@@ -16,6 +16,8 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val BACKGROUND = ColorType(2010, R.string.saved_background, R.string.label_background, R.drawable.icon_background)
 
         val WAVE = MainType(3000, R.string.saved_wave, R.string.label_wave, R.drawable.icon_wave)
+        val WAVE_PROPS = MainType(3500, R.string.saved_wave_props, R.string.label_wave_props, R.drawable.icon_wave)
+        val WAVE_IS_PIXEL = CheckboxType(3510, R.string.saved_wave_is_pixelated, R.string.label_wave_is_pixelated)
 
         val STYLE = MainType(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style)
         val ALPHA = StyleType(4010, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha)
@@ -28,14 +30,15 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val FAST_UPDATE = CheckboxType(9010, R.string.saved_fast_update, R.string.label_fast_update)
         val IS_ELASTIC = CheckboxType(9020, R.string.saved_is_elastic, R.string.label_is_elastic)
 
-
-        private val ALL_TYPES = listOf<Type>(COMPONENT, PALETTE, WAVE, STYLE, STROKE, OUTLINE, GROWTH,
-                STACK, ALPHA, DIM, FAST_UPDATE, IS_ELASTIC, BACKGROUND)
+        private val ALL_TYPES = listOf(
+                COMPONENT,
+                PALETTE, BACKGROUND,
+                WAVE, WAVE_PROPS, WAVE_IS_PIXEL,
+                STYLE, ALPHA, DIM, STACK, GROWTH, STROKE, OUTLINE,
+                FAST_UPDATE, IS_ELASTIC)
         val MAIN_TYPES = ALL_TYPES.filter { it is MainType }
         val STYLE_TYPES = ALL_TYPES.filter { it is StyleType }
         val CHECKBOX_TYPES = ALL_TYPES.filter { it is CheckboxType }
-        val COLOR_TYPES = ALL_TYPES.filter { it is ColorType }
-        val COMPONENT_TYPES = ALL_TYPES.filter { it is CheckboxType }
 
         fun valueOf(code: Int): Type = ALL_TYPES.find { it.code == code }
                 ?: throw IllegalArgumentException("Type code unknown: $code.")

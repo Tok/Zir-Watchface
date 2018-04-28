@@ -140,15 +140,14 @@ class DrawUtil {
 
         val rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, rotMatrix(), true)
         val blurred = gaussianBlur(rotated)
-        val scaled = Bitmap.createScaledBitmap(blurred, -can.width, can.height, !ConfigData.wave.isPixel);
+        val scaled = Bitmap.createScaledBitmap(blurred, -can.width, can.height, !ConfigData.savedWaveIsPixelated());
         can.drawBitmap(scaled, 0F, 0F, null)
     }
 
     private fun rotMatrix() = Matrix().apply { postRotate(90F) }
     private fun gaussianBlur(input: Bitmap): Bitmap {
-        if (!ConfigData.wave.isBlur) {
-            return input
-        } else {
+        val isBlur = !ConfigData.savedWaveIsPixelated()
+        if (isBlur) {
             val output = Bitmap.createBitmap(input)
             val script = RenderScript.create(Zir.ctx())
             val blur = createBlur(script)
@@ -158,6 +157,8 @@ class DrawUtil {
             blur.forEach(tmpOut)
             tmpOut.copyTo(output)
             return output
+        } else {
+            return input
         }
     }
 

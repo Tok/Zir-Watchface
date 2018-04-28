@@ -12,11 +12,14 @@
     <string name="saved_style">saved_style</string>
     <string name="saved_stroke">saved_stroke</string>
     <string name="saved_wave">saved_wave</string>
+    <string name="saved_wave_props">saved_wave_props</string>
     <string name="saved_outline">saved_outline</string>
     <string name="saved_growth">saved_growth</string>
     <string name="saved_stack">saved_stack</string>
     <string name="saved_alpha">saved_alpha</string>
     <string name="saved_dim">saved_dim</string>
+
+    <string name="saved_wave_is_pixelated">saved_wave_is_pixelated</string>
 
     <string name="saved_fast_update">saved_fast_update</string>
     <string name="saved_is_elastic">saved_is_elastic</string>
@@ -26,12 +29,15 @@
     <string name="label_style">Style</string>
     <string name="label_background">Background</string>
     <string name="label_wave">Wave</string>
+    <string name="label_wave_props">Wave Props</string>
     <string name="label_stroke">Stroke</string>
     <string name="label_outline">Outline</string>
     <string name="label_growth">Growth</string>
     <string name="label_stack">Stack</string>
     <string name="label_alpha">Alpha</string>
     <string name="label_dim">Dim</string>
+
+    <string name="label_wave_is_pixelated">Pixelate</string>
 
     <string name="label_fast_update">Fast Update</string>
     <string name="label_is_elastic">Elasticity</string>
