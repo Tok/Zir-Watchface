@@ -12,10 +12,10 @@ class Layer private constructor(val wave: Wave, val center: Complex?, val hour: 
     fun get(): Complex {
         val hasNoValue = center == null && hour == null && min == null && sec == null
         if (hasNoValue) throw IllegalStateException("No values provided.")
-        return when (wave.op) {
+        return when (ConfigData.waveOperator()) {
             Operator.MULTIPLY -> Complex.multiplyAll(all())
             Operator.ADD -> Complex.addAll(all())
-            else -> throw IllegalArgumentException("Unknown operator: " + wave.op)
+            else -> throw IllegalArgumentException("Unknown operator: ${ConfigData.waveOperator()}")
         }
     }
 

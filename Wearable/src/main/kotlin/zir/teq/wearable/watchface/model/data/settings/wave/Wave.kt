@@ -1,16 +1,13 @@
 package zir.teq.wearable.watchface.model.data.settings.wave
 
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.model.data.settings.component.Theme
-import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 data class Wave(val name: String,
                 val frequency: Float,
                 val velocity: Float,
                 val intensity: Float,
-                val spectrum: Spectrum,
-                val op: Operator = Operator.ADD) {
+                val spectrum: Spectrum) {
     val iconId: Int = R.drawable.icon_dummy //TODO replace
     val isOff = name.equals("Off")
     val isOn = !isOff
@@ -52,14 +49,9 @@ data class Wave(val name: String,
             LONG.copy(name = "Long " + it.getName(), spectrum = it)
         }
 
-        private val MULTIPLY = DEF.copy(name = "Multiply", op = Operator.MULTIPLY)
-        private val MULTISPECS: List<Wave> = Spectrum.values().map {
-            MULTIPLY.copy(name = "Multi " + it.getName(), spectrum = it)
-        }
-
         val default = DEF
         val all = listOf(OFF) + listOf(DEF) +
-                DEFSPECS + SLOWSPECS + STANDSPECS + INTENSESPECS + LONGSPECS + MULTISPECS
+                DEFSPECS + SLOWSPECS + STANDSPECS + INTENSESPECS + LONGSPECS
 
         fun options() = all.toCollection(ArrayList())
         fun getByName(name: String): Wave = all.find { it.name.equals(name) } ?: default

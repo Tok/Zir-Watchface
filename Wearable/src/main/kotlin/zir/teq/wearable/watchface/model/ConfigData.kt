@@ -10,6 +10,7 @@ import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.settings.style.*
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
+import zir.teq.wearable.watchface.model.data.types.Operator
 
 object ConfigData {
     val res: Resources = Zir.res()
@@ -43,6 +44,8 @@ object ConfigData {
     var wave = savedWave()
     private fun savedWave() = Wave.getByName(prefString(R.string.saved_wave, Wave.default.name))
     fun savedWaveIsPixelated() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_pixelated), false)
+    fun savedWaveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
+    fun waveOperator() = if (!savedWaveIsMultiply()) Operator.ADD else Operator.MULTIPLY
 
     var style = updateStyle()
     private fun updateStyle() = Style(savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())

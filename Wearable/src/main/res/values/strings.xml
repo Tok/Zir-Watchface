@@ -20,6 +20,7 @@
     <string name="saved_dim">saved_dim</string>
 
     <string name="saved_wave_is_pixelated">saved_wave_is_pixelated</string>
+    <string name="saved_wave_is_multiply">saved_wave_is_multiply</string>
 
     <string name="saved_fast_update">saved_fast_update</string>
     <string name="saved_is_elastic">saved_is_elastic</string>
@@ -38,6 +39,7 @@
     <string name="label_dim">Dim</string>
 
     <string name="label_wave_is_pixelated">Pixelate</string>
+    <string name="label_wave_is_multiply">Multiply</string>
 
     <string name="label_fast_update">Fast Update</string>
     <string name="label_is_elastic">Elasticity</string>
