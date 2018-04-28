@@ -14,7 +14,7 @@ import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.wave.Wave
 
 
-class WaveAdapter(
+class WaveSpectrumAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Wave>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
@@ -25,7 +25,7 @@ class WaveAdapter(
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val wave = mOptions[position]
         val waveViewHolder = vh as WaveViewHolder
-        waveViewHolder.bindWave(wave)
+        waveViewHolder.bindWaveSpectrum(wave)
     }
 
     override fun getItemCount(): Int {
@@ -41,7 +41,7 @@ class WaveAdapter(
             mView.setOnClickListener(this)
         }
 
-        fun bindWave(wave: Wave) {
+        fun bindWaveSpectrum(wave: Wave) {
             mCircle.setBackgroundResource(wave.iconId)
             mText.text = wave.name
         }

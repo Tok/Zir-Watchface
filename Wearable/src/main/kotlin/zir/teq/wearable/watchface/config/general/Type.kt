@@ -12,11 +12,11 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val PALETTE = MainType(2000, R.string.saved_palette, R.string.label_colors, R.drawable.icon_color)
         val BACKGROUND = ColorType(2010, R.string.saved_background, R.string.label_background, R.drawable.icon_background)
 
-        val WAVE = MainType(3000, R.string.saved_wave, R.string.label_wave, R.drawable.icon_wave)
         val WAVE_PROPS = MainType(3500, R.string.saved_wave_props, R.string.label_wave_props, R.drawable.icon_wave)
         val WAVE_IS_PIXEL = CheckboxType(3510, R.string.saved_wave_is_pixelated, R.string.label_wave_is_pixelated)
         val WAVE_IS_MULTIPLY = CheckboxType(3520, R.string.saved_wave_is_multiply, R.string.label_wave_is_multiply)
         val WAVE_IS_STANDING = CheckboxType(3530, R.string.saved_wave_is_standing, R.string.label_wave_is_standing)
+        val WAVE_SPECTRUM = WaveType(3000, R.string.saved_spectrum, R.string.label_spectrum, R.drawable.icon_wave)
         val WAVE_VELOCITY = WaveType(3600, R.string.saved_wave_velocity, R.string.label_wave_velocity, R.drawable.icon_dummy)
         val WAVE_FREQUENCY = WaveType(3700, R.string.saved_wave_frequency, R.string.label_wave_frequency, R.drawable.icon_dummy)
         val WAVE_INTENSITY = WaveType(3800, R.string.saved_wave_intensity, R.string.label_wave_intensity, R.drawable.icon_dummy)
@@ -35,8 +35,8 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         private val ALL_TYPES = listOf(
                 COMPONENT,
                 PALETTE, BACKGROUND,
-                WAVE, WAVE_PROPS, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_STANDING,
-                WAVE_VELOCITY, WAVE_FREQUENCY, WAVE_INTENSITY,
+                WAVE_PROPS, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_STANDING,
+                WAVE_SPECTRUM, WAVE_VELOCITY, WAVE_FREQUENCY, WAVE_INTENSITY,
                 STYLE, ALPHA, DIM, STACK, GROWTH, STROKE, OUTLINE,
                 FAST_UPDATE, IS_ELASTIC)
         val MAIN_TYPES = ALL_TYPES.filter { it is MainType }

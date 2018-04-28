@@ -12,6 +12,7 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveFrequencyActivity
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveIntensityActivity
+import zir.teq.wearable.watchface.config.select.wave.activity.WaveSpectrumActivity
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveVelocityActivity
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -60,6 +61,11 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
             val activity = view.context as Activity
             val item: WaveProps = options[adapterPosition]
             when (item) {
+                WaveProps.SPECTRUM -> {
+                    val intent = Intent(ctx, WaveSpectrumActivity.CLASS)
+                    intent.putExtra(WaveSpectrumActivity.EXTRA, item.configId)
+                    startActivity(ctx, intent, null)
+                }
                 WaveProps.VELOCITY -> {
                     val intent = Intent(ctx, WaveVelocityActivity.CLASS)
                     intent.putExtra(WaveVelocityActivity.EXTRA, item.configId)
@@ -75,7 +81,7 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
                     intent.putExtra(WaveIntensityActivity.EXTRA, item.configId)
                     startActivity(ctx, intent, null)
                 }
-                else -> throw IllegalArgumentException("Unknown wave prop: $item")
+                else -> throw IllegalArgumentException("Unknown waveSpectrum prop: $item")
             }
             activity.setResult(Activity.RESULT_OK)
             activity.finish()

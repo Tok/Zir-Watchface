@@ -11,7 +11,7 @@
     <string name="saved_palette">saved_palette</string>
     <string name="saved_style">saved_style</string>
     <string name="saved_stroke">saved_stroke</string>
-    <string name="saved_wave">saved_wave</string>
+    <string name="saved_spectrum">saved_spectrum</string>
     <string name="saved_wave_props">saved_wave_props</string>
     <string name="saved_outline">saved_outline</string>
     <string name="saved_growth">saved_growth</string>
@@ -33,8 +33,8 @@
     <string name="label_colors">Colors</string>
     <string name="label_style">Style</string>
     <string name="label_background">Background</string>
-    <string name="label_wave">Wave</string>
-    <string name="label_wave_props">Wave Props</string>
+    <string name="label_spectrum">Spectrum</string>
+    <string name="label_wave_props">Wave</string>
     <string name="label_stroke">Stroke</string>
     <string name="label_outline">Outline</string>
     <string name="label_growth">Growth</string>

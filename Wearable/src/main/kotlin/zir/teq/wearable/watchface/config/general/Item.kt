@@ -3,10 +3,10 @@ package zir.teq.wearable.watchface.config.general
 import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
-import zir.teq.wearable.watchface.config.select.main.activity.MainConfigActivity
 import zir.teq.wearable.watchface.config.select.color.activity.BackgroundActivity
 import zir.teq.wearable.watchface.config.select.color.activity.PaletteActivity
 import zir.teq.wearable.watchface.config.select.component.activity.ComponentActivity
+import zir.teq.wearable.watchface.config.select.main.activity.MainConfigActivity
 import zir.teq.wearable.watchface.config.select.style.activity.*
 import zir.teq.wearable.watchface.config.select.wave.activity.*
 import zir.teq.wearable.watchface.model.ConfigData
@@ -36,8 +36,8 @@ open class Item(val type: Type, val pref: String, val name: String,
                 Type.PALETTE -> Item(type, pref, name, PaletteActivity::class.java)
                 Type.STYLE -> Item(type, pref, name, StyleActivity::class.java)
                 Type.BACKGROUND -> Item(type, pref, name, BackgroundActivity::class.java)
-                Type.WAVE -> Item(type, pref, name, WaveActivity::class.java)
                 Type.WAVE_PROPS -> Item(type, pref, name, WavePropsActivity::class.java)
+                Type.WAVE_SPECTRUM -> Item(type, pref, name, WaveSpectrumActivity::class.java)
                 Type.WAVE_VELOCITY -> Item(type, pref, name, WaveVelocityActivity::class.java)
                 Type.WAVE_FREQUENCY -> Item(type, pref, name, WaveFrequencyActivity::class.java)
                 Type.WAVE_INTENSITY -> Item(type, pref, name, WaveIntensityActivity::class.java)

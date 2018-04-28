@@ -32,7 +32,7 @@ object ConfigData {
     fun palette() = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
     fun background() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
 
-    fun wave() = Wave.getByName(prefString(R.string.saved_wave, Wave.default.name))
+    fun waveSpectrum() = Wave.getByName(prefString(R.string.saved_spectrum, Wave.default.name))
     fun waveIsPixelated() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_pixelated), false)
     fun waveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
     fun waveOperator() = if (!waveIsMultiply()) Operator.ADD else Operator.MULTIPLY

@@ -38,7 +38,7 @@ class DrawUtil {
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
 
     fun draw(can: Canvas, bounds: Rect, calendar: Calendar) {
-        val wave = ConfigData.wave()
+        val wave = ConfigData.waveSpectrum()
         if (wave.isOff) {
             drawBackground(can)
         }
@@ -115,7 +115,7 @@ class DrawUtil {
     }
 
     fun drawActiveWave(can: Canvas, data: ActiveWaveData, isActive: Boolean = true) {
-        val t = ConfigData.wave().velocity() * (data.timeStampMs % 60000) / 1000
+        val t = ConfigData.waveSpectrum().velocity() * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
             val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()

@@ -24,7 +24,7 @@ object ColorUtil {
         }
         val mag = Math.min(1F, magnitude)
         val pha: Float = if (phase < 0.0) phase + TAU else phase
-        val spec = ConfigData.wave().spectrum
+        val spec = ConfigData.waveSpectrum().spectrum
         if (Spectrum.PALETTE == spec || Spectrum.BW == spec ||
                 Spectrum.DARK == spec || Spectrum.DARK_WAVE == spec) {
             val pp = pha * 2F / TAU
