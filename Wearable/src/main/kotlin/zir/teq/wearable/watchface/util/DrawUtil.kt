@@ -20,7 +20,6 @@ import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.settings.style.Stroke
 import zir.teq.wearable.watchface.model.data.settings.wave.Layer
 import zir.teq.wearable.watchface.model.data.settings.wave.Resolution
-import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.PaintType
@@ -41,15 +40,13 @@ class DrawUtil {
         if (ConfigData.waveIsOff()) {
             drawBackground(can)
         }
-        val wave = ConfigData.waveSpectrum()
-        if (ConfigData.isAmbient) {
-            drawAmbient(can, bounds, calendar, wave)
-        } else {
-            drawActive(can, bounds, calendar, wave)
+        when {
+            ConfigData.isAmbient -> drawAmbient(can, bounds, calendar)
+            else -> drawActive(can, bounds, calendar)
         }
     }
 
-    private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar, wave: Spectrum) {
+    private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar) {
         val activeData = ActiveData(calendar, bounds, can)
         if (!ConfigData.waveIsOff()) {
             val waveData = ActiveWaveData(calendar, bounds, can, Resolution.ACTIVE.value)
@@ -61,7 +58,7 @@ class DrawUtil {
         }
     }
 
-    private fun drawAmbient(can: Canvas, bounds: Rect, calendar: Calendar, wave: Spectrum) {
+    private fun drawAmbient(can: Canvas, bounds: Rect, calendar: Calendar) {
         if (!ConfigData.waveIsOff()) {
             val waveData = AmbientWaveData(calendar, bounds, can)
             drawAmbientWave(can, waveData)

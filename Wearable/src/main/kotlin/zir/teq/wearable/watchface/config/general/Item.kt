@@ -20,13 +20,9 @@ open class Item(val type: Type, val pref: String, val name: String,
     override fun toString() = name
 
     companion object {
-        fun createMainConfig(ctx: Context): ConfigItemTypes {
-            val mainTypes = Type.MAIN_TYPES.map { create(ctx, it) }
-            val cbTypes = Type.CHECKBOX_TYPES.map { create(ctx, it) }
-            return mainTypes + cbTypes
-        }
-
+        fun createMainConfig(ctx: Context): ConfigItemTypes = Type.MAIN_TYPES.map { create(ctx, it) }
         fun createStyleConfig(ctx: Context) = Type.STYLE_TYPES.map { create(ctx, it) }
+        fun createWaveConfig(ctx: Context) = Type.WAVE_TYPES.map { create(ctx, it) }
         fun createBackgroundItem(ctx: Context): Item = create(ctx, Type.BACKGROUND)
         private fun create(ctx: Context, type: Type): Item { //TODO refactor
             val pref = ctx.getString(type.prefId)

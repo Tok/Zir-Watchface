@@ -24,6 +24,7 @@ data class WaveProps(val name: String, override val configId: Int, val iconId: I
         val MULTIPLY = createCheckbox(Type.WAVE_IS_MULTIPLY)
         val INWARD = createCheckbox(Type.WAVE_IS_INWARD)
         val STANDING = createCheckbox(Type.WAVE_IS_STANDING)
+
         val ALL = listOf(SPECTRUM, VELOCITY, FREQUENCY, INTENSITY,
                 OFF, PIXELATE, MULTIPLY, INWARD, STANDING)
 
