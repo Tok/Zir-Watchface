@@ -13,8 +13,10 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val BACKGROUND = ColorType(2010, R.string.saved_background, R.string.label_background, R.drawable.icon_background)
 
         val WAVE_PROPS = MainType(3500, R.string.saved_wave_props, R.string.label_wave_props, R.drawable.icon_wave)
+        val WAVE_IS_OFF = CheckboxType(3505, R.string.saved_wave_is_off, R.string.label_wave_is_off)
         val WAVE_IS_PIXEL = CheckboxType(3510, R.string.saved_wave_is_pixelated, R.string.label_wave_is_pixelated)
         val WAVE_IS_MULTIPLY = CheckboxType(3520, R.string.saved_wave_is_multiply, R.string.label_wave_is_multiply)
+        val WAVE_IS_INWARD = CheckboxType(3525, R.string.saved_wave_is_inward, R.string.label_wave_is_inward)
         val WAVE_IS_STANDING = CheckboxType(3530, R.string.saved_wave_is_standing, R.string.label_wave_is_standing)
         val WAVE_SPECTRUM = WaveType(3000, R.string.saved_spectrum, R.string.label_spectrum, R.drawable.icon_wave)
         val WAVE_VELOCITY = WaveType(3600, R.string.saved_wave_velocity, R.string.label_wave_velocity, R.drawable.icon_dummy)
@@ -33,9 +35,8 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val IS_ELASTIC = CheckboxType(9020, R.string.saved_is_elastic, R.string.label_is_elastic)
 
         private val ALL_TYPES = listOf(
-                COMPONENT,
-                PALETTE, BACKGROUND,
-                WAVE_PROPS, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_STANDING,
+                COMPONENT, PALETTE, BACKGROUND, WAVE_PROPS,
+                WAVE_IS_OFF, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_INWARD, WAVE_IS_STANDING,
                 WAVE_SPECTRUM, WAVE_VELOCITY, WAVE_FREQUENCY, WAVE_INTENSITY,
                 STYLE, ALPHA, DIM, STACK, GROWTH, STROKE, OUTLINE,
                 FAST_UPDATE, IS_ELASTIC)

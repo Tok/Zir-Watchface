@@ -7,7 +7,7 @@ import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.wave.adapter.WaveSpectrumAdapter
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.settings.wave.Wave
+import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -19,7 +19,7 @@ class WaveSpectrumActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
         val sharedWaveName = intent.getStringExtra(EXTRA)
-        mAdapter = WaveSpectrumAdapter(sharedWaveName, Wave.options())
+        mAdapter = WaveSpectrumAdapter(sharedWaveName, Spectrum.options())
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mView, mAdapter, mManager)
@@ -27,7 +27,7 @@ class WaveSpectrumActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Wave.ALL.indexOfFirst { it.equals(ConfigData.waveSpectrum()) } + 1
+        val index = Spectrum.ALL.indexOfFirst { it.equals(ConfigData.waveSpectrum()) } + 1
         mView.smoothScrollToPosition(index)
     }
 

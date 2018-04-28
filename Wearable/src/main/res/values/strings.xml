@@ -19,8 +19,10 @@
     <string name="saved_alpha">saved_alpha</string>
     <string name="saved_dim">saved_dim</string>
 
+    <string name="saved_wave_is_off">saved_wave_is_off</string>
     <string name="saved_wave_is_pixelated">saved_wave_is_pixelated</string>
     <string name="saved_wave_is_multiply">saved_wave_is_multiply</string>
+    <string name="saved_wave_is_inward">saved_wave_is_inward</string>
     <string name="saved_wave_is_standing">saved_wave_is_standing</string>
     <string name="saved_wave_velocity">saved_wave_velocity</string>
     <string name="saved_wave_frequency">saved_wave_frequency</string>
@@ -42,8 +44,10 @@
     <string name="label_alpha">Alpha</string>
     <string name="label_dim">Dim</string>
 
+    <string name="label_wave_is_off">Off</string>
     <string name="label_wave_is_pixelated">Pixelate</string>
     <string name="label_wave_is_multiply">Multiply</string>
+    <string name="label_wave_is_inward">Inward</string>
     <string name="label_wave_is_standing">Standing</string>
     <string name="label_wave_velocity">Velocity</string>
     <string name="label_wave_frequency">Frequency</string>

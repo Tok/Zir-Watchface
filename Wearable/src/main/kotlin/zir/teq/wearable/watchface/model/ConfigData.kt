@@ -9,7 +9,7 @@ import zir.teq.wearable.watchface.model.data.settings.color.Background
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.settings.style.*
-import zir.teq.wearable.watchface.model.data.settings.wave.Wave
+import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.model.data.types.WaveFrequency
 import zir.teq.wearable.watchface.model.data.types.WaveIntensity
@@ -32,10 +32,12 @@ object ConfigData {
     fun palette() = Palette.create(prefString(R.string.saved_palette, Palette.default().name))
     fun background() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
 
-    fun waveSpectrum() = Wave.getByName(prefString(R.string.saved_spectrum, Wave.default.name))
+    fun waveSpectrum() = Spectrum.getByName(prefString(R.string.saved_spectrum, Spectrum.default.name))
+    fun waveIsOff() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_off), false)
     fun waveIsPixelated() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_pixelated), false)
     fun waveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
     fun waveOperator() = if (!waveIsMultiply()) Operator.ADD else Operator.MULTIPLY
+    fun waveIsInward() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_inward), false)
     fun waveIsStanding() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_standing), false)
     fun waveVelocity() = WaveVelocity.getByName(prefString(R.string.saved_wave_velocity, WaveVelocity.default.name))
     fun waveFrequency() = WaveFrequency.getByName(prefString(R.string.saved_wave_frequency, WaveFrequency.default.name))

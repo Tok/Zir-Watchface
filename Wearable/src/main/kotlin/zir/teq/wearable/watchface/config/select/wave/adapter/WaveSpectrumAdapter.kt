@@ -11,12 +11,12 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.wave.Wave
+import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 
 
 class WaveSpectrumAdapter(
         private val mPrefString: String?,
-        private val mOptions: ArrayList<Wave>) : RecAdapter() {
+        private val mOptions: ArrayList<Spectrum>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
         val inflater = LayoutInflater.from(parent.context)
         return WaveViewHolder(inflater.inflate(R.layout.list_item_circle_text, parent, false))
@@ -41,14 +41,14 @@ class WaveSpectrumAdapter(
             mView.setOnClickListener(this)
         }
 
-        fun bindWaveSpectrum(wave: Wave) {
+        fun bindWaveSpectrum(wave: Spectrum) {
             mCircle.setBackgroundResource(wave.iconId)
             mText.text = wave.name
         }
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val wave: Wave = mOptions[position]
+            val wave: Spectrum = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
                 val editor = ConfigData.prefs.edit()
