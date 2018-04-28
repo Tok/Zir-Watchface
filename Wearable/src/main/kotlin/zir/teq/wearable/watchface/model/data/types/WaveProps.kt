@@ -8,6 +8,7 @@ data class WaveProps(val name: String, override val configId: Int) : ComponentCo
     companion object {
         val PIXELATE = WaveProps(Zir.string(Type.WAVE_IS_PIXEL.nameId), Type.WAVE_IS_PIXEL.code)
         val MULTIPLY = WaveProps(Zir.string(Type.WAVE_IS_MULTIPLY.nameId), Type.WAVE_IS_MULTIPLY.code)
-        val ALL = listOf(PIXELATE, MULTIPLY)
+        val STANDING = WaveProps(Zir.string(Type.WAVE_IS_STANDING.nameId), Type.WAVE_IS_STANDING.code)
+        val ALL = listOf(PIXELATE, MULTIPLY, STANDING)
     }
 }

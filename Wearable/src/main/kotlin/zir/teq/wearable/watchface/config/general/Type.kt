@@ -19,6 +19,7 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val WAVE_PROPS = MainType(3500, R.string.saved_wave_props, R.string.label_wave_props, R.drawable.icon_wave)
         val WAVE_IS_PIXEL = CheckboxType(3510, R.string.saved_wave_is_pixelated, R.string.label_wave_is_pixelated)
         val WAVE_IS_MULTIPLY = CheckboxType(3520, R.string.saved_wave_is_multiply, R.string.label_wave_is_multiply)
+        val WAVE_IS_STANDING = CheckboxType(3530, R.string.saved_wave_is_standing, R.string.label_wave_is_standing)
 
         val STYLE = MainType(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style)
         val ALPHA = StyleType(4010, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha)
@@ -34,7 +35,7 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         private val ALL_TYPES = listOf(
                 COMPONENT,
                 PALETTE, BACKGROUND,
-                WAVE, WAVE_PROPS, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY,
+                WAVE, WAVE_PROPS, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_STANDING,
                 STYLE, ALPHA, DIM, STACK, GROWTH, STROKE, OUTLINE,
                 FAST_UPDATE, IS_ELASTIC)
         val MAIN_TYPES = ALL_TYPES.filter { it is MainType }

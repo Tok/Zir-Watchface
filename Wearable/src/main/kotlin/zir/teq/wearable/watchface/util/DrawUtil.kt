@@ -115,7 +115,7 @@ class DrawUtil {
     }
 
     fun drawActiveWave(can: Canvas, data: ActiveWaveData, isActive: Boolean = true) {
-        val t = ConfigData.wave.velocity * (data.timeStampMs % 60000) / 1000
+        val t = ConfigData.wave.velocity() * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
             val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()

@@ -46,6 +46,7 @@ object ConfigData {
     fun savedWaveIsPixelated() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_pixelated), false)
     fun savedWaveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
     fun waveOperator() = if (!savedWaveIsMultiply()) Operator.ADD else Operator.MULTIPLY
+    fun savedWaveIsStanding() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_standing), false)
 
     var style = updateStyle()
     private fun updateStyle() = Style(savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())

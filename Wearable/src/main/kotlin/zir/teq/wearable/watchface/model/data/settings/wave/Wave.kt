@@ -1,6 +1,7 @@
 package zir.teq.wearable.watchface.model.data.settings.wave
 
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 data class Wave(val name: String,
@@ -15,6 +16,7 @@ data class Wave(val name: String,
     val hasHours = true
     val hasMinutes = true
     val hasSeconds = true
+    fun velocity() = if (ConfigData.savedWaveIsStanding()) 0F else velocity
 
     companion object {
         private val DEFAULT_VELOCITY = -1F / PHI //cycles per second (negative out, positive in)
@@ -34,11 +36,6 @@ data class Wave(val name: String,
             SLOW.copy(name = "Slow " + it.getName(), spectrum = it)
         }
 
-        private val STANDING = DEF.copy(name = "Standing", velocity = 0F)
-        private val STANDSPECS: List<Wave> = Spectrum.values().map {
-            STANDING.copy(name = "Stand " + it.getName(), spectrum = it)
-        }
-
         private val INTENSE = DEF.copy(name = "Intense", intensity = DEFAULT_INTENSITY * PHI)
         private val INTENSESPECS: List<Wave> = Spectrum.values().map {
             INTENSE.copy(name = "Intense " + it.getName(), spectrum = it)
@@ -50,8 +47,7 @@ data class Wave(val name: String,
         }
 
         val default = DEF
-        val all = listOf(OFF) + listOf(DEF) +
-                DEFSPECS + SLOWSPECS + STANDSPECS + INTENSESPECS + LONGSPECS
+        val all = listOf(OFF) + listOf(DEF) + DEFSPECS + SLOWSPECS + INTENSESPECS + LONGSPECS
 
         fun options() = all.toCollection(ArrayList())
         fun getByName(name: String): Wave = all.find { it.name.equals(name) } ?: default
