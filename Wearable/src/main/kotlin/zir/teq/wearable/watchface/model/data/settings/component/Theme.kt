@@ -24,6 +24,13 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
     companion object {
         var INSTANCE = Theme("Instance", R.drawable.icon_dummy,
                 (Component.KEYS.map { it to false }).toMap())
+        private val POINTS_ONLY = Theme("Points", R.drawable.theme_points, (Component.KEYS.map {
+            when (it) {
+                Component.createKey(POINTS, ACTIVE) -> it to true
+                Component.createKey(POINTS, AMBIENT) -> it to true
+                else -> it to false
+            }
+        }).toMap())
         private val MINIMAL = Theme("Minimal", R.drawable.theme_minimal, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
@@ -47,7 +54,7 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
                 else -> it to false
             }
         }).toMap())
-        private val ORIGINAL = Theme("Original", R.drawable.theme_default, (Component.KEYS.map {
+        private val ORIGINAL = Theme("Original", R.drawable.theme_original, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(TRIANGLE, ACTIVE) -> it to true
@@ -92,7 +99,7 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
             }
         }).toMap())
         val default = INSTANCE
-        val ALL = listOf(MINIMAL, PLAIN, SHAPES, ORIGINAL, FIELDS, CIRCLES, GEOMETRY)
+        val ALL = listOf(POINTS_ONLY, MINIMAL, PLAIN, SHAPES, ORIGINAL, FIELDS, CIRCLES, GEOMETRY)
         fun getByName(name: String): Theme = ALL.find { it.name.equals(name) } ?: default
 
         val PREF = "SHARED_THEME"
