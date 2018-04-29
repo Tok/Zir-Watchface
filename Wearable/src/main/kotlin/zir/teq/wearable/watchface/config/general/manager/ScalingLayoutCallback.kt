@@ -9,16 +9,11 @@ class ScalingLayoutCallback : WearableLinearLayoutManager.LayoutCallback() {
     override fun onLayoutFinished(child: View, parent: RecyclerView) {
         val centerOffset = child.height.toFloat() * 0.5F / parent.height.toFloat()
         val yRelativeToCenterOffset = (child.y / parent.height) + centerOffset
-        val mProgressToCenter = Math.min(Math.abs(0.5F - yRelativeToCenterOffset), MAX_ICON_PROGRESS)
+        val mProgressToCenter = Math.min(Math.abs(0.5F - yRelativeToCenterOffset), 0.5F)
         val scale = 1F - mProgressToCenter
         child.scaleX = scale
         child.scaleY = scale
         child.translationX = child.width * PHI * (mProgressToCenter * mProgressToCenter)
-        child.translationY = child.height * (0.5F - yRelativeToCenterOffset) * Y_DISTORTION / scale
-    }
-
-    companion object {
-        private val Y_DISTORTION: Float = 1F / 2F
-        private val MAX_ICON_PROGRESS = 0.5F
+        child.translationY = child.height * -(yRelativeToCenterOffset * yRelativeToCenterOffset)
     }
 }
