@@ -27,7 +27,7 @@ class WaveVelocityActivity : Activity() {
     override fun onStart() {
         super.onStart()
         val index = WaveVelocity.ALL.indexOfFirst { it.equals(ConfigData.waveVelocity()) }
-        mView.smoothScrollToPosition(index)
+        mView.smoothScrollToPosition(index + 1)
     }
 
     companion object {

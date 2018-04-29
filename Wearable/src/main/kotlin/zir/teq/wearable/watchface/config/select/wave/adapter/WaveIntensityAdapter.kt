@@ -42,7 +42,8 @@ class WaveIntensityAdapter(private val options: List<WaveIntensity>) : RecAdapte
         }
 
         fun bindIntensityProps(props: WaveIntensity) {
-            mCircle.setBackgroundResource(props.iconId ?: R.drawable.icon_dummy)
+            //mCircle.setBackgroundResource(props.iconId)
+            mCircle.setBackgroundResource(R.drawable.icon_dummy)
             mTextView.text = props.name
         }
 
@@ -50,7 +51,7 @@ class WaveIntensityAdapter(private val options: List<WaveIntensity>) : RecAdapte
             val activity = view.context as Activity
             val item: WaveIntensity = options[adapterPosition]
             val editor = ConfigData.prefs.edit()
-            editor.putString(Zir.string(item.type.prefId), item.name)
+            editor.putString(item.pref, item.name)
             editor.apply()
             activity.setResult(Activity.RESULT_OK)
             activity.finish()

@@ -1,10 +1,15 @@
 package zir.teq.wearable.watchface.model.data.settings.wave
 
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 
-data class Spectrum(val name: String) {
-    val iconId: Int = R.drawable.icon_dummy //TODO replace
+data class Spectrum(val name: String) : ComponentConfigItem {
+    override val configId = Type.WAVE_SPECTRUM.code
+    val pref = Zir.string(R.string.saved_spectrum)
+    val iconId = R.drawable.icon_wave_spectrum
     val hasCenter = false //TODO tune (performance)
     val hasHours = true
     val hasMinutes = true

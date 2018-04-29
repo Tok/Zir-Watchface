@@ -698,7 +698,7 @@
     <issue
         id="IconDensities"
         severity="Warning"
-        message="Missing the following drawables in `drawable-hdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (40 more)"
+        message="Missing the following drawables in `drawable-hdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (44 more)"
         category="Usability:Icons"
         priority="4"
         summary="Icon densities validation"
@@ -712,7 +712,7 @@
     <issue
         id="IconDensities"
         severity="Warning"
-        message="Missing the following drawables in `drawable-mdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (40 more)"
+        message="Missing the following drawables in `drawable-mdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (44 more)"
         category="Usability:Icons"
         priority="4"
         summary="Icon densities validation"
@@ -726,7 +726,7 @@
     <issue
         id="IconDensities"
         severity="Warning"
-        message="Missing the following drawables in `drawable-xhdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (40 more)"
+        message="Missing the following drawables in `drawable-xhdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (44 more)"
         category="Usability:Icons"
         priority="4"
         summary="Icon densities validation"

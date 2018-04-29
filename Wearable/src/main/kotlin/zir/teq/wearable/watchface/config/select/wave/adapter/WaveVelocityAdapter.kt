@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -42,7 +41,8 @@ class WaveVelocityAdapter(private val options: List<WaveVelocity>) : RecAdapter(
         }
 
         fun bindVelocityProps(props: WaveVelocity) {
-            mCircle.setBackgroundResource(props.iconId ?: R.drawable.icon_dummy)
+            //mCircle.setBackgroundResource(props.iconId)
+            mCircle.setBackgroundResource(R.drawable.icon_dummy)
             mTextView.text = props.name
         }
 
@@ -50,7 +50,7 @@ class WaveVelocityAdapter(private val options: List<WaveVelocity>) : RecAdapter(
             val activity = view.context as Activity
             val item: WaveVelocity = options[adapterPosition]
             val editor = ConfigData.prefs.edit()
-            editor.putString(Zir.string(item.type.prefId), item.name)
+            editor.putString(item.pref, item.name)
             editor.apply()
             activity.setResult(Activity.RESULT_OK)
             activity.finish()

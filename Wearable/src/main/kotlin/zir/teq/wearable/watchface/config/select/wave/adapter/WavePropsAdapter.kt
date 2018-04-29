@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveFrequencyActivity
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveIntensityActivity
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveSpectrumActivity
 import zir.teq.wearable.watchface.config.select.wave.activity.WaveVelocityActivity
+import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.types.WaveProps
@@ -52,6 +54,7 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
         }
 
         fun bindWaveProps(waveProps: WaveProps) {
+            mCircle.backgroundColor = Zir.color(ConfigData.palette().lightId)
             mCircle.setBackgroundResource(waveProps.iconId ?: R.drawable.icon_dummy)
             mTextView.text = waveProps.name
         }
@@ -83,6 +86,7 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
                 }
                 else -> throw IllegalArgumentException("Unknown waveSpectrum prop: $item")
             }
+
             activity.setResult(Activity.RESULT_OK)
             activity.finish()
         }

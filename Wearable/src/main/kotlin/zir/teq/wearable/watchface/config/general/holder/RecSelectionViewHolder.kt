@@ -48,27 +48,27 @@ open class RecSelectionViewHolder(view: View) : RecHolder(view) {
         mButton.setCompoundDrawablesWithIntrinsicBounds(scaled, null, null, null)
     }
 
-    fun setFilterColor(ctx: Context, drawable: Drawable, colorId: Int?) {
-        if (colorId != null) {
-            val cf = PorterDuffColorFilter(ctx.getColor(colorId), PorterDuff.Mode.MULTIPLY)
-            drawable.setColorFilter(cf)
-        }
-    }
-
     open fun setSharedPrefString(sharedPrefString: String) {
         mPrefString = sharedPrefString
     }
 
-    fun scaleImage(ctx: Context, image: Drawable): Drawable {
-        if (image is BitmapDrawable) {
-            val dim = ctx.resources.getDimension(R.dimen.main_config_item_size).toInt()
-            val resizedBitmap = Bitmap.createScaledBitmap(image.bitmap, dim, dim, false)
-            return BitmapDrawable(ctx.resources, resizedBitmap)
-        }
-        return image
-    }
-
     companion object {
         private val NO_REQ = 0 //default value if unused
+
+        fun scaleImage(ctx: Context, image: Drawable): Drawable {
+            if (image is BitmapDrawable) {
+                val dim = ctx.resources.getDimension(R.dimen.main_config_item_size).toInt()
+                val resizedBitmap = Bitmap.createScaledBitmap(image.bitmap, dim, dim, false)
+                return BitmapDrawable(ctx.resources, resizedBitmap)
+            }
+            return image
+        }
+
+        fun setFilterColor(ctx: Context, drawable: Drawable, colorId: Int?) {
+            if (colorId != null) {
+                val cf = PorterDuffColorFilter(ctx.getColor(colorId), PorterDuff.Mode.MULTIPLY)
+                drawable.setColorFilter(cf)
+            }
+        }
     }
 }

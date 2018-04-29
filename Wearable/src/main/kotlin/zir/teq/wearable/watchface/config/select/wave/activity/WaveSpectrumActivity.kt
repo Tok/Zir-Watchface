@@ -18,8 +18,7 @@ class WaveSpectrumActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedWaveName = intent.getStringExtra(EXTRA)
-        mAdapter = WaveSpectrumAdapter(sharedWaveName, Spectrum.options())
+        mAdapter = WaveSpectrumAdapter(Spectrum.options())
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mView, mAdapter, mManager)
@@ -27,8 +26,8 @@ class WaveSpectrumActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        val index = Spectrum.ALL.indexOfFirst { it.equals(ConfigData.waveSpectrum()) } + 1
-        mView.smoothScrollToPosition(index)
+        val index = Spectrum.ALL.indexOfFirst { it.equals(ConfigData.waveSpectrum()) }
+        mView.smoothScrollToPosition(index + 1)
     }
 
     companion object {

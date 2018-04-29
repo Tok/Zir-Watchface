@@ -8,7 +8,6 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.wave.adapter.WaveFrequencyAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.WaveFrequency
-import zir.teq.wearable.watchface.model.data.types.WaveProps
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -28,7 +27,7 @@ class WaveFrequencyActivity : Activity() {
     override fun onStart() {
         super.onStart()
         val index = WaveFrequency.ALL.indexOfFirst { it.equals(ConfigData.waveFrequency()) }
-        mView.smoothScrollToPosition(index)
+        mView.smoothScrollToPosition(index + 1)
     }
 
     companion object {

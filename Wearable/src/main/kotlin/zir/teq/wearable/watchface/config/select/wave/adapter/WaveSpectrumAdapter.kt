@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.select.wave.activity.WaveSpectrumActivity
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 
 
-class WaveSpectrumAdapter(
-        private val mPrefString: String?,
-        private val mOptions: ArrayList<Spectrum>) : RecAdapter() {
+class WaveSpectrumAdapter(private val mOptions: ArrayList<Spectrum>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
         val inflater = LayoutInflater.from(parent.context)
         return WaveViewHolder(inflater.inflate(R.layout.list_item_circle_text, parent, false))
@@ -42,20 +41,19 @@ class WaveSpectrumAdapter(
         }
 
         fun bindWaveSpectrum(wave: Spectrum) {
-            mCircle.setBackgroundResource(wave.iconId)
+            //mCircle.setBackgroundResource(wave.iconId)
+            mCircle.setBackgroundResource(R.drawable.icon_dummy)
             mText.text = wave.name
         }
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val wave: Spectrum = mOptions[position]
+            val spectrum: Spectrum = mOptions[position]
             val activity = view.context as Activity
-            if (mPrefString != null && !mPrefString.isEmpty()) {
-                val editor = ConfigData.prefs.edit()
-                editor.putString(mPrefString, wave.name)
-                editor.apply()
-                activity.setResult(Activity.RESULT_OK)
-            }
+            val editor = ConfigData.prefs.edit()
+            editor.putString(spectrum.pref, spectrum.name)
+            editor.apply()
+            activity.setResult(Activity.RESULT_OK)
             activity.finish()
         }
     }
