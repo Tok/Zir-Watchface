@@ -19,26 +19,12 @@ https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/outputs/apk/rele
 
 ---
 
-![Preview](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/preview_zir.png "Preview")
-![Circles](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/theme_circles.png "Circles")
-![Fields](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/theme_fields.png "Fields")
-![Geometry](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Wearable/src/main/res/drawable-hdpi/theme_geometry.png "Geometry")
-
----
-
 ![Wave Spectrum](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_spectrum.png "Wave Spectrum")
 ![Wave Traingle](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/wave_triangle.png "Wave Traingle")
 ![Groups Blue](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/groups_blue.png "Groups Blue")
 ![Red Tetra](https://raw.githubusercontent.com/Tok/Zir-Watchface/master/Screenshots/groups_red_tetra.png "Red Tetra")
 
 ---
-
-## Reports
-
-### Lint
-
-* [Results](https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/reports/lint-results.html)
-* [Fatal](https://github.com/Tok/Zir-Watchface/tree/master/Wearable/build/reports/lint-results-release-fatal.html)
 
 ## TODO
 
