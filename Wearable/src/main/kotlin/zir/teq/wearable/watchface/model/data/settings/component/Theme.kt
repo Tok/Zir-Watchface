@@ -32,7 +32,7 @@ data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean
                 else -> it to false
             }
         }).toMap())
-        val SHAPES = Theme("Shape", R.drawable.icon_dummy, (Component.KEYS.map {
+        val SHAPES = Theme("Shape", R.drawable.theme_shape, (Component.KEYS.map {
             when (it) {
                 Component.createKey(SHAPE, ACTIVE) -> it to true
                 Component.createKey(SHAPE, AMBIENT) -> it to true

@@ -19,7 +19,7 @@ class ComponentActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val items = Component.ALL + Theme.ALL.toList()
+        val items = Theme.ALL.toList() + Component.ALL
         mAdapter = ComponentAdapter(items)
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
