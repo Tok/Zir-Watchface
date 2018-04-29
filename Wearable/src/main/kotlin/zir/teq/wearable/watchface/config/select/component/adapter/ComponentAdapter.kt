@@ -23,7 +23,9 @@ class ComponentAdapter(private val options: List<ComponentConfigItem>) : RecAdap
         return if (Component.isDoubleBoolean(viewType)) {
             val comp = Component.valueOf(viewType) as Component
             val view = inflater.inflate(R.layout.list_item_double_check, parent, false)
-            BooleanPairViewHolder(view).apply { updateBoxes(comp.activeKey, comp.ambientKey, comp.name) }
+            BooleanPairViewHolder(view, comp.activeKey, comp.ambientKey).apply {
+                updateBoxes(comp.activeKey, comp.ambientKey, comp.name)
+            }
         } else {
             val view = inflater.inflate(R.layout.list_item_circle_text, parent, false)
             ThemeViewHolder(view)
@@ -64,6 +66,7 @@ class ComponentAdapter(private val options: List<ComponentConfigItem>) : RecAdap
             if (componentConfigItem is Theme) {
                 val activity = view.context as Activity
                 Theme.saveComponentStates(componentConfigItem)
+                notifyDataSetChanged()
                 activity.setResult(Activity.RESULT_OK)
                 activity.finish()
             }

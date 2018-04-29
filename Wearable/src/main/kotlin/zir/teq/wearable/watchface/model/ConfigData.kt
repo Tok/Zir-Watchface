@@ -21,7 +21,8 @@ object ConfigData {
 
     private fun prefString(pref: Int, default: String) = prefs.getString(Zir.string(pref), default)
 
-    fun theme() = Theme.getByName(prefs.getString(Zir.string(R.string.saved_theme), Theme.default.name))
+    fun isOn(key: Pair<Component, State>): Boolean = Theme.INSTANCE.get(key)
+
     fun isFastUpdate() = prefs.getBoolean(Zir.string(R.string.saved_fast_update), true)
     fun isElastic() = prefs.getBoolean(Zir.string(R.string.saved_is_elastic), false)
     var isElasticOutline: Boolean = true //TODO tune

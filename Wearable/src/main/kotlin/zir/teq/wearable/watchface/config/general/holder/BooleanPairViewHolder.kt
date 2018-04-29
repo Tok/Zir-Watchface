@@ -8,14 +8,14 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecHolder
+import zir.teq.wearable.watchface.model.data.settings.component.Theme
 
-class BooleanPairViewHolder(view: View) : RecHolder(view), View.OnClickListener {
+class BooleanPairViewHolder(view: View, val mActivePref: String, val mAmbientPref: String) :
+        RecHolder(view), View.OnClickListener {
     var mLayout: LinearLayout
     var mActiveBox: Button
     var mAmbientBox: Button
     var mText: TextView
-    var mActivePref: String? = null
-    var mAmbientPref: String? = null
 
     init {
         mLayout = view as LinearLayout
@@ -27,8 +27,6 @@ class BooleanPairViewHolder(view: View) : RecHolder(view), View.OnClickListener 
     }
 
     fun updateBoxes(activePref: String, ambientPref: String, text: String) {
-        mActivePref = activePref
-        mAmbientPref = ambientPref
         mText.text = text
 
         val isActiveChecked = ConfigData.prefs.getBoolean(activePref, false)
@@ -39,12 +37,15 @@ class BooleanPairViewHolder(view: View) : RecHolder(view), View.OnClickListener 
     }
 
     override fun onClick(view: View) {
-        val isReady = !mActivePref!!.isEmpty() && !mAmbientPref!!.isEmpty()
-        if (isReady) {
-            val editor = ConfigData.prefs.edit()
-            editor.putBoolean(mActivePref, (mActiveBox as CheckBox).isChecked())
-            editor.putBoolean(mAmbientPref, (mAmbientBox as CheckBox).isChecked())
-            editor.apply()
-        }
+        val editor = ConfigData.prefs.edit()
+        val isActiveChecked = (mActiveBox as CheckBox).isChecked()
+        val isAmbientChecked = (mAmbientBox as CheckBox).isChecked()
+        val instanceMap = Theme.INSTANCE.map.toMutableMap()
+        instanceMap.put(mActivePref, isActiveChecked)
+        instanceMap.put(mAmbientPref, isAmbientChecked)
+        Theme.INSTANCE = Theme.INSTANCE.copy(map = instanceMap)
+        editor.putBoolean(mActivePref, isActiveChecked)
+        editor.putBoolean(mAmbientPref, isAmbientChecked)
+        editor.apply()
     }
 }

@@ -16,7 +16,7 @@ object Shapes {
     val ALPHA_FACTOR = 1F / DrawUtil.PHI
     val USE_GRADIENTS = false
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme().get(SHAPE to ACTIVE)) {
+        if (ConfigData.isOn(SHAPE to ACTIVE)) {
             p.style = Paint.Style.FILL
             drawCenterTriangle(can, p, data.center, data.hr, data.min)
             drawCenterTriangle(can, p, data.center, data.hr, data.sec)
@@ -26,7 +26,7 @@ object Shapes {
     }
 
     fun drawAmbient(can: Canvas, data: AmbientData) {
-        if (ConfigData.theme().get(SHAPE to AMBIENT)) {
+        if (ConfigData.isOn(SHAPE to AMBIENT)) {
             val p = Palette.createPaint(PaintType.SHAPE_AMB)
             p.style = Paint.Style.FILL
             drawCenterTriangle(can, p, data.center, data.hr, data.min)

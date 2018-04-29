@@ -15,7 +15,7 @@ import zir.teq.wearable.watchface.util.DrawUtil
 object Points {
     //TODO implement point stacking?
     fun drawActiveCenter(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme().get(POINTS to ACTIVE)) {
+        if (ConfigData.isOn(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             if (ConfigData.style().outline.isOn) {
                 makeCenter(can, data, DrawUtil.makeOutline(p))
@@ -25,7 +25,7 @@ object Points {
     }
 
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme().get(POINTS to ACTIVE)) {
+        if (ConfigData.isOn(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             if (ConfigData.style().outline.isOn) {
                 val outlineP = DrawUtil.makeOutline(p)
@@ -38,7 +38,7 @@ object Points {
     }
 
     fun drawAmbient(can: Canvas, data: AmbientData) {
-        if (ConfigData.theme().get(POINTS to AMBIENT)) {
+        if (ConfigData.isOn(POINTS to AMBIENT)) {
             val p = Palette.createPaint(PaintType.POINT)
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             if (ConfigData.style().outline.isOn) {

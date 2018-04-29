@@ -22,7 +22,7 @@ object Hands {
 
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme().get(HAND to ACTIVE)) {
+        if (ConfigData.isOn(HAND to ACTIVE)) {
             with(data) {
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val ref = data.getRef(can)
@@ -41,7 +41,7 @@ object Hands {
     }
 
     fun drawAmbient(can: Canvas, data: AmbientData) {
-        if (ConfigData.theme().get(HAND to AMBIENT)) {
+        if (ConfigData.isOn(HAND to AMBIENT)) {
             with(data) {
                 val ref = data.getRef(can)
                 val p = Palette.createPaint(PaintType.HAND_AMB)

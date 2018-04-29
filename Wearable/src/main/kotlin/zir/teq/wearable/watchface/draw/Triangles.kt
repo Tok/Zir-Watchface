@@ -16,7 +16,7 @@ object Triangles {
 
     val ELASTICITY = 1F / DrawUtil.PHI
     fun draw(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme().get(Component.TRIANGLE to State.ACTIVE)) {
+        if (ConfigData.isOn(Component.TRIANGLE to State.ACTIVE)) {
             drawTriangle(can, data, p)
         }
     }

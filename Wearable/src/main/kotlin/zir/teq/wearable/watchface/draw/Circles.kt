@@ -17,8 +17,8 @@ import zir.teq.wearable.watchface.util.DrawUtil
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
-        if (ConfigData.theme().get(CIRCLE to ACTIVE)) {
-            if (ConfigData.theme().get(SHAPE to ACTIVE)) {
+        if (ConfigData.isOn(CIRCLE to ACTIVE)) {
+            if (ConfigData.isOn(SHAPE to ACTIVE)) {
                 p.style = Paint.Style.FILL_AND_STROKE
                 p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
                 //TODO gradients?
@@ -60,9 +60,9 @@ object Circles {
 
     fun drawAmbient(can: Canvas, data: AmbientData) {
         //No stacking required...
-        if (ConfigData.theme().get(CIRCLE to ACTIVE)) {
+        if (ConfigData.isOn(CIRCLE to ACTIVE)) {
             val p = Palette.createPaint(PaintType.CIRCLE_AMB)
-            if (ConfigData.theme().get(SHAPE to ACTIVE)) {
+            if (ConfigData.isOn(SHAPE to ACTIVE)) {
                 p.style = Paint.Style.FILL_AND_STROKE
                 p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
                 //TODO gradients?

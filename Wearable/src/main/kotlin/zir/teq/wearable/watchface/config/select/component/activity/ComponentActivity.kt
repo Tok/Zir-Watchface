@@ -6,7 +6,6 @@ import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.component.adapter.ComponentAdapter
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.util.ViewHelper
@@ -24,11 +23,5 @@ class ComponentActivity : Activity() {
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mView, mAdapter, mManager)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val index = Theme.ALL.indexOfFirst { it.equals(ConfigData.theme()) } + 1
-        mView.smoothScrollToPosition(index)
     }
 }

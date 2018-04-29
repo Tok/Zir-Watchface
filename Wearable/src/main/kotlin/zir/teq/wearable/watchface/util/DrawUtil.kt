@@ -52,7 +52,7 @@ class DrawUtil {
             drawActiveWave(can, waveData)
         }
         drawActiveFace(can, activeData)
-        if (ConfigData.theme().get(Component.TEXT to State.ACTIVE)) {
+        if (ConfigData.isOn(Component.TEXT to State.ACTIVE)) {
             Text.draw(can, calendar)
         }
     }
@@ -64,7 +64,7 @@ class DrawUtil {
         }
         val data = AmbientData(calendar, bounds, can)
         drawAmbientFace(can, data)
-        if (ConfigData.theme().get(Component.TEXT to State.AMBIENT)) {
+        if (ConfigData.isOn(Component.TEXT to State.AMBIENT)) {
             Text.draw(can, calendar)
         }
     }
