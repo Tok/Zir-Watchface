@@ -11,7 +11,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.types.WaveVelocity
+import zir.teq.wearable.watchface.model.data.types.wave.WaveVelocity
 
 class WaveVelocityAdapter(private val options: List<WaveVelocity>) : RecAdapter() {
     override fun getItemViewType(position: Int) = options[position].configId

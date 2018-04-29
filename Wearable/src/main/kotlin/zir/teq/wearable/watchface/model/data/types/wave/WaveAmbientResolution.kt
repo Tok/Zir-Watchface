@@ -1,8 +1,9 @@
-package zir.teq.wearable.watchface.model.data.types
+package zir.teq.wearable.watchface.model.data.types.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Type
+import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 
 
 data class WaveAmbientResolution(val name: String, val value: Int) : ComponentConfigItem {

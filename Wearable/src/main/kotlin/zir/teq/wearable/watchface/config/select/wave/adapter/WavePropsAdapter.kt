@@ -16,7 +16,6 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.types.WaveProps
-import zir.teq.wearable.watchface.model.data.types.WaveResolution
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

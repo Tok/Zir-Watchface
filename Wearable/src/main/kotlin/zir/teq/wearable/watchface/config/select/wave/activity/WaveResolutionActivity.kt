@@ -7,7 +7,7 @@ import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.wave.adapter.WaveResolutionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.types.WaveResolution
+import zir.teq.wearable.watchface.model.data.types.wave.WaveResolution
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -28,7 +28,7 @@ class WaveResolutionActivity : Activity() {
     override fun onStart() {
         super.onStart()
         val index = WaveResolution.ALL.indexOfFirst { it.equals(ConfigData.waveResolution()) }
-        mView.smoothScrollToPosition(index + 1)
+        mView.smoothScrollToPosition(index)
     }
 
     companion object {

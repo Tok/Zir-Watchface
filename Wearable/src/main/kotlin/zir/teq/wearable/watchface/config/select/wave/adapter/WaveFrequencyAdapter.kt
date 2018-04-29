@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.types.WaveFrequency
+import zir.teq.wearable.watchface.model.data.types.wave.WaveFrequency
 
 class WaveFrequencyAdapter(private val options: List<WaveFrequency>) : RecAdapter() {
     override fun getItemViewType(position: Int) = options[position].configId
