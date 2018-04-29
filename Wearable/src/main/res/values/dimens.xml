@@ -28,14 +28,17 @@
     <dimen name="main_list_margin">3dp</dimen>
 
     <dimen name="dim_off">0dp</dimen>
-    <dimen name="dim_hair">1dp</dimen>
-    <dimen name="dim_thin">2dp</dimen>
-    <dimen name="dim_normal">3dp</dimen>
-    <dimen name="dim_bold">5dp</dimen>
-    <dimen name="dim_bolder">8dp</dimen>
-    <dimen name="dim_mega">13dp</dimen>
-    <dimen name="dim_giga">21dp</dimen>
-    <dimen name="dim_ultra">34dp</dimen>
+    <dimen name="dim_1">1dp</dimen>
+    <dimen name="dim_2">2dp</dimen>
+    <dimen name="dim_3">3dp</dimen>
+    <dimen name="dim_5">5dp</dimen>
+    <dimen name="dim_8">8dp</dimen>
+    <dimen name="dim_10">10dp</dimen>
+    <dimen name="dim_13">13dp</dimen>
+    <dimen name="dim_16">16dp</dimen>
+    <dimen name="dim_21">21dp</dimen>
+    <dimen name="dim_26">26dp</dimen>
+    <dimen name="dim_34">34dp</dimen>
 
     <dimen name="text_size">55dp</dimen>
     <dimen name="text_size_round">55dp</dimen>

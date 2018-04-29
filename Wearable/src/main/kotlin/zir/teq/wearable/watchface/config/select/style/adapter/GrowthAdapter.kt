@@ -19,7 +19,7 @@ class GrowthAdapter(
         private val mOptions: ArrayList<Growth>) : RecAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            GrowthViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_growth, parent, false))
+            GrowthViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val growth = mOptions[position]
@@ -32,22 +32,18 @@ class GrowthAdapter(
     }
 
     inner class GrowthViewHolder(view: View) : RecHolder(view), View.OnClickListener {
-        val mFirst: CircularProgressLayout = view.findViewById(R.id.list_item_growth_current_stroke)
-        val mSecond: CircularProgressLayout = view.findViewById(R.id.list_item_growth_grown_stroke)
-        val mText: TextView = view.findViewById(R.id.list_item_growth_text)
+        val mCircle: CircularProgressLayout = view.findViewById(R.id.list_item_cicle_layout)
+        val mText: TextView = view.findViewById(R.id.list_item_text)
 
         init {
             view.setOnClickListener(this)
         }
 
         fun bindGrowth(growth: Growth, pal: Palette) {
-            mFirst.setBackgroundColor(pal.light())
-            mFirst.foreground = mText.context.getDrawable(R.drawable.icon_growth_off)
-            mFirst.strokeWidth = 1F
-            mSecond.setBackgroundColor(pal.light())
-            mSecond.foreground = mText.context.getDrawable(growth.iconId)
-            mSecond.strokeWidth = 1F
+            mCircle.setBackgroundColor(pal.light())
+            mCircle.foreground = mText.context.getDrawable(growth.iconId)
             mText.text = growth.name
+            mCircle.strokeWidth = 1F
         }
 
         override fun onClick(view: View) {
