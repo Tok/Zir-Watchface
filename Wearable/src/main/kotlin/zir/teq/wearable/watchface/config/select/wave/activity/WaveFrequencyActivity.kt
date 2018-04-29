@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.general.manager.ScalingLayoutCallback
 import zir.teq.wearable.watchface.config.select.wave.adapter.WaveFrequencyAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.wave.WaveFrequency
@@ -20,14 +21,14 @@ class WaveFrequencyActivity : Activity() {
         setContentView(R.layout.zir_list)
         mAdapter = WaveFrequencyAdapter(WaveFrequency.ALL)
         mView = findViewById(R.id.zir_list_view)
-        mManager = WearableLinearLayoutManager(this)
+        mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mView, mAdapter, mManager)
     }
 
     override fun onStart() {
         super.onStart()
         val index = WaveFrequency.ALL.indexOfFirst { it.equals(ConfigData.waveFrequency()) }
-        mView.smoothScrollToPosition(index)
+        mView.smoothScrollToPosition(index + 1)
     }
 
     companion object {

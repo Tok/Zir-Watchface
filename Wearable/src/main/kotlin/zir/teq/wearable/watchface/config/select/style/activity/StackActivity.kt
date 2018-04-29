@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.general.manager.ScalingLayoutCallback
 import zir.teq.wearable.watchface.config.select.style.adapter.StackAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
@@ -22,7 +23,7 @@ class StackActivity : Activity() {
         val sharedStackName = intent.getStringExtra(EXTRA)
         mAdapter = StackAdapter(sharedStackName, Stack.options())
         mConfigView = findViewById(R.id.zir_list_view)
-        mManager = WearableLinearLayoutManager(this)
+        mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mConfigView, mAdapter, mManager)
     }
 
