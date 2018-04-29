@@ -470,7 +470,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="59"
+            line="63"
             column="13"/>
     </issue>
 
@@ -487,7 +487,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="60"
+            line="64"
             column="13"/>
     </issue>
 
@@ -504,7 +504,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="61"
+            line="65"
             column="13"/>
     </issue>
 
@@ -521,7 +521,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="62"
+            line="66"
             column="13"/>
     </issue>
 
@@ -538,7 +538,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="63"
+            line="67"
             column="13"/>
     </issue>
 
@@ -555,7 +555,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="64"
+            line="68"
             column="13"/>
     </issue>
 
@@ -572,7 +572,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="65"
+            line="69"
             column="13"/>
     </issue>
 
@@ -589,7 +589,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="66"
+            line="70"
             column="13"/>
     </issue>
 
@@ -606,7 +606,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="67"
+            line="71"
             column="13"/>
     </issue>
 
@@ -623,7 +623,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="68"
+            line="72"
             column="13"/>
     </issue>
 
@@ -640,7 +640,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="69"
+            line="73"
             column="13"/>
     </issue>
 
@@ -657,7 +657,7 @@
         quickfix="studio">
         <location
             file="C:\Users\Zir\AndroidStudioProjects\Zir-Watchface\Wearable\src\main\res\values\strings.xml"
-            line="70"
+            line="74"
             column="13"/>
     </issue>
 
@@ -698,7 +698,7 @@
     <issue
         id="IconDensities"
         severity="Warning"
-        message="Missing the following drawables in `drawable-hdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (44 more)"
+        message="Missing the following drawables in `drawable-hdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (46 more)"
         category="Usability:Icons"
         priority="4"
         summary="Icon densities validation"
@@ -712,7 +712,7 @@
     <issue
         id="IconDensities"
         severity="Warning"
-        message="Missing the following drawables in `drawable-mdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (44 more)"
+        message="Missing the following drawables in `drawable-mdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (46 more)"
         category="Usability:Icons"
         priority="4"
         summary="Icon densities validation"
@@ -726,7 +726,7 @@
     <issue
         id="IconDensities"
         severity="Warning"
-        message="Missing the following drawables in `drawable-xhdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (44 more)"
+        message="Missing the following drawables in `drawable-xhdpi`: icon_alpha.png, icon_background.png, icon_color.png, icon_components.png, icon_dim.png... (46 more)"
         category="Usability:Icons"
         priority="4"
         summary="Icon densities validation"

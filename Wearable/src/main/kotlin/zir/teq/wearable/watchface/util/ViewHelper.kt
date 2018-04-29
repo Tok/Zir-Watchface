@@ -50,6 +50,8 @@ object ViewHelper {
             Type.WAVE_VELOCITY -> WaveVelocityViewHolder(view)
             Type.WAVE_FREQUENCY -> WaveFrequencyViewHolder(view)
             Type.WAVE_INTENSITY -> WaveIntensityViewHolder(view)
+            Type.WAVE_RESO -> WaveResolutionViewHolder(view)
+            Type.WAVE_AMB_RESO -> WaveAmbientResolutionViewHolder(view)
             Type.STROKE -> StrokeViewHolder(view)
             Type.OUTLINE -> OutlineViewHolder(view)
             Type.GROWTH -> GrowthViewHolder(view)

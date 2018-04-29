@@ -37,6 +37,8 @@ open class Item(val type: Type, val pref: String, val name: String,
                 Type.WAVE_VELOCITY -> Item(type, pref, name, WaveVelocityActivity::class.java)
                 Type.WAVE_FREQUENCY -> Item(type, pref, name, WaveFrequencyActivity::class.java)
                 Type.WAVE_INTENSITY -> Item(type, pref, name, WaveIntensityActivity::class.java)
+                Type.WAVE_RESO -> Item(type, pref, name, WaveResolutionActivity::class.java)
+                Type.WAVE_AMB_RESO -> Item(type, pref, name, WaveAmbientResolutionActivity::class.java)
                 Type.STROKE -> Item(type, pref, name, StrokeActivity::class.java)
                 Type.OUTLINE -> Item(type, pref, name, OutlineActivity::class.java)
                 Type.GROWTH -> Item(type, pref, name, GrowthActivity::class.java)

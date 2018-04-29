@@ -10,10 +10,7 @@ import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.settings.style.*
 import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
-import zir.teq.wearable.watchface.model.data.types.Operator
-import zir.teq.wearable.watchface.model.data.types.WaveFrequency
-import zir.teq.wearable.watchface.model.data.types.WaveIntensity
-import zir.teq.wearable.watchface.model.data.types.WaveVelocity
+import zir.teq.wearable.watchface.model.data.types.*
 
 object ConfigData {
     val res: Resources = Zir.res()
@@ -42,6 +39,8 @@ object ConfigData {
     fun waveVelocity() = WaveVelocity.getByName(prefString(R.string.saved_wave_velocity, WaveVelocity.default.name))
     fun waveFrequency() = WaveFrequency.getByName(prefString(R.string.saved_wave_frequency, WaveFrequency.default.name))
     fun waveIntensity() = WaveIntensity.getByName(prefString(R.string.saved_wave_intensity, WaveIntensity.default.name))
+    fun waveAmbientResolution() = WaveAmbientResolution.getByName(prefString(R.string.saved_wave_ambient_resolution, WaveAmbientResolution.default.name))
+    fun waveResolution() = WaveResolution.getByName(prefString(R.string.saved_wave_resolution, WaveResolution.default.name))
 
     fun style() = Style(savedAlpha(), savedDim(), savedStack(), savedStroke(), savedGrowth(), savedOutline())
     private fun savedAlpha() = Alpha.getByName(prefString(R.string.saved_alpha, Alpha.default.name))

@@ -19,7 +19,6 @@ import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.settings.style.Stroke
 import zir.teq.wearable.watchface.model.data.settings.wave.Layer
-import zir.teq.wearable.watchface.model.data.settings.wave.Resolution
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.PaintType
@@ -49,7 +48,7 @@ class DrawUtil {
     private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar) {
         val activeData = ActiveData(calendar, bounds, can)
         if (!ConfigData.waveIsOff()) {
-            val waveData = ActiveWaveData(calendar, bounds, can, Resolution.ACTIVE.value)
+            val waveData = ActiveWaveData(calendar, bounds, can, ConfigData.waveResolution().value)
             drawActiveWave(can, waveData)
         }
         drawActiveFace(can, activeData)
@@ -160,7 +159,7 @@ class DrawUtil {
     }
 
     private fun createBlur(script: RenderScript): ScriptIntrinsicBlur {
-        val blurRadius = Resolution.get(!ConfigData.isAmbient).blurRadius
+        val blurRadius = 1F
         return ScriptIntrinsicBlur.create(script, Element.U8_4(script)).apply { setRadius(blurRadius) }
     }
 

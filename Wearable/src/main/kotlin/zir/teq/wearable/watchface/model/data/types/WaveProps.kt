@@ -19,13 +19,15 @@ data class WaveProps(val name: String, override val configId: Int, val iconId: I
         val VELOCITY = create(Type.WAVE_VELOCITY)
         val FREQUENCY = create(Type.WAVE_FREQUENCY)
         val INTENSITY = create(Type.WAVE_INTENSITY)
+        val RESOLUTION = create(Type.WAVE_RESO)
+        val AMBIENT_RESOLUTION = create(Type.WAVE_AMB_RESO)
         val OFF = createCheckbox(Type.WAVE_IS_OFF)
         val PIXELATE = createCheckbox(Type.WAVE_IS_PIXEL)
         val MULTIPLY = createCheckbox(Type.WAVE_IS_MULTIPLY)
         val INWARD = createCheckbox(Type.WAVE_IS_INWARD)
         val STANDING = createCheckbox(Type.WAVE_IS_STANDING)
 
-        val ALL = listOf(SPECTRUM, VELOCITY, FREQUENCY, INTENSITY,
+        val ALL = listOf(SPECTRUM, VELOCITY, FREQUENCY, INTENSITY, RESOLUTION, AMBIENT_RESOLUTION,
                 OFF, PIXELATE, MULTIPLY, INWARD, STANDING)
 
         private fun valueOf(viewType: Int) = ALL.find { it.configId == viewType }

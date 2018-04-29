@@ -11,14 +11,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.select.wave.activity.WaveFrequencyActivity
-import zir.teq.wearable.watchface.config.select.wave.activity.WaveIntensityActivity
-import zir.teq.wearable.watchface.config.select.wave.activity.WaveSpectrumActivity
-import zir.teq.wearable.watchface.config.select.wave.activity.WaveVelocityActivity
+import zir.teq.wearable.watchface.config.select.wave.activity.*
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.types.WaveProps
+import zir.teq.wearable.watchface.model.data.types.WaveResolution
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -82,6 +80,16 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
                 WaveProps.INTENSITY -> {
                     val intent = Intent(ctx, WaveIntensityActivity.CLASS)
                     intent.putExtra(WaveIntensityActivity.EXTRA, item.configId)
+                    startActivity(ctx, intent, null)
+                }
+                WaveProps.RESOLUTION -> {
+                    val intent = Intent(ctx, WaveResolutionActivity.CLASS)
+                    intent.putExtra(WaveResolutionActivity.EXTRA, item.configId)
+                    startActivity(ctx, intent, null)
+                }
+                WaveProps.AMBIENT_RESOLUTION -> {
+                    val intent = Intent(ctx, WaveAmbientResolutionActivity.CLASS)
+                    intent.putExtra(WaveAmbientResolutionActivity.EXTRA, item.configId)
                     startActivity(ctx, intent, null)
                 }
                 else -> throw IllegalArgumentException("Unknown waveSpectrum prop: $item")

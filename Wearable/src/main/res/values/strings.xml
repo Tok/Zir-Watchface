@@ -27,6 +27,8 @@
     <string name="saved_wave_velocity">saved_wave_velocity</string>
     <string name="saved_wave_frequency">saved_wave_frequency</string>
     <string name="saved_wave_intensity">saved_wave_intensity</string>
+    <string name="saved_wave_resolution">saved_wave_resolution</string>
+    <string name="saved_wave_ambient_resolution">saved_wave_ambient_resolution</string>
 
     <string name="saved_fast_update">saved_fast_update</string>
     <string name="saved_is_elastic">saved_is_elastic</string>
@@ -52,6 +54,8 @@
     <string name="label_wave_velocity">Velocity</string>
     <string name="label_wave_frequency">Frequency</string>
     <string name="label_wave_intensity">Intensity</string>
+    <string name="label_wave_resolution">Resolution</string>
+    <string name="label_wave_ambient_resolution">Ambient Reso</string>
 
     <string name="label_fast_update">Fast Update</string>
     <string name="label_is_elastic">Elasticity</string>
