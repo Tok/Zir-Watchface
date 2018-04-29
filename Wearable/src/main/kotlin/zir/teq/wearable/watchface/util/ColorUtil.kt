@@ -25,15 +25,21 @@ object ColorUtil {
         val mag = Math.min(1F, magnitude)
         val pha: Float = if (phase < 0.0) phase + TAU else phase
         val spec = ConfigData.waveSpectrum()
-        if (Spectrum.PALETTE == spec || Spectrum.BW == spec ||
-                Spectrum.DARK == spec || Spectrum.DARK_WAVE == spec) {
+        if (Spectrum.PALETTE == spec || Spectrum.DARK_PALETTE == spec || Spectrum.DARKER_PALETTE == spec ||
+                Spectrum.CHAOS == spec || Spectrum.DARK_CHAOS == spec || Spectrum.DARKER_CHAOS == spec ||
+                Spectrum.BW == spec || Spectrum.DARK_BW == spec || Spectrum.DARKER_BW == spec) { //TODO cleanup
             val pp = pha * 2F / TAU
             val range = Math.min(1.0, Math.max(0.0, pp.toDouble())).toInt()
             return when (spec) {
                 Spectrum.PALETTE -> getFromPalette(range, pp - range)
-                Spectrum.DARK -> getDark(range, pp - range)
-                Spectrum.DARK_WAVE -> getDarkWave(range, pp - range, magnitude)
+                Spectrum.DARK_PALETTE -> getFromDarkPalette(range, pp - range)
+                Spectrum.DARKER_PALETTE -> getFromDarkerPalette(range, pp - range)
+                Spectrum.CHAOS -> getChaos(range, pp - range, magnitude)
+                Spectrum.DARK_CHAOS -> getDarkChaos(range, pp - range, magnitude)
+                Spectrum.DARKER_CHAOS -> getDarkerChaos(range, pp - range, magnitude)
                 Spectrum.BW -> getBlackWhite(range, pp - range)
+                Spectrum.DARK_BW -> getDarkBlackWhite(range, pp - range)
+                Spectrum.DARKER_BW -> getDarkerBlackWhite(range, pp - range)
                 else -> getBlackWhite(range, pp - range)
             }
         } else {
@@ -41,11 +47,15 @@ object ColorUtil {
             val range = Math.min(5.0, Math.max(0.0, p.toDouble())).toInt()
             val fraction = p - range
             val rgbValues = when (spec) {
-                Spectrum.FULL -> getFullSpectrum(range, fraction)
+                Spectrum.FULL -> getFull(range, fraction)
+                Spectrum.DARK_FULL -> getDarkFull(range, fraction)
+                Spectrum.DARKER_FULL -> getDarkerFull(range, fraction)
                 Spectrum.LINES -> getLines(range)
+                Spectrum.DARK_LINES -> getDarkLines(range)
+                Spectrum.DARKER_LINES -> getDarkerLines(range)
                 Spectrum.SPOOK -> getSpook(fraction)
                 Spectrum.RAIN -> getRain(range, fraction)
-                else -> getFullSpectrum(range, fraction)
+                else -> getFull(range, fraction)
             }
             val maxMag = mag * MAX_RGB
             val red = rgbValues.r * maxMag
@@ -57,10 +67,27 @@ object ColorUtil {
 
     val BLACK = Zir.color(R.color.black)
     val WHITE = Zir.color(R.color.white)
+
+    private fun getDarkerBlackWhite(range: Int, fraction: Float): Int {
+        return ColorUtils.blendARGB(getBlackWhite(range, fraction), BLACK, 0.5F)
+    }
+
+    private fun getDarkBlackWhite(range: Int, fraction: Float): Int {
+        return ColorUtils.blendARGB(getBlackWhite(range, fraction), BLACK, 0.75F)
+    }
+
     private fun getBlackWhite(range: Int, fraction: Float) = when (range) {
         0 -> ColorUtils.blendARGB(BLACK, WHITE, fraction)
         1 -> ColorUtils.blendARGB(WHITE, BLACK, fraction)
         else -> throw IllegalArgumentException("Out of range: " + range)
+    }
+
+    private fun getFromDarkerPalette(range: Int, fraction: Float): Int {
+        return ColorUtils.blendARGB(getFromPalette(range, fraction), BLACK, 0.5F)
+    }
+
+    private fun getFromDarkPalette(range: Int, fraction: Float): Int {
+        return ColorUtils.blendARGB(getFromPalette(range, fraction), BLACK, 0.75F)
     }
 
     private fun getFromPalette(range: Int, fraction: Float) = when (range) {
@@ -69,8 +96,14 @@ object ColorUtil {
         else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
-    private fun getDarkWave(range: Int, fraction: Float, mag: Float): Int {
-        val original = getFullSpectrum(range, fraction)
+    private fun getDarkerChaos(range: Int, fraction: Float, mag: Float) =
+            ColorUtils.blendARGB(Zir.color(R.color.black), getChaos(range, fraction, mag), 0.5F)
+
+    private fun getDarkChaos(range: Int, fraction: Float, mag: Float) =
+            ColorUtils.blendARGB(Zir.color(R.color.black), getChaos(range, fraction, mag), 0.75F)
+
+    private fun getChaos(range: Int, fraction: Float, mag: Float): Int {
+        val original = getFull(range, fraction)
         val maxMag = mag * MAX_RGB
         val red = original.r * maxMag
         val green = original.g * maxMag
@@ -79,12 +112,17 @@ object ColorUtil {
         return Color.rgb(g, g, g)
     }
 
-    private fun getDark(range: Int, fraction: Float): Int {
-        val original = getFromPalette(range, fraction)
-        return ColorUtils.blendARGB(Zir.color(R.color.black), original, 0.5F)
+    private fun getDarkerFull(range: Int, fraction: Float): Rgb {
+        val full = getFull(range, fraction)
+        return Rgb(full.r * 0.5F, full.g * 0.5F, full.b * 0.5F)
     }
 
-    private fun getFullSpectrum(range: Int, fraction: Float) = when (range) {
+    private fun getDarkFull(range: Int, fraction: Float): Rgb {
+        val full = getFull(range, fraction)
+        return Rgb(full.r * 0.75F, full.g * 0.75F, full.b * 0.75F)
+    }
+
+    private fun getFull(range: Int, fraction: Float) = when (range) {
         0 -> Rgb(1F, fraction, 0F) //Red -> Yellow
         1 -> Rgb(1F - fraction, 1F, 0F) //Yellow -> Green
         2 -> Rgb(0F, 1F, fraction) //Green -> Cyan
@@ -94,10 +132,23 @@ object ColorUtil {
         else -> throw IllegalArgumentException("Out of range: " + range)
     }
 
-    private val BLACK_TRIP = Rgb(0F, 0F, 0F)
-    private val WHITE_TRIP = Rgb(1F, 1F, 1F)
+    private fun getDarkerLines(range: Int): Rgb {
+        val full = getLines(range)
+        return Rgb(full.r * 0.5F, full.g * 0.5F, full.b * 0.5F)
+    }
+
+    private fun getDarkLines(range: Int): Rgb {
+        val full = getLines(range)
+        return Rgb(full.r * 0.75F, full.g * 0.75F, full.b * 0.75F)
+    }
+
     private fun getLines(range: Int) = if (range == 0) WHITE_TRIP else BLACK_TRIP
+
     private fun getSpook(fraction: Float) = Rgb(fraction, fraction, fraction)
+
     private fun getRain(range: Int, fraction: Float) =
             if (range == 0) Rgb(fraction, fraction, fraction) else BLACK_TRIP
+
+    private val BLACK_TRIP = Rgb(0F, 0F, 0F)
+    private val WHITE_TRIP = Rgb(1F, 1F, 1F)
 }
