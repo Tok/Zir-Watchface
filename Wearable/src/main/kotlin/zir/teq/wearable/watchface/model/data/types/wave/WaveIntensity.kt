@@ -9,12 +9,12 @@ import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 data class WaveIntensity(val name: String, val value: Float) : ComponentConfigItem {
     override val configId = Type.WAVE_INTENSITY.code
-    val pref = Zir.string(R.string.saved_wave_intensity)
-    val iconId = R.drawable.icon_wave_intensity
 
     companion object {
-        private val defInten = 7F
+        val pref = Zir.string(R.string.saved_wave_intensity)
+        val iconId = R.drawable.icon_wave_intensity
 
+        private val defInten = 7F
         val CALMEST = WaveIntensity("Calmest", defInten / (PHI * PHI * PHI))
         val CALMER = WaveIntensity("Calmer", defInten / (PHI * PHI))
         val CALM = WaveIntensity("Calm", defInten / PHI)

@@ -8,10 +8,11 @@ import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 
 data class WaveDarkness(val name: String, val value: Float) : ComponentConfigItem {
     override val configId = Type.WAVE_DARKNESS.code
-    val pref = Zir.string(R.string.saved_wave_darkness)
-    val iconId = R.drawable.icon_wave_darkness
 
     companion object {
+        val pref = Zir.string(R.string.saved_wave_darkness)
+        val iconId = R.drawable.icon_wave_darkness
+
         val OFF = WaveDarkness("Off", 0F)
         val _1 = WaveDarkness("10%", 0.1F)
         val _2 = WaveDarkness("20%", 0.2F)

@@ -9,12 +9,12 @@ import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 data class WaveVelocity(val name: String, val value: Float) : ComponentConfigItem {
     override val configId = Type.WAVE_VELOCITY.code
-    val pref = Zir.string(R.string.saved_wave_velocity)
-    val iconId = R.drawable.icon_wave_velocity
 
     companion object {
-        private val defVelo = -1F / PHI //cycles per second (negative out, positive in)
+        val pref = Zir.string(R.string.saved_wave_velocity)
+        val iconId = R.drawable.icon_wave_velocity
 
+        private val defVelo = -1F / PHI //cycles per second (negative out, positive in)
         val SLOWEST = WaveVelocity("Slowest", defVelo / (PHI * PHI * PHI))
         val SLOWER = WaveVelocity("Slower", defVelo / (PHI * PHI))
         val SLOW = WaveVelocity("Slow", defVelo / PHI)

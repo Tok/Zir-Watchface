@@ -9,12 +9,12 @@ import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 data class WaveFrequency(val name: String, val value: Float) : ComponentConfigItem {
     override val configId = Type.WAVE_FREQUENCY.code
-    val pref = Zir.string(R.string.saved_wave_frequency)
-    val iconId = R.drawable.icon_wave_frequency
 
     companion object {
-        private val defFreq = 1F / PHI //waves per units
+        val pref = Zir.string(R.string.saved_wave_frequency)
+        val iconId = R.drawable.icon_wave_frequency
 
+        private val defFreq = 1F / PHI //waves per units
         val LOWEST = WaveFrequency("Lowest", defFreq / (PHI * PHI * PHI))
         val LOWER = WaveFrequency("Lower", defFreq / (PHI * PHI))
         val LOW = WaveFrequency("Low", defFreq / PHI)

@@ -8,10 +8,11 @@ import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 
 data class WaveAmbientResolution(val name: String, val value: Int) : ComponentConfigItem {
     override val configId = Type.WAVE_AMB_RESO.code
-    val pref = Zir.string(R.string.saved_wave_ambient_resolution)
-    val iconId = R.drawable.icon_wave_ambient_resolution
 
     companion object {
+        val pref = Zir.string(R.string.saved_wave_ambient_resolution)
+        val iconId = R.drawable.icon_wave_ambient_resolution
+
         val SUPER_LOW = WaveAmbientResolution("Super Low", 40)
         val LOWEST = WaveAmbientResolution("Lowest", 32)
         val LOWER = WaveAmbientResolution("Lower", 20)
