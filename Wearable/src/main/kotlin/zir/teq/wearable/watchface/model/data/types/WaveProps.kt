@@ -19,6 +19,7 @@ data class WaveProps(val name: String, override val configId: Int, val iconId: I
         val VELOCITY = create(Type.WAVE_VELOCITY)
         val FREQUENCY = create(Type.WAVE_FREQUENCY)
         val INTENSITY = create(Type.WAVE_INTENSITY)
+        val DARKNESS = create(Type.WAVE_DARKNESS)
         val RESOLUTION = create(Type.WAVE_RESO)
         val AMBIENT_RESOLUTION = create(Type.WAVE_AMB_RESO)
         val OFF = createCheckbox(Type.WAVE_IS_OFF)
@@ -27,7 +28,8 @@ data class WaveProps(val name: String, override val configId: Int, val iconId: I
         val INWARD = createCheckbox(Type.WAVE_IS_INWARD)
         val STANDING = createCheckbox(Type.WAVE_IS_STANDING)
 
-        val ALL = listOf(SPECTRUM, VELOCITY, FREQUENCY, INTENSITY, RESOLUTION, AMBIENT_RESOLUTION,
+        val ALL = listOf(SPECTRUM, VELOCITY, FREQUENCY, INTENSITY, DARKNESS,
+                RESOLUTION, AMBIENT_RESOLUTION,
                 OFF, PIXELATE, MULTIPLY, INWARD, STANDING)
 
         private fun valueOf(viewType: Int) = ALL.find { it.configId == viewType }

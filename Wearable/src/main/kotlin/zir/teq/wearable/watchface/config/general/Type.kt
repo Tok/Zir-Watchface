@@ -22,6 +22,7 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         val WAVE_VELOCITY = WaveType(3200, R.string.saved_wave_velocity, R.string.label_wave_velocity, R.drawable.icon_wave_velocity)
         val WAVE_FREQUENCY = WaveType(3300, R.string.saved_wave_frequency, R.string.label_wave_frequency, R.drawable.icon_wave_frequency)
         val WAVE_INTENSITY = WaveType(3400, R.string.saved_wave_intensity, R.string.label_wave_intensity, R.drawable.icon_wave_intensity)
+        val WAVE_DARKNESS = WaveType(3450, R.string.saved_wave_darkness, R.string.label_wave_darkness, R.drawable.icon_wave_darkness)
         val WAVE_RESO = WaveType(3500, R.string.saved_wave_resolution, R.string.label_wave_resolution, R.drawable.icon_wave_resolution)
         val WAVE_AMB_RESO = WaveType(3600, R.string.saved_wave_ambient_resolution, R.string.label_wave_ambient_resolution, R.drawable.icon_wave_ambient_resolution)
 
@@ -39,7 +40,8 @@ abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
         private val ALL_TYPES = listOf(
                 COMPONENT, PALETTE, BACKGROUND, WAVE_PROPS,
                 WAVE_IS_OFF, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_INWARD, WAVE_IS_STANDING,
-                WAVE_SPECTRUM, WAVE_VELOCITY, WAVE_FREQUENCY, WAVE_INTENSITY, WAVE_RESO, WAVE_AMB_RESO,
+                WAVE_SPECTRUM, WAVE_VELOCITY, WAVE_FREQUENCY, WAVE_INTENSITY, WAVE_INTENSITY,
+                WAVE_RESO, WAVE_AMB_RESO,
                 STYLE, ALPHA, DIM, STACK, GROWTH, STROKE, OUTLINE,
                 FAST_UPDATE, IS_ELASTIC)
         val MAIN_TYPES = ALL_TYPES.filter { it is MainType } + listOf(FAST_UPDATE, IS_ELASTIC)

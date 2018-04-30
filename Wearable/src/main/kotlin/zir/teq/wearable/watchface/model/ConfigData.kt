@@ -41,6 +41,7 @@ object ConfigData {
     fun waveVelocity() = WaveVelocity.getByName(prefString(R.string.saved_wave_velocity, WaveVelocity.default.name))
     fun waveFrequency() = WaveFrequency.getByName(prefString(R.string.saved_wave_frequency, WaveFrequency.default.name))
     fun waveIntensity() = WaveIntensity.getByName(prefString(R.string.saved_wave_intensity, WaveIntensity.default.name))
+    fun waveDarkness() = WaveDarkness.getByName(prefString(R.string.saved_wave_darkness, WaveDarkness.default.name))
     fun waveAmbientResolution() = WaveAmbientResolution.getByName(prefString(R.string.saved_wave_ambient_resolution, WaveAmbientResolution.default.name))
     fun waveResolution() = WaveResolution.getByName(prefString(R.string.saved_wave_resolution, WaveResolution.default.name))
 

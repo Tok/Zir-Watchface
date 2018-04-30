@@ -59,6 +59,7 @@
         <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveVelocityActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveFrequencyActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveIntensityActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveDarknessActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveResolutionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveAmbientResolutionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.StyleActivity" />

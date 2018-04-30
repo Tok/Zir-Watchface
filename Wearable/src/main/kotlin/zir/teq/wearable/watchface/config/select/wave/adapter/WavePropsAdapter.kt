@@ -81,6 +81,11 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
                     intent.putExtra(WaveIntensityActivity.EXTRA, item.configId)
                     startActivity(ctx, intent, null)
                 }
+                WaveProps.DARKNESS -> {
+                    val intent = Intent(ctx, WaveDarknessActivity.CLASS)
+                    intent.putExtra(WaveDarknessActivity.EXTRA, item.configId)
+                    startActivity(ctx, intent, null)
+                }
                 WaveProps.RESOLUTION -> {
                     val intent = Intent(ctx, WaveResolutionActivity.CLASS)
                     intent.putExtra(WaveResolutionActivity.EXTRA, item.configId)
