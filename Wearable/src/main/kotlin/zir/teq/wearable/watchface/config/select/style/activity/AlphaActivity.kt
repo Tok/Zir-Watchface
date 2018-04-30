@@ -20,8 +20,7 @@ class AlphaActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedAlphaId = intent.getStringExtra(EXTRA)
-        mAdapter = AlphaAdapter(sharedAlphaId, Alpha.options())
+        mAdapter = AlphaAdapter(Alpha.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mConfigView, mAdapter, mManager)

@@ -20,8 +20,7 @@ class StackActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedStackName = intent.getStringExtra(EXTRA)
-        mAdapter = StackAdapter(sharedStackName, Stack.options())
+        mAdapter = StackAdapter(Stack.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mConfigView, mAdapter, mManager)

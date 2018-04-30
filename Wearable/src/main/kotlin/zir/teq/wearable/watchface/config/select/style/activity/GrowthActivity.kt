@@ -20,8 +20,7 @@ class GrowthActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedGrowthName = intent.getStringExtra(EXTRA)
-        mAdapter = GrowthAdapter(sharedGrowthName, Growth.options())
+        mAdapter = GrowthAdapter(Growth.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mConfigView, mAdapter, mManager)

@@ -20,8 +20,7 @@ class OutlineActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedOutlineName = intent.getStringExtra(EXTRA)
-        mAdapter = OutlineAdapter(sharedOutlineName, Outline.options())
+        mAdapter = OutlineAdapter(Outline.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mConfigView, mAdapter, mManager)

@@ -19,7 +19,9 @@ class PropsHolder(view: View, val pref: String, val names: List<String>) : RecHo
     }
 
     fun bindProps(name: String, iconId: Int) {
-        mCircle.setBackgroundResource(iconId)
+        mCircle.foreground = mView.context.getDrawable(iconId)
+        mCircle.backgroundColor = ConfigData.palette().half()
+        mCircle.strokeWidth = 1F
         mTextView.text = name
     }
 

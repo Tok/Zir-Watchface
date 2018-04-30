@@ -25,6 +25,5 @@ class StyleActivity : Activity() {
 
     companion object {
         internal val EXTRA = this::class.java.getPackage().name + "SHARED_STYLE"
-        val REQ = 111
     }
 }

@@ -10,6 +10,7 @@ import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.util.ViewHelper
 
+
 class StyleAdapter(private val options: ConfigItemTypes) : RecAdapter() {
     override fun getItemViewType(position: Int) = options[position].configType
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {

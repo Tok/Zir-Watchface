@@ -20,8 +20,7 @@ class StrokeActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedStrokeName = intent.getStringExtra(EXTRA)
-        mAdapter = StrokeAdapter(sharedStrokeName, Stroke.options())
+        mAdapter = StrokeAdapter(Stroke.options())
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mConfigView, mAdapter, mManager)
@@ -34,6 +33,7 @@ class StrokeActivity : Activity() {
     }
 
     companion object {
+        val iconId = R.drawable.icon_stroke
         internal val EXTRA = this::class.java.getPackage().name + "SHARED_STROKE"
     }
 }
