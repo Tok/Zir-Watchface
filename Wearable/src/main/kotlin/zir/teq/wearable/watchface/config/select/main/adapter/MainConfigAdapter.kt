@@ -3,7 +3,7 @@ package zir.teq.wearable.watchface.config.select.main.adapter
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.general.types.MainType
+import zir.teq.wearable.watchface.config.general.types.MainItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -25,7 +25,7 @@ class MainConfigAdapter(private val mSettingsDataSet: List<Item>) : RecAdapter()
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
         when (item) {
-            is MainType -> holder.bindIcon(item.iconId, ConfigData.palette().lightId)
+            is MainItem -> holder.bindIcon(item.iconId, ConfigData.palette().lightId)
         }
     }
 

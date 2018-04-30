@@ -4,5 +4,5 @@ import android.app.Activity
 import zir.teq.wearable.watchface.config.general.Item
 
 
-class ColorType(code: Int, prefId: Int, nameId: Int, iconId: Int, activity: Class<out Activity>) :
+class StyleItem(code: Int, prefId: Int, nameId: Int, iconId: Int, activity: Class<out Activity>) :
         Item(code, prefId, nameId, iconId, activity)

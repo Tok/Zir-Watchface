@@ -3,7 +3,7 @@ package zir.teq.wearable.watchface.model.data.types
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.ConfigItem
 import zir.teq.wearable.watchface.config.general.Item
-import zir.teq.wearable.watchface.config.general.types.WaveType
+import zir.teq.wearable.watchface.config.general.types.WaveItem
 
 
 data class WaveProps(override val name: String, override val configId: Int, val iconId: Int?) : ConfigItem {
@@ -14,8 +14,8 @@ data class WaveProps(override val name: String, override val configId: Int, val 
             configId == STANDING.configId
 
     companion object {
-        private fun create(type: WaveType) = WaveProps(Zir.string(type.nameId), type.code, type.iconId)
-        private fun createCheckbox(type: Item) = WaveProps(Zir.string(type.nameId), type.code, null)
+        private fun create(item: WaveItem) = WaveProps(item.name, item.code, item.iconId)
+        private fun createCheckbox(item: Item) = WaveProps(item.name, item.code, null)
         val SPECTRUM = create(Item.WAVE_SPECTRUM)
         val VELOCITY = create(Item.WAVE_VELOCITY)
         val FREQUENCY = create(Item.WAVE_FREQUENCY)

@@ -12,7 +12,7 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Item
-import zir.teq.wearable.watchface.config.general.types.CheckboxType
+import zir.teq.wearable.watchface.config.general.types.CheckboxItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -35,7 +35,7 @@ class WavePropsAdapter(private val options: List<Item>) : RecAdapter() {
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val item = options[position]
-        if (item is CheckboxType == false) {
+        if (item is CheckboxItem == false) {
             (vh as Holder).bindProps(item)
         }
     }
