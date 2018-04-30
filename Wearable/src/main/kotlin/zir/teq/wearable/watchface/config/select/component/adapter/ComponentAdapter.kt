@@ -13,10 +13,10 @@ import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.types.Component
-import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
+import zir.teq.wearable.watchface.config.general.ConfigItem
 
 
-class ComponentAdapter(private val options: List<ComponentConfigItem>) : RecAdapter() {
+class ComponentAdapter(private val options: List<ConfigItem>) : RecAdapter() {
     override fun getItemViewType(position: Int) = options[position].configId
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -62,7 +62,7 @@ class ComponentAdapter(private val options: List<ComponentConfigItem>) : RecAdap
 
         override fun onClick(view: View) {
             val position = adapterPosition
-            val componentConfigItem: ComponentConfigItem = options[position]
+            val componentConfigItem: ConfigItem = options[position]
             if (componentConfigItem is Theme) {
                 val activity = view.context as Activity
                 Theme.saveComponentStates(componentConfigItem)

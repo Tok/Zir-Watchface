@@ -2,19 +2,18 @@ package zir.teq.wearable.watchface.config.select.main.adapter
 
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.config.general.Item
-import zir.teq.wearable.watchface.config.general.types.MainType
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
+import zir.teq.wearable.watchface.config.general.types.MainType
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.ConfigItemTypes
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
-class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdapter() {
+class MainConfigAdapter(private val mSettingsDataSet: List<Item>) : RecAdapter() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = ViewHelper.createViewHolder(viewGroup, viewType)
     override fun onBindViewHolder(vh: RecHolder, pos: Int) {
-        val ci = mSettingsDataSet[pos] as Item
+        val ci = mSettingsDataSet[pos]
         prepareHolder(vh, ci)
         if (vh is RecSelectionViewHolder) {
             vh.setActivity((ci).activity)
@@ -27,7 +26,7 @@ class MainConfigAdapter(private val mSettingsDataSet: ConfigItemTypes) : RecAdap
         holder.setSharedPrefString(item.pref)
         val type = item.type
         when (type) {
-            is MainType -> holder.bindIcon((item.type as MainType).iconId, ConfigData.palette().lightId)
+            is MainType -> holder.bindIcon(item.iconId, ConfigData.palette().lightId)
         }
     }
 

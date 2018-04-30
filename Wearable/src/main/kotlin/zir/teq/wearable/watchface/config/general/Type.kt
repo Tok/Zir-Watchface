@@ -3,8 +3,8 @@ package zir.teq.wearable.watchface.config.general
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.types.*
 
-abstract class Type(val code: Int, val prefId: Int, val nameId: Int) {
-    abstract fun layoutId(): Int
+abstract class Type(val code: Int, val prefId: Int, val nameId: Int, val iconId: Int? = null) {
+    fun layoutId(): Int = R.layout.list_item_main
 
     companion object {
         val COMPONENT = MainType(1000, R.string.saved_theme, R.string.label_components, R.drawable.icon_components)

@@ -4,9 +4,9 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
+import zir.teq.wearable.watchface.config.general.ConfigItem
 
-data class Spectrum(override val name: String) : ComponentConfigItem {
+data class Spectrum(override val name: String) : ConfigItem {
     override val configId = Type.WAVE_SPECTRUM.code
 
     val hasCenter = false //TODO tune (performance)

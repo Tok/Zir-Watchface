@@ -6,9 +6,9 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.holder.PropsHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
+import zir.teq.wearable.watchface.config.general.ConfigItem
 
-class PropsAdapter(private val options: List<ComponentConfigItem>, val pref: String, val iconId: Int) : RecAdapter() {
+class PropsAdapter(private val options: List<ConfigItem>, val pref: String, val iconId: Int) : RecAdapter() {
     override fun getItemViewType(position: Int) = options[position].configId
     override fun getItemCount(): Int = options.size
 

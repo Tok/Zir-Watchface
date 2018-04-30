@@ -40,7 +40,7 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
                     setSharedPrefString(Zir.string(R.string.saved_background))
                     val bgTintId = null //TODO implement
                     bindIcon(R.drawable.icon_background, bgTintId)
-                    setActivity(Item.createBackgroundItem(Zir.ctx()).activity)
+                    setActivity(Item.createBackgroundItem().activity)
                 }
             }
         }

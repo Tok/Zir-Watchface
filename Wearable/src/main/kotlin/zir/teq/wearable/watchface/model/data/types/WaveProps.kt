@@ -1,11 +1,12 @@
 package zir.teq.wearable.watchface.model.data.types
 
 import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.config.general.ConfigItem
 import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.config.general.types.WaveType
 
 
-data class WaveProps(override val name: String, override val configId: Int, val iconId: Int?) : ComponentConfigItem {
+data class WaveProps(override val name: String, override val configId: Int, val iconId: Int?) : ConfigItem {
     fun isBooleanProp() = configId == OFF.configId ||
             configId == PIXELATE.configId ||
             configId == MULTIPLY.configId ||

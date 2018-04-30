@@ -9,14 +9,14 @@ import zir.teq.wearable.watchface.model.data.types.Component.Companion.HAND
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.TRIANGLE
-import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
+import zir.teq.wearable.watchface.config.general.ConfigItem
 import zir.teq.wearable.watchface.model.data.types.State
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
 
 
 data class Theme(override val name: String, val iconId: Int, val map: Map<String, Boolean>,
-                 override val configId: Int = 0) : ComponentConfigItem {
+                 override val configId: Int = 0) : ConfigItem {
     fun get(pair: Pair<Component, State>) = get(pair.first, pair.second)
     private fun get(comp: Component, state: State) = get(Component.createKey(comp, state))
     private fun get(key: String): Boolean = map.get(key) ?: false
