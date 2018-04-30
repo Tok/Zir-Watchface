@@ -6,7 +6,7 @@ import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 
 
-data class WaveResolution(val name: String, val value: Int) : ComponentConfigItem {
+data class WaveResolution(override val name: String, val value: Int) : ComponentConfigItem {
     override val configId = Type.WAVE_RESO.code
 
     companion object {

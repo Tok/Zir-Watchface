@@ -15,7 +15,7 @@ import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
 
 
-data class Theme(val name: String, val iconId: Int, val map: Map<String, Boolean>,
+data class Theme(override val name: String, val iconId: Int, val map: Map<String, Boolean>,
                  override val configId: Int = 0) : ComponentConfigItem {
     fun get(pair: Pair<Component, State>) = get(pair.first, pair.second)
     private fun get(comp: Component, state: State) = get(Component.createKey(comp, state))

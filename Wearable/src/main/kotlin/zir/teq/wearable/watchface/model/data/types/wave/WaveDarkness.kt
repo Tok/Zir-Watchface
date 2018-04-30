@@ -6,7 +6,7 @@ import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 
 
-data class WaveDarkness(val name: String, val value: Float) : ComponentConfigItem {
+data class WaveDarkness(override val name: String, val value: Float) : ComponentConfigItem {
     override val configId = Type.WAVE_DARKNESS.code
 
     companion object {

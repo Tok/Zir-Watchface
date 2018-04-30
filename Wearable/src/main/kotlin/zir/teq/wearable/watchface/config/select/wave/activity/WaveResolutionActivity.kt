@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
+import zir.teq.wearable.watchface.config.general.adapter.PropsAdapter
 import zir.teq.wearable.watchface.config.general.manager.ScalingLayoutCallback
-import zir.teq.wearable.watchface.config.select.wave.adapter.WaveResolutionAdapter
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.wave.WaveResolution
 import zir.teq.wearable.watchface.util.ViewHelper
@@ -14,13 +14,13 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 class WaveResolutionActivity : Activity() {
     private lateinit var mView: WearableRecyclerView
-    private lateinit var mAdapter: WaveResolutionAdapter
+    private lateinit var mAdapter: PropsAdapter
     private lateinit var mManager: WearableLinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        mAdapter = WaveResolutionAdapter(WaveResolution.ALL)
+        mAdapter = PropsAdapter(WaveResolution.ALL, WaveResolution.pref, WaveResolution.iconId)
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mView, mAdapter, mManager)

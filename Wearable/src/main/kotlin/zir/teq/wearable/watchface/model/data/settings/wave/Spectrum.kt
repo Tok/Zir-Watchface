@@ -6,7 +6,7 @@ import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 
-data class Spectrum(val name: String) : ComponentConfigItem {
+data class Spectrum(override val name: String) : ComponentConfigItem {
     override val configId = Type.WAVE_SPECTRUM.code
 
     val hasCenter = false //TODO tune (performance)
@@ -35,7 +35,6 @@ data class Spectrum(val name: String) : ComponentConfigItem {
         val default = BW
         val ALL = listOf(PALETTE, BW, LINES, FULL, CHAOS, SPOOK, RAIN)
 
-        fun options() = ALL.toCollection(ArrayList())
         fun getByName(name: String): Spectrum = ALL.find { it.name.equals(name) } ?: default
     }
 }

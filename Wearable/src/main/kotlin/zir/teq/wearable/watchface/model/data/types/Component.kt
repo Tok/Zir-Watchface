@@ -1,7 +1,7 @@
 package zir.teq.wearable.watchface.model.data.types
 
 
-data class Component(val name: String, override val configId: Int) : ComponentConfigItem {
+data class Component(override val name: String, override val configId: Int) : ComponentConfigItem {
     val activeKey = createKey(this, State.ACTIVE)
     val ambientKey = createKey(this, State.AMBIENT)
 

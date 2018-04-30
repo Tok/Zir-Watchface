@@ -7,7 +7,7 @@ import zir.teq.wearable.watchface.model.data.types.ComponentConfigItem
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 
-data class WaveIntensity(val name: String, val value: Float) : ComponentConfigItem {
+data class WaveIntensity(override val name: String, val value: Float) : ComponentConfigItem {
     override val configId = Type.WAVE_INTENSITY.code
 
     companion object {

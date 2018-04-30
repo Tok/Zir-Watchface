@@ -5,7 +5,7 @@ import zir.teq.wearable.watchface.config.general.Type
 import zir.teq.wearable.watchface.config.general.types.WaveType
 
 
-data class WaveProps(val name: String, override val configId: Int, val iconId: Int?) : ComponentConfigItem {
+data class WaveProps(override val name: String, override val configId: Int, val iconId: Int?) : ComponentConfigItem {
     fun isBooleanProp() = configId == OFF.configId ||
             configId == PIXELATE.configId ||
             configId == MULTIPLY.configId ||
