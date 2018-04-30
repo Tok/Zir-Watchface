@@ -24,21 +24,21 @@ data class Theme(override val name: String, val iconId: Int, val map: Map<String
     companion object {
         var INSTANCE = Theme("Instance", R.drawable.icon_dummy,
                 (Component.KEYS.map { it to false }).toMap())
-        private val POINTS_ONLY = Theme("Points", R.drawable.theme_points, (Component.KEYS.map {
+        private val POINTS_ONLY = Theme("Points", R.drawable.comp_points, (Component.KEYS.map {
             when (it) {
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 else -> it to false
             }
         }).toMap())
-        private val MINIMAL = Theme("Minimal", R.drawable.theme_minimal, (Component.KEYS.map {
+        private val MINIMAL = Theme("Minimal", R.drawable.comp_minimal, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, AMBIENT) -> it to true
                 else -> it to false
             }
         }).toMap())
-        private val PLAIN = Theme("Plain", R.drawable.theme_plain, (Component.KEYS.map {
+        private val PLAIN = Theme("Plain", R.drawable.comp_plain, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, AMBIENT) -> it to true
@@ -47,14 +47,14 @@ data class Theme(override val name: String, val iconId: Int, val map: Map<String
                 else -> it to false
             }
         }).toMap())
-        private val SHAPES = Theme("Shape", R.drawable.theme_shape, (Component.KEYS.map {
+        private val SHAPES = Theme("Shape", R.drawable.comp_shape, (Component.KEYS.map {
             when (it) {
                 Component.createKey(SHAPE, ACTIVE) -> it to true
                 Component.createKey(SHAPE, AMBIENT) -> it to true
                 else -> it to false
             }
         }).toMap())
-        private val ORIGINAL = Theme("Original", R.drawable.theme_original, (Component.KEYS.map {
+        private val ORIGINAL = Theme("Original", R.drawable.comp_original, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(TRIANGLE, ACTIVE) -> it to true
@@ -65,7 +65,7 @@ data class Theme(override val name: String, val iconId: Int, val map: Map<String
                 else -> it to false
             }
         }).toMap())
-        private val FIELDS = Theme("Fields", R.drawable.theme_fields, (Component.KEYS.map {
+        private val FIELDS = Theme("Fields", R.drawable.comp_fields, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, AMBIENT) -> it to true
@@ -76,7 +76,7 @@ data class Theme(override val name: String, val iconId: Int, val map: Map<String
                 else -> it to false
             }
         }).toMap())
-        private val CIRCLES = Theme("Circles", R.drawable.theme_circles, (Component.KEYS.map {
+        private val CIRCLES = Theme("Circles", R.drawable.comp_circles, (Component.KEYS.map {
             when (it) {
                 Component.createKey(CIRCLE, ACTIVE) -> it to true
                 Component.createKey(CIRCLE, AMBIENT) -> it to true
@@ -85,7 +85,7 @@ data class Theme(override val name: String, val iconId: Int, val map: Map<String
                 else -> it to false
             }
         }).toMap())
-        private val GEOMETRY = Theme("Geometry", R.drawable.theme_geometry, (Component.KEYS.map {
+        private val GEOMETRY = Theme("Geometry", R.drawable.comp_geometry, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, ACTIVE) -> it to true

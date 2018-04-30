@@ -16,7 +16,7 @@ class MainConfigAdapter(private val mSettingsDataSet: List<Item>) : RecAdapter()
         val ci = mSettingsDataSet[pos]
         prepareHolder(vh, ci)
         if (vh is RecSelectionViewHolder) {
-            vh.setActivity((ci).activity)
+            vh.setActivity(ci.activity)
         }
     }
 
@@ -24,12 +24,11 @@ class MainConfigAdapter(private val mSettingsDataSet: List<Item>) : RecAdapter()
         val holder = vh as RecSelectionViewHolder
         holder.setName(item.name)
         holder.setSharedPrefString(item.pref)
-        val type = item.type
-        when (type) {
+        when (item) {
             is MainType -> holder.bindIcon(item.iconId, ConfigData.palette().lightId)
         }
     }
 
-    override fun getItemViewType(position: Int) = mSettingsDataSet[position].configType
+    override fun getItemViewType(position: Int) = mSettingsDataSet[position].code
     override fun getItemCount() = mSettingsDataSet.size
 }

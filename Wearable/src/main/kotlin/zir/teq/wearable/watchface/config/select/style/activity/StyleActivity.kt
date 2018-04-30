@@ -17,7 +17,7 @@ class StyleActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        mAdapter = StyleAdapter(Item.createStyleConfig())
+        mAdapter = StyleAdapter(Item.STYLE_TYPES)
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mView, mAdapter, mManager)

@@ -62,16 +62,23 @@
     <string name="label_fast_update">Fast Update</string>
     <string name="label_is_elastic">Elasticity</string>
 
+    <string name="label_hand">Hand</string>
     <string name="label_hands_act">Hands</string>
     <string name="label_hands_amb">Ambient Hands</string>
+    <string name="label_circle">Circle</string>
     <string name="label_circles_act">Circles</string>
     <string name="label_circles_amb">Ambient Circles</string>
+    <string name="label_triangle">Triangle</string>
     <string name="label_triangles_act">Triangles</string>
     <string name="label_triangles_amb">Ambient Triangles</string>
+    <string name="label_points">Points</string>
     <string name="label_points_act">Points</string>
     <string name="label_points_amb">Ambient Points</string>
+    <string name="label_text">Text</string>
     <string name="label_text_act">Text</string>
     <string name="label_text_amb">Ambient Text</string>
+    <string name="label_shape">Shape</string>
     <string name="label_shapes_act">Shapes</string>
     <string name="label_shapes_amb">Ambient Shapes</string>
+    <string name="label_wave">Wave</string>
 </resources>

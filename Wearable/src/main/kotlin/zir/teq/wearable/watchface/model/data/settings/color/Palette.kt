@@ -9,7 +9,6 @@ import android.support.annotation.ColorInt
 import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.util.DrawUtil
@@ -84,7 +83,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
         }
 
         fun createTextPaint(): Paint = inst().apply {
-            typeface = Item.MONO_TYPEFACE
+            typeface = ConfigData.MONO_TYPEFACE
             isFakeBoldText = true
             color = Zir.color(R.color.text)
             alpha = ConfigData.style().alpha.value

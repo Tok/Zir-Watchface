@@ -1,6 +1,7 @@
 package zir.teq.wearable.watchface.config.general.types
 
-import zir.teq.wearable.watchface.config.general.Type
+import android.app.Activity
+import zir.teq.wearable.watchface.config.general.Item
 
-class MainType(code: Int, prefId: Int, nameId: Int, iconId: Int) :
-        Type(code, prefId, nameId, iconId)
+class MainType(code: Int, prefId: Int, nameId: Int, iconId: Int, activity: Class<out Activity>) :
+        Item(code, prefId, nameId, iconId, activity)

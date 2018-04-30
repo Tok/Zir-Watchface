@@ -14,7 +14,6 @@ import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.util.Log
 import android.view.SurfaceHolder
-import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
@@ -34,7 +33,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         private var mAmbient: Boolean = false
         private var mLowBitAmbient: Boolean = false
         private var mBurnInProtection: Boolean = false
-        private var mUpdateRateMs = Item.updateRateMs(mAmbient) //TODO move elsewhere?
+        private var mUpdateRateMs = ConfigData.updateRateMs(mAmbient) //TODO move elsewhere?
 
         private val mTimeZoneReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -52,7 +51,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
                     invalidate()
                     if (shouldTimerBeRunning()) {
                         val timeMs = System.currentTimeMillis()
-                        mUpdateRateMs = Item.updateRateMs(mAmbient)
+                        mUpdateRateMs = ConfigData.updateRateMs(mAmbient)
                         val delayMs = mUpdateRateMs - timeMs % mUpdateRateMs
                         mUpdateTimeHandler.sendEmptyMessageDelayed(msgUpdateTime, delayMs)
                     }
@@ -114,7 +113,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
         override fun onInterruptionFilterChanged(interruptionFilter: Int) {
             super.onInterruptionFilterChanged(interruptionFilter)
             val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
-            val rate = Item.updateRateMs(inMuteMode)
+            val rate = ConfigData.updateRateMs(inMuteMode)
             setInteractiveUpdateRateMs(rate)
             val isDimmed = ConfigData.isMute != inMuteMode
             if (isDimmed) {

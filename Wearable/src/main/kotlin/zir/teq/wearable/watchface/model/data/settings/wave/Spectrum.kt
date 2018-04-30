@@ -2,12 +2,12 @@ package zir.teq.wearable.watchface.model.data.settings.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Type
+import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.config.general.ConfigItem
 
 data class Spectrum(override val name: String) : ConfigItem {
-    override val configId = Type.WAVE_SPECTRUM.code
+    override val configId = Item.WAVE_SPECTRUM.code
 
     val hasCenter = false //TODO tune (performance)
     val hasHours = true

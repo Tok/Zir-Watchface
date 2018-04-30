@@ -19,7 +19,7 @@ class MainConfigActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
         mView = findViewById(R.id.zir_list_view)
-        mAdapter = MainConfigAdapter(Item.createMainConfig())
+        mAdapter = MainConfigAdapter(Item.MAIN_TYPES)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mView, mAdapter, mManager)
     }

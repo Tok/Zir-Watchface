@@ -10,10 +10,10 @@ import zir.teq.wearable.watchface.util.ViewHelper
 
 
 class StyleAdapter(private val options: List<Item>) : RecAdapter() {
-    override fun getItemViewType(position: Int) = options[position].configType
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-        return ViewHelper.createViewHolder(parent, viewType)
-    }
+    override fun getItemCount() = options.size
+    override fun getItemViewType(position: Int) = options[position].code
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHelper.createViewHolder(parent, viewType)
 
     override fun onBindViewHolder(holder: RecHolder, position: Int) {
         val item = options[position]
@@ -26,6 +26,4 @@ class StyleAdapter(private val options: List<Item>) : RecAdapter() {
             }
         }
     }
-
-    override fun getItemCount() = options.size
 }

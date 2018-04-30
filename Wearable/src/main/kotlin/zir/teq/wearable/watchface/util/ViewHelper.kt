@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Type
+import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.select.color.holder.BackgroundViewHolder
@@ -39,26 +39,26 @@ object ViewHelper {
     }
 
     fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
-        val configItem = Type.valueOf(viewType)
+        val configItem = Item.valueOf(viewType)
         val view = createView(group, configItem.layoutId())
         return when (configItem) { //TODO move view holder instantiation to type?
-            Type.COMPONENT -> ComponentViewHolder(view)
-            Type.PALETTE -> PaletteViewHolder(view)
-            Type.BACKGROUND -> BackgroundViewHolder(view)
-            Type.WAVE_PROPS -> WavePropsViewHolder(view)
-            Type.WAVE_SPECTRUM -> RecSelectionViewHolder(view)
-            Type.WAVE_VELOCITY -> RecSelectionViewHolder(view)
-            Type.WAVE_FREQUENCY -> RecSelectionViewHolder(view)
-            Type.WAVE_INTENSITY -> RecSelectionViewHolder(view)
-            Type.WAVE_RESO -> RecSelectionViewHolder(view)
-            Type.WAVE_AMB_RESO -> RecSelectionViewHolder(view)
-            Type.STYLE -> PropsViewHolder(view, StyleActivity.EXTRA, configItem.code)
-            Type.STROKE -> PropsViewHolder(view, StrokeActivity.EXTRA, configItem.code)
-            Type.OUTLINE -> PropsViewHolder(view, OutlineActivity.EXTRA, configItem.code)
-            Type.GROWTH -> PropsViewHolder(view, GrowthActivity.EXTRA, configItem.code)
-            Type.STACK -> PropsViewHolder(view, StackActivity.EXTRA, configItem.code)
-            Type.ALPHA -> PropsViewHolder(view, AlphaActivity.EXTRA, configItem.code)
-            Type.DIM -> PropsViewHolder(view, DimActivity.EXTRA, configItem.code)
+            Item.COMPONENT -> ComponentViewHolder(view)
+            Item.PALETTE -> PaletteViewHolder(view)
+            Item.BACKGROUND -> BackgroundViewHolder(view)
+            Item.WAVE_PROPS -> WavePropsViewHolder(view)
+            Item.WAVE_SPECTRUM -> RecSelectionViewHolder(view)
+            Item.WAVE_VELOCITY -> RecSelectionViewHolder(view)
+            Item.WAVE_FREQUENCY -> RecSelectionViewHolder(view)
+            Item.WAVE_INTENSITY -> RecSelectionViewHolder(view)
+            Item.WAVE_RESO -> RecSelectionViewHolder(view)
+            Item.WAVE_AMB_RESO -> RecSelectionViewHolder(view)
+            Item.STYLE -> PropsViewHolder(view, StyleActivity.EXTRA, configItem.code)
+            Item.STROKE -> PropsViewHolder(view, StrokeActivity.EXTRA, configItem.code)
+            Item.OUTLINE -> PropsViewHolder(view, OutlineActivity.EXTRA, configItem.code)
+            Item.GROWTH -> PropsViewHolder(view, GrowthActivity.EXTRA, configItem.code)
+            Item.STACK -> PropsViewHolder(view, StackActivity.EXTRA, configItem.code)
+            Item.ALPHA -> PropsViewHolder(view, AlphaActivity.EXTRA, configItem.code)
+            Item.DIM -> PropsViewHolder(view, DimActivity.EXTRA, configItem.code)
             else -> createCheckboxViewHolder(group, configItem)
         }
     }
@@ -66,7 +66,7 @@ object ViewHelper {
     private fun createView(viewGroup: ViewGroup, resource: Int) =
             LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
 
-    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Type): RecSelectionViewHolder {
+    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Item): RecSelectionViewHolder {
         val ctx = viewGroup.context
         with(ctx.resources) {
             val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_checkbox, viewGroup, false)

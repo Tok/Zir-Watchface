@@ -11,7 +11,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.select.wave.activity.*
+import zir.teq.wearable.watchface.config.general.Item
+import zir.teq.wearable.watchface.config.general.types.CheckboxType
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -19,8 +20,8 @@ import zir.teq.wearable.watchface.model.data.types.WaveProps
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
-class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
-    override fun getItemViewType(position: Int) = options[position].configId
+class WavePropsAdapter(private val options: List<Item>) : RecAdapter() {
+    override fun getItemViewType(position: Int) = options[position].code
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -34,8 +35,8 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
         val item = options[position]
-        if (!item.isBooleanProp() && vh is Holder) {
-            vh.bindWaveProps(item)
+        if (item is CheckboxType == false) {
+            (vh as Holder).bindProps(item)
         }
     }
 
@@ -50,55 +51,18 @@ class WavePropsAdapter(private val options: List<WaveProps>) : RecAdapter() {
             mView.setOnClickListener(this)
         }
 
-        fun bindWaveProps(waveProps: WaveProps) {
+        fun bindProps(props: Item) {
             mCircle.backgroundColor = Zir.color(ConfigData.palette().lightId)
-            mCircle.setBackgroundResource(waveProps.iconId ?: R.drawable.icon_dummy)
-            mTextView.text = waveProps.name
+            mCircle.setBackgroundResource(props.iconId)
+            mTextView.text = props.name
         }
 
         override fun onClick(view: View) {
             val ctx = this.mView.context
             val activity = view.context as Activity
-            val item: WaveProps = options[adapterPosition]
-            when (item) {
-                WaveProps.SPECTRUM -> {
-                    val intent = Intent(ctx, WaveSpectrumActivity.CLASS)
-                    intent.putExtra(WaveSpectrumActivity.EXTRA, item.configId)
-                    startActivity(ctx, intent, null)
-                }
-                WaveProps.VELOCITY -> {
-                    val intent = Intent(ctx, WaveVelocityActivity.CLASS)
-                    intent.putExtra(WaveVelocityActivity.EXTRA, item.configId)
-                    startActivity(ctx, intent, null)
-                }
-                WaveProps.FREQUENCY -> {
-                    val intent = Intent(ctx, WaveFrequencyActivity.CLASS)
-                    intent.putExtra(WaveFrequencyActivity.EXTRA, item.configId)
-                    startActivity(ctx, intent, null)
-                }
-                WaveProps.INTENSITY -> {
-                    val intent = Intent(ctx, WaveIntensityActivity.CLASS)
-                    intent.putExtra(WaveIntensityActivity.EXTRA, item.configId)
-                    startActivity(ctx, intent, null)
-                }
-                WaveProps.DARKNESS -> {
-                    val intent = Intent(ctx, WaveDarknessActivity.CLASS)
-                    intent.putExtra(WaveDarknessActivity.EXTRA, item.configId)
-                    startActivity(ctx, intent, null)
-                }
-                WaveProps.RESOLUTION -> {
-                    val intent = Intent(ctx, WaveResolutionActivity.CLASS)
-                    intent.putExtra(WaveResolutionActivity.EXTRA, item.configId)
-                    startActivity(ctx, intent, null)
-                }
-                WaveProps.AMBIENT_RESOLUTION -> {
-                    val intent = Intent(ctx, WaveAmbientResolutionActivity.CLASS)
-                    intent.putExtra(WaveAmbientResolutionActivity.EXTRA, item.configId)
-                    startActivity(ctx, intent, null)
-                }
-                else -> throw IllegalArgumentException("Unknown waveSpectrum prop: $item")
-            }
-
+            val item: Item = options[adapterPosition]
+            val intent = Intent(ctx, item.activity)
+            startActivity(ctx, intent, null)
             activity.setResult(Activity.RESULT_OK)
             activity.finish()
         }

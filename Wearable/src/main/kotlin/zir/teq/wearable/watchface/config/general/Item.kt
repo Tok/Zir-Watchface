@@ -1,64 +1,70 @@
 package zir.teq.wearable.watchface.config.general
 
 import android.app.Activity
-import android.content.Context
-import android.graphics.Typeface
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.config.general.types.*
 import zir.teq.wearable.watchface.config.select.color.activity.BackgroundActivity
 import zir.teq.wearable.watchface.config.select.color.activity.PaletteActivity
 import zir.teq.wearable.watchface.config.select.component.activity.ComponentActivity
 import zir.teq.wearable.watchface.config.select.main.activity.MainConfigActivity
 import zir.teq.wearable.watchface.config.select.style.activity.*
 import zir.teq.wearable.watchface.config.select.wave.activity.*
-import zir.teq.wearable.watchface.model.ConfigData
-import java.util.concurrent.TimeUnit
 
-
-open class Item(val type: Type, val activity: Class<out Activity>) {
-    val pref = Zir.string(type.prefId)
-    val name = Zir.string(type.nameId)
-    val iconId = type.iconId ?: R.drawable.icon_dummy
-    val configType = type.code
-
-    override fun toString() = name
+abstract class Item(val code: Int, val prefId: Int, val nameId: Int,
+                    val iconId: Int = R.drawable.icon_dummy,
+                    val activity: Class<out Activity> = MainConfigActivity::class.java) {
+    fun layoutId(): Int = R.layout.list_item_main
+    val pref = Zir.string(prefId)
+    val name = Zir.string(nameId)
+    val icon = Zir.drawable(iconId)
+    val configType = code
 
     companion object {
-        fun createMainConfig(): List<Item> = Type.MAIN_TYPES.map { create(it) }
-        fun createStyleConfig() = Type.STYLE_TYPES.map { create(it) }
-        fun createWaveConfig() = Type.WAVE_TYPES.map { create(it) }
-        fun createBackgroundItem(): Item = create(Type.BACKGROUND)
-        private fun create(type: Type): Item { //TODO refactor
-            return when (type) {
-                Type.COMPONENT -> Item(type, ComponentActivity::class.java)
-                Type.PALETTE -> Item(type, PaletteActivity::class.java)
-                Type.STYLE -> Item(type, StyleActivity::class.java)
-                Type.BACKGROUND -> Item(type, BackgroundActivity::class.java)
-                Type.WAVE_PROPS -> Item(type,  WavePropsActivity::class.java)
-                Type.WAVE_SPECTRUM -> Item(type, WaveSpectrumActivity::class.java)
-                Type.WAVE_VELOCITY -> Item(type, WaveVelocityActivity::class.java)
-                Type.WAVE_FREQUENCY -> Item(type, WaveFrequencyActivity::class.java)
-                Type.WAVE_INTENSITY -> Item(type, WaveIntensityActivity::class.java)
-                Type.WAVE_DARKNESS -> Item(type, WaveDarknessActivity::class.java)
-                Type.WAVE_RESO -> Item(type, WaveResolutionActivity::class.java)
-                Type.WAVE_AMB_RESO -> Item(type, WaveAmbientResolutionActivity::class.java)
-                Type.STROKE -> Item(type, StrokeActivity::class.java)
-                Type.OUTLINE -> Item(type, OutlineActivity::class.java)
-                Type.GROWTH -> Item(type, GrowthActivity::class.java)
-                Type.ALPHA -> Item(type, AlphaActivity::class.java)
-                Type.DIM -> Item(type, DimActivity::class.java)
-                Type.STACK -> Item(type, StackActivity::class.java)
-                else -> Item(type, MainConfigActivity::class.java)
-            }
-        }
+        val COMPONENT = MainType(1000, R.string.saved_theme, R.string.label_components, R.drawable.icon_components, ComponentActivity::class.java)
 
-        val NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
-        val MONO_TYPEFACE = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
-        val FAST_UPDATE_RATE_MS = TimeUnit.MILLISECONDS.toMillis(20)
-        val NORMAL_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1)
-        val MUTE_UPDATE_RATE_MS = TimeUnit.MINUTES.toMillis(1)
-        fun updateRateMs(inMuteMode: Boolean) = if (inMuteMode) activeUpdateRateMs() else ambientUpdateRateMs()
-        private fun ambientUpdateRateMs() = if (ConfigData.isFastUpdate()) FAST_UPDATE_RATE_MS else NORMAL_UPDATE_RATE_MS
-        private fun activeUpdateRateMs() = if (ConfigData.isFastUpdate()) NORMAL_UPDATE_RATE_MS else MUTE_UPDATE_RATE_MS
+        val PALETTE = MainType(2000, R.string.saved_palette, R.string.label_colors, R.drawable.icon_color, PaletteActivity::class.java)
+        val BACKGROUND = ColorType(2100, R.string.saved_background, R.string.label_background, R.drawable.icon_background, BackgroundActivity::class.java)
+
+        val WAVE_PROPS = MainType(3000, R.string.saved_wave_props, R.string.label_wave_props, R.drawable.icon_wave, WavePropsActivity::class.java)
+        val WAVE_IS_OFF = CheckboxType(3010, R.string.saved_wave_is_off, R.string.label_wave_is_off)
+        val WAVE_IS_PIXEL = CheckboxType(3020, R.string.saved_wave_is_pixelated, R.string.label_wave_is_pixelated)
+        val WAVE_IS_MULTIPLY = CheckboxType(3030, R.string.saved_wave_is_multiply, R.string.label_wave_is_multiply)
+        val WAVE_IS_INWARD = CheckboxType(3040, R.string.saved_wave_is_inward, R.string.label_wave_is_inward)
+        val WAVE_IS_STANDING = CheckboxType(3050, R.string.saved_wave_is_standing, R.string.label_wave_is_standing)
+        val WAVE_SPECTRUM = WaveType(3100, R.string.saved_spectrum, R.string.label_spectrum, R.drawable.icon_wave_spectrum, WaveSpectrumActivity::class.java)
+        val WAVE_VELOCITY = WaveType(3200, R.string.saved_wave_velocity, R.string.label_wave_velocity, R.drawable.icon_wave_velocity, WaveVelocityActivity::class.java)
+        val WAVE_FREQUENCY = WaveType(3300, R.string.saved_wave_frequency, R.string.label_wave_frequency, R.drawable.icon_wave_frequency, WaveFrequencyActivity::class.java)
+        val WAVE_INTENSITY = WaveType(3400, R.string.saved_wave_intensity, R.string.label_wave_intensity, R.drawable.icon_wave_intensity, WaveIntensityActivity::class.java)
+        val WAVE_DARKNESS = WaveType(3450, R.string.saved_wave_darkness, R.string.label_wave_darkness, R.drawable.icon_wave_darkness, WaveDarknessActivity::class.java)
+        val WAVE_RESO = WaveType(3500, R.string.saved_wave_resolution, R.string.label_wave_resolution, R.drawable.icon_wave_resolution, WaveResolutionActivity::class.java)
+        val WAVE_AMB_RESO = WaveType(3600, R.string.saved_wave_ambient_resolution, R.string.label_wave_ambient_resolution, R.drawable.icon_wave_ambient_resolution, WaveAmbientResolutionActivity::class.java)
+
+        val STYLE = MainType(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style, StyleActivity::class.java)
+        val ALPHA = StyleType(4100, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha, AlphaActivity::class.java)
+        val DIM = StyleType(4200, R.string.saved_dim, R.string.label_dim, R.drawable.icon_dim, DimActivity::class.java)
+        val STACK = StyleType(4300, R.string.saved_stack, R.string.label_stack, R.drawable.icon_stack, StackActivity::class.java)
+        val GROWTH = StyleType(4400, R.string.saved_growth, R.string.label_growth, R.drawable.icon_growth, GrowthActivity::class.java)
+        val STROKE = StyleType(4500, R.string.saved_stroke, R.string.label_stroke, R.drawable.icon_stroke, StrokeActivity::class.java)
+        val OUTLINE = StyleType(4600, R.string.saved_outline, R.string.label_outline, R.drawable.icon_outline, OutlineActivity::class.java)
+
+        val FAST_UPDATE = CheckboxType(9010, R.string.saved_fast_update, R.string.label_fast_update)
+        val IS_ELASTIC = CheckboxType(9020, R.string.saved_is_elastic, R.string.label_is_elastic)
+
+        private val ALL_TYPES = listOf(
+                COMPONENT, PALETTE, BACKGROUND, WAVE_PROPS,
+                WAVE_IS_OFF, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_INWARD, WAVE_IS_STANDING,
+                WAVE_SPECTRUM, WAVE_VELOCITY, WAVE_FREQUENCY, WAVE_INTENSITY, WAVE_INTENSITY,
+                WAVE_RESO, WAVE_AMB_RESO,
+                STYLE, ALPHA, DIM, STACK, GROWTH, STROKE, OUTLINE,
+                FAST_UPDATE, IS_ELASTIC)
+
+        val MAIN_TYPES = ALL_TYPES.filter { it is MainType } + listOf(FAST_UPDATE, IS_ELASTIC)
+        val STYLE_TYPES = ALL_TYPES.filter { it is StyleType }
+        val WAVE_TYPES = ALL_TYPES.filter { it is WaveType } +
+                listOf(WAVE_IS_OFF, WAVE_IS_PIXEL, WAVE_IS_MULTIPLY, WAVE_IS_INWARD, WAVE_IS_STANDING)
+
+        fun valueOf(code: Int): Item = ALL_TYPES.find { it.code == code }
+                ?: throw IllegalArgumentException("Item code unknown: $code.")
     }
 }

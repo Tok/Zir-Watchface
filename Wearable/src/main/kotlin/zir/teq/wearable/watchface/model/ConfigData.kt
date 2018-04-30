@@ -3,6 +3,7 @@ package zir.teq.wearable.watchface.model
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.graphics.Typeface
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.data.settings.color.Background
@@ -12,6 +13,7 @@ import zir.teq.wearable.watchface.model.data.settings.style.*
 import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.model.data.types.*
 import zir.teq.wearable.watchface.model.data.types.wave.*
+import java.util.concurrent.TimeUnit
 
 object ConfigData {
     val res: Resources = Zir.res()
@@ -56,4 +58,14 @@ object ConfigData {
     val isAntiAlias = true
     var isAmbient = false
     var isMute = false
+
+    val NORMAL_TYPEFACE = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
+    val MONO_TYPEFACE = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+    val FAST_UPDATE_RATE_MS = TimeUnit.MILLISECONDS.toMillis(20)
+    val NORMAL_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1)
+    val MUTE_UPDATE_RATE_MS = TimeUnit.MINUTES.toMillis(1)
+
+    fun updateRateMs(inMuteMode: Boolean) = if (inMuteMode) activeUpdateRateMs() else ambientUpdateRateMs()
+    private fun ambientUpdateRateMs() = if (ConfigData.isFastUpdate()) FAST_UPDATE_RATE_MS else NORMAL_UPDATE_RATE_MS
+    private fun activeUpdateRateMs() = if (ConfigData.isFastUpdate()) NORMAL_UPDATE_RATE_MS else MUTE_UPDATE_RATE_MS
 }

@@ -2,7 +2,7 @@ package zir.teq.wearable.watchface.model.data.types
 
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.ConfigItem
-import zir.teq.wearable.watchface.config.general.Type
+import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.types.WaveType
 
 
@@ -15,19 +15,19 @@ data class WaveProps(override val name: String, override val configId: Int, val 
 
     companion object {
         private fun create(type: WaveType) = WaveProps(Zir.string(type.nameId), type.code, type.iconId)
-        private fun createCheckbox(type: Type) = WaveProps(Zir.string(type.nameId), type.code, null)
-        val SPECTRUM = create(Type.WAVE_SPECTRUM)
-        val VELOCITY = create(Type.WAVE_VELOCITY)
-        val FREQUENCY = create(Type.WAVE_FREQUENCY)
-        val INTENSITY = create(Type.WAVE_INTENSITY)
-        val DARKNESS = create(Type.WAVE_DARKNESS)
-        val RESOLUTION = create(Type.WAVE_RESO)
-        val AMBIENT_RESOLUTION = create(Type.WAVE_AMB_RESO)
-        val OFF = createCheckbox(Type.WAVE_IS_OFF)
-        val PIXELATE = createCheckbox(Type.WAVE_IS_PIXEL)
-        val MULTIPLY = createCheckbox(Type.WAVE_IS_MULTIPLY)
-        val INWARD = createCheckbox(Type.WAVE_IS_INWARD)
-        val STANDING = createCheckbox(Type.WAVE_IS_STANDING)
+        private fun createCheckbox(type: Item) = WaveProps(Zir.string(type.nameId), type.code, null)
+        val SPECTRUM = create(Item.WAVE_SPECTRUM)
+        val VELOCITY = create(Item.WAVE_VELOCITY)
+        val FREQUENCY = create(Item.WAVE_FREQUENCY)
+        val INTENSITY = create(Item.WAVE_INTENSITY)
+        val DARKNESS = create(Item.WAVE_DARKNESS)
+        val RESOLUTION = create(Item.WAVE_RESO)
+        val AMBIENT_RESOLUTION = create(Item.WAVE_AMB_RESO)
+        val OFF = createCheckbox(Item.WAVE_IS_OFF)
+        val PIXELATE = createCheckbox(Item.WAVE_IS_PIXEL)
+        val MULTIPLY = createCheckbox(Item.WAVE_IS_MULTIPLY)
+        val INWARD = createCheckbox(Item.WAVE_IS_INWARD)
+        val STANDING = createCheckbox(Item.WAVE_IS_STANDING)
 
         val ALL = listOf(SPECTRUM, VELOCITY, FREQUENCY, INTENSITY, DARKNESS,
                 RESOLUTION, AMBIENT_RESOLUTION,

@@ -2,12 +2,12 @@ package zir.teq.wearable.watchface.model.data.types.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Type
+import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.ConfigItem
 
 
 data class WaveResolution(override val name: String, val value: Int) : ConfigItem {
-    override val configId = Type.WAVE_RESO.code
+    override val configId = Item.WAVE_RESO.code
 
     companion object {
         val pref = Zir.string(R.string.saved_wave_resolution)
