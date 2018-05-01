@@ -9,12 +9,12 @@ import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.select.holder.color.BackgroundViewHolder
-import zir.teq.wearable.watchface.config.select.holder.color.PaletteViewHolder
-import zir.teq.wearable.watchface.config.select.holder.component.ComponentViewHolder
 import zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity
 import zir.teq.wearable.watchface.config.select.holder.PropsViewHolder
 import zir.teq.wearable.watchface.config.select.holder.WavePropsViewHolder
+import zir.teq.wearable.watchface.config.select.holder.color.BackgroundViewHolder
+import zir.teq.wearable.watchface.config.select.holder.color.PaletteViewHolder
+import zir.teq.wearable.watchface.config.select.holder.component.ComponentViewHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 
@@ -54,7 +54,7 @@ object ViewHelper {
     private fun createView(viewGroup: ViewGroup, resource: Int) =
             LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
 
-    private fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Item): RecSelectionViewHolder {
+    fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Item): RecSelectionViewHolder {
         val ctx = viewGroup.context
         with(ctx.resources) {
             val view = LayoutInflater.from(ctx).inflate(R.layout.list_item_checkbox, viewGroup, false)
