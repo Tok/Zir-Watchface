@@ -11,7 +11,7 @@ import zir.teq.wearable.watchface.util.ViewHelper
 class WaveFrequencyActivity : WavePropsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SettingsAdapter(WaveFrequency, WaveFrequency.all)
+        adapter = SettingsAdapter(WaveFrequency)
         manager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(view, adapter, manager)
     }

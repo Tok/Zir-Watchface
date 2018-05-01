@@ -2,9 +2,9 @@ package zir.teq.wearable.watchface.model.setting.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.model.setting.Setting
 
 
@@ -16,6 +16,8 @@ enum class WaveSpectrum(override val label: String, override val value: Float) :
     CHAOS("Chaos", 0F),
     SPOOK("Spook", 0F),
     RAIN("Rain", 0F);
+
+    override val pref: String = name
 
     val hasCenter = false //TODO tune (performance)
     val hasHours = true
@@ -35,11 +37,13 @@ enum class WaveSpectrum(override val label: String, override val value: Float) :
         override val iconId = R.drawable.icon_wave_spectrum
         override val default = BW
         override val all = values().toList()
-        override fun getByName(name: String) = values().find { it.name.equals(name) } ?: default
-        override fun load() = getByName(ConfigData.prefs.getString(pref, default.name))
+        private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }
+                ?: default
+
+        override fun load() = valueOf(ConfigData.prefs.getString(pref, default.pref))
         override fun save(setting: Setting) {
             val editor = ConfigData.prefs.edit()
-            editor.putString(pref, setting.name)
+            editor.putString(pref, setting.pref)
             editor.apply()
         }
     }

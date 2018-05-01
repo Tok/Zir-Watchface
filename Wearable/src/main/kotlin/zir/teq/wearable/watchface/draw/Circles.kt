@@ -24,8 +24,8 @@ object Circles {
                 p.alpha = (p.alpha * Shapes.ALPHA_FACTOR).toInt()
                 //TODO gradients?
             }
-            val stack: StyleStack = StyleStack.load()
-            val outline: StyleOutline = StyleOutline.load()
+            val stack: StyleStack = StyleStack.load() as StyleStack
+            val outline: StyleOutline = StyleOutline.load() as StyleOutline
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
             when (stack) {
                 StyleStack.GROUPED, StyleStack.LEGACY -> {
@@ -62,7 +62,7 @@ object Circles {
 
     fun drawAmbient(can: Canvas, data: AmbientFrame) {
         //No stacking required...
-        val outline: StyleOutline = StyleOutline.load()
+        val outline: StyleOutline = StyleOutline.load() as StyleOutline
         if (ConfigData.isOn(CIRCLE to ACTIVE)) {
             val p = Palette.createPaint(PaintType.CIRCLE_AMB)
             if (ConfigData.isOn(SHAPE to ACTIVE)) {

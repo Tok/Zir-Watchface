@@ -12,7 +12,7 @@ import zir.teq.wearable.watchface.util.ViewHelper
 class WaveSpectrumActivity : WavePropsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SettingsAdapter(WaveSpectrum, WaveSpectrum.all)
+        adapter = SettingsAdapter(WaveSpectrum)
         manager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(view, adapter, manager)
     }

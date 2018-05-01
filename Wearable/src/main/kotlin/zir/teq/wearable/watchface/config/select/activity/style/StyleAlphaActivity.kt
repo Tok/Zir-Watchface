@@ -7,11 +7,10 @@ import zir.teq.wearable.watchface.config.general.manager.ScalingLayoutCallback
 import zir.teq.wearable.watchface.model.setting.style.StyleAlpha
 import zir.teq.wearable.watchface.util.ViewHelper
 
-
 class StyleAlphaActivity : StylePropsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SettingsAdapter(StyleAlpha, StyleAlpha.all)
+        adapter = SettingsAdapter(StyleAlpha)
         manager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(view, adapter, manager)
     }

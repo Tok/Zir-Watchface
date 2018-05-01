@@ -30,8 +30,7 @@ class PropsHolder(view: View, val pref: String, val options: List<Setting>) : Re
         val activity = view.context as Activity
         val editor = ConfigData.prefs.edit()
         val setting = options[adapterPosition]
-        println("### pref $pref setting.name ${setting.name}")
-        editor.putString(pref, setting.name)
+        editor.putString(pref, setting.pref)
         editor.apply()
         activity.setResult(Activity.RESULT_OK)
         activity.finish()

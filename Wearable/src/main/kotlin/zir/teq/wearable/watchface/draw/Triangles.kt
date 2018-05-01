@@ -39,7 +39,7 @@ object Triangles {
 
     private fun stackLegacy(can: Canvas, frame: ActiveFrame, p: Paint, factors: Factors) {
         with(frame) {
-            if (StyleOutline.load().isOn) {
+            if ((StyleOutline.load() as StyleOutline).isOn) {
                 drawLineOutline(can, hour, minute, p, factors.hm)
                 drawLineOutline(can, hour, second, p, factors.hs)
                 drawLineOutline(can, minute, second, p, factors.ms)
@@ -67,7 +67,7 @@ object Triangles {
     }
 
     private fun drawLineAndOutline(can: Canvas, from: HandData, to: HandData, p: Paint, factor: Float) {
-        if (StyleOutline.load().isOn) {
+        if ((StyleOutline.load() as StyleOutline).isOn) {
             drawLineOutline(can, from, to, p, factor)
         }
         drawLine(can, from, to, p, factor)

@@ -76,7 +76,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
                 }
             }
             paint.strokeWidth = createStrokeWidth(type)
-            paint.alpha = StyleAlpha.load().value.toInt()
+            paint.alpha = (StyleAlpha.load() as StyleAlpha).value.toInt()
             paint.isAntiAlias = ConfigData.isAntiAlias
 
             //apply dimming..

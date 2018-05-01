@@ -10,7 +10,7 @@ import zir.teq.wearable.watchface.util.ViewHelper
 class StyleDimActivity : StylePropsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SettingsAdapter(StyleDim, StyleDim.all)
+        adapter = SettingsAdapter(StyleDim)
         manager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(view, adapter, manager)
     }
