@@ -4,7 +4,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.Item
 
 class BackgroundConfigItem() : ColorConfigItem {
-    override val configId: Int = Item.BACKGROUND.code
+    override val configId: Int = Item.COLOR_BACKGROUND.code
 }
 
 data class Background(val name: String, val id: Int) {

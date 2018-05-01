@@ -1,6 +1,6 @@
 package zir.teq.wearable.watchface.model.types
 
-import zir.teq.wearable.watchface.config.general.ConfigItem
+import zir.teq.wearable.watchface.model.setting.ConfigItem
 
 
 data class Component(override val name: String, override val configId: Int) : ConfigItem {

@@ -8,7 +8,7 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.setting.component.Theme
+import zir.teq.wearable.watchface.model.setting.component.Components
 
 class BooleanPairViewHolder(view: View, val mActivePref: String, val mAmbientPref: String) :
         RecHolder(view), View.OnClickListener {
@@ -40,10 +40,10 @@ class BooleanPairViewHolder(view: View, val mActivePref: String, val mAmbientPre
         val editor = ConfigData.prefs.edit()
         val isActiveChecked = (mActiveBox as CheckBox).isChecked()
         val isAmbientChecked = (mAmbientBox as CheckBox).isChecked()
-        val instanceMap = Theme.INSTANCE.map.toMutableMap()
+        val instanceMap = Components.INSTANCE.map.toMutableMap()
         instanceMap.put(mActivePref, isActiveChecked)
         instanceMap.put(mAmbientPref, isAmbientChecked)
-        Theme.INSTANCE = Theme.INSTANCE.copy(map = instanceMap)
+        Components.INSTANCE = Components.INSTANCE.copy(map = instanceMap)
         editor.putBoolean(mActivePref, isActiveChecked)
         editor.putBoolean(mAmbientPref, isAmbientChecked)
         editor.apply()

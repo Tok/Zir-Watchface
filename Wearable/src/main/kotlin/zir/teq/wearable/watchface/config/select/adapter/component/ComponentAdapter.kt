@@ -11,9 +11,9 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.setting.component.Theme
+import zir.teq.wearable.watchface.model.setting.component.Components
 import zir.teq.wearable.watchface.model.types.Component
-import zir.teq.wearable.watchface.config.general.ConfigItem
+import zir.teq.wearable.watchface.model.setting.ConfigItem
 
 
 class ComponentAdapter(private val options: List<ConfigItem>) : RecAdapter() {
@@ -36,7 +36,7 @@ class ComponentAdapter(private val options: List<ConfigItem>) : RecAdapter() {
         val item = options[position]
         when (item) {
             is Component -> if (vh is BooleanPairViewHolder) prepareDoubleCheckHolder(vh, item)
-            is Theme -> if (vh is ThemeViewHolder) vh.bindTheme(item)
+            is Components -> if (vh is ThemeViewHolder) vh.bindTheme(item)
         }
     }
 
@@ -55,7 +55,7 @@ class ComponentAdapter(private val options: List<ConfigItem>) : RecAdapter() {
             mView.setOnClickListener(this)
         }
 
-        fun bindTheme(theme: Theme) {
+        fun bindTheme(theme: Components) {
             mCircle.setBackgroundResource(theme.iconId)
             mTextView.text = theme.name
         }
@@ -63,9 +63,9 @@ class ComponentAdapter(private val options: List<ConfigItem>) : RecAdapter() {
         override fun onClick(view: View) {
             val position = adapterPosition
             val componentConfigItem: ConfigItem = options[position]
-            if (componentConfigItem is Theme) {
+            if (componentConfigItem is Components) {
                 val activity = view.context as Activity
-                Theme.saveComponentStates(componentConfigItem)
+                Components.saveComponentStates(componentConfigItem)
                 notifyDataSetChanged()
                 activity.setResult(Activity.RESULT_OK)
                 activity.finish()

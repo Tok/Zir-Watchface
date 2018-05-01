@@ -18,7 +18,7 @@ enum class StyleStack(override val label: String, override val value: Float,
     override val pref: String = name
 
     companion object : Config {
-        override val code = Item.STACK.code
+        override val code = Item.STYLE_STACK.code
         override val label = Zir.string(R.string.label_stack)
         override val pref = Zir.string(R.string.saved_style_stack)
         override val iconId = R.drawable.icon_stack

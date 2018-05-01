@@ -24,7 +24,7 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
         return when (viewType) {
-            Item.BACKGROUND.code -> ViewHelper.createViewHolder(parent, viewType)
+            Item.COLOR_BACKGROUND.code -> ViewHelper.createViewHolder(parent, viewType)
             else -> ColorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false))
         }
     }
@@ -39,7 +39,7 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
                     setSharedPrefString(Zir.string(R.string.saved_background))
                     val bgTintId = null //TODO implement
                     bindIcon(R.drawable.icon_background, bgTintId)
-                    setActivity(Item.BACKGROUND.activity)
+                    setActivity(Item.COLOR_BACKGROUND.activity)
                 }
             }
         }

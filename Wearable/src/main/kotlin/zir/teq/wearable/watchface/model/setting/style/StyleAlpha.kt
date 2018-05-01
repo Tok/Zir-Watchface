@@ -23,7 +23,7 @@ enum class StyleAlpha(override val label: String, override val value: Float) : S
     override val pref: String = name
 
     companion object : Config {
-        override val code = Item.ALPHA.code
+        override val code = Item.STYLE_ALPHA.code
         override val label = Zir.string(R.string.label_alpha)
         override val pref = Zir.string(R.string.saved_style_alpha)
         override val iconId = R.drawable.icon_alpha

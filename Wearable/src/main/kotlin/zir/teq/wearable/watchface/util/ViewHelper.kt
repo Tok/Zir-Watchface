@@ -42,11 +42,11 @@ object ViewHelper {
         val configItem = Item.valueOf(viewType)
         val view = createView(group, configItem.layoutId())
         return when (configItem) { //TODO move view holder instantiation to type?
-            Item.COMPONENT -> ComponentViewHolder(view)
-            Item.PALETTE -> PaletteViewHolder(view)
-            Item.BACKGROUND -> BackgroundViewHolder(view)
-            Item.WAVE_PROPS -> WavePropsViewHolder(view)
-            Item.STYLE -> PropsViewHolder(view, MainStyleActivity.EXTRA, configItem.code)
+            Item.MAIN_COMPONENTS -> ComponentViewHolder(view)
+            Item.MAIN_COLORS -> PaletteViewHolder(view)
+            Item.COLOR_BACKGROUND -> BackgroundViewHolder(view)
+            Item.MAIN_WAVE -> WavePropsViewHolder(view)
+            Item.MAIN_STYLE -> PropsViewHolder(view, MainStyleActivity.EXTRA, configItem.code)
             else -> createCheckboxViewHolder(group, configItem)
         }
     }

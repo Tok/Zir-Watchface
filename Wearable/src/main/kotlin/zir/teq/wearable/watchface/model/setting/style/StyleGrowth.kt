@@ -22,7 +22,7 @@ enum class StyleGrowth(override val label: String, override val value: Float,
     override val pref: String = name
 
     companion object : Config {
-        override val code = Item.GROWTH.code
+        override val code = Item.STYLE_GROWTH.code
         override val label = Zir.string(R.string.label_growth)
         override val pref = Zir.string(R.string.saved_style_growth)
         override val iconId = R.drawable.icon_growth

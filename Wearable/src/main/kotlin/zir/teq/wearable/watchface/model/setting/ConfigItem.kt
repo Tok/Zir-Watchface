@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.general
+package zir.teq.wearable.watchface.model.setting
 
 interface ConfigItem {
     val configId: Int

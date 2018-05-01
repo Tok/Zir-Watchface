@@ -27,7 +27,7 @@ enum class StyleStroke(override val label: String, override val value: Float,
     override val pref: String = name
 
     companion object : Config {
-        override val code = Item.STROKE.code
+        override val code = Item.STYLE_STROKE.code
         override val label = Zir.string(R.string.label_stroke)
         override val pref = Zir.string(R.string.saved_style_stroke)
         override val iconId = R.drawable.icon_stroke

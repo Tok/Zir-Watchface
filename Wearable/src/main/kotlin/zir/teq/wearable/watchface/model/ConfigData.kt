@@ -8,7 +8,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.setting.color.Background
 import zir.teq.wearable.watchface.model.setting.color.Palette
-import zir.teq.wearable.watchface.model.setting.component.Theme
+import zir.teq.wearable.watchface.model.setting.component.Components
 import zir.teq.wearable.watchface.model.setting.wave.WaveSpectrum
 import zir.teq.wearable.watchface.model.types.Component
 import zir.teq.wearable.watchface.model.types.Operator
@@ -23,7 +23,7 @@ object ConfigData {
 
     private fun prefString(pref: Int, default: String) = prefs.getString(Zir.string(pref), default)
 
-    fun isOn(key: Pair<Component, State>): Boolean = Theme.INSTANCE.get(key)
+    fun isOn(key: Pair<Component, State>): Boolean = Components.INSTANCE.get(key)
 
     fun isFastUpdate() = prefs.getBoolean(Zir.string(R.string.saved_fast_update), true)
     fun isElastic() = prefs.getBoolean(Zir.string(R.string.saved_is_elastic), false)
