@@ -4,9 +4,10 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.frame.data.ActiveData
-import zir.teq.wearable.watchface.model.data.settings.style.Stack
+import zir.teq.wearable.watchface.model.setting.StyleStack
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.State
+import zir.teq.wearable.watchface.model.setting.StyleOutline
 import zir.teq.wearable.watchface.util.DrawUtil
 import zir.teq.wearable.watchface.util.DrawUtil.HandData
 
@@ -28,18 +29,17 @@ object Triangles {
             val hsFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, second.p)
             val msFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, second.p)
             val factors = Factors(hmFactor, hsFactor, msFactor)
-            when (ConfigData.style().stack) {
-                Stack.GROUPED, Stack.LEGACY -> stackLegacy(can, data, p, factors)
-                Stack.FAST_TOP -> stackFastTop(can, data, p, factors)
-                Stack.SLOW_TOP -> stackSlowTop(can, data, p, factors)
-                else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style().stack)
+            when (StyleStack.load()) {
+                StyleStack.GROUPED, StyleStack.LEGACY -> stackLegacy(can, data, p, factors)
+                StyleStack.FAST_TOP -> stackFastTop(can, data, p, factors)
+                StyleStack.SLOW_TOP -> stackSlowTop(can, data, p, factors)
             }
         }
     }
 
     private fun stackLegacy(can: Canvas, data: ActiveData, p: Paint, factors: Factors) {
         with(data) {
-            if (ConfigData.style().outline.isOn) {
+            if (StyleOutline.load().isOn) {
                 drawLineOutline(can, hour, minute, p, factors.hm)
                 drawLineOutline(can, hour, second, p, factors.hs)
                 drawLineOutline(can, minute, second, p, factors.ms)
@@ -67,7 +67,7 @@ object Triangles {
     }
 
     private fun drawLineAndOutline(can: Canvas, from: HandData, to: HandData, p: Paint, factor: Float) {
-        if (ConfigData.style().outline.isOn) {
+        if (StyleOutline.load().isOn) {
             drawLineOutline(can, from, to, p, factor)
         }
         drawLine(can, from, to, p, factor)

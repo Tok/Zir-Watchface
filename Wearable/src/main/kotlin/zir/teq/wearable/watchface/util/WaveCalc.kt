@@ -2,8 +2,8 @@ package zir.teq.wearable.watchface.util
 
 import android.graphics.Point
 import android.graphics.PointF
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.Complex
+import zir.teq.wearable.watchface.model.setting.WaveIntensity
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.TAU
 
 /**
@@ -24,7 +24,7 @@ object WaveCalc {
 
     private fun addSquares(first: Float, second: Float): Float = (first * first) + (second * second)
     private fun calcIntensity(distance: Float, x: Float, y: Float): Float =
-            minOf(1.0, ConfigData.waveIntensity().value * (x + y) /
+            minOf(1.0, WaveIntensity.load().value * (x + y) /
                     (Math.pow(distance.toDouble(), 2.0) * TAU)).toFloat()
 
     private fun calcDistance(xFrom: Float, yFrom: Float, xTo: Float, yTo: Float): Float =

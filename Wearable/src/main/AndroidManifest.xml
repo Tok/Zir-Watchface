@@ -42,7 +42,7 @@
         </service>
 
         <activity
-            android:name="zir.teq.wearable.watchface.config.select.main.activity.MainConfigActivity"
+            android:name="zir.teq.wearable.watchface.config.select.activity.main.MainConfigActivity"
             android:label="@string/zir_watch_config">
             <intent-filter>
                 <action android:name="zir.teq.wearable.watchface.CONFIG_ZIR_WATCH" />
@@ -51,23 +51,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="zir.teq.wearable.watchface.config.select.component.activity.ComponentActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.color.activity.PaletteActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.color.activity.BackgroundActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.MainWaveActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveSpectrumActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveVelocityActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveFrequencyActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveIntensityActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveDarknessActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveResolutionActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.wave.activity.WaveAmbientResolutionActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.StyleActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.AlphaActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.DimActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.StackActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.StrokeActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.GrowthActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.style.activity.OutlineActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.component.ComponentActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.color.PaletteActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.color.BackgroundActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainWaveActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveSpectrumActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveVelocityActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveFrequencyActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveIntensityActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveDarknessActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveResolutionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveAmbientResolutionActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleAlphaActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleDimActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleStackActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleStrokeActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleGrowthActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleOutlineActivity" />
     </application>
 </manifest>

@@ -10,6 +10,7 @@ import zir.teq.wearable.watchface.model.data.types.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
+import zir.teq.wearable.watchface.model.setting.StyleOutline
 import zir.teq.wearable.watchface.util.DrawUtil
 
 object Points {
@@ -17,7 +18,7 @@ object Points {
     fun drawActiveCenter(can: Canvas, data: ActiveData, p: Paint) {
         if (ConfigData.isOn(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.style().outline.isOn) {
+            if (StyleOutline.load().isOn) {
                 makeCenter(can, data, DrawUtil.makeOutline(p))
             }
             makeCenter(can, data, p)
@@ -27,7 +28,7 @@ object Points {
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
         if (ConfigData.isOn(POINTS to ACTIVE)) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.style().outline.isOn) {
+            if (StyleOutline.load().isOn) {
                 val outlineP = DrawUtil.makeOutline(p)
                 makeSeconds(can, data, outlineP)
                 makeMinAndHr(can, data, outlineP)
@@ -41,7 +42,7 @@ object Points {
         if (ConfigData.isOn(POINTS to AMBIENT)) {
             val p = Palette.createPaint(PaintType.POINT)
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            if (ConfigData.style().outline.isOn) {
+            if (StyleOutline.load().isOn) {
                 drawAmbientPoints(can, data, DrawUtil.makeOutline(p))
             }
             drawAmbientPoints(can, data, p)

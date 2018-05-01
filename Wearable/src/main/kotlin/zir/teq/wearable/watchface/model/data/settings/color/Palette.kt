@@ -11,6 +11,10 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
+import zir.teq.wearable.watchface.model.setting.StyleAlpha
+import zir.teq.wearable.watchface.model.setting.StyleDim
+import zir.teq.wearable.watchface.model.setting.StyleGrowth
+import zir.teq.wearable.watchface.model.setting.StyleStroke
 import zir.teq.wearable.watchface.util.DrawUtil
 
 interface ColorConfigItem {
@@ -51,6 +55,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
         val ALL = listOf(DARK, WHITE, RED, BLUE, YELLOW, GREEN, PURPLE,
                 RED_YELLOW, YELLOW_RED, PURPLE_GREEN, GREEN_PURPLE, BLUE_ORANGE, ORANGE_BLUE,
                 ICE, REVERSE_ICE, FIRE, REVERSE_FIRE, GRASS, REVERSE_GRASS)
+
         fun create(name: String): Palette = ALL.find { it.name.equals(name) } ?: defaultType
 
         fun createPaint(type: PaintType): Paint = createPaint(type, null)
@@ -71,11 +76,11 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
                 }
             }
             paint.strokeWidth = createStrokeWidth(type)
-            paint.alpha = ConfigData.style().alpha.value
+            paint.alpha = StyleAlpha.load().value.toInt()
             paint.isAntiAlias = ConfigData.isAntiAlias
 
             //apply dimming..
-            val dimValue = ConfigData.style().dim.value
+            val dimValue = StyleDim.load().value.toInt()
             val dimColor = Color.argb(255, dimValue, dimValue, dimValue)
             paint.colorFilter = PorterDuffColorFilter(dimColor, PorterDuff.Mode.MULTIPLY)
 
@@ -86,7 +91,7 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
             typeface = ConfigData.MONO_TYPEFACE
             isFakeBoldText = true
             color = Zir.color(R.color.text)
-            alpha = ConfigData.style().alpha.value
+            alpha = StyleAlpha.load().value.toInt()
             isAntiAlias = ConfigData.isAntiAlias
             if (ConfigData.isAmbient) {
                 clearShadowLayer()
@@ -98,8 +103,8 @@ data class Palette(override val configId: Int, val name: String, val darkId: Int
 
         private fun createStrokeWidth(type: PaintType): Float {
             val isPoint = PaintType.POINT.equals(type)
-            val pointGrowth = if (isPoint) ConfigData.style().growth.dim else 0F
-            return ConfigData.style().stroke.dim + pointGrowth
+            val pointGrowth = if (isPoint) StyleGrowth.load().value else 0F
+            return StyleStroke.load().value + pointGrowth
         }
 
         private fun inst() = Paint().apply { isAntiAlias = true; isDither = true }

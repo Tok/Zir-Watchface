@@ -4,14 +4,15 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.frame.data.ActiveData
-import zir.teq.wearable.watchface.model.frame.data.AmbientData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
-import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.HAND
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
+import zir.teq.wearable.watchface.model.frame.data.ActiveData
+import zir.teq.wearable.watchface.model.frame.data.AmbientData
+import zir.teq.wearable.watchface.model.setting.StyleOutline
+import zir.teq.wearable.watchface.model.setting.StyleStack
 import zir.teq.wearable.watchface.util.DrawUtil
 import zir.teq.wearable.watchface.util.DrawUtil.HandData
 import zir.teq.wearable.watchface.util.DrawUtil.Ref
@@ -23,6 +24,7 @@ object Hands {
     val ELASTICITY = 1F / DrawUtil.PHI
     fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
         if (ConfigData.isOn(HAND to ACTIVE)) {
+            val stack = StyleStack.load()
             with(data) {
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val ref = data.getRef(can)
@@ -30,11 +32,10 @@ object Hands {
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, ref.center)
                 val sFactor = ELASTICITY * unit / DrawUtil.calcDistance(second.p, ref.center)
                 val factors = ActiveFactors(hFactor, mFactor, sFactor)
-                when (ConfigData.style().stack) {
-                    Stack.GROUPED, Stack.LEGACY -> stackLegacyActive(ref, data, p, factors)
-                    Stack.FAST_TOP -> stackFastTopActive(ref, data, p, factors)
-                    Stack.SLOW_TOP -> stackSlowTopActive(ref, data, p, factors)
-                    else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style().stack)
+                when (stack) {
+                    StyleStack.GROUPED, StyleStack.LEGACY -> stackLegacyActive(ref, data, p, factors)
+                    StyleStack.FAST_TOP -> stackFastTopActive(ref, data, p, factors)
+                    StyleStack.SLOW_TOP -> stackSlowTopActive(ref, data, p, factors)
                 }
             }
         }
@@ -42,6 +43,7 @@ object Hands {
 
     fun drawAmbient(can: Canvas, data: AmbientData) {
         if (ConfigData.isOn(HAND to AMBIENT)) {
+            val stack = StyleStack.load()
             with(data) {
                 val ref = data.getRef(can)
                 val p = Palette.createPaint(PaintType.HAND_AMB)
@@ -50,11 +52,10 @@ object Hands {
                 val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, center)
                 val lineFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, hour.p)
                 val factors = AmbientFactors(hFactor, mFactor, lineFactor)
-                when (ConfigData.style().stack) {
-                    Stack.GROUPED, Stack.LEGACY -> stackLegacyAmbient(ref, data, p, factors)
-                    Stack.FAST_TOP -> stackFastTopAmbient(ref, data, p, factors)
-                    Stack.SLOW_TOP -> stackSlowTopAmbient(ref, data, p, factors)
-                    else -> throw IllegalArgumentException("Stack unknown: " + ConfigData.style().stack)
+                when (stack) {
+                    StyleStack.GROUPED, StyleStack.LEGACY -> stackLegacyAmbient(ref, data, p, factors)
+                    StyleStack.FAST_TOP -> stackFastTopAmbient(ref, data, p, factors)
+                    StyleStack.SLOW_TOP -> stackSlowTopAmbient(ref, data, p, factors)
                 }
             }
         }
@@ -115,14 +116,14 @@ object Hands {
     }
 
     private fun drawLineAndOutline(ref: Ref, p: Paint, from: PointF, to: PointF, factor: Float) {
-        if (ConfigData.style().outline.isOn) {
+        if (StyleOutline.load().isOn) {
             drawLineOutline(ref, p, from, to, factor)
         }
         drawLine(ref, p, from, to, factor)
     }
 
     private fun drawHandAndOutline(ref: Ref, p: Paint, hand: HandData, factor: Float) {
-        if (ConfigData.style().outline.isOn) {
+        if (StyleOutline.load().isOn) {
             drawHandOutline(ref, p, hand, factor)
         }
         drawHand(ref, p, hand, factor)

@@ -16,8 +16,7 @@ class SettingsAdapter(val config: Config, val options: List<Setting>) : RecAdapt
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.list_item_circle_text, parent, false)
-        val names = options.map { it.label }
-        return PropsHolder(view, config.pref, names)
+        return PropsHolder(view, config.pref, options)
     }
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {

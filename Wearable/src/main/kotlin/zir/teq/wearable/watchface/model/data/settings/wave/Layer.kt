@@ -5,9 +5,11 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.frame.data.ActiveWaveData
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Operator
+import zir.teq.wearable.watchface.model.setting.WaveSpectrum
+import zir.teq.wearable.watchface.model.setting.WaveFrequency
 import zir.teq.wearable.watchface.util.WaveCalc
 
-class Layer private constructor(val wave: Spectrum, val center: Complex?, val hour: Complex?, val min: Complex?, val sec: Complex?) {
+class Layer private constructor(val wave: WaveSpectrum, val center: Complex?, val hour: Complex?, val min: Complex?, val sec: Complex?) {
     fun all(): List<Complex> = listOfNotNull(center, hour, min, sec)
     fun get(): Complex {
         val hasNoValue = center == null && hour == null && min == null && sec == null
@@ -23,7 +25,7 @@ class Layer private constructor(val wave: Spectrum, val center: Complex?, val ho
         fun fromData(data: ActiveWaveData, point: Point, t: Float, isActive: Boolean): Layer {
             with(data) {
                 val wave = ConfigData.waveSpectrum()
-                val freq = ConfigData.waveFrequency().value
+                val freq = WaveFrequency.load().value
                 val center: Complex? = if (!isActive || wave.hasCenter) WaveCalc.calc(point, scaledCenter, t, freq, centerMass) else null
                 val hour: Complex? = if (wave.hasHours) WaveCalc.calc(point, waveHr, t, freq, hourMass) else null
                 val min: Complex? = if (wave.hasMinutes) WaveCalc.calc(point, waveMin, t, freq, minuteMass) else null

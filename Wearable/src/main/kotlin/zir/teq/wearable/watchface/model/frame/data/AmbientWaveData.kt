@@ -2,8 +2,8 @@ package zir.teq.wearable.watchface.model.frame.data
 
 import android.graphics.Canvas
 import android.graphics.Rect
-import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.WaveAmbientResolution
 import java.util.*
 
 class AmbientWaveData(cal: Calendar, bounds: Rect, can: Canvas) :
-        ActiveWaveData(cal, bounds, can, ConfigData.waveAmbientResolution().value.toInt())
+        ActiveWaveData(cal, bounds, can, WaveAmbientResolution.load().value.toInt())

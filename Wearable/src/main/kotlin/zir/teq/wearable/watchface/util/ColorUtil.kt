@@ -6,9 +6,10 @@ import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
+import zir.teq.wearable.watchface.model.setting.WaveSpectrum
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Rgb
+import zir.teq.wearable.watchface.model.setting.WaveDarkness
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.TAU
 
 object ColorUtil {
@@ -25,14 +26,14 @@ object ColorUtil {
         val mag = Math.min(1F, magnitude)
         val pha: Float = if (phase < 0.0) phase + TAU else phase
         val spec = ConfigData.waveSpectrum()
-        val darkness = ConfigData.waveDarkness().value
-        if (Spectrum.PALETTE == spec || Spectrum.CHAOS == spec || Spectrum.BW == spec) { //TODO cleanup
+        val darkness = WaveDarkness.load().value
+        if (WaveSpectrum.PALETTE == spec || WaveSpectrum.CHAOS == spec || WaveSpectrum.BW == spec) { //TODO cleanup
             val pp = pha * 2F / TAU
             val range = Math.min(1.0, Math.max(0.0, pp.toDouble())).toInt()
             val color = when (spec) {
-                Spectrum.PALETTE -> getFromPalette(range, pp - range)
-                Spectrum.CHAOS -> getChaos(range, pp - range, magnitude)
-                Spectrum.BW -> getBlackWhite(range, pp - range)
+                WaveSpectrum.PALETTE -> getFromPalette(range, pp - range)
+                WaveSpectrum.CHAOS -> getChaos(range, pp - range, magnitude)
+                WaveSpectrum.BW -> getBlackWhite(range, pp - range)
                 else -> getBlackWhite(range, pp - range)
             }
             return ColorUtils.blendARGB(color, BLACK, darkness)
@@ -41,10 +42,10 @@ object ColorUtil {
             val range = Math.min(5.0, Math.max(0.0, p.toDouble())).toInt()
             val fraction = p - range
             val rgbValues = when (spec) {
-                Spectrum.FULL -> getFull(range, fraction)
-                Spectrum.LINES -> getLines(range)
-                Spectrum.SPOOK -> getSpook(fraction)
-                Spectrum.RAIN -> getRain(range, fraction)
+                WaveSpectrum.FULL -> getFull(range, fraction)
+                WaveSpectrum.LINES -> getLines(range)
+                WaveSpectrum.SPOOK -> getSpook(fraction)
+                WaveSpectrum.RAIN -> getRain(range, fraction)
                 else -> getFull(range, fraction)
             }
             val maxMag = mag * MAX_RGB

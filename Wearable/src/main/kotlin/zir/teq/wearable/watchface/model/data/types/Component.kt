@@ -18,7 +18,7 @@ data class Component(override val name: String, override val configId: Int) : Co
         val POINTS = Component("Points", 40)
         val TEXT = Component("Text", 50)
         val SHAPE = Component("Shape", 60)
-        val WAVE = Component("Spectrum", dbHigh)
+        val WAVE = Component("WaveSpectrum", dbHigh)
         val ALL = listOf(HAND, TRIANGLE, CIRCLE, POINTS, TEXT, SHAPE, WAVE)
         val KEYS = ALL.flatMap { comp -> State.values().map { createKey(comp, it) } }
         fun valueOf(configId: Int): ConfigItem {

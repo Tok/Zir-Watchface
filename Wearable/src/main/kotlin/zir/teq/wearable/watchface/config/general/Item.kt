@@ -4,12 +4,14 @@ import android.app.Activity
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.types.*
-import zir.teq.wearable.watchface.config.select.color.activity.BackgroundActivity
-import zir.teq.wearable.watchface.config.select.color.activity.PaletteActivity
-import zir.teq.wearable.watchface.config.select.component.activity.ComponentActivity
-import zir.teq.wearable.watchface.config.select.main.activity.MainConfigActivity
-import zir.teq.wearable.watchface.config.select.style.activity.*
-import zir.teq.wearable.watchface.config.select.wave.activity.*
+import zir.teq.wearable.watchface.config.select.activity.color.BackgroundActivity
+import zir.teq.wearable.watchface.config.select.activity.color.PaletteActivity
+import zir.teq.wearable.watchface.config.select.activity.component.ComponentActivity
+import zir.teq.wearable.watchface.config.select.activity.main.MainConfigActivity
+import zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity
+import zir.teq.wearable.watchface.config.select.activity.main.MainWaveActivity
+import zir.teq.wearable.watchface.config.select.activity.style.*
+import zir.teq.wearable.watchface.config.select.activity.wave.*
 
 abstract class Item(val code: Int, val prefId: Int, val nameId: Int,
                     val iconId: Int = R.drawable.icon_dummy,
@@ -39,13 +41,13 @@ abstract class Item(val code: Int, val prefId: Int, val nameId: Int,
         val WAVE_RESO = WaveItem(3500, R.string.saved_wave_resolution, R.string.label_wave_resolution, R.drawable.icon_wave_resolution, WaveResolutionActivity::class.java)
         val WAVE_AMB_RESO = WaveItem(3600, R.string.saved_wave_ambient_resolution, R.string.label_wave_ambient_resolution, R.drawable.icon_wave_ambient_resolution, WaveAmbientResolutionActivity::class.java)
 
-        val STYLE = MainItem(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style, StyleActivity::class.java)
-        val ALPHA = StyleItem(4100, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha, AlphaActivity::class.java)
-        val DIM = StyleItem(4200, R.string.saved_dim, R.string.label_dim, R.drawable.icon_dim, DimActivity::class.java)
-        val STACK = StyleItem(4300, R.string.saved_stack, R.string.label_stack, R.drawable.icon_stack, StackActivity::class.java)
-        val GROWTH = StyleItem(4400, R.string.saved_growth, R.string.label_growth, R.drawable.icon_growth, GrowthActivity::class.java)
-        val STROKE = StyleItem(4500, R.string.saved_stroke, R.string.label_stroke, R.drawable.icon_stroke, StrokeActivity::class.java)
-        val OUTLINE = StyleItem(4600, R.string.saved_outline, R.string.label_outline, R.drawable.icon_outline, OutlineActivity::class.java)
+        val STYLE = MainItem(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style, MainStyleActivity::class.java)
+        val ALPHA = StyleItem(4100, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha, StyleAlphaActivity::class.java)
+        val DIM = StyleItem(4200, R.string.saved_dim, R.string.label_dim, R.drawable.icon_dim, StyleDimActivity::class.java)
+        val STACK = StyleItem(4300, R.string.saved_stack, R.string.label_stack, R.drawable.icon_stack, StyleStackActivity::class.java)
+        val GROWTH = StyleItem(4400, R.string.saved_growth, R.string.label_growth, R.drawable.icon_growth, StyleGrowthActivity::class.java)
+        val STROKE = StyleItem(4500, R.string.saved_stroke, R.string.label_stroke, R.drawable.icon_stroke, StyleStrokeActivity::class.java)
+        val OUTLINE = StyleItem(4600, R.string.saved_outline, R.string.label_outline, R.drawable.icon_outline, StyleOutlineActivity::class.java)
 
         val FAST_UPDATE = CheckboxItem(9010, R.string.saved_fast_update, R.string.label_fast_update)
         val IS_ELASTIC = CheckboxItem(9020, R.string.saved_is_elastic, R.string.label_is_elastic)

@@ -9,12 +9,12 @@ import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.select.color.holder.BackgroundViewHolder
-import zir.teq.wearable.watchface.config.select.color.holder.PaletteViewHolder
-import zir.teq.wearable.watchface.config.select.component.holder.ComponentViewHolder
-import zir.teq.wearable.watchface.config.select.style.activity.*
-import zir.teq.wearable.watchface.config.select.style.holder.*
-import zir.teq.wearable.watchface.config.select.wave.holder.*
+import zir.teq.wearable.watchface.config.select.holder.color.BackgroundViewHolder
+import zir.teq.wearable.watchface.config.select.holder.color.PaletteViewHolder
+import zir.teq.wearable.watchface.config.select.holder.component.ComponentViewHolder
+import zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity
+import zir.teq.wearable.watchface.config.select.holder.PropsViewHolder
+import zir.teq.wearable.watchface.config.select.holder.WavePropsViewHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 
@@ -52,13 +52,13 @@ object ViewHelper {
             Item.WAVE_INTENSITY -> RecSelectionViewHolder(view)
             Item.WAVE_RESO -> RecSelectionViewHolder(view)
             Item.WAVE_AMB_RESO -> RecSelectionViewHolder(view)
-            Item.STYLE -> PropsViewHolder(view, StyleActivity.EXTRA, configItem.code)
-            Item.STROKE -> PropsViewHolder(view, StrokeActivity.EXTRA, configItem.code)
-            Item.OUTLINE -> PropsViewHolder(view, OutlineActivity.EXTRA, configItem.code)
-            Item.GROWTH -> PropsViewHolder(view, GrowthActivity.EXTRA, configItem.code)
-            Item.STACK -> PropsViewHolder(view, StackActivity.EXTRA, configItem.code)
-            Item.ALPHA -> PropsViewHolder(view, AlphaActivity.EXTRA, configItem.code)
-            Item.DIM -> PropsViewHolder(view, DimActivity.EXTRA, configItem.code)
+            Item.STYLE -> PropsViewHolder(view, MainStyleActivity.EXTRA, configItem.code)
+        //Item.STROKE -> PropsViewHolder(view, StrokeActivity.EXTRA, configItem.code)
+        //Item.OUTLINE -> PropsViewHolder(view, OutlineActivity.EXTRA, configItem.code)
+        //Item.GROWTH -> PropsViewHolder(view, GrowthActivity.EXTRA, configItem.code)
+        //Item.STACK -> PropsViewHolder(view, StackActivity.EXTRA, configItem.code)
+        //Item.ALPHA -> PropsViewHolder(view, StyleAlphaActivity.EXTRA, configItem.code)
+        //Item.DIM -> PropsViewHolder(view, StyleDimActivity.EXTRA, configItem.code)
             else -> createCheckboxViewHolder(group, configItem)
         }
     }

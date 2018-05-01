@@ -16,13 +16,12 @@ import zir.teq.wearable.watchface.model.frame.data.ActiveWaveData
 import zir.teq.wearable.watchface.model.frame.data.AmbientData
 import zir.teq.wearable.watchface.model.frame.data.AmbientWaveData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
-import zir.teq.wearable.watchface.model.data.settings.style.Stack
-import zir.teq.wearable.watchface.model.data.settings.style.Stroke
 import zir.teq.wearable.watchface.model.data.settings.wave.Layer
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State
+import zir.teq.wearable.watchface.model.setting.*
 import java.nio.IntBuffer
 import java.util.*
 
@@ -48,7 +47,7 @@ class DrawUtil {
     private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar) {
         val activeData = ActiveData(calendar, bounds, can)
         if (!ConfigData.waveIsOff()) {
-            val waveData = ActiveWaveData(calendar, bounds, can, ConfigData.waveResolution().value.toInt())
+            val waveData = ActiveWaveData(calendar, bounds, can, WaveResolution.load().value.toInt())
             drawActiveWave(can, waveData)
         }
         drawActiveFace(can, activeData)
@@ -71,8 +70,8 @@ class DrawUtil {
 
     fun drawActiveFace(can: Canvas, data: ActiveData) {
         val pal = ConfigData.palette()
-        when (ConfigData.style().stack) {
-            Stack.GROUPED -> {
+        when (StyleStack.load()) {
+            StyleStack.GROUPED -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
                 Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE, pal.half()))
@@ -80,7 +79,7 @@ class DrawUtil {
                 Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND, pal.light()))
                 Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
             }
-            Stack.LEGACY -> {
+            StyleStack.LEGACY -> {
                 Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
                 Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND))
@@ -171,11 +170,11 @@ class DrawUtil {
         val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
 
         fun makeOutline(p: Paint) = Paint(p).apply {
-            strokeWidth = p.strokeWidth + ConfigData.style().outline.dim
+            strokeWidth = p.strokeWidth + StyleOutline.load().value
             color = Zir.color(R.color.black)
         }
 
-        fun calcDistFromBorder(can: Canvas, stroke: Stroke) = calcDistFromBorder(can.height, stroke.dim)
+        fun calcDistFromBorder(can: Canvas, stroke: StyleStroke) = calcDistFromBorder(can.height, stroke.value)
         fun calcDistFromBorder(height: Int, dim: Float): Float {
             val assertedOutlineDimension = 8 //TODO use exact?
             val totalSetoff = 4F * (dim + assertedOutlineDimension)
@@ -203,7 +202,7 @@ class DrawUtil {
             return Math.sqrt(p.toDouble()).toFloat()
         }
 
-        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) ConfigData.style().outline.dim else 0F
+        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) StyleOutline.load().value else 0F
         private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
         private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
             val w = p.strokeWidth

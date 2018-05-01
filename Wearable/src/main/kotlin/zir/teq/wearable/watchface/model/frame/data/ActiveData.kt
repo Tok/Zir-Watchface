@@ -6,6 +6,8 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.frame.Frame
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.State
+import zir.teq.wearable.watchface.model.setting.StyleStroke
+import zir.teq.wearable.watchface.model.setting.WaveVelocity
 import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 
@@ -13,7 +15,7 @@ import java.util.*
 open class ActiveData(cal: Calendar, bounds: Rect, can: Canvas) : Frame(cal, bounds) {
     val ms = cal.get(Calendar.MILLISECOND)
     val secRot = (ss + ms / 1000F) / 30F * DrawUtil.PI
-    val secLength = unit * DrawUtil.calcDistFromBorder(can, ConfigData.style().stroke)
+    val secLength = unit * DrawUtil.calcDistFromBorder(can, StyleStroke.load())
     val minLength = secLength / DrawUtil.PHI
     val hrLength = minLength / DrawUtil.PHI
     val hr = DrawUtil.calcPosition(hrRot, hrLength, unit)

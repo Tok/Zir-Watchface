@@ -4,6 +4,7 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Config
 import zir.teq.wearable.watchface.config.general.Item
+import zir.teq.wearable.watchface.model.ConfigData
 
 enum class WaveDarkness(override val label: String, override val value: Float) : Setting {
     OFF("Off", 0F),
@@ -25,5 +26,11 @@ enum class WaveDarkness(override val label: String, override val value: Float) :
         override val default = OFF
         override val all = values().toList()
         override fun getByName(name: String) = values().find { it.name.equals(name) } ?: default
+        override fun load() = getByName(ConfigData.prefs.getString(pref, default.name))
+        override fun save(setting: Setting) {
+            val editor = ConfigData.prefs.edit()
+            editor.putString(pref, setting.name)
+            editor.apply()
+        }
     }
 }

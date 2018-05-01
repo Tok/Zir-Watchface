@@ -11,4 +11,6 @@ interface Config {
     val all: List<Setting>
     val default: Setting
     fun getByName(name: String): Setting = WaveVelocity.values().find { it.name.equals(name) } ?: WaveVelocity.default
+    fun save(setting: Setting)
+    fun load(): Setting
 }
