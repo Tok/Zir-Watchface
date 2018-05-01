@@ -6,13 +6,13 @@ import android.content.res.Resources
 import android.graphics.Typeface
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.model.data.settings.color.Background
-import zir.teq.wearable.watchface.model.data.settings.color.Palette
-import zir.teq.wearable.watchface.model.data.settings.component.Theme
+import zir.teq.wearable.watchface.model.setting.color.Background
+import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.setting.component.Theme
 import zir.teq.wearable.watchface.model.setting.wave.WaveSpectrum
-import zir.teq.wearable.watchface.model.data.types.Component
-import zir.teq.wearable.watchface.model.data.types.Operator
-import zir.teq.wearable.watchface.model.data.types.State
+import zir.teq.wearable.watchface.model.types.Component
+import zir.teq.wearable.watchface.model.types.Operator
+import zir.teq.wearable.watchface.model.types.State
 import java.util.concurrent.TimeUnit
 
 object ConfigData {

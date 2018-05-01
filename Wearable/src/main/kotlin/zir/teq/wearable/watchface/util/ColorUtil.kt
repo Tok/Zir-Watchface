@@ -7,8 +7,8 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.setting.wave.WaveSpectrum
-import zir.teq.wearable.watchface.model.data.types.Complex
-import zir.teq.wearable.watchface.model.data.types.Rgb
+import zir.teq.wearable.watchface.model.types.Complex
+import zir.teq.wearable.watchface.model.types.Rgb
 import zir.teq.wearable.watchface.model.setting.wave.WaveDarkness
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.TAU
 

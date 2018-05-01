@@ -6,8 +6,8 @@ import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.adapter.component.ComponentAdapter
-import zir.teq.wearable.watchface.model.data.settings.component.Theme
-import zir.teq.wearable.watchface.model.data.types.Component
+import zir.teq.wearable.watchface.model.setting.component.Theme
+import zir.teq.wearable.watchface.model.types.Component
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

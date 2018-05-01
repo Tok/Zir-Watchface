@@ -13,9 +13,9 @@ import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.color.BackgroundConfigItem
-import zir.teq.wearable.watchface.model.data.settings.color.ColorConfigItem
-import zir.teq.wearable.watchface.model.data.settings.color.Palette
+import zir.teq.wearable.watchface.model.setting.color.BackgroundConfigItem
+import zir.teq.wearable.watchface.model.setting.color.ColorConfigItem
+import zir.teq.wearable.watchface.model.setting.color.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

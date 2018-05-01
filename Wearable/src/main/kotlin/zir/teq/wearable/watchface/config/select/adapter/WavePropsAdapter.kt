@@ -16,7 +16,7 @@ import zir.teq.wearable.watchface.config.general.types.CheckboxItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.types.WaveProps
+import zir.teq.wearable.watchface.model.types.WaveProps
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

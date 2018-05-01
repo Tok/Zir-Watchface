@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.types
+package zir.teq.wearable.watchface.model.types
 
 import zir.teq.wearable.watchface.config.general.ConfigItem
 

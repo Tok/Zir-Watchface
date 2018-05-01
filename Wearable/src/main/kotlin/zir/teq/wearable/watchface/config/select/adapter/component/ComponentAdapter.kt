@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.holder.BooleanPairViewHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.component.Theme
-import zir.teq.wearable.watchface.model.data.types.Component
+import zir.teq.wearable.watchface.model.setting.component.Theme
+import zir.teq.wearable.watchface.model.types.Component
 import zir.teq.wearable.watchface.config.general.ConfigItem
 
 

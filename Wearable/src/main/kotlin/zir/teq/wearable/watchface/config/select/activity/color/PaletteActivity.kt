@@ -8,8 +8,8 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.manager.ScalingLayoutCallback
 import zir.teq.wearable.watchface.config.select.adapter.color.PaletteAdapter
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.settings.color.BackgroundConfigItem
-import zir.teq.wearable.watchface.model.data.settings.color.Palette
+import zir.teq.wearable.watchface.model.setting.color.BackgroundConfigItem
+import zir.teq.wearable.watchface.model.setting.color.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

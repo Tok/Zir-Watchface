@@ -1,18 +1,18 @@
-package zir.teq.wearable.watchface.model.data.settings.component
+package zir.teq.wearable.watchface.model.setting.component
 
 import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.types.Component
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.CIRCLE
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.HAND
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.POINTS
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.TRIANGLE
+import zir.teq.wearable.watchface.model.types.Component
+import zir.teq.wearable.watchface.model.types.Component.Companion.CIRCLE
+import zir.teq.wearable.watchface.model.types.Component.Companion.HAND
+import zir.teq.wearable.watchface.model.types.Component.Companion.POINTS
+import zir.teq.wearable.watchface.model.types.Component.Companion.SHAPE
+import zir.teq.wearable.watchface.model.types.Component.Companion.TRIANGLE
 import zir.teq.wearable.watchface.config.general.ConfigItem
-import zir.teq.wearable.watchface.model.data.types.State
-import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
-import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
+import zir.teq.wearable.watchface.model.types.State
+import zir.teq.wearable.watchface.model.types.State.ACTIVE
+import zir.teq.wearable.watchface.model.types.State.AMBIENT
 
 
 data class Theme(override val name: String, val iconId: Int, val map: Map<String, Boolean>,

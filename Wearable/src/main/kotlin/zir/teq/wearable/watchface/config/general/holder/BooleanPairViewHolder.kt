@@ -8,7 +8,7 @@ import android.widget.TextView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.settings.component.Theme
+import zir.teq.wearable.watchface.model.setting.component.Theme
 
 class BooleanPairViewHolder(view: View, val mActivePref: String, val mAmbientPref: String) :
         RecHolder(view), View.OnClickListener {

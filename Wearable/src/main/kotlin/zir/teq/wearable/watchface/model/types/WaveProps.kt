@@ -1,6 +1,5 @@
-package zir.teq.wearable.watchface.model.data.types
+package zir.teq.wearable.watchface.model.types
 
-import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.ConfigItem
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.types.WaveItem

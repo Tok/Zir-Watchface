@@ -1,13 +1,12 @@
-package zir.teq.wearable.watchface.model.frame.data
+package zir.teq.wearable.watchface.model.data.frame
 
 import android.graphics.Canvas
 import android.graphics.Rect
-import zir.teq.wearable.watchface.model.frame.Frame
 import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 
-open class AmbientData(cal: Calendar, bounds: Rect, can: Canvas) : Frame(cal, bounds) {
+open class AmbientFrame(cal: Calendar, bounds: Rect, can: Canvas) : Frame(cal, bounds) {
     val minLength = unit * DrawUtil.calcDistFromBorder(can, StyleStroke.load()) / DrawUtil.PHI
     val hrLength = minLength / DrawUtil.PHI
 

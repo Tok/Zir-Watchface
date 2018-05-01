@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.settings.color
+package zir.teq.wearable.watchface.model.setting.color
 
 import android.content.Context
 import android.graphics.Color
@@ -10,7 +10,7 @@ import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.types.PaintType
+import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.setting.style.StyleAlpha
 import zir.teq.wearable.watchface.model.setting.style.StyleDim
 import zir.teq.wearable.watchface.model.setting.style.StyleGrowth

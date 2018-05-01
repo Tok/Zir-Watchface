@@ -2,30 +2,30 @@ package zir.teq.wearable.watchface.draw
 
 import android.graphics.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.frame.data.ActiveData
-import zir.teq.wearable.watchface.model.frame.data.AmbientData
-import zir.teq.wearable.watchface.model.data.settings.color.Palette
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
-import zir.teq.wearable.watchface.model.data.types.PaintType
-import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
-import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
+import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.types.Component.Companion.SHAPE
+import zir.teq.wearable.watchface.model.types.PaintType
+import zir.teq.wearable.watchface.model.types.State.ACTIVE
+import zir.teq.wearable.watchface.model.types.State.AMBIENT
 import zir.teq.wearable.watchface.util.DrawUtil
 
 
 object Shapes {
     val ALPHA_FACTOR = 1F / DrawUtil.PHI
     val USE_GRADIENTS = false
-    fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
+    fun drawActive(can: Canvas, frame: ActiveFrame, p: Paint) {
         if (ConfigData.isOn(SHAPE to ACTIVE)) {
             p.style = Paint.Style.FILL
-            drawCenterTriangle(can, p, data.center, data.hr, data.min)
-            drawCenterTriangle(can, p, data.center, data.hr, data.sec)
-            drawCenterTriangle(can, p, data.center, data.min, data.sec)
-            drawTriangle(can, p, data.hr, data.min, data.sec)
+            drawCenterTriangle(can, p, frame.center, frame.hr, frame.min)
+            drawCenterTriangle(can, p, frame.center, frame.hr, frame.sec)
+            drawCenterTriangle(can, p, frame.center, frame.min, frame.sec)
+            drawTriangle(can, p, frame.hr, frame.min, frame.sec)
         }
     }
 
-    fun drawAmbient(can: Canvas, data: AmbientData) {
+    fun drawAmbient(can: Canvas, data: AmbientFrame) {
         if (ConfigData.isOn(SHAPE to AMBIENT)) {
             val p = Palette.createPaint(PaintType.SHAPE_AMB)
             p.style = Paint.Style.FILL

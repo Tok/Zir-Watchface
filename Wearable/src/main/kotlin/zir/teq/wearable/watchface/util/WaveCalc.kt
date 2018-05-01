@@ -2,7 +2,7 @@ package zir.teq.wearable.watchface.util
 
 import android.graphics.Point
 import android.graphics.PointF
-import zir.teq.wearable.watchface.model.data.types.Complex
+import zir.teq.wearable.watchface.model.types.Complex
 import zir.teq.wearable.watchface.model.setting.wave.WaveIntensity
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.TAU
 

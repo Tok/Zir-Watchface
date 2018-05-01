@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.Button
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.model.data.settings.component.Theme
+import zir.teq.wearable.watchface.model.setting.component.Theme
 
 
 class ComponentViewHolder(view: View) : RecSelectionViewHolder(view) {

@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.types
+package zir.teq.wearable.watchface.model.types
 
 data class PaintType(val name: String, val isAmbient: Boolean) {
     companion object {

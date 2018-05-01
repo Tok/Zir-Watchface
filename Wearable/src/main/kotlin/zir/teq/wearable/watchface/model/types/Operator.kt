@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.types
+package zir.teq.wearable.watchface.model.types
 
 data class Operator(val name: String) {
     companion object {

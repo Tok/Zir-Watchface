@@ -11,16 +11,16 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.frame.data.ActiveData
-import zir.teq.wearable.watchface.model.frame.data.ActiveWaveData
-import zir.teq.wearable.watchface.model.frame.data.AmbientData
-import zir.teq.wearable.watchface.model.frame.data.AmbientWaveData
-import zir.teq.wearable.watchface.model.data.settings.color.Palette
-import zir.teq.wearable.watchface.model.data.settings.wave.Layer
-import zir.teq.wearable.watchface.model.data.types.Complex
-import zir.teq.wearable.watchface.model.data.types.Component
-import zir.teq.wearable.watchface.model.data.types.PaintType
-import zir.teq.wearable.watchface.model.data.types.State
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
+import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrame
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
+import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrame
+import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.setting.wave.Layer
+import zir.teq.wearable.watchface.model.types.Complex
+import zir.teq.wearable.watchface.model.types.Component
+import zir.teq.wearable.watchface.model.types.PaintType
+import zir.teq.wearable.watchface.model.types.State
 import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
 import zir.teq.wearable.watchface.model.setting.style.StyleStroke
@@ -48,9 +48,9 @@ class DrawUtil {
     }
 
     private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar) {
-        val activeData = ActiveData(calendar, bounds, can)
+        val activeData = ActiveFrame(calendar, bounds, can)
         if (!ConfigData.waveIsOff()) {
-            val waveData = ActiveWaveData(calendar, bounds, can, WaveResolution.load().value.toInt())
+            val waveData = ActiveWaveFrame(calendar, bounds, can, WaveResolution.load().value.toInt())
             drawActiveWave(can, waveData)
         }
         drawActiveFace(can, activeData)
@@ -61,58 +61,58 @@ class DrawUtil {
 
     private fun drawAmbient(can: Canvas, bounds: Rect, calendar: Calendar) {
         if (!ConfigData.waveIsOff()) {
-            val waveData = AmbientWaveData(calendar, bounds, can)
+            val waveData = AmbientWaveFrame(calendar, bounds, can)
             drawAmbientWave(can, waveData)
         }
-        val data = AmbientData(calendar, bounds, can)
+        val data = AmbientFrame(calendar, bounds, can)
         drawAmbientFace(can, data)
         if (ConfigData.isOn(Component.TEXT to State.AMBIENT)) {
             Text.draw(can, calendar)
         }
     }
 
-    fun drawActiveFace(can: Canvas, data: ActiveData) {
+    fun drawActiveFace(can: Canvas, frame: ActiveFrame) {
         val pal = ConfigData.palette()
         when (StyleStack.load()) {
             StyleStack.GROUPED -> {
-                Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
-                Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
-                Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE, pal.half()))
-                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
-                Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND, pal.light()))
-                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
+                Circles.drawActive(can, frame, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
+                Shapes.drawActive(can, frame, Palette.createPaint(PaintType.SHAPE, pal.light()))
+                Triangles.draw(can, frame, Palette.createPaint(PaintType.SHAPE, pal.half()))
+                Points.drawActive(can, frame, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
+                Hands.drawActive(can, frame, Palette.createPaint(PaintType.HAND, pal.light()))
+                Points.drawActiveCenter(can, frame, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
             }
             StyleStack.LEGACY -> {
-                Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
-                Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
-                Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND))
-                Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE))
-                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT))
-                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT))
+                Circles.drawActive(can, frame, Palette.createPaint(PaintType.CIRCLE))
+                Shapes.drawActive(can, frame, Palette.createPaint(PaintType.SHAPE, pal.light()))
+                Hands.drawActive(can, frame, Palette.createPaint(PaintType.HAND))
+                Triangles.draw(can, frame, Palette.createPaint(PaintType.SHAPE))
+                Points.drawActive(can, frame, Palette.createPaint(PaintType.POINT))
+                Points.drawActiveCenter(can, frame, Palette.createPaint(PaintType.POINT))
             }
             else -> {
-                Circles.drawActive(can, data, Palette.createPaint(PaintType.CIRCLE))
-                Shapes.drawActive(can, data, Palette.createPaint(PaintType.SHAPE, pal.light()))
-                Triangles.draw(can, data, Palette.createPaint(PaintType.SHAPE))
-                Hands.drawActive(can, data, Palette.createPaint(PaintType.HAND))
-                Points.drawActive(can, data, Palette.createPaint(PaintType.POINT))
-                Points.drawActiveCenter(can, data, Palette.createPaint(PaintType.POINT))
+                Circles.drawActive(can, frame, Palette.createPaint(PaintType.CIRCLE))
+                Shapes.drawActive(can, frame, Palette.createPaint(PaintType.SHAPE, pal.light()))
+                Triangles.draw(can, frame, Palette.createPaint(PaintType.SHAPE))
+                Hands.drawActive(can, frame, Palette.createPaint(PaintType.HAND))
+                Points.drawActive(can, frame, Palette.createPaint(PaintType.POINT))
+                Points.drawActiveCenter(can, frame, Palette.createPaint(PaintType.POINT))
             }
         }
     }
 
-    fun drawAmbientFace(can: Canvas, data: AmbientData) {
+    fun drawAmbientFace(can: Canvas, data: AmbientFrame) {
         Circles.drawAmbient(can, data)
         Shapes.drawAmbient(can, data)
         Hands.drawAmbient(can, data)
         Points.drawAmbient(can, data)
     }
 
-    fun drawAmbientWave(can: Canvas, data: AmbientWaveData) {
+    fun drawAmbientWave(can: Canvas, data: AmbientWaveFrame) {
         drawActiveWave(can, data, false)
     }
 
-    fun drawActiveWave(can: Canvas, data: ActiveWaveData, isActive: Boolean = true) {
+    fun drawActiveWave(can: Canvas, data: ActiveWaveFrame, isActive: Boolean = true) {
         val t = ConfigData.waveSpectrum().velocity() * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
@@ -132,7 +132,7 @@ class DrawUtil {
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), paint)
     }
 
-    private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveData) {
+    private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrame) {
         val bitmap = Bitmap.createBitmap(data.w, data.h, Bitmap.Config.ARGB_8888);
         bitmap.copyPixelsFromBuffer(buffer)
 

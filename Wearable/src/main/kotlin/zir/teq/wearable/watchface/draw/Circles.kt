@@ -4,20 +4,20 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.settings.color.Palette
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.CIRCLE
-import zir.teq.wearable.watchface.model.data.types.Component.Companion.SHAPE
-import zir.teq.wearable.watchface.model.data.types.PaintType
-import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
-import zir.teq.wearable.watchface.model.frame.data.ActiveData
-import zir.teq.wearable.watchface.model.frame.data.AmbientData
+import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.types.Component.Companion.CIRCLE
+import zir.teq.wearable.watchface.model.types.Component.Companion.SHAPE
+import zir.teq.wearable.watchface.model.types.PaintType
+import zir.teq.wearable.watchface.model.types.State.ACTIVE
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
 import zir.teq.wearable.watchface.util.DrawUtil
 
 object Circles {
     val ELASTICITY = 1F / DrawUtil.PHI
-    fun drawActive(can: Canvas, data: ActiveData, p: Paint) {
+    fun drawActive(can: Canvas, frame: ActiveFrame, p: Paint) {
         if (ConfigData.isOn(CIRCLE to ACTIVE)) {
             if (ConfigData.isOn(SHAPE to ACTIVE)) {
                 p.style = Paint.Style.FILL_AND_STROKE
@@ -30,37 +30,37 @@ object Circles {
             when (stack) {
                 StyleStack.GROUPED, StyleStack.LEGACY -> {
                     if (outline.isOn) {
-                        makeSlow(can, data, p, true)
-                        makeFast(can, data, p, true)
+                        makeSlow(can, frame, p, true)
+                        makeFast(can, frame, p, true)
                     }
-                    makeSlow(can, data, p)
-                    makeFast(can, data, p)
+                    makeSlow(can, frame, p)
+                    makeFast(can, frame, p)
                 }
                 StyleStack.FAST_TOP -> {
                     if (outline.isOn) {
-                        makeSlow(can, data, p, true)
+                        makeSlow(can, frame, p, true)
                     }
-                    makeSlow(can, data, p)
+                    makeSlow(can, frame, p)
                     if (outline.isOn) {
-                        makeFast(can, data, p, true)
+                        makeFast(can, frame, p, true)
                     }
-                    makeFast(can, data, p)
+                    makeFast(can, frame, p)
                 }
                 StyleStack.SLOW_TOP -> {
                     if (outline.isOn) {
-                        makeFast(can, data, p, true)
+                        makeFast(can, frame, p, true)
                     }
-                    makeFast(can, data, p)
+                    makeFast(can, frame, p)
                     if (outline.isOn) {
-                        makeSlow(can, data, p, true)
+                        makeSlow(can, frame, p, true)
                     }
-                    makeSlow(can, data, p)
+                    makeSlow(can, frame, p)
                 }
             }
         }
     }
 
-    fun drawAmbient(can: Canvas, data: AmbientData) {
+    fun drawAmbient(can: Canvas, data: AmbientFrame) {
         //No stacking required...
         val outline: StyleOutline = StyleOutline.load()
         if (ConfigData.isOn(CIRCLE to ACTIVE)) {
@@ -78,20 +78,20 @@ object Circles {
         }
     }
 
-    private fun makeFast(can: Canvas, data: ActiveData, p: Paint, isOutline: Boolean = false) {
-        with(data) {
+    private fun makeFast(can: Canvas, frame: ActiveFrame, p: Paint, isOutline: Boolean = false) {
+        with(frame) {
             drawLine(getRef(can), p, hrRot, secRot, hr, sec, isOutline)
             drawLine(getRef(can), p, minRot, secRot, min, sec, isOutline)
         }
     }
 
-    private fun makeSlow(can: Canvas, data: ActiveData, p: Paint, isOutline: Boolean = false) {
-        with(data) {
+    private fun makeSlow(can: Canvas, frame: ActiveFrame, p: Paint, isOutline: Boolean = false) {
+        with(frame) {
             drawLine(getRef(can), p, hrRot, minRot, hr, min, isOutline)
         }
     }
 
-    private fun makeAmbient(can: Canvas, data: AmbientData, p: Paint, isOutline: Boolean = false) {
+    private fun makeAmbient(can: Canvas, data: AmbientFrame, p: Paint, isOutline: Boolean = false) {
         with(data) {
             val factor = ELASTICITY * unit / data.ccRadius
             val stretched = DrawUtil.applyElasticity(p, factor, isOutline, true)
