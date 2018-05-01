@@ -2,31 +2,28 @@ package zir.teq.wearable.watchface.model.data.types.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.config.general.Config
 import zir.teq.wearable.watchface.config.general.Item
-import zir.teq.wearable.watchface.config.general.ConfigItem
 
+enum class WaveDarkness(override val label: String, override val value: Float) : Setting {
+    OFF("Off", 0F),
+    _1("10%", 0.1F),
+    _2("20%", 0.2F),
+    _3("30%", 0.3F),
+    _4("40%", 0.4F),
+    _5("50%", 0.5F),
+    _6("60%", 0.6F),
+    _7("70%", 0.7F),
+    _8("80%", 0.8F),
+    _9("90%", 0.9F);
 
-data class WaveDarkness(override val name: String, val value: Float) : ConfigItem {
-    override val configId = Item.WAVE_DARKNESS.code
-
-    companion object {
-        val pref = Zir.string(R.string.saved_wave_darkness)
-        val iconId = R.drawable.icon_wave_darkness
-
-        val OFF = WaveDarkness("Off", 0F)
-        val _1 = WaveDarkness("10%", 0.1F)
-        val _2 = WaveDarkness("20%", 0.2F)
-        val _3 = WaveDarkness("30%", 0.3F)
-        val _4 = WaveDarkness("40%", 0.4F)
-        val _5 = WaveDarkness("50%", 0.5F)
-        val _6 = WaveDarkness("60%", 0.6F)
-        val _7 = WaveDarkness("70%", 0.7F)
-        val _8 = WaveDarkness("80%", 0.8F)
-        val _9 = WaveDarkness("90%", 0.9F)
-
-        val ALL = listOf(OFF, _1, _2, _3, _4, _5, _6, _7, _8, _9)
-
-        val default = OFF
-        fun getByName(name: String): WaveDarkness = ALL.find { it.name.equals(name) } ?: default
+    companion object : Config {
+        override val code = Item.WAVE_DARKNESS.code
+        override val label = Zir.string(R.string.label_wave_darkness)
+        override val pref = Zir.string(R.string.saved_wave_darkness)
+        override val iconId = R.drawable.icon_wave_darkness
+        override val default = OFF
+        override val all = values().toList()
+        override fun getByName(name: String) = values().find { it.name.equals(name) } ?: default
     }
 }

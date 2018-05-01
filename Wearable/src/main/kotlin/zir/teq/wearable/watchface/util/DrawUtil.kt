@@ -48,7 +48,7 @@ class DrawUtil {
     private fun drawActive(can: Canvas, bounds: Rect, calendar: Calendar) {
         val activeData = ActiveData(calendar, bounds, can)
         if (!ConfigData.waveIsOff()) {
-            val waveData = ActiveWaveData(calendar, bounds, can, ConfigData.waveResolution().value)
+            val waveData = ActiveWaveData(calendar, bounds, can, ConfigData.waveResolution().value.toInt())
             drawActiveWave(can, waveData)
         }
         drawActiveFace(can, activeData)

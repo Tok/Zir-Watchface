@@ -2,30 +2,28 @@ package zir.teq.wearable.watchface.model.data.types.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.config.general.Config
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.ConfigItem
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
+enum class WaveFrequency(override val label: String, override val value: Float) : Setting {
+    LOWEST("Lowest", WaveFrequency.def / (PHI * PHI * PHI)),
+    LOWER("Lower", WaveFrequency.def / (PHI * PHI)),
+    LOW("Low", WaveFrequency.def / PHI),
+    NORMAL("Normal", WaveFrequency.def),
+    HIGH("High", WaveFrequency.def * PHI),
+    HIGHER("Higher", WaveFrequency.def * (PHI * PHI)),
+    HIGHEST("Highest", WaveFrequency.def * (PHI * PHI * PHI));
 
-data class WaveFrequency(override val name: String, val value: Float) : ConfigItem {
-    override val configId = Item.WAVE_FREQUENCY.code
-
-    companion object {
-        val pref = Zir.string(R.string.saved_wave_frequency)
-        val iconId = R.drawable.icon_wave_frequency
-
-        private val defFreq = 1F / PHI //waves per units
-        val LOWEST = WaveFrequency("Lowest", defFreq / (PHI * PHI * PHI))
-        val LOWER = WaveFrequency("Lower", defFreq / (PHI * PHI))
-        val LOW = WaveFrequency("Low", defFreq / PHI)
-        val NORMAL = WaveFrequency("Normal", defFreq)
-        val HIGH = WaveFrequency("High", defFreq * PHI)
-        val HIGHER = WaveFrequency("Higher", defFreq * (PHI * PHI))
-        val HIGHEST = WaveFrequency("Highest", defFreq * (PHI * PHI * PHI))
-
-        val ALL = listOf(LOWEST, LOWER, LOW, NORMAL, HIGH, HIGHER, HIGHEST)
-
-        val default = NORMAL
-        fun getByName(name: String): WaveFrequency = ALL.find { it.name.equals(name) } ?: default
+    companion object : Config {
+        private val def = 1F / PHI
+        override val code = Item.WAVE_FREQUENCY.code
+        override val label = Zir.string(R.string.label_wave_frequency)
+        override val pref = Zir.string(R.string.saved_wave_frequency)
+        override val iconId = R.drawable.icon_wave_frequency
+        override val default = NORMAL
+        override val all = values().toList()
+        override fun getByName(name: String) = values().find { it.name.equals(name) } ?: default
     }
 }

@@ -2,30 +2,27 @@ package zir.teq.wearable.watchface.model.data.types.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
+import zir.teq.wearable.watchface.config.general.Config
 import zir.teq.wearable.watchface.config.general.Item
-import zir.teq.wearable.watchface.config.general.ConfigItem
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
+enum class WaveIntensity(override val label: String, override val value: Float) : Setting {
+    CALMEST("Calmest", WaveIntensity.def / (PHI * PHI * PHI)),
+    CALMER("Calmer", WaveIntensity.def / (PHI * PHI)),
+    CALM("Calm", WaveIntensity.def / PHI),
+    NORMAL("Normal", WaveIntensity.def),
+    INTENSE("Intense", WaveIntensity.def * PHI),
+    INTENSER("Intenser", WaveIntensity.def * (PHI * PHI)),
+    INTENSEST("Intensest", WaveIntensity.def * (PHI * PHI * PHI));
 
-data class WaveIntensity(override val name: String, val value: Float) : ConfigItem {
-    override val configId = Item.WAVE_INTENSITY.code
-
-    companion object {
-        val pref = Zir.string(R.string.saved_wave_intensity)
-        val iconId = R.drawable.icon_wave_intensity
-
-        private val defInten = 7F
-        val CALMEST = WaveIntensity("Calmest", defInten / (PHI * PHI * PHI))
-        val CALMER = WaveIntensity("Calmer", defInten / (PHI * PHI))
-        val CALM = WaveIntensity("Calm", defInten / PHI)
-        val NORMAL = WaveIntensity("Normal", defInten)
-        val INTENSE = WaveIntensity("Intense", defInten * PHI)
-        val INTENSER = WaveIntensity("Intenser", defInten * (PHI * PHI))
-        val INTENSEST = WaveIntensity("Intensest", defInten * (PHI * PHI * PHI))
-
-        val ALL = listOf(CALMEST, CALMER, CALM, NORMAL, INTENSE, INTENSER, INTENSEST)
-
-        val default = NORMAL
-        fun getByName(name: String): WaveIntensity = ALL.find { it.name.equals(name) } ?: default
+    companion object : Config {
+        private val def = 7F
+        override val code = Item.WAVE_INTENSITY.code
+        override val label = Zir.string(R.string.label_wave_intensity)
+        override val pref = Zir.string(R.string.saved_wave_intensity)
+        override val iconId = R.drawable.icon_wave_intensity
+        override val default = NORMAL
+        override val all = values().toList()
+        override fun getByName(name: String) = values().find { it.name.equals(name) } ?: default
     }
 }

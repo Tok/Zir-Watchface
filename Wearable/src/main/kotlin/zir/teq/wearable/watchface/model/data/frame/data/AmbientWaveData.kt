@@ -6,4 +6,4 @@ import zir.teq.wearable.watchface.model.ConfigData
 import java.util.*
 
 class AmbientWaveData(cal: Calendar, bounds: Rect, can: Canvas) :
-        ActiveWaveData(cal, bounds, can, ConfigData.waveAmbientResolution().value)
+        ActiveWaveData(cal, bounds, can, ConfigData.waveAmbientResolution().value.toInt())
