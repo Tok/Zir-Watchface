@@ -18,7 +18,6 @@ class WaveDarknessActivity : WavePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = WaveDarkness.all.indexOfFirst { it.equals(WaveDarkness.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(WaveDarkness.index())
     }
 }

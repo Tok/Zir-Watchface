@@ -17,7 +17,6 @@ class StyleDimActivity : StylePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = StyleDim.all.indexOfFirst { it.equals(StyleDim.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(StyleDim.index())
     }
 }

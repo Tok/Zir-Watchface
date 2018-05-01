@@ -17,7 +17,6 @@ class StyleAlphaActivity : StylePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = StyleAlpha.all.indexOfFirst { it.equals(StyleAlpha.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(StyleAlpha.index())
     }
 }

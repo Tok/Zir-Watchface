@@ -24,10 +24,14 @@ class Layer private constructor(val wave: WaveSpectrum, val center: Complex?, va
             with(data) {
                 val wave = ConfigData.waveSpectrum()
                 val freq = WaveFrequency.load().value
-                val center: Complex? = if (!isActive || wave.hasCenter) WaveCalc.calc(point, scaledCenter, t, freq, centerMass) else null
-                val hour: Complex? = if (wave.hasHours) WaveCalc.calc(point, waveHr, t, freq, hourMass) else null
-                val min: Complex? = if (wave.hasMinutes) WaveCalc.calc(point, waveMin, t, freq, minuteMass) else null
-                val sec: Complex? = if (isActive && wave.hasSeconds) WaveCalc.calc(point, waveSec, t, freq, secondMass) else null
+                val hasCenter = false //TODO tune (performance)
+                val hasHours = true
+                val hasMinutes = true
+                val hasSeconds = true
+                val center: Complex? = if (!isActive || hasCenter) WaveCalc.calc(point, scaledCenter, t, freq, centerMass) else null
+                val hour: Complex? = if (hasHours) WaveCalc.calc(point, waveHr, t, freq, hourMass) else null
+                val min: Complex? = if (hasMinutes) WaveCalc.calc(point, waveMin, t, freq, minuteMass) else null
+                val sec: Complex? = if (isActive && hasSeconds) WaveCalc.calc(point, waveSec, t, freq, secondMass) else null
                 return Layer(wave, center, hour, min, sec)
             }
         }

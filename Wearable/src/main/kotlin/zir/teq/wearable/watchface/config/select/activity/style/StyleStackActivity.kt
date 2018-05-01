@@ -18,7 +18,6 @@ class StyleStackActivity : StylePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = StyleStack.all.indexOfFirst { it.equals(StyleStack.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(StyleStack.index())
     }
 }

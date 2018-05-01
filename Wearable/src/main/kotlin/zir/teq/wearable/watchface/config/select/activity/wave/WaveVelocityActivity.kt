@@ -18,7 +18,6 @@ class WaveVelocityActivity : WavePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = WaveVelocity.all.indexOfFirst { it.equals(WaveVelocity.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(WaveVelocity.index())
     }
 }

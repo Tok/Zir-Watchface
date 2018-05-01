@@ -18,7 +18,6 @@ class StyleOutlineActivity : StylePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = StyleOutline.all.indexOfFirst { it.equals(StyleOutline.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(StyleOutline.index())
     }
 }

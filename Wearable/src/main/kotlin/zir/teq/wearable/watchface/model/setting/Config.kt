@@ -7,6 +7,7 @@ interface Config {
     val iconId: Int
     val all: List<Setting>
     val default: Setting
+    fun index(): Int
     fun save(setting: Setting)
     fun load(): Setting
 }

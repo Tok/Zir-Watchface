@@ -19,7 +19,6 @@ class WaveSpectrumActivity : WavePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = WaveSpectrum.all.indexOfFirst { it.equals(ConfigData.waveSpectrum()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(WaveSpectrum.index())
     }
 }

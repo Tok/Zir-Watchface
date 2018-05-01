@@ -19,17 +19,6 @@ enum class WaveSpectrum(override val label: String, override val value: Float) :
 
     override val pref: String = name
 
-    val hasCenter = false //TODO tune (performance)
-    val hasHours = true
-    val hasMinutes = true
-    val hasSeconds = true
-
-    fun velocity() = when {
-        ConfigData.waveIsStanding() -> 0F
-        ConfigData.waveIsInward() -> WaveVelocity.load().value * -1
-        else -> WaveVelocity.load().value
-    }
-
     companion object : Config {
         override val code = Item.WAVE_SPECTRUM.code
         override val label = Zir.string(R.string.label_spectrum)
@@ -40,6 +29,7 @@ enum class WaveSpectrum(override val label: String, override val value: Float) :
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }
                 ?: default
 
+        override fun index() = all.indexOfFirst { it.equals(load()) }
         override fun load() = valueOf(ConfigData.prefs.getString(pref, default.pref))
         override fun save(setting: Setting) {
             val editor = ConfigData.prefs.edit()

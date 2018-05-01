@@ -16,15 +16,16 @@ import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrame
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
+import zir.teq.wearable.watchface.model.setting.style.StyleStack
+import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.model.setting.wave.Layer
+import zir.teq.wearable.watchface.model.setting.wave.WaveResolution
+import zir.teq.wearable.watchface.model.setting.wave.WaveVelocity
 import zir.teq.wearable.watchface.model.types.Complex
 import zir.teq.wearable.watchface.model.types.Component
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State
-import zir.teq.wearable.watchface.model.setting.style.StyleOutline
-import zir.teq.wearable.watchface.model.setting.style.StyleStack
-import zir.teq.wearable.watchface.model.setting.style.StyleStroke
-import zir.teq.wearable.watchface.model.setting.wave.WaveResolution
 import java.nio.IntBuffer
 import java.util.*
 
@@ -112,8 +113,14 @@ class DrawUtil {
         drawActiveWave(can, data, false)
     }
 
+    private fun velocity() = when {
+        ConfigData.waveIsStanding() -> 0F
+        ConfigData.waveIsInward() -> WaveVelocity.load().value * -1
+        else -> WaveVelocity.load().value
+    }
+
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrame, isActive: Boolean = true) {
-        val t = ConfigData.waveSpectrum().velocity() * (data.timeStampMs % 60000) / 1000
+        val t = velocity() * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
             val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()

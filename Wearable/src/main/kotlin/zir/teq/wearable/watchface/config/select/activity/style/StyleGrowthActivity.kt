@@ -18,7 +18,6 @@ class StyleGrowthActivity : StylePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = StyleGrowth.all.indexOfFirst { it.equals(StyleGrowth.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(StyleGrowth.index())
     }
 }

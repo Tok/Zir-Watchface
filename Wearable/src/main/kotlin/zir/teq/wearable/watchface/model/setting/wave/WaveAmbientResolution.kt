@@ -30,6 +30,7 @@ enum class WaveAmbientResolution(override val label: String, override val value:
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }
                 ?: default
 
+        override fun index() = all.indexOfFirst { it.equals(load()) }
         override fun load() = valueOf(ConfigData.prefs.getString(pref, default.pref))
         override fun save(setting: Setting) {
             val editor = ConfigData.prefs.edit()

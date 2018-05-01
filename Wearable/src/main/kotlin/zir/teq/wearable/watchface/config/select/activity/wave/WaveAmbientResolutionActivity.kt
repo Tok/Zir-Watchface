@@ -18,7 +18,6 @@ class WaveAmbientResolutionActivity : WavePropsActivity() {
 
     override fun onStart() {
         super.onStart()
-        val index = WaveAmbientResolution.all.indexOfFirst { it.equals(WaveAmbientResolution.load()) }
-        view.smoothScrollToPosition(index + 1)
+        view.smoothScrollToPosition(WaveAmbientResolution.index())
     }
 }
