@@ -10,7 +10,7 @@ import zir.teq.wearable.watchface.model.data.types.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.data.types.State.AMBIENT
-import zir.teq.wearable.watchface.model.setting.StyleOutline
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.util.DrawUtil
 
 object Points {

@@ -11,10 +11,10 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.types.PaintType
-import zir.teq.wearable.watchface.model.setting.StyleAlpha
-import zir.teq.wearable.watchface.model.setting.StyleDim
-import zir.teq.wearable.watchface.model.setting.StyleGrowth
-import zir.teq.wearable.watchface.model.setting.StyleStroke
+import zir.teq.wearable.watchface.model.setting.style.StyleAlpha
+import zir.teq.wearable.watchface.model.setting.style.StyleDim
+import zir.teq.wearable.watchface.model.setting.style.StyleGrowth
+import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.util.DrawUtil
 
 interface ColorConfigItem {

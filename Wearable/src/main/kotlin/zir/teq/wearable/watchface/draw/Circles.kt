@@ -11,8 +11,8 @@ import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.frame.data.ActiveData
 import zir.teq.wearable.watchface.model.frame.data.AmbientData
-import zir.teq.wearable.watchface.model.setting.StyleOutline
-import zir.teq.wearable.watchface.model.setting.StyleStack
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
+import zir.teq.wearable.watchface.model.setting.style.StyleStack
 import zir.teq.wearable.watchface.util.DrawUtil
 
 object Circles {

@@ -5,8 +5,8 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.frame.data.ActiveWaveData
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Operator
-import zir.teq.wearable.watchface.model.setting.WaveSpectrum
-import zir.teq.wearable.watchface.model.setting.WaveFrequency
+import zir.teq.wearable.watchface.model.setting.wave.WaveSpectrum
+import zir.teq.wearable.watchface.model.setting.wave.WaveFrequency
 import zir.teq.wearable.watchface.util.WaveCalc
 
 class Layer private constructor(val wave: WaveSpectrum, val center: Complex?, val hour: Complex?, val min: Complex?, val sec: Complex?) {

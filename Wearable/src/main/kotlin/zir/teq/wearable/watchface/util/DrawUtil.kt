@@ -21,7 +21,10 @@ import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.PaintType
 import zir.teq.wearable.watchface.model.data.types.State
-import zir.teq.wearable.watchface.model.setting.*
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
+import zir.teq.wearable.watchface.model.setting.style.StyleStack
+import zir.teq.wearable.watchface.model.setting.style.StyleStroke
+import zir.teq.wearable.watchface.model.setting.wave.WaveResolution
 import java.nio.IntBuffer
 import java.util.*
 

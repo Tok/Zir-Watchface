@@ -10,14 +10,14 @@
     <string name="saved_theme">saved_theme</string>
     <string name="saved_palette">saved_palette</string>
     <string name="saved_style">saved_style</string>
-    <string name="saved_stroke">saved_stroke</string>
     <string name="saved_spectrum">saved_spectrum</string>
     <string name="saved_wave_props">saved_wave_props</string>
-    <string name="saved_outline">saved_outline</string>
-    <string name="saved_growth">saved_growth</string>
-    <string name="saved_stack">saved_stack</string>
-    <string name="saved_alpha">saved_alpha</string>
-    <string name="saved_dim">saved_dim</string>
+    <string name="saved_style_stroke">saved_style_stroke</string>
+    <string name="saved_style_growth">saved_style_growth</string>
+    <string name="saved_style_outline">saved_style_outline</string>
+    <string name="saved_style_stack">saved_style_stack</string>
+    <string name="saved_style_alpha">saved_style_alpha</string>
+    <string name="saved_style_dim">saved_style_dim</string>
 
     <string name="saved_wave_is_off">saved_wave_is_off</string>
     <string name="saved_wave_is_pixelated">saved_wave_is_pixelated</string>

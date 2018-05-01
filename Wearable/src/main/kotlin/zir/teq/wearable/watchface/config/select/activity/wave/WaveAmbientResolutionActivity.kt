@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.wear.widget.WearableLinearLayoutManager
 import zir.teq.wearable.watchface.config.general.adapter.SettingsAdapter
 import zir.teq.wearable.watchface.config.general.manager.ScalingLayoutCallback
-import zir.teq.wearable.watchface.model.setting.WaveAmbientResolution
+import zir.teq.wearable.watchface.model.setting.wave.WaveAmbientResolution
 import zir.teq.wearable.watchface.util.ViewHelper
 
 

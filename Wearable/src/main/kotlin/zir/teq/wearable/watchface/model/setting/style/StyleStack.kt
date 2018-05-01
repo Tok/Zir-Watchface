@@ -1,10 +1,11 @@
-package zir.teq.wearable.watchface.model.setting
+package zir.teq.wearable.watchface.model.setting.style
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Config
+import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.Setting
 
 enum class StyleStack(override val label: String, override val value: Float,
                       val iconId: Int = R.drawable.icon_stack,
@@ -17,7 +18,7 @@ enum class StyleStack(override val label: String, override val value: Float,
     companion object : Config {
         override val code = Item.STACK.code
         override val label = Zir.string(R.string.label_stack)
-        override val pref = Zir.string(R.string.saved_stack)
+        override val pref = Zir.string(R.string.saved_style_stack)
         override val iconId = R.drawable.icon_stack
         override val default = GROUPED
         override val all = values().toList()

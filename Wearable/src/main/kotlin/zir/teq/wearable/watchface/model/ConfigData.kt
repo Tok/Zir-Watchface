@@ -9,7 +9,7 @@ import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.data.settings.color.Background
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.component.Theme
-import zir.teq.wearable.watchface.model.setting.WaveSpectrum
+import zir.teq.wearable.watchface.model.setting.wave.WaveSpectrum
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.model.data.types.State

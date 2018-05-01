@@ -6,8 +6,7 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.frame.Frame
 import zir.teq.wearable.watchface.model.data.types.Component
 import zir.teq.wearable.watchface.model.data.types.State
-import zir.teq.wearable.watchface.model.setting.StyleStroke
-import zir.teq.wearable.watchface.model.setting.WaveVelocity
+import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 

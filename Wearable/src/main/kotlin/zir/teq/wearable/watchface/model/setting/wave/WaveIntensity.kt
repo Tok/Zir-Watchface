@@ -1,10 +1,11 @@
-package zir.teq.wearable.watchface.model.setting
+package zir.teq.wearable.watchface.model.setting.wave
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Config
+import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.Setting
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 enum class WaveIntensity(override val label: String, override val value: Float) : Setting {

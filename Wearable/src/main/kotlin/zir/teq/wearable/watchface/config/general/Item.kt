@@ -42,12 +42,12 @@ abstract class Item(val code: Int, val prefId: Int, val nameId: Int,
         val WAVE_AMB_RESO = WaveItem(3600, R.string.saved_wave_ambient_resolution, R.string.label_wave_ambient_resolution, R.drawable.icon_wave_ambient_resolution, WaveAmbientResolutionActivity::class.java)
 
         val STYLE = MainItem(4000, R.string.saved_style, R.string.label_style, R.drawable.icon_style, MainStyleActivity::class.java)
-        val ALPHA = StyleItem(4100, R.string.saved_alpha, R.string.label_alpha, R.drawable.icon_alpha, StyleAlphaActivity::class.java)
-        val DIM = StyleItem(4200, R.string.saved_dim, R.string.label_dim, R.drawable.icon_dim, StyleDimActivity::class.java)
-        val STACK = StyleItem(4300, R.string.saved_stack, R.string.label_stack, R.drawable.icon_stack, StyleStackActivity::class.java)
-        val GROWTH = StyleItem(4400, R.string.saved_growth, R.string.label_growth, R.drawable.icon_growth, StyleGrowthActivity::class.java)
-        val STROKE = StyleItem(4500, R.string.saved_stroke, R.string.label_stroke, R.drawable.icon_stroke, StyleStrokeActivity::class.java)
-        val OUTLINE = StyleItem(4600, R.string.saved_outline, R.string.label_outline, R.drawable.icon_outline, StyleOutlineActivity::class.java)
+        val ALPHA = StyleItem(4100, R.string.saved_style_alpha, R.string.label_alpha, R.drawable.icon_alpha, StyleAlphaActivity::class.java)
+        val DIM = StyleItem(4200, R.string.saved_style_dim, R.string.label_dim, R.drawable.icon_dim, StyleDimActivity::class.java)
+        val STACK = StyleItem(4300, R.string.saved_style_stack, R.string.label_stack, R.drawable.icon_stack, StyleStackActivity::class.java)
+        val GROWTH = StyleItem(4400, R.string.saved_style_growth, R.string.label_growth, R.drawable.icon_growth, StyleGrowthActivity::class.java)
+        val STROKE = StyleItem(4500, R.string.saved_style_stroke, R.string.label_stroke, R.drawable.icon_stroke, StyleStrokeActivity::class.java)
+        val OUTLINE = StyleItem(4600, R.string.saved_style_outline, R.string.label_outline, R.drawable.icon_outline, StyleOutlineActivity::class.java)
 
         val FAST_UPDATE = CheckboxItem(9010, R.string.saved_fast_update, R.string.label_fast_update)
         val IS_ELASTIC = CheckboxItem(9020, R.string.saved_is_elastic, R.string.label_is_elastic)

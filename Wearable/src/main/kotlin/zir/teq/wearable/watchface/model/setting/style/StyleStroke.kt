@@ -1,10 +1,11 @@
-package zir.teq.wearable.watchface.model.setting
+package zir.teq.wearable.watchface.model.setting.style
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Config
+import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.Setting
 
 
 enum class StyleStroke(override val label: String, override val value: Float,
@@ -26,7 +27,7 @@ enum class StyleStroke(override val label: String, override val value: Float,
     companion object : Config {
         override val code = Item.STROKE.code
         override val label = Zir.string(R.string.label_stroke)
-        override val pref = Zir.string(R.string.saved_stroke)
+        override val pref = Zir.string(R.string.saved_style_stroke)
         override val iconId = R.drawable.icon_stroke
         override val default = _3
         override val all = values().toList()

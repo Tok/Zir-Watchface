@@ -3,7 +3,7 @@ package zir.teq.wearable.watchface.config.general.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.general.Config
+import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.config.general.holder.PropsHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder

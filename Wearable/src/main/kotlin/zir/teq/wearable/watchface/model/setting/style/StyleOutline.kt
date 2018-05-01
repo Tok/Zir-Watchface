@@ -1,10 +1,11 @@
-package zir.teq.wearable.watchface.model.setting
+package zir.teq.wearable.watchface.model.setting.style
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Config
+import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.Setting
 
 enum class StyleOutline(override val label: String, override val value: Float,
                        val iconId: Int, val isOn: Boolean = true) : Setting {
@@ -22,7 +23,7 @@ enum class StyleOutline(override val label: String, override val value: Float,
     companion object : Config {
         override val code = Item.OUTLINE.code
         override val label = Zir.string(R.string.label_outline)
-        override val pref = Zir.string(R.string.saved_outline)
+        override val pref = Zir.string(R.string.saved_style_outline)
         override val iconId = R.drawable.icon_outline
         override val default = OFF
         override val all = values().toList()
