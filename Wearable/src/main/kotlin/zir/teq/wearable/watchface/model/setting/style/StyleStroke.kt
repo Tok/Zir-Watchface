@@ -9,7 +9,7 @@ import zir.teq.wearable.watchface.model.setting.Setting
 
 
 enum class StyleStroke(override val label: String, override val value: Float,
-                       val iconId: Int = R.drawable.icon_stack,
+                       val iconId: Int = R.drawable.style_icon_stack,
                        val isOn: Boolean = true) : Setting {
     OFF("Off", 0F, R.drawable.theme_stroke_0),
     _1("1 Hair", 1F, R.drawable.theme_stroke_1),
@@ -30,7 +30,7 @@ enum class StyleStroke(override val label: String, override val value: Float,
         override val code = Item.STYLE_STROKE.code
         override val label = Zir.string(R.string.label_stroke)
         override val pref = Zir.string(R.string.saved_style_stroke)
-        override val iconId = R.drawable.icon_stroke
+        override val iconId = R.drawable.style_icon_stroke
         override val default = _3
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }

@@ -8,7 +8,7 @@ import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.model.setting.Setting
 
 enum class StyleStack(override val label: String, override val value: Float,
-                      val iconId: Int = R.drawable.icon_stack,
+                      val iconId: Int = R.drawable.style_icon_stack,
                       val isOn: Boolean = true) : Setting {
     GROUPED("Grouped", 0F),
     LEGACY("Legacy", 0F),
@@ -21,7 +21,7 @@ enum class StyleStack(override val label: String, override val value: Float,
         override val code = Item.STYLE_STACK.code
         override val label = Zir.string(R.string.label_stack)
         override val pref = Zir.string(R.string.saved_style_stack)
-        override val iconId = R.drawable.icon_stack
+        override val iconId = R.drawable.style_icon_stack
         override val default = GROUPED
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }

@@ -25,7 +25,7 @@ enum class WaveDarkness(override val label: String, override val value: Float) :
         override val code = Item.WAVE_DARKNESS.code
         override val label = Zir.string(R.string.label_wave_darkness)
         override val pref = Zir.string(R.string.saved_wave_darkness)
-        override val iconId = R.drawable.icon_wave_darkness
+        override val iconId = R.drawable.wave_icon_darkness
         override val default = OFF
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }

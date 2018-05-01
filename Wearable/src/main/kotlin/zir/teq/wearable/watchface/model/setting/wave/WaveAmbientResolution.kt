@@ -24,7 +24,7 @@ enum class WaveAmbientResolution(override val label: String, override val value:
         override val code = Item.WAVE_AMB_RESO.code
         override val label = Zir.string(R.string.label_wave_ambient_resolution)
         override val pref = Zir.string(R.string.saved_wave_ambient_resolution)
-        override val iconId = R.drawable.icon_wave_ambient_resolution
+        override val iconId = R.drawable.wave_icon_ambient_resolution
         override val default = NORMAL
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }

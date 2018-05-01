@@ -26,7 +26,7 @@ enum class WaveVelocity(override val label: String, override val value: Float) :
         override val code = Item.WAVE_VELOCITY.code
         override val label = Zir.string(R.string.label_wave_velocity)
         override val pref = Zir.string(R.string.saved_wave_velocity)
-        override val iconId = R.drawable.icon_wave_velocity
+        override val iconId = R.drawable.wave_icon_velocity
         override val default = NORMAL
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }

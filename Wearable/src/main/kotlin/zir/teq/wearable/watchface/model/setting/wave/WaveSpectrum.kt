@@ -23,7 +23,7 @@ enum class WaveSpectrum(override val label: String, override val value: Float) :
         override val code = Item.WAVE_SPECTRUM.code
         override val label = Zir.string(R.string.label_spectrum)
         override val pref = Zir.string(R.string.saved_spectrum)
-        override val iconId = R.drawable.icon_wave_spectrum
+        override val iconId = R.drawable.wave_icon_spectrum
         override val default = BW
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }

@@ -7,7 +7,7 @@
         <item name="android:drawablePadding">8dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:gravity">left|center_vertical</item>
-        <item name="android:drawableLeft">@drawable/icon_color</item>
+        <item name="android:drawableLeft">@drawable/main_icon_color</item>
         <item name="android:layout_marginBottom">@dimen/main_config_list_margin</item>
         <item name="android:layout_marginTop">@dimen/main_config_list_margin</item>
     </style>

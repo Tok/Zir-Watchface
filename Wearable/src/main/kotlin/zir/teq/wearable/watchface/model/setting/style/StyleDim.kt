@@ -26,7 +26,7 @@ enum class StyleDim(override val label: String, override val value: Float) : Set
         override val code = Item.STYLE_DIM.code
         override val label = Zir.string(R.string.label_dim)
         override val pref = Zir.string(R.string.saved_style_dim)
-        override val iconId = R.drawable.icon_dim
+        override val iconId = R.drawable.style_icon_dim
         override val default = OFF
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }

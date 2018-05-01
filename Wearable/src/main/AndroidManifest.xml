@@ -7,7 +7,7 @@
     <application
         android:name="zir.teq.wearable.watchface.Zir"
         android:allowBackup="false"
-        android:icon="@drawable/icon_launcher"
+        android:icon="@drawable/_icon_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true">
         <meta-data
@@ -27,10 +27,10 @@
                 android:resource="@xml/watch_face" />
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview"
-                android:resource="@drawable/preview_zir" />
+                android:resource="@drawable/_preview_zir" />
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview_circular"
-                android:resource="@drawable/preview_zir" />
+                android:resource="@drawable/_preview_zir" />
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
                 android:value="zir.teq.wearable.watchface.CONFIG_ZIR_WATCH" />
