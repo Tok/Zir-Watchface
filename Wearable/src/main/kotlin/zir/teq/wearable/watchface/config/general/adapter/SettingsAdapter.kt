@@ -7,7 +7,7 @@ import zir.teq.wearable.watchface.config.general.Config
 import zir.teq.wearable.watchface.config.general.holder.PropsHolder
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.data.types.wave.Setting
+import zir.teq.wearable.watchface.model.setting.Setting
 
 class SettingsAdapter(val config: Config, val options: List<Setting>) : RecAdapter() {
     override fun getItemViewType(position: Int) = config.code

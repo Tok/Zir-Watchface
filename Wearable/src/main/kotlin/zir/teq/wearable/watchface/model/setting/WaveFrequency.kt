@@ -1,10 +1,9 @@
-package zir.teq.wearable.watchface.model.data.types.wave
+package zir.teq.wearable.watchface.model.setting
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Config
 import zir.teq.wearable.watchface.config.general.Item
-import zir.teq.wearable.watchface.config.general.ConfigItem
 import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
 
 enum class WaveFrequency(override val label: String, override val value: Float) : Setting {

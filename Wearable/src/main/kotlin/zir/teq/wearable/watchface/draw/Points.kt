@@ -3,8 +3,8 @@ package zir.teq.wearable.watchface.draw
 import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.data.ActiveData
-import zir.teq.wearable.watchface.model.data.frame.data.AmbientData
+import zir.teq.wearable.watchface.model.frame.data.ActiveData
+import zir.teq.wearable.watchface.model.frame.data.AmbientData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.types.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.data.types.PaintType

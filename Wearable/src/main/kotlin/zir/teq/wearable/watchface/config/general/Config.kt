@@ -1,7 +1,7 @@
 package zir.teq.wearable.watchface.config.general
 
-import zir.teq.wearable.watchface.model.data.types.wave.Setting
-import zir.teq.wearable.watchface.model.data.types.wave.WaveVelocity
+import zir.teq.wearable.watchface.model.setting.Setting
+import zir.teq.wearable.watchface.model.setting.WaveVelocity
 
 interface Config {
     val code: Int

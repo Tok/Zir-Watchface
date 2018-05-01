@@ -2,7 +2,7 @@ package zir.teq.wearable.watchface.model.data.settings.wave
 
 import android.graphics.Point
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.data.ActiveWaveData
+import zir.teq.wearable.watchface.model.frame.data.ActiveWaveData
 import zir.teq.wearable.watchface.model.data.types.Complex
 import zir.teq.wearable.watchface.model.data.types.Operator
 import zir.teq.wearable.watchface.util.WaveCalc

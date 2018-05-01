@@ -5,7 +5,7 @@ import android.support.wear.widget.WearableLinearLayoutManager
 import zir.teq.wearable.watchface.config.general.adapter.SettingsAdapter
 import zir.teq.wearable.watchface.config.general.manager.ScalingLayoutCallback
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.types.wave.WaveFrequency
+import zir.teq.wearable.watchface.model.setting.WaveFrequency
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -21,9 +21,5 @@ class WaveFrequencyActivity : WavePropsActivity() {
         super.onStart()
         val index = WaveFrequency.all.indexOfFirst { it.equals(ConfigData.waveFrequency()) }
         view.smoothScrollToPosition(index + 1)
-    }
-
-    companion object {
-        internal val EXTRA = this::class.java.getPackage().name + "SHARED_WAVE_FREQUENCY"
     }
 }

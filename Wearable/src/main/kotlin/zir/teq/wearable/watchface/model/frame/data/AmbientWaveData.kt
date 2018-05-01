@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.model.data.frame.data
+package zir.teq.wearable.watchface.model.frame.data
 
 import android.graphics.Canvas
 import android.graphics.Rect

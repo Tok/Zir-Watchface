@@ -11,10 +11,10 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.draw.*
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.data.ActiveData
-import zir.teq.wearable.watchface.model.data.frame.data.ActiveWaveData
-import zir.teq.wearable.watchface.model.data.frame.data.AmbientData
-import zir.teq.wearable.watchface.model.data.frame.data.AmbientWaveData
+import zir.teq.wearable.watchface.model.frame.data.ActiveData
+import zir.teq.wearable.watchface.model.frame.data.ActiveWaveData
+import zir.teq.wearable.watchface.model.frame.data.AmbientData
+import zir.teq.wearable.watchface.model.frame.data.AmbientWaveData
 import zir.teq.wearable.watchface.model.data.settings.color.Palette
 import zir.teq.wearable.watchface.model.data.settings.style.Stack
 import zir.teq.wearable.watchface.model.data.settings.style.Stroke

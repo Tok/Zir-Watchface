@@ -1,9 +1,9 @@
-package zir.teq.wearable.watchface.model.data.frame.data
+package zir.teq.wearable.watchface.model.frame.data
 
 import android.graphics.Canvas
 import android.graphics.Rect
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.data.frame.Frame
+import zir.teq.wearable.watchface.model.frame.Frame
 import zir.teq.wearable.watchface.util.DrawUtil
 import java.util.*
 

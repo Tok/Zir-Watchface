@@ -12,7 +12,7 @@ import zir.teq.wearable.watchface.model.data.settings.component.Theme
 import zir.teq.wearable.watchface.model.data.settings.style.*
 import zir.teq.wearable.watchface.model.data.settings.wave.Spectrum
 import zir.teq.wearable.watchface.model.data.types.*
-import zir.teq.wearable.watchface.model.data.types.wave.*
+import zir.teq.wearable.watchface.model.setting.*
 import java.util.concurrent.TimeUnit
 
 object ConfigData {
