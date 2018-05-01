@@ -3,6 +3,9 @@ package zir.teq.wearable.watchface.config.select.adapter.main
 import android.view.ViewGroup
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
+import zir.teq.wearable.watchface.config.general.types.StyleItem
+import zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity
+import zir.teq.wearable.watchface.config.select.holder.PropsViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -12,8 +15,11 @@ import zir.teq.wearable.watchface.util.ViewHelper
 class MainStyleAdapter(private val options: List<Item>) : RecAdapter() {
     override fun getItemCount() = options.size
     override fun getItemViewType(position: Int) = options[position].code
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHelper.createViewHolder(parent, viewType)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
+        val item = StyleItem.all.find { it.code == viewType }
+        val view = ViewHelper.createView(parent, item!!.layoutId())
+        return PropsViewHolder(view, EXTRA, viewType)
+    }
 
     override fun onBindViewHolder(holder: RecHolder, position: Int) {
         val item = options[position]
@@ -25,5 +31,9 @@ class MainStyleAdapter(private val options: List<Item>) : RecAdapter() {
                 holder.setActivity(item.activity)
             }
         }
+    }
+
+    companion object {
+        internal val EXTRA = this::class.java.getPackage().name + "SHARED_MAIN_STYLE"
     }
 }

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.wear.widget.CircularProgressLayout
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -13,10 +12,10 @@ import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.types.CheckboxItem
+import zir.teq.wearable.watchface.config.general.types.WaveItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
-import zir.teq.wearable.watchface.model.types.WaveProps
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -24,12 +23,17 @@ class WavePropsAdapter(private val options: List<Item>) : RecAdapter() {
     override fun getItemViewType(position: Int) = options[position].code
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return if (WaveProps.isBooleanProp(viewType)) {
-            return ViewHelper.createViewHolder(parent, viewType)
-        } else {
-            val view = inflater.inflate(R.layout.list_item_circle_text, parent, false)
-            Holder(view)
+        val item = WaveItem.all.find { it.code == viewType }
+        return when (item) {
+            is WaveItem -> {
+
+                Holder(ViewHelper.createView(parent, R.layout.list_item_circle_text))
+                //Holder(ViewHelper.createView(parent, R.layout.list_item_main))
+                //Holder(ViewHelper.createView(parent, item.layoutId())
+                //Holder(ViewHelper.createView(parent, viewType))
+            }
+            is CheckboxItem -> ViewHelper.createCheckboxViewHolder(parent, item)
+            else -> throw IllegalArgumentException("Item unknown $item.")
         }
     }
 

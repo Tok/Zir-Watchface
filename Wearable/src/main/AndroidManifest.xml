@@ -42,7 +42,7 @@
         </service>
 
         <activity
-            android:name="zir.teq.wearable.watchface.config.select.activity.main.MainConfigActivity"
+            android:name="zir.teq.wearable.watchface.config.select.activity.ConfigActivity"
             android:label="@string/zir_watch_config">
             <intent-filter>
                 <action android:name="zir.teq.wearable.watchface.CONFIG_ZIR_WATCH" />
@@ -51,8 +51,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="zir.teq.wearable.watchface.config.select.activity.component.ComponentActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.activity.color.PaletteActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainComponentActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainColorActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.color.BackgroundActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainWaveActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveSpectrumActivity" />

@@ -2,13 +2,13 @@ package zir.teq.wearable.watchface.model.setting.style
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Item
+import zir.teq.wearable.watchface.config.general.types.StyleItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.model.setting.Setting
 
 enum class StyleOutline(override val label: String, override val value: Float,
-                       val iconId: Int, val isOn: Boolean = true) : Setting {
+                        val iconId: Int, val isOn: Boolean = true) : Setting {
     OFF("Off", 0F, R.drawable.theme_outline_0, false),
     _1("1 Hair", 1F, R.drawable.theme_outline_1),
     _2("2 Thinner", 2F, R.drawable.theme_outline_2),
@@ -19,10 +19,11 @@ enum class StyleOutline(override val label: String, override val value: Float,
     _13("13 Bold", 13F, R.drawable.theme_outline_13),
     _16("16", 16F, R.drawable.theme_outline_16),
     _21("21 Mega", 21F, R.drawable.theme_outline_21);
+
     override val pref: String = name
 
     companion object : Config {
-        override val code = Item.STYLE_OUTLINE.code
+        override val code = StyleItem.STYLE_OUTLINE.code
         override val label = Zir.string(R.string.label_outline)
         override val pref = Zir.string(R.string.saved_style_outline)
         override val iconId = R.drawable.style_icon_outline

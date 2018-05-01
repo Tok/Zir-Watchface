@@ -9,14 +9,7 @@ import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.Item
 import zir.teq.wearable.watchface.config.general.holder.BooleanViewHolder
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity
-import zir.teq.wearable.watchface.config.select.holder.PropsViewHolder
-import zir.teq.wearable.watchface.config.select.holder.WavePropsViewHolder
-import zir.teq.wearable.watchface.config.select.holder.color.BackgroundViewHolder
-import zir.teq.wearable.watchface.config.select.holder.color.PaletteViewHolder
-import zir.teq.wearable.watchface.config.select.holder.component.ComponentViewHolder
 import zir.teq.wearable.watchface.model.RecAdapter
-import zir.teq.wearable.watchface.model.RecHolder
 
 object ViewHelper {
     fun initView(view: WearableRecyclerView,
@@ -38,20 +31,7 @@ object ViewHelper {
         }
     }
 
-    fun createViewHolder(group: ViewGroup, viewType: Int): RecHolder {
-        val configItem = Item.valueOf(viewType)
-        val view = createView(group, configItem.layoutId())
-        return when (configItem) { //TODO move view holder instantiation to type?
-            Item.MAIN_COMPONENTS -> ComponentViewHolder(view)
-            Item.MAIN_COLORS -> PaletteViewHolder(view)
-            Item.COLOR_BACKGROUND -> BackgroundViewHolder(view)
-            Item.MAIN_WAVE -> WavePropsViewHolder(view)
-            Item.MAIN_STYLE -> PropsViewHolder(view, MainStyleActivity.EXTRA, configItem.code)
-            else -> createCheckboxViewHolder(group, configItem)
-        }
-    }
-
-    private fun createView(viewGroup: ViewGroup, resource: Int) =
+    fun createView(viewGroup: ViewGroup, resource: Int) =
             LayoutInflater.from(viewGroup.context).inflate(resource, viewGroup, false)
 
     fun createCheckboxViewHolder(viewGroup: ViewGroup, type: Item): RecSelectionViewHolder {

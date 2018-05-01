@@ -1,10 +1,10 @@
 package zir.teq.wearable.watchface.model.setting.color
 
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.config.general.Item
+import zir.teq.wearable.watchface.config.general.types.ColorItem
 
 class BackgroundConfigItem() : ColorConfigItem {
-    override val configId: Int = Item.COLOR_BACKGROUND.code
+    override val configId: Int = ColorItem.COLOR_BACKGROUND.code
 }
 
 data class Background(val name: String, val id: Int) {

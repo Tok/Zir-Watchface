@@ -1,4 +1,4 @@
-package zir.teq.wearable.watchface.config.select.activity.color
+package zir.teq.wearable.watchface.config.select.activity.main
 
 import android.app.Activity
 import android.os.Bundle
@@ -13,7 +13,7 @@ import zir.teq.wearable.watchface.model.setting.color.Palette
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
-class PaletteActivity : Activity() {
+class MainColorActivity : Activity() {
     private lateinit var mConfigView: WearableRecyclerView
     private lateinit var mAdapter: PaletteAdapter
     private lateinit var mManager: WearableLinearLayoutManager
@@ -21,9 +21,8 @@ class PaletteActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val sharedColorName = intent.getStringExtra(EXTRA)
         val items = listOf(BackgroundConfigItem()) + Palette.ALL
-        mAdapter = PaletteAdapter(sharedColorName, items)
+        mAdapter = PaletteAdapter(EXTRA, items)
         mConfigView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this, ScalingLayoutCallback())
         ViewHelper.initView(mConfigView, mAdapter, mManager)

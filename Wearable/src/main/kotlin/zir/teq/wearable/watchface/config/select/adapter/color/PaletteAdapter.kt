@@ -9,7 +9,8 @@ import android.widget.LinearLayout
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
-import zir.teq.wearable.watchface.config.general.Item
+import zir.teq.wearable.watchface.config.general.types.ColorItem
+import zir.teq.wearable.watchface.config.select.holder.color.BackgroundViewHolder
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
@@ -23,10 +24,14 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
     override fun getItemViewType(position: Int) = options[position].configId
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-        return when (viewType) {
-            Item.COLOR_BACKGROUND.code -> ViewHelper.createViewHolder(parent, viewType)
-            else -> ColorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false))
+        val item = ColorItem.all.find { it.code == viewType }
+        if (item is ColorItem) {
+            if (item == ColorItem.COLOR_BACKGROUND) {
+                //return BackgroundViewHolder(ViewHelper.createView(parent, viewType))
+                return BackgroundViewHolder(ViewHelper.createView(parent, item.layoutId()))
+            }
         }
+        return ColorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false))
     }
 
     override fun onBindViewHolder(vh: RecHolder, position: Int) {
@@ -39,7 +44,7 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
                     setSharedPrefString(Zir.string(R.string.saved_background))
                     val bgTintId = null //TODO implement
                     bindIcon(R.drawable.icon_background, bgTintId)
-                    setActivity(Item.COLOR_BACKGROUND.activity)
+                    setActivity(ColorItem.COLOR_BACKGROUND.activity)
                 }
             }
         }

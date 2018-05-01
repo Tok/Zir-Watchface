@@ -3,13 +3,13 @@ package zir.teq.wearable.watchface.model.setting.component
 import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.ConfigItem
 import zir.teq.wearable.watchface.model.types.Component
 import zir.teq.wearable.watchface.model.types.Component.Companion.CIRCLE
 import zir.teq.wearable.watchface.model.types.Component.Companion.HAND
 import zir.teq.wearable.watchface.model.types.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.types.Component.Companion.TRIANGLE
-import zir.teq.wearable.watchface.model.setting.ConfigItem
 import zir.teq.wearable.watchface.model.types.State
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT
@@ -17,8 +17,9 @@ import zir.teq.wearable.watchface.model.types.State.AMBIENT
 
 data class Components(override val name: String, val iconId: Int, val map: Map<String, Boolean>,
                       override val configId: Int = 0) : ConfigItem {
-                      //override val configId: Int = 0) : Setting {
+    //override val configId: Int = 0) : Setting {
     fun get(pair: Pair<Component, State>) = get(pair.first, pair.second)
+
     private fun get(comp: Component, state: State) = get(Component.createKey(comp, state))
     private fun get(key: String): Boolean = map.get(key) ?: false
 
@@ -103,12 +104,11 @@ data class Components(override val name: String, val iconId: Int, val map: Map<S
         val ALL = listOf(POINTS_ONLY, MINIMAL, PLAIN, SHAPES, ORIGINAL, FIELDS, CIRCLES, GEOMETRY)
         fun getByName(name: String): Components = ALL.find { it.name.equals(name) } ?: default
 
-        val PREF = "SHARED_THEME"
-        val EXTRA = this::class.java.getPackage().name + PREF
+        val EXTRA = this::class.java.getPackage().name + "SHARED_THEME"
 
         fun saveComponentStates(theme: Components) {
             val editor = ConfigData.prefs.edit()
-            editor.putString(PREF, INSTANCE.name)
+            editor.putString(EXTRA, INSTANCE.name)
             Log.d(TAG, "theme: $theme, Component.KEYS: " + Component.KEYS)
             INSTANCE = theme.copy(name = INSTANCE.name)
             Component.KEYS.forEach {

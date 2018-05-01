@@ -2,7 +2,7 @@ package zir.teq.wearable.watchface.model.setting.style
 
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.Item
+import zir.teq.wearable.watchface.config.general.types.StyleItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.model.setting.Setting
@@ -23,7 +23,7 @@ enum class StyleAlpha(override val label: String, override val value: Float) : S
     override val pref: String = name
 
     companion object : Config {
-        override val code = Item.STYLE_ALPHA.code
+        override val code = StyleItem.STYLE_ALPHA.code
         override val label = Zir.string(R.string.label_alpha)
         override val pref = Zir.string(R.string.saved_style_alpha)
         override val iconId = R.drawable.style_icon_alpha
