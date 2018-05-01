@@ -18,7 +18,6 @@ abstract class Item(val code: Int, val prefId: Int, val nameId: Int,
     val pref = Zir.string(prefId)
     val name = Zir.string(nameId)
     val icon = Zir.drawable(iconId)
-    val configType = code
 
     companion object {
         val COMPONENT = MainItem(1000, R.string.saved_theme, R.string.label_components, R.drawable.icon_components, ComponentActivity::class.java)
@@ -26,7 +25,7 @@ abstract class Item(val code: Int, val prefId: Int, val nameId: Int,
         val PALETTE = MainItem(2000, R.string.saved_palette, R.string.label_colors, R.drawable.icon_color, PaletteActivity::class.java)
         val BACKGROUND = ColorItem(2100, R.string.saved_background, R.string.label_background, R.drawable.icon_background, BackgroundActivity::class.java)
 
-        val WAVE_PROPS = MainItem(3000, R.string.saved_wave_props, R.string.label_wave_props, R.drawable.icon_wave, WavePropsActivity::class.java)
+        val WAVE_PROPS = MainItem(3000, R.string.saved_wave_props, R.string.label_wave_props, R.drawable.icon_wave, MainWaveActivity::class.java)
         val WAVE_IS_OFF = CheckboxItem(3010, R.string.saved_wave_is_off, R.string.label_wave_is_off)
         val WAVE_IS_PIXEL = CheckboxItem(3020, R.string.saved_wave_is_pixelated, R.string.label_wave_is_pixelated)
         val WAVE_IS_MULTIPLY = CheckboxItem(3030, R.string.saved_wave_is_multiply, R.string.label_wave_is_multiply)

@@ -32,7 +32,6 @@ class WaveDarknessActivity : Activity() {
     }
 
     companion object {
-        internal val CLASS = WaveDarknessActivity::class.java
         internal val EXTRA = this::class.java.getPackage().name + "SHARED_WAVE_DARKNESS"
     }
 }
