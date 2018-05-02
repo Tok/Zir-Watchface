@@ -17,19 +17,15 @@ import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.setting.color.BackgroundConfigItem
 import zir.teq.wearable.watchface.model.setting.color.ColorConfigItem
 import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.setting.color.PaletteConfigItem
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
 class PaletteAdapter(private val pref: String, private val options: List<ColorConfigItem>) : RecAdapter() {
-    override fun getItemViewType(position: Int) = options[position].configId
-
+    override fun getItemViewType(position: Int) = options[position].viewType
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-        val item = ColorItem.all.find { it.code == viewType }
-        if (item is ColorItem) {
-            if (item == ColorItem.COLOR_BACKGROUND) {
-                //return BackgroundViewHolder(ViewHelper.createView(parent, viewType))
-                return BackgroundViewHolder(ViewHelper.createView(parent, item.layoutId()))
-            }
+        if (viewType == ColorItem.COLOR_BACKGROUND.viewType) {
+            return BackgroundViewHolder(ViewHelper.createView(parent, R.layout.list_item_main))
         }
         return ColorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_palette, parent, false))
     }
@@ -62,14 +58,15 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
             mView.setOnClickListener(this)
         }
 
-        fun bindPalette(pal: Palette) {
+        fun bindPalette(pal: PaletteConfigItem) {
             mLayouts.forEach { layout ->
                 layout.foreground = mView.context.getDrawable(R.drawable.icon_dummy)
                 layout.strokeWidth = 1F
             }
-            mFirst.setBackgroundColor(pal.dark())
-            mSecond.setBackgroundColor(pal.half())
-            mThird.setBackgroundColor(pal.light())
+            val palette = pal as Palette
+            mFirst.setBackgroundColor(palette.dark())
+            mSecond.setBackgroundColor(palette.half())
+            mThird.setBackgroundColor(palette.light())
         }
 
         override fun onClick(view: View) {
@@ -78,7 +75,8 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
             val item = options[position]
             if (item is Palette) {
                 val editor = ConfigData.prefs.edit()
-                editor.putString(pref, item.name)
+                val key = Zir.string(R.string.saved_palette)
+                editor.putString(key, item.name)
                 editor.apply()
                 activity.setResult(Activity.RESULT_OK)
                 activity.finish()

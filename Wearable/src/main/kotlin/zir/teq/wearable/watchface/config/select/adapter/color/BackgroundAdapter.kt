@@ -17,7 +17,7 @@ import zir.teq.wearable.watchface.model.setting.color.Background
 class BackgroundAdapter(
         private val mPrefString: String?,
         private val mOptions: ArrayList<Background>) : RecAdapter() {
-
+    override fun getItemViewType(position: Int) = mOptions[position].viewType
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             BackgroundViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_circle_text, parent, false))
 

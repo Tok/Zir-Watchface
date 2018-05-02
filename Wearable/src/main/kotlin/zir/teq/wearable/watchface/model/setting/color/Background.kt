@@ -3,13 +3,16 @@ package zir.teq.wearable.watchface.model.setting.color
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.types.ColorItem
 
-class BackgroundConfigItem() : ColorConfigItem {
-    override val configId: Int = ColorItem.COLOR_BACKGROUND.code
+class BackgroundConfigItem : ColorConfigItem {
+    override val pref: String = ColorItem.COLOR_BACKGROUND.pref
+    override val viewType: Int = ColorItem.COLOR_BACKGROUND.viewType
 }
 
-data class Background(val name: String, val id: Int) {
+data class Background(val name: String, val id: Int) : ColorConfigItem {
     //TODO reimplement Bip and low bit ambient support?
     //val makeDark = isAmbient && (isLowBitAmbient || isBurnInProtection)
+    override val pref = name
+    override val viewType = R.layout.list_item_circle_text
 
     companion object {
         val BLACK = Background("Black", R.color.black)
