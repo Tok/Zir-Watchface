@@ -4,15 +4,16 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
+import zir.teq.wearable.watchface.model.setting.style.StyleStack
 import zir.teq.wearable.watchface.model.types.Component.Companion.HAND
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT
-import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
-import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
-import zir.teq.wearable.watchface.model.setting.style.StyleOutline
-import zir.teq.wearable.watchface.model.setting.style.StyleStack
+import zir.teq.wearable.watchface.util.CalcUtil
 import zir.teq.wearable.watchface.util.DrawUtil
 import zir.teq.wearable.watchface.util.DrawUtil.HandData
 import zir.teq.wearable.watchface.util.DrawUtil.Ref
@@ -21,16 +22,16 @@ object Hands {
     data class AmbientFactors(val h: Float, val m: Float, val line: Float)
     data class ActiveFactors(val h: Float, val m: Float, val s: Float)
 
-    val ELASTICITY = 1F / DrawUtil.PHI
+    val ELASTICITY = 1F / CalcUtil.PHI
     fun drawActive(can: Canvas, frame: ActiveFrame, p: Paint) {
         if (ConfigData.isOn(HAND to ACTIVE)) {
             val stack = StyleStack.load()
             with(frame) {
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
                 val ref = frame.getRef(can)
-                val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, ref.center)
-                val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, ref.center)
-                val sFactor = ELASTICITY * unit / DrawUtil.calcDistance(second.p, ref.center)
+                val hFactor = ELASTICITY * unit / CalcUtil.calcDistance(hour.p, ref.center)
+                val mFactor = ELASTICITY * unit / CalcUtil.calcDistance(minute.p, ref.center)
+                val sFactor = ELASTICITY * unit / CalcUtil.calcDistance(second.p, ref.center)
                 val factors = ActiveFactors(hFactor, mFactor, sFactor)
                 when (stack) {
                     StyleStack.GROUPED, StyleStack.LEGACY -> stackLegacyActive(ref, frame, p, factors)
@@ -48,9 +49,9 @@ object Hands {
                 val ref = data.getRef(can)
                 val p = Palette.createPaint(PaintType.HAND_AMB)
                 can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-                val hFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, center)
-                val mFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, center)
-                val lineFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, hour.p)
+                val hFactor = ELASTICITY * unit / CalcUtil.calcDistance(hour.p, center)
+                val mFactor = ELASTICITY * unit / CalcUtil.calcDistance(minute.p, center)
+                val lineFactor = ELASTICITY * unit / CalcUtil.calcDistance(minute.p, hour.p)
                 val factors = AmbientFactors(hFactor, mFactor, lineFactor)
                 when (stack) {
                     StyleStack.GROUPED, StyleStack.LEGACY -> stackLegacyAmbient(ref, data, p, factors)

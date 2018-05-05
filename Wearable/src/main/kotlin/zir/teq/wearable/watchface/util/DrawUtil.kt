@@ -18,10 +18,8 @@ import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
 import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
-import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.model.setting.wave.Layer
 import zir.teq.wearable.watchface.model.setting.wave.WaveResolution
-import zir.teq.wearable.watchface.model.setting.wave.WaveVelocity
 import zir.teq.wearable.watchface.model.types.Complex
 import zir.teq.wearable.watchface.model.types.Component
 import zir.teq.wearable.watchface.model.types.PaintType
@@ -34,7 +32,7 @@ import java.util.*
  * Created by Zir on 03.01.2016.
  * Recreated 20.05.2017
  */
-class DrawUtil {
+object DrawUtil {
     data class HandData(val p: PointF, val radians: Float, val maybeExtended: PointF)
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
 
@@ -113,14 +111,8 @@ class DrawUtil {
         drawActiveWave(can, data, false)
     }
 
-    private fun velocity() = when {
-        ConfigData.waveIsStanding() -> 0F
-        ConfigData.waveIsInward() -> WaveVelocity.load().value * -1
-        else -> WaveVelocity.load().value
-    }
-
     fun drawActiveWave(can: Canvas, data: ActiveWaveFrame, isActive: Boolean = true) {
-        val t = velocity() * (data.timeStampMs % 60000) / 1000
+        val t = CalcUtil.velocity() * (data.timeStampMs % 60000) / 1000
         val buffer = IntBuffer.allocate(data.w * data.h)
         data.keys.forEach { key: Point ->
             val complexPixel: Complex = Layer.fromData(data, key, t, isActive).get()
@@ -140,6 +132,7 @@ class DrawUtil {
     }
 
     private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrame) {
+        fun rotMatrix() = Matrix().apply { postRotate(90F) }
         val bitmap = Bitmap.createBitmap(data.w, data.h, Bitmap.Config.ARGB_8888);
         bitmap.copyPixelsFromBuffer(buffer)
 
@@ -149,8 +142,12 @@ class DrawUtil {
         can.drawBitmap(scaled, 0F, 0F, null)
     }
 
-    private fun rotMatrix() = Matrix().apply { postRotate(90F) }
     private fun gaussianBlur(input: Bitmap): Bitmap {
+        fun createBlur(script: RenderScript): ScriptIntrinsicBlur {
+            val blurRadius = 1F
+            return ScriptIntrinsicBlur.create(script, Element.U8_4(script)).apply { setRadius(blurRadius) }
+        }
+
         val isBlur = !ConfigData.waveIsPixelated()
         if (isBlur) {
             val output = Bitmap.createBitmap(input)
@@ -167,89 +164,49 @@ class DrawUtil {
         }
     }
 
-    private fun createBlur(script: RenderScript): ScriptIntrinsicBlur {
-        val blurRadius = 1F
-        return ScriptIntrinsicBlur.create(script, Element.U8_4(script)).apply { setRadius(blurRadius) }
+
+    fun makeOutline(p: Paint) = Paint(p).apply {
+        strokeWidth = p.strokeWidth + StyleOutline.load().value
+        color = Zir.color(R.color.black)
     }
 
-    companion object {
-        val PHI = 1.618033988F
-        val PI = Math.PI.toFloat()
-        val TAU = PI * 2F
-        val ONE_MINUTE_AS_RAD = PI / 30F
-        val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
-
-        fun makeOutline(p: Paint) = Paint(p).apply {
-            strokeWidth = p.strokeWidth + StyleOutline.load().value
-            color = Zir.color(R.color.black)
-        }
-
-        fun calcDistFromBorder(can: Canvas, stroke: StyleStroke) = calcDistFromBorder(can.height, stroke.value)
-        fun calcDistFromBorder(height: Int, dim: Float): Float {
-            val assertedOutlineDimension = 8 //TODO use exact?
-            val totalSetoff = 4F * (dim + assertedOutlineDimension)
-            return height / (height + totalSetoff)
-        }
-
-        fun calcPosition(rot: Float, length: Float, centerOffset: Float): PointF {
-            val x = centerOffset + (Math.sin(rot.toDouble()) * length).toFloat()
-            val y = centerOffset + (-Math.cos(rot.toDouble()) * length).toFloat()
-            return PointF(x, y)
-        }
-
-        fun calcCircumcenter(a: PointF, b: PointF, c: PointF): PointF {
-            val dA = a.x * a.x + a.y * a.y
-            val dB = b.x * b.x + b.y * b.y
-            val dC = c.x * c.x + c.y * c.y
-            val divisor = 2F * (a.x * (c.y - b.y) + b.x * (a.y - c.y) + c.x * (b.y - a.y))
-            val x = (dA * (c.y - b.y) + dB * (a.y - c.y) + dC * (b.y - a.y)) / divisor
-            val y = -(dA * (c.x - b.x) + dB * (a.x - c.x) + dC * (b.x - a.x)) / divisor
-            return PointF(x, y)
-        }
-
-        fun calcDistance(a: PointF, b: PointF): Float {
-            val p = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
-            return Math.sqrt(p.toDouble()).toFloat()
-        }
-
-        private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) StyleOutline.load().value else 0F
-        private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
-        private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
-            val w = p.strokeWidth
-            if (ConfigData.isElastic()) {
-                if (ConfigData.isElasticOutline) {
-                    return applyStretch(isAdd, w + maybeAddOutline(isOutline), factor)
-                } else {
-                    return applyStretch(isAdd, w, factor) + maybeAddOutline(isOutline)
-                }
+    private fun maybeAddOutline(isOutline: Boolean) = if (isOutline) StyleOutline.load().value else 0F
+    private fun applyStretch(isAdd: Boolean, w: Float, f: Float) = if (isAdd) w + (w * f) else (w * f)
+    private fun calcStrokeWidth(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean): Float {
+        val w = p.strokeWidth
+        if (ConfigData.isElastic()) {
+            if (ConfigData.isElasticOutline) {
+                return applyStretch(isAdd, w + maybeAddOutline(isOutline), factor)
             } else {
-                return w + maybeAddOutline(isOutline)
+                return applyStretch(isAdd, w, factor) + maybeAddOutline(isOutline)
             }
+        } else {
+            return w + maybeAddOutline(isOutline)
         }
-
-        val MAX_FACTOR = 2.895378F //max() of all factors. FIXME may require adjustment if points are moved.
-        val OFFSET = 1F - (1F / PHI) //ratio of the states in which the components stay fully colored.
-        val MIN_RATIO = 1F - (1F / PHI) //cutoff for the blended color. 0F allows full white.
-        private fun handleColor(p: Paint, factor: Float, isOutline: Boolean): Int {
-            if (isOutline) {
-                return Zir.color(R.color.black)
-            } else {
-                if (factor > MAX_FACTOR) Log.w(TAG, "MAX_FACTOR: $MAX_FACTOR factor: $factor")
-                if (ConfigData.isElasticColor) {
-                    val ratio = maxOf(MIN_RATIO, minOf(1F, (factor / MAX_FACTOR) + OFFSET))
-                    return ColorUtils.blendARGB(Zir.color(R.color.white), p.color, ratio)
-                } else {
-                    return p.color
-                }
-            }
-        }
-
-        fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean) = applyElasticity(p, factor, isOutline, false)
-        fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean) = Paint(p).apply {
-            strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
-            color = handleColor(p, factor, isOutline)
-        }
-
-        private val TAG = this::class.java.simpleName
     }
+
+    val MAX_FACTOR = 2.895378F //max() of all factors. FIXME may require adjustment if points are moved.
+    val OFFSET = 1F - (1F / CalcUtil.PHI) //ratio of the states in which the components stay fully colored.
+    val MIN_RATIO = 1F - (1F / CalcUtil.PHI) //cutoff for the blended color. 0F allows full white.
+    private fun handleColor(p: Paint, factor: Float, isOutline: Boolean): Int {
+        if (isOutline) {
+            return Zir.color(R.color.black)
+        } else {
+            if (factor > MAX_FACTOR) Log.w(TAG, "MAX_FACTOR: $MAX_FACTOR factor: $factor")
+            if (ConfigData.isElasticColor) {
+                val ratio = maxOf(MIN_RATIO, minOf(1F, (factor / MAX_FACTOR) + OFFSET))
+                return ColorUtils.blendARGB(Zir.color(R.color.white), p.color, ratio)
+            } else {
+                return p.color
+            }
+        }
+    }
+
+    fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean) = applyElasticity(p, factor, isOutline, false)
+    fun applyElasticity(p: Paint, factor: Float, isOutline: Boolean, isAdd: Boolean) = Paint(p).apply {
+        strokeWidth = calcStrokeWidth(p, factor, isOutline, isAdd)
+        color = handleColor(p, factor, isOutline)
+    }
+
+    private val TAG = this::class.java.simpleName
 }

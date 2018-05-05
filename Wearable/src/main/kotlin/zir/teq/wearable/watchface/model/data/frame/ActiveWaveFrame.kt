@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
-import zir.teq.wearable.watchface.util.DrawUtil
+import zir.teq.wearable.watchface.util.CalcUtil
 import java.util.*
 
 open class ActiveWaveFrame(cal: Calendar, bounds: Rect, can: Canvas, res: Int) : ActiveFrame(cal, bounds, can) {
@@ -25,9 +25,9 @@ open class ActiveWaveFrame(cal: Calendar, bounds: Rect, can: Canvas, res: Int) :
     val waveMinLength = minLength * scaledUnit / unit
     val waveHrLength = hrLength * scaledUnit / unit
 
-    val waveHr = DrawUtil.calcPosition(hrRot, waveHrLength, scaledUnit)
-    val waveMin = DrawUtil.calcPosition(minRot, waveMinLength, scaledUnit)
-    val waveSec = DrawUtil.calcPosition(secRot, waveSecLength, scaledUnit)
+    val waveHr = CalcUtil.calcPosition(hrRot, waveHrLength, scaledUnit)
+    val waveMin = CalcUtil.calcPosition(minRot, waveMinLength, scaledUnit)
+    val waveSec = CalcUtil.calcPosition(secRot, waveSecLength, scaledUnit)
 
     val isProportional = false //TODO
     val centerMass = Mass.DEFAULT.value

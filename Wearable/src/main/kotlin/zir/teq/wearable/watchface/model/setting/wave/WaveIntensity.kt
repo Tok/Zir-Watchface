@@ -6,7 +6,7 @@ import zir.teq.wearable.watchface.config.general.types.WaveItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.setting.Config
 import zir.teq.wearable.watchface.model.setting.Setting
-import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
+import zir.teq.wearable.watchface.util.CalcUtil.PHI
 
 enum class WaveIntensity(override val label: String, override val value: Float) : Setting {
     CALMEST("Calmest", 7F / (PHI * PHI * PHI)),

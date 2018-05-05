@@ -6,11 +6,11 @@ import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.wave.WaveDarkness
 import zir.teq.wearable.watchface.model.setting.wave.WaveSpectrum
 import zir.teq.wearable.watchface.model.types.Complex
 import zir.teq.wearable.watchface.model.types.Rgb
-import zir.teq.wearable.watchface.model.setting.wave.WaveDarkness
-import zir.teq.wearable.watchface.util.DrawUtil.Companion.TAU
+import zir.teq.wearable.watchface.util.CalcUtil.TAU
 
 object ColorUtil {
     val MAX_RGB = 0xFF

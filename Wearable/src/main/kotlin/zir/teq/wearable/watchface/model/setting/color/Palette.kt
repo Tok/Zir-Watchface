@@ -9,14 +9,13 @@ import android.support.annotation.ColorInt
 import android.support.v4.graphics.ColorUtils
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.Zir
-import zir.teq.wearable.watchface.config.general.types.ColorItem
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.setting.style.StyleAlpha
 import zir.teq.wearable.watchface.model.setting.style.StyleDim
 import zir.teq.wearable.watchface.model.setting.style.StyleGrowth
 import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.model.types.PaintType
-import zir.teq.wearable.watchface.util.DrawUtil
+import zir.teq.wearable.watchface.util.CalcUtil.PHI
 
 abstract class PaletteConfigItem(override val pref: String) : ColorConfigItem
 
@@ -28,8 +27,8 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) : Palett
     override val viewType = 777
 
     companion object {
-        fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / DrawUtil.PHI)
-        fun makeLighter(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.white), 1F / DrawUtil.PHI)
+        fun makeDarker(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.black), 1F / PHI)
+        fun makeLighter(ctx: Context, @ColorInt color: Int) = ColorUtils.blendARGB(color, ctx.getColor(R.color.white), 1F / PHI)
         val DARK = Palette("Dark", R.color.darker, R.color.dark_gray)
         val WHITE = Palette("White", R.color.dark_grey, R.color.white)
         val RED = Palette("Red", R.color.fire_brick, R.color.red)

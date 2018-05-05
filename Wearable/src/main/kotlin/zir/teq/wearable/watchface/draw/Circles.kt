@@ -4,19 +4,23 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
+import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
+import zir.teq.wearable.watchface.model.setting.style.StyleStack
 import zir.teq.wearable.watchface.model.types.Component.Companion.CIRCLE
 import zir.teq.wearable.watchface.model.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
-import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
-import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
-import zir.teq.wearable.watchface.model.setting.style.StyleOutline
-import zir.teq.wearable.watchface.model.setting.style.StyleStack
+import zir.teq.wearable.watchface.util.CalcUtil
+import zir.teq.wearable.watchface.util.CalcUtil.PHI
+import zir.teq.wearable.watchface.util.CalcUtil.PI
+import zir.teq.wearable.watchface.util.CalcUtil.TAU
 import zir.teq.wearable.watchface.util.DrawUtil
 
 object Circles {
-    val ELASTICITY = 1F / DrawUtil.PHI
+    val ELASTICITY = 1F / PHI
     fun drawActive(can: Canvas, frame: ActiveFrame, p: Paint) {
         if (ConfigData.isOn(CIRCLE to ACTIVE)) {
             if (ConfigData.isOn(SHAPE to ACTIVE)) {
@@ -100,8 +104,8 @@ object Circles {
     }
 
     private fun drawLine(ref: DrawUtil.Ref, paint: Paint, hrRot: Float, secRot: Float, hr: PointF, sec: PointF, isOutline: Boolean) {
-        val ccCenter = DrawUtil.calcCircumcenter(ref.center, hr, sec)
-        val ccRadius = DrawUtil.calcDistance(ref.center, ccCenter)
+        val ccCenter = CalcUtil.calcCircumcenter(ref.center, hr, sec)
+        val ccRadius = CalcUtil.calcDistance(ref.center, ccCenter)
         val factor = ELASTICITY * ref.unit / ccRadius
         val stretched = DrawUtil.applyElasticity(paint, factor, isOutline, true)
         if (!areHandsAlmostCollinear(hrRot, secRot)) {
@@ -119,7 +123,7 @@ object Circles {
 
     private fun areHandsAlmostCollinear(firstRad: Float, secondRad: Float): Boolean {
         val absDiff = if (firstRad < secondRad) secondRad - firstRad else firstRad - secondRad
-        return absDiff < DrawUtil.HALF_MINUTE_AS_RAD
+        return absDiff < CalcUtil.HALF_MINUTE_AS_RAD
     }
 
     private fun calcOuterPosition(rot: Float, unit: Float): PointF {
@@ -129,14 +133,14 @@ object Circles {
     }
 
     private fun fixRot(value: Float, compare: Float): Float {
-        return if (arePointsAligned(value, compare)) clipRad(value + DrawUtil.PI) else value
+        return if (arePointsAligned(value, compare)) clipRad(value + PI) else value
     }
 
     private fun clipRad(rad: Float): Float {
-        return if (rad < 0F) rad + DrawUtil.TAU else if (rad > DrawUtil.TAU) rad - DrawUtil.TAU else rad
+        return if (rad < 0F) rad + TAU else if (rad > TAU) rad - TAU else rad
     }
 
     private fun arePointsAligned(firstRad: Float, secondRad: Float): Boolean {
-        return Math.abs(firstRad - secondRad) < 15F * DrawUtil.ONE_MINUTE_AS_RAD
+        return Math.abs(firstRad - secondRad) < 15F * CalcUtil.ONE_MINUTE_AS_RAD
     }
 }

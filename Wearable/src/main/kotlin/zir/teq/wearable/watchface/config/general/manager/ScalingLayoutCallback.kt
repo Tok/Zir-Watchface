@@ -3,7 +3,7 @@ package zir.teq.wearable.watchface.config.general.manager
 import android.support.v7.widget.RecyclerView
 import android.support.wear.widget.WearableLinearLayoutManager
 import android.view.View
-import zir.teq.wearable.watchface.util.DrawUtil.Companion.PHI
+import zir.teq.wearable.watchface.util.CalcUtil.PHI
 
 class ScalingLayoutCallback : WearableLinearLayoutManager.LayoutCallback() {
     override fun onLayoutFinished(child: View, parent: RecyclerView) {

@@ -1,9 +1,10 @@
-import zir.teq.wearable.watchface.util.DrawUtil
+import zir.teq.wearable.watchface.util.CalcUtil
+import zir.teq.wearable.watchface.util.CalcUtil.PHI
 
 enum class Mass(val value: Float) {
     DEFAULT(1F),
-    LIGHT(1F / DrawUtil.PHI),
-    LIGHTER(1F / (DrawUtil.PHI * DrawUtil.PHI)),
-    HEAVY(DrawUtil.PHI),
-    HEAVIER(DrawUtil.PHI * DrawUtil.PHI);
+    LIGHT(1F / PHI),
+    LIGHTER(1F / (PHI * PHI)),
+    HEAVY(CalcUtil.PHI),
+    HEAVIER(PHI * PHI);
 }

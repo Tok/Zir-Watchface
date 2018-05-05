@@ -9,11 +9,11 @@ import zir.teq.wearable.watchface.model.types.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT
-import zir.teq.wearable.watchface.util.DrawUtil
-
+import zir.teq.wearable.watchface.util.CalcUtil
+import zir.teq.wearable.watchface.util.CalcUtil.PHI
 
 object Shapes {
-    val ALPHA_FACTOR = 1F / DrawUtil.PHI
+    val ALPHA_FACTOR = 1F / PHI
     val USE_GRADIENTS = false
     fun drawActive(can: Canvas, frame: ActiveFrame, p: Paint) {
         if (ConfigData.isOn(SHAPE to ACTIVE)) {
@@ -41,8 +41,8 @@ object Shapes {
     private fun drawCenterTriangle(can: Canvas, p: Paint, center: PointF, a: PointF, b: PointF) {
         p.alpha = (p.alpha * ALPHA_FACTOR).toInt()
         if (USE_GRADIENTS) {
-            val aDist = DrawUtil.calcDistance(center, a)
-            val bDist = DrawUtil.calcDistance(center, b)
+            val aDist = CalcUtil.calcDistance(center, a)
+            val bDist = CalcUtil.calcDistance(center, b)
             val shaderRad = Math.max(aDist, bDist)
             p.shader = RadialGradient(center.x, center.y, shaderRad, p.color, Color.BLACK, Shader.TileMode.CLAMP)
         }

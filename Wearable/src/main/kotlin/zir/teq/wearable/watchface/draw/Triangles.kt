@@ -4,10 +4,12 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
 import zir.teq.wearable.watchface.model.types.Component
 import zir.teq.wearable.watchface.model.types.State
-import zir.teq.wearable.watchface.model.setting.style.StyleOutline
+import zir.teq.wearable.watchface.util.CalcUtil
+import zir.teq.wearable.watchface.util.CalcUtil.PHI
 import zir.teq.wearable.watchface.util.DrawUtil
 import zir.teq.wearable.watchface.util.DrawUtil.HandData
 
@@ -15,7 +17,7 @@ object Triangles {
     //Triangles only exist in active mode
     data class Factors(val hm: Float, val hs: Float, val ms: Float)
 
-    val ELASTICITY = 1F / DrawUtil.PHI
+    val ELASTICITY = 1F / PHI
     fun draw(can: Canvas, frame: ActiveFrame, p: Paint) {
         if (ConfigData.isOn(Component.TRIANGLE to State.ACTIVE)) {
             drawTriangle(can, frame, p)
@@ -25,9 +27,9 @@ object Triangles {
     private fun drawTriangle(can: Canvas, frame: ActiveFrame, p: Paint) {
         with(frame) {
             can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), p)
-            val hmFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, minute.p)
-            val hsFactor = ELASTICITY * unit / DrawUtil.calcDistance(hour.p, second.p)
-            val msFactor = ELASTICITY * unit / DrawUtil.calcDistance(minute.p, second.p)
+            val hmFactor = ELASTICITY * unit / CalcUtil.calcDistance(hour.p, minute.p)
+            val hsFactor = ELASTICITY * unit / CalcUtil.calcDistance(hour.p, second.p)
+            val msFactor = ELASTICITY * unit / CalcUtil.calcDistance(minute.p, second.p)
             val factors = Factors(hmFactor, hsFactor, msFactor)
             when (StyleStack.load()) {
                 StyleStack.GROUPED, StyleStack.LEGACY -> stackLegacy(can, frame, p, factors)

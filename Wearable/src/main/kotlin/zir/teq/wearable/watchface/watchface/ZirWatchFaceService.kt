@@ -25,7 +25,6 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
 
     inner class Engine : CanvasWatchFaceService.Engine() {
         private val MSG_UPDATE_TIME = 0
-        val drawer = DrawUtil()
 
         private var mCalendar: Calendar = Calendar.getInstance()
         private var mRegisteredTimeZoneReceiver = false
@@ -71,7 +70,7 @@ class ZirWatchFaceService : CanvasWatchFaceService() {
             updateWatchPaintStyles()
             mCalendar.timeInMillis = System.currentTimeMillis()
 
-            drawer.draw(canvas, bounds!!, mCalendar)
+            DrawUtil.draw(canvas, bounds!!, mCalendar)
         }
 
         private fun loadSavedPreferences() {
