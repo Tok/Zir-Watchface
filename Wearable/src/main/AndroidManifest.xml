@@ -51,10 +51,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainSetupActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainComponentActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainColorActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.activity.color.BackgroundActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainWaveActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity" />
+        <activity android:name="zir.teq.wearable.watchface.config.select.activity.color.BackgroundActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveSpectrumActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveVelocityActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveFrequencyActivity" />
@@ -62,7 +64,6 @@
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveDarknessActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveResolutionActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.wave.WaveAmbientResolutionActivity" />
-        <activity android:name="zir.teq.wearable.watchface.config.select.activity.main.MainStyleActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleAlphaActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleDimActivity" />
         <activity android:name="zir.teq.wearable.watchface.config.select.activity.style.StyleStackActivity" />

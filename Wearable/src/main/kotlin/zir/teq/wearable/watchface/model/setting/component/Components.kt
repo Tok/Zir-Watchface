@@ -17,7 +17,6 @@ import zir.teq.wearable.watchface.model.types.State.AMBIENT
 
 data class Components(override val name: String, val iconId: Int, val map: Map<String, Boolean>,
                       override val configId: Int = 0) : ConfigItem {
-    //override val configId: Int = 0) : Setting {
     fun get(pair: Pair<Component, State>) = get(pair.first, pair.second)
 
     private fun get(comp: Component, state: State) = get(Component.createKey(comp, state))

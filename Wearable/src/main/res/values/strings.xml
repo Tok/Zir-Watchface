@@ -5,6 +5,9 @@
     <string name="zir_watch_config">Zir Watch Config</string>
     <string name="zir_watch_preference_file_key">zir.teq.wearable.watchface.ZIR_WATCH_PREFERENCE_FILE_KEY</string>
 
+    <string name="saved_setup">saved_setup_plain</string>
+    <string name="saved_setup_plain">saved_setup_plain</string>
+
     <string name="saved_background">saved_background</string>
 
     <string name="saved_theme">saved_theme</string>
@@ -33,6 +36,9 @@
 
     <string name="saved_fast_update">saved_fast_update</string>
     <string name="saved_is_elastic">saved_is_elastic</string>
+
+    <string name="label_setup">Setup</string>
+    <string name="label_setup_plain">Plain</string>
 
     <string name="label_components">Components</string>
     <string name="label_colors">Colors</string>
