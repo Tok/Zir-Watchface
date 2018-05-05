@@ -3,6 +3,7 @@ package zir.teq.wearable.watchface.draw
 import android.graphics.Canvas
 import android.graphics.Paint
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.HandData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
 import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
@@ -11,7 +12,6 @@ import zir.teq.wearable.watchface.model.types.State
 import zir.teq.wearable.watchface.util.CalcUtil
 import zir.teq.wearable.watchface.util.CalcUtil.PHI
 import zir.teq.wearable.watchface.util.DrawUtil
-import zir.teq.wearable.watchface.util.DrawUtil.HandData
 
 object Triangles {
     //Triangles only exist in active mode

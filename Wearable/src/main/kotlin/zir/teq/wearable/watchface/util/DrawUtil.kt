@@ -33,7 +33,6 @@ import java.util.*
  * Recreated 20.05.2017
  */
 object DrawUtil {
-    data class HandData(val p: PointF, val radians: Float, val maybeExtended: PointF)
     data class Ref(val can: Canvas, val unit: Float, val center: PointF)
 
     fun draw(can: Canvas, bounds: Rect, calendar: Calendar) {

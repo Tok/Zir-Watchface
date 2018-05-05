@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.HandData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
@@ -15,7 +16,6 @@ import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT
 import zir.teq.wearable.watchface.util.CalcUtil
 import zir.teq.wearable.watchface.util.DrawUtil
-import zir.teq.wearable.watchface.util.DrawUtil.HandData
 import zir.teq.wearable.watchface.util.DrawUtil.Ref
 
 object Hands {
