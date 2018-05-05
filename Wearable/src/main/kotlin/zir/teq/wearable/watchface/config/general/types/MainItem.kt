@@ -12,7 +12,6 @@ import zir.teq.wearable.watchface.config.select.activity.main.MainWaveActivity
 class MainItem(prefId: Int, nameId: Int, iconId: Int, activity: Class<out Activity>) :
         Item(prefId, nameId, iconId, activity) {
     companion object {
-        //TODO replace Item code by R.view.{id}
         val MAIN_COMPONENTS = MainItem(R.string.saved_theme, R.string.label_components, R.drawable.main_icon_components, MainComponentActivity::class.java)
         val MAIN_COLORS = MainItem(R.string.saved_palette, R.string.label_colors, R.drawable.main_icon_color, MainColorActivity::class.java)
         val MAIN_WAVE = MainItem(R.string.saved_wave_props, R.string.label_wave_props, R.drawable.main_icon_wave, MainWaveActivity::class.java)
