@@ -71,6 +71,14 @@ data class Setup(val code: Int, val name: String, val iconId: Int) {
             waveSpectrum = WaveSpectrum.BW
             waveVelocity = WaveVelocity.SLOWER
         }
+        val META = Setup(3025, "Meta", R.drawable.setup_meta).apply {
+            components = Components.META
+            palette = Palette.BLUE_ORANGE
+            styleAlpha = StyleAlpha._12
+            styleStroke = StyleStroke._13
+            styleGrowth = StyleGrowth._21
+            isFastUpdate = true
+        }
         val DIAMOND = Setup(3030, "Diamond", R.drawable.setup_diamond).apply {
             components = Components.FIELDS
             palette = Palette.BLUE
@@ -121,8 +129,8 @@ data class Setup(val code: Int, val name: String, val iconId: Int) {
         }
 
         val default = ALL_DEFAULT
-        val all = listOf(ALL_DEFAULT, PLAIN, DIAMOND, FIELD, TETRAHEDRON, CLOCKWORK, INTERFERENCE,
-                CIRCLES, LINE_WAVES)
+        val all = listOf(ALL_DEFAULT, PLAIN, META, DIAMOND, FIELD, TETRAHEDRON, CLOCKWORK,
+                INTERFERENCE, CIRCLES, LINE_WAVES)
 
         fun valueOf(name: String): Setup {
             return all.find { it.name == name }

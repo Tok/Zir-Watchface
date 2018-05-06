@@ -7,11 +7,12 @@ import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
 import zir.teq.wearable.watchface.model.setting.component.Component.Companion.POINTS
+import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT
-import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.util.DrawUtil
+
 
 object Points {
     //TODO implement point stacking?
@@ -31,10 +32,12 @@ object Points {
             if ((StyleOutline.load() as StyleOutline).isOn) {
                 val outlineP = DrawUtil.makeOutline(p)
                 makeSeconds(can, frame, outlineP)
-                makeMinAndHr(can, frame, outlineP)
+                makeMin(can, frame, outlineP)
+                makeHr(can, frame, outlineP)
             }
             makeSeconds(can, frame, p)
-            makeMinAndHr(can, frame, p)
+            makeMin(can, frame, p)
+            makeHr(can, frame, p)
         }
     }
 
@@ -55,16 +58,15 @@ object Points {
         can.drawPoint(data.hr.x, data.hr.y, p)
     }
 
-    private fun makeCenter(can: Canvas, frame: ActiveFrame, p: Paint) {
-        can.drawPoint(frame.center.x, frame.center.y, p)
-    }
+    private fun makeCenter(can: Canvas, frame: ActiveFrame, p: Paint) =
+            can.drawPoint(frame.center.x, frame.center.y, p)
 
-    private fun makeSeconds(can: Canvas, frame: ActiveFrame, p: Paint) {
-        can.drawPoint(frame.sec.x, frame.sec.y, p)
-    }
+    private fun makeSeconds(can: Canvas, frame: ActiveFrame, p: Paint) =
+            can.drawPoint(frame.sec.x, frame.sec.y, p)
 
-    private fun makeMinAndHr(can: Canvas, frame: ActiveFrame, p: Paint) {
-        can.drawPoint(frame.hr.x, frame.hr.y, p)
-        can.drawPoint(frame.min.x, frame.min.y, p)
-    }
+    private fun makeMin(can: Canvas, frame: ActiveFrame, p: Paint) =
+            can.drawPoint(frame.min.x, frame.min.y, p)
+
+    private fun makeHr(can: Canvas, frame: ActiveFrame, p: Paint) =
+            can.drawPoint(frame.hr.x, frame.hr.y, p)
 }

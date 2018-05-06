@@ -46,7 +46,6 @@
             android:label="@string/zir_watch_config">
             <intent-filter>
                 <action android:name="zir.teq.wearable.watchface.CONFIG_ZIR_WATCH" />
-
                 <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

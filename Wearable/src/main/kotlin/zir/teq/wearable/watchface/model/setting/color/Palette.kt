@@ -66,14 +66,12 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) : Palett
                 PaintType.HAND -> preparePaint(color ?: pal.half())
                 PaintType.CIRCLE -> prepareStrokePaint(color ?: pal.dark())
                 PaintType.POINT -> prepareStrokePaint(color ?: Zir.color(R.color.points))
+                PaintType.META -> prepareMetaPaint(color ?: Zir.color(R.color.points))
                 PaintType.SHAPE_AMB -> preparePaint(color ?: pal.light())
                 PaintType.HAND_AMB -> preparePaint(color ?: pal.half())
                 PaintType.CIRCLE_AMB -> prepareStrokePaint(color ?: pal.dark())
                 PaintType.BACKGROUND -> preparePaint(color ?: R.color.background)
-                else -> {
-                    val msg = "Ignoring paintType: " + type
-                    throw IllegalArgumentException(msg)
-                }
+                else -> throw IllegalArgumentException("Unknown paintType: $type.")
             }
             paint.strokeWidth = createStrokeWidth(type)
             paint.alpha = (StyleAlpha.load() as StyleAlpha).value.toInt()
@@ -108,11 +106,14 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) : Palett
         }
 
         private fun inst() = Paint().apply { isAntiAlias = true; isDither = true }
-        private fun preparePaint(@ColorInt col: Int) = inst().apply {
-            strokeCap = Paint.Cap.ROUND; color = col
+        fun preparePaint(@ColorInt col: Int):Paint = inst().apply {
+            color = col
+            strokeCap = Paint.Cap.ROUND
         }
-
-        private fun prepareStrokePaint(@ColorInt col: Int) = preparePaint(col).apply {
+        private fun prepareMetaPaint(@ColorInt col: Int):Paint = preparePaint(col).apply {
+            style = Paint.Style.FILL
+        }
+        private fun prepareStrokePaint(@ColorInt col: Int):Paint = preparePaint(col).apply {
             style = Paint.Style.STROKE
         }
 

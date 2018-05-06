@@ -6,6 +6,7 @@ import zir.teq.wearable.watchface.model.setting.component.Component.Companion.HA
 import zir.teq.wearable.watchface.model.setting.component.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.setting.component.Component.Companion.SHAPE
 import zir.teq.wearable.watchface.model.setting.component.Component.Companion.TRIANGLE
+import zir.teq.wearable.watchface.model.setting.component.Component.Companion.METAS
 import zir.teq.wearable.watchface.model.types.State
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT
@@ -37,6 +38,15 @@ data class Components(val name: String, val map: Map<String, Boolean>) {
                 Component.createKey(HAND, AMBIENT) -> it to true
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
+                else -> it to false
+            }
+        }).toMap())
+        val META = Components("Meta", (Component.KEYS.map {
+            when (it) {
+                Component.createKey(POINTS, ACTIVE) -> it to true
+                Component.createKey(POINTS, AMBIENT) -> it to true
+                Component.createKey(METAS, ACTIVE) -> it to true
+                Component.createKey(METAS, AMBIENT) -> it to true
                 else -> it to false
             }
         }).toMap())

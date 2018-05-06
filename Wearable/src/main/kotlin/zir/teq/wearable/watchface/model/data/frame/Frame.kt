@@ -16,4 +16,9 @@ open class Frame(cal: Calendar, bounds: Rect) {
     val unit = bounds.width() / 2F
     val center = PointF(unit, unit)
     fun getRef(can: Canvas): DrawUtil.Ref = DrawUtil.Ref(can, unit, center)
+
+    val centerMass = Mass.DEFAULT.value
+    val hourMass = Mass.HEAVIER.value
+    val minuteMass = Mass.HEAVY.value
+    val secondMass = Mass.DEFAULT.value
 }

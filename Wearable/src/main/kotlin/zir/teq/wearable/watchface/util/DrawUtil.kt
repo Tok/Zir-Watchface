@@ -15,13 +15,17 @@ import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
 import zir.teq.wearable.watchface.model.data.frame.ActiveWaveFrame
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.data.frame.AmbientWaveFrame
+import zir.teq.wearable.watchface.model.data.meta.Meta
+import zir.teq.wearable.watchface.model.data.meta.MetaHandlePoints
+import zir.teq.wearable.watchface.model.data.meta.MetaPoints
 import zir.teq.wearable.watchface.model.setting.color.Palette
+import zir.teq.wearable.watchface.model.setting.component.Component
 import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
+import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.model.setting.wave.Layer
 import zir.teq.wearable.watchface.model.setting.wave.WaveResolution
 import zir.teq.wearable.watchface.model.types.Complex
-import zir.teq.wearable.watchface.model.setting.component.Component
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State
 import java.nio.IntBuffer
@@ -71,35 +75,38 @@ object DrawUtil {
 
     fun drawActiveFace(can: Canvas, frame: ActiveFrame) {
         val pal = ConfigData.palette()
+        val pointPaint = Palette.createPaint(PaintType.POINT, Zir.color(R.color.white))
+        Metas.drawActive(can, frame)
         when (StyleStack.load()) {
             StyleStack.GROUPED -> {
                 Circles.drawActive(can, frame, Palette.createPaint(PaintType.CIRCLE, pal.dark()))
                 Shapes.drawActive(can, frame, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Triangles.draw(can, frame, Palette.createPaint(PaintType.SHAPE, pal.half()))
-                Points.drawActive(can, frame, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
+                Points.drawActive(can, frame, pointPaint)
                 Hands.drawActive(can, frame, Palette.createPaint(PaintType.HAND, pal.light()))
-                Points.drawActiveCenter(can, frame, Palette.createPaint(PaintType.POINT, Zir.color(R.color.white)))
+                Points.drawActiveCenter(can, frame, pointPaint)
             }
             StyleStack.LEGACY -> {
                 Circles.drawActive(can, frame, Palette.createPaint(PaintType.CIRCLE))
                 Shapes.drawActive(can, frame, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Hands.drawActive(can, frame, Palette.createPaint(PaintType.HAND))
                 Triangles.draw(can, frame, Palette.createPaint(PaintType.SHAPE))
-                Points.drawActive(can, frame, Palette.createPaint(PaintType.POINT))
-                Points.drawActiveCenter(can, frame, Palette.createPaint(PaintType.POINT))
+                Points.drawActive(can, frame, pointPaint)
+                Points.drawActiveCenter(can, frame, pointPaint)
             }
             else -> {
                 Circles.drawActive(can, frame, Palette.createPaint(PaintType.CIRCLE))
                 Shapes.drawActive(can, frame, Palette.createPaint(PaintType.SHAPE, pal.light()))
                 Triangles.draw(can, frame, Palette.createPaint(PaintType.SHAPE))
                 Hands.drawActive(can, frame, Palette.createPaint(PaintType.HAND))
-                Points.drawActive(can, frame, Palette.createPaint(PaintType.POINT))
-                Points.drawActiveCenter(can, frame, Palette.createPaint(PaintType.POINT))
+                Points.drawActive(can, frame, pointPaint)
+                Points.drawActiveCenter(can, frame, pointPaint)
             }
         }
     }
 
     fun drawAmbientFace(can: Canvas, data: AmbientFrame) {
+        Metas.drawAmbient(can, data)
         Circles.drawAmbient(can, data)
         Shapes.drawAmbient(can, data)
         Hands.drawAmbient(can, data)
@@ -130,6 +137,45 @@ object DrawUtil {
         can.drawRect(0F, 0F, can.width.toFloat(), can.height.toFloat(), paint)
     }
 
+    fun drawMeta(can: Canvas, meta: Meta, p: Paint) {
+        val WHITE_PAINT = p
+        WHITE_PAINT.strokeWidth = StyleStroke.default.value
+        WHITE_PAINT.color = Color.WHITE
+        WHITE_PAINT.style = Paint.Style.FILL
+        val blobPath = Path()
+        with(meta.points) {
+            blobPath.moveTo(p1.x, p1.y)
+            blobPath.lineTo(p3.x, p3.y)
+            blobPath.lineTo(p4.x, p4.y)
+            blobPath.lineTo(p2.x, p2.y)
+        }
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), WHITE_PAINT)
+        can.drawPath(blobPath, WHITE_PAINT)
+
+        val BLACK_PAINT = p
+        BLACK_PAINT.color = Zir.color(ConfigData.background().id)
+        WHITE_PAINT.style = Paint.Style.FILL
+        BLACK_PAINT.setAntiAlias(true)
+
+        val leftPath = Path()
+        leftPath.moveTo(meta.points.p1.x, meta.points.p1.y)
+        with(meta.handles) {
+            leftPath.cubicTo(h1.x, h1.y, h3.x, h3.y, meta.points.p3.x, meta.points.p3.y)
+        }
+
+        val rightPath = Path()
+        rightPath.moveTo(meta.points.p2.x, meta.points.p2.y)
+        with(meta.handles) {
+            rightPath.cubicTo(h2.x, h2.y, h4.x, h4.y, meta.points.p4.x, meta.points.p4.y)
+        }
+
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), BLACK_PAINT)
+        can.drawPath(leftPath, BLACK_PAINT)
+
+        can.saveLayer(0F, 0F, can.width.toFloat(), can.height.toFloat(), BLACK_PAINT)
+        can.drawPath(rightPath, BLACK_PAINT)
+    }
+
     private fun drawFromBuffer(can: Canvas, buffer: IntBuffer, data: ActiveWaveFrame) {
         fun rotMatrix() = Matrix().apply { postRotate(90F) }
         val bitmap = Bitmap.createBitmap(data.w, data.h, Bitmap.Config.ARGB_8888);
@@ -146,7 +192,6 @@ object DrawUtil {
             val blurRadius = 1F
             return ScriptIntrinsicBlur.create(script, Element.U8_4(script)).apply { setRadius(blurRadius) }
         }
-
         val isBlur = !ConfigData.waveIsPixelated()
         if (isBlur) {
             val output = Bitmap.createBitmap(input)
@@ -162,7 +207,6 @@ object DrawUtil {
             return input
         }
     }
-
 
     fun makeOutline(p: Paint) = Paint(p).apply {
         strokeWidth = p.strokeWidth + StyleOutline.load().value

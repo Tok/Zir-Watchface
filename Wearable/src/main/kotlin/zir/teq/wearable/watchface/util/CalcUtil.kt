@@ -2,13 +2,16 @@ package zir.teq.wearable.watchface.util
 
 import android.graphics.Canvas
 import android.graphics.PointF
+import zir.teq.wearable.watchface.draw.Metas
 import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.data.meta.*
 import zir.teq.wearable.watchface.model.setting.style.StyleStroke
 import zir.teq.wearable.watchface.model.setting.wave.WaveVelocity
 
 object CalcUtil {
     val PHI = 1.618033988F
     val PI = Math.PI.toFloat()
+    val HALF_PI = PI / 2F
     val TAU = PI * 2F
     val ONE_MINUTE_AS_RAD = PI / 30F
     val HALF_MINUTE_AS_RAD = ONE_MINUTE_AS_RAD / 2F
@@ -45,5 +48,11 @@ object CalcUtil {
     fun calcDistance(a: PointF, b: PointF): Float {
         val p = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
         return Math.sqrt(p.toDouble()).toFloat()
+    }
+
+    fun calcAngle(a: PointF, b: PointF): Float {
+        val yDiff = b.y - a.y
+        val xDiff = b.x - a.x
+        return Math.atan2(yDiff.toDouble(), xDiff.toDouble()).toFloat()
     }
 }
