@@ -6,7 +6,7 @@ import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
 import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
-import zir.teq.wearable.watchface.model.types.Component.Companion.POINTS
+import zir.teq.wearable.watchface.model.setting.component.Component.Companion.POINTS
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT

@@ -10,7 +10,7 @@ import zir.teq.wearable.watchface.model.setting.color.Background
 import zir.teq.wearable.watchface.model.setting.color.Palette
 import zir.teq.wearable.watchface.model.setting.component.Components
 import zir.teq.wearable.watchface.model.setting.wave.WaveSpectrum
-import zir.teq.wearable.watchface.model.types.Component
+import zir.teq.wearable.watchface.model.setting.component.Component
 import zir.teq.wearable.watchface.model.types.Operator
 import zir.teq.wearable.watchface.model.types.State
 import java.util.concurrent.TimeUnit
@@ -22,9 +22,7 @@ object ConfigData {
             Context.MODE_PRIVATE)
 
     private fun prefString(pref: Int, default: String) = prefs.getString(Zir.string(pref), default)
-
-    fun isOn(key: Pair<Component, State>): Boolean = Components.INSTANCE.get(key)
-
+    fun isOn(key: Pair<Component, State>): Boolean = Components.getComponentState(key.first, key.second)
     private fun saveBool(pref: Int, value: Boolean) {
         val editor = prefs.edit()
         editor.putBoolean(Zir.string(pref), value)

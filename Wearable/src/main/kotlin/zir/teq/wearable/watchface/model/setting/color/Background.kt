@@ -1,11 +1,8 @@
 package zir.teq.wearable.watchface.model.setting.color
 
-import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.types.ColorItem
 import zir.teq.wearable.watchface.model.ConfigData
-import zir.teq.wearable.watchface.model.setting.component.Components
-import zir.teq.wearable.watchface.model.types.Component
 
 class BackgroundConfigItem : ColorConfigItem {
     override val pref: String = ColorItem.COLOR_BACKGROUND.pref

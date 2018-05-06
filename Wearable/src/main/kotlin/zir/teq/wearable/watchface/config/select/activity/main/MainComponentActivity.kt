@@ -6,8 +6,7 @@ import android.support.wear.widget.WearableLinearLayoutManager
 import android.support.wear.widget.WearableRecyclerView
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.select.adapter.component.ComponentAdapter
-import zir.teq.wearable.watchface.model.setting.component.Components
-import zir.teq.wearable.watchface.model.types.Component
+import zir.teq.wearable.watchface.model.setting.component.Component
 import zir.teq.wearable.watchface.util.ViewHelper
 
 
@@ -18,8 +17,7 @@ class MainComponentActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.zir_list)
-        val items = Components.ALL.toList() + Component.ALL
-        mAdapter = ComponentAdapter(items)
+        mAdapter = ComponentAdapter(Component.ALL)
         mView = findViewById(R.id.zir_list_view)
         mManager = WearableLinearLayoutManager(this)
         ViewHelper.initView(mView, mAdapter, mManager)

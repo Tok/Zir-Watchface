@@ -7,7 +7,7 @@ import zir.teq.wearable.watchface.model.data.HandData
 import zir.teq.wearable.watchface.model.data.frame.ActiveFrame
 import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
-import zir.teq.wearable.watchface.model.types.Component
+import zir.teq.wearable.watchface.model.setting.component.Component
 import zir.teq.wearable.watchface.model.types.State
 import zir.teq.wearable.watchface.util.CalcUtil
 import zir.teq.wearable.watchface.util.CalcUtil.PHI

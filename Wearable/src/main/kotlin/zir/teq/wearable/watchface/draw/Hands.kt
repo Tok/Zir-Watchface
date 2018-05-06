@@ -10,7 +10,7 @@ import zir.teq.wearable.watchface.model.data.frame.AmbientFrame
 import zir.teq.wearable.watchface.model.setting.color.Palette
 import zir.teq.wearable.watchface.model.setting.style.StyleOutline
 import zir.teq.wearable.watchface.model.setting.style.StyleStack
-import zir.teq.wearable.watchface.model.types.Component.Companion.HAND
+import zir.teq.wearable.watchface.model.setting.component.Component.Companion.HAND
 import zir.teq.wearable.watchface.model.types.PaintType
 import zir.teq.wearable.watchface.model.types.State.ACTIVE
 import zir.teq.wearable.watchface.model.types.State.AMBIENT
