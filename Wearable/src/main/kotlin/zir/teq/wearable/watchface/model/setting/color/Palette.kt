@@ -117,5 +117,12 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) : Palett
         }
 
         fun createFilter(pal: Palette) = PorterDuffColorFilter(pal.half(), PorterDuff.Mode.MULTIPLY)
+
+        fun save(item: Palette) {
+            val editor = ConfigData.prefs.edit()
+            val key = Zir.string(R.string.saved_palette)
+            editor.putString(key, item.name)
+            editor.apply()
+        }
     }
 }

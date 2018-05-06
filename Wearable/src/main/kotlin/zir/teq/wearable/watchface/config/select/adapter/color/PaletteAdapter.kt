@@ -11,7 +11,6 @@ import zir.teq.wearable.watchface.Zir
 import zir.teq.wearable.watchface.config.general.holder.RecSelectionViewHolder
 import zir.teq.wearable.watchface.config.general.types.ColorItem
 import zir.teq.wearable.watchface.config.select.holder.color.BackgroundViewHolder
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.setting.color.BackgroundConfigItem
@@ -74,13 +73,10 @@ class PaletteAdapter(private val pref: String, private val options: List<ColorCo
             val activity = view.context as Activity
             val item = options[position]
             if (item is Palette) {
-                val editor = ConfigData.prefs.edit()
-                val key = Zir.string(R.string.saved_palette)
-                editor.putString(key, item.name)
-                editor.apply()
+                Palette.save(item)
                 activity.setResult(Activity.RESULT_OK)
-                activity.finish()
             }
+            activity.finish()
         }
     }
 }

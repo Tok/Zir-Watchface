@@ -27,7 +27,7 @@ enum class StyleOutline(override val label: String, override val value: Float,
         override val label = Zir.string(R.string.label_outline)
         override val pref = Zir.string(R.string.saved_style_outline)
         override val iconId = R.drawable.style_icon_outline
-        override val default = OFF
+        override val default = _5
         override val all = values().toList()
         private fun valueOf(pref: String): Setting = values().find { it.pref.equals(pref) }
                 ?: default

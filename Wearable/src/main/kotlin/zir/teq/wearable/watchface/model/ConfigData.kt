@@ -25,6 +25,14 @@ object ConfigData {
 
     fun isOn(key: Pair<Component, State>): Boolean = Components.INSTANCE.get(key)
 
+    private fun saveBool(pref: Int, value: Boolean) {
+        val editor = prefs.edit()
+        editor.putBoolean(Zir.string(pref), value)
+        editor.apply()
+    }
+
+    fun saveFastUpdate(value: Boolean) = saveBool(R.string.saved_fast_update, value)
+    fun saveElastic(value: Boolean) = saveBool(R.string.saved_is_elastic, value)
     fun isFastUpdate() = prefs.getBoolean(Zir.string(R.string.saved_fast_update), true)
     fun isElastic() = prefs.getBoolean(Zir.string(R.string.saved_is_elastic), false)
     var isElasticOutline: Boolean = true //TODO tune
@@ -34,12 +42,20 @@ object ConfigData {
     fun background() = Background.getByName(prefString(R.string.saved_background, Background.default.name))
 
     fun waveSpectrum() = WaveSpectrum.valueOf(prefString(R.string.saved_spectrum, WaveSpectrum.default.name))
+
     fun waveIsOff() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_off), false)
     fun waveIsPixelated() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_pixelated), false)
-    fun waveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
+    private fun waveIsMultiply() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_multiply), false)
     fun waveOperator() = if (!waveIsMultiply()) Operator.ADD else Operator.MULTIPLY
     fun waveIsInward() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_inward), false)
     fun waveIsStanding() = prefs.getBoolean(Zir.string(R.string.saved_wave_is_standing), false)
+
+    fun saveWaveIsOff(value: Boolean) = saveBool(R.string.saved_wave_is_off, value)
+    fun saveWaveIsPixelated(value: Boolean) = saveBool(R.string.saved_wave_is_pixelated, value)
+    private fun saveWaveIsMultiply(value: Boolean) = saveBool(R.string.saved_wave_is_multiply, value)
+    fun saveWaveOperator(value: Operator) = saveWaveIsMultiply(value == Operator.MULTIPLY)
+    fun saveWaveIsInward(value: Boolean) = saveBool(R.string.saved_wave_is_inward, value)
+    fun saveWaveIsStanding(value: Boolean) = saveBool(R.string.saved_wave_is_standing, value)
 
     val isAntiAlias = true
     var isAmbient = false

@@ -44,7 +44,9 @@ open class RecSelectionViewHolder(view: View) : RecHolder(view) {
         val ctx = mButton.context
         val drawable = ctx.getDrawable(resourceId)
         val scaled = scaleImage(ctx, drawable)
-        setFilterColor(ctx, scaled, tintColorId)
+        if (tintColorId != null) {
+            setFilterColor(ctx, scaled, tintColorId)
+        }
         mButton.setCompoundDrawablesWithIntrinsicBounds(scaled, null, null, null)
     }
 

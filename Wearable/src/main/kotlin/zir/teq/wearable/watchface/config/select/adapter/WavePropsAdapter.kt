@@ -25,13 +25,7 @@ class WavePropsAdapter(private val options: List<Item>) : RecAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
         val item = WaveItem.all.find { it.code == viewType }
         return when (item) {
-            is WaveItem -> {
-
-                Holder(ViewHelper.createView(parent, R.layout.list_item_circle_text))
-                //Holder(ViewHelper.createView(parent, R.layout.list_item_main))
-                //Holder(ViewHelper.createView(parent, item.layoutId())
-                //Holder(ViewHelper.createView(parent, viewType))
-            }
+            is WaveItem -> Holder(ViewHelper.createView(parent, R.layout.list_item_circle_text))
             is CheckboxItem -> ViewHelper.createCheckboxViewHolder(parent, item)
             else -> throw IllegalArgumentException("Item unknown $item.")
         }

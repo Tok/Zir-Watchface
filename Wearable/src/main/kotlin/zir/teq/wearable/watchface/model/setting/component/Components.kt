@@ -25,21 +25,21 @@ data class Components(override val name: String, val iconId: Int, val map: Map<S
     companion object {
         var INSTANCE = Components("Instance", R.drawable.icon_dummy,
                 (Component.KEYS.map { it to false }).toMap())
-        private val POINTS_ONLY = Components("Points", R.drawable.comp_points, (Component.KEYS.map {
+        val POINTS_ONLY = Components("Points", R.drawable.comp_points, (Component.KEYS.map {
             when (it) {
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 else -> it to false
             }
         }).toMap())
-        private val MINIMAL = Components("Minimal", R.drawable.comp_minimal, (Component.KEYS.map {
+        val MINIMAL = Components("Minimal", R.drawable.comp_minimal, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, AMBIENT) -> it to true
                 else -> it to false
             }
         }).toMap())
-        private val PLAIN = Components("Plain", R.drawable.comp_plain, (Component.KEYS.map {
+        val PLAIN = Components("Plain", R.drawable.comp_plain, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, AMBIENT) -> it to true
@@ -48,14 +48,14 @@ data class Components(override val name: String, val iconId: Int, val map: Map<S
                 else -> it to false
             }
         }).toMap())
-        private val SHAPES = Components("Shape", R.drawable.comp_shape, (Component.KEYS.map {
+        val SHAPES = Components("Shape", R.drawable.comp_shape, (Component.KEYS.map {
             when (it) {
                 Component.createKey(SHAPE, ACTIVE) -> it to true
                 Component.createKey(SHAPE, AMBIENT) -> it to true
                 else -> it to false
             }
         }).toMap())
-        private val ORIGINAL = Components("Original", R.drawable.comp_original, (Component.KEYS.map {
+        val ORIGINAL = Components("Original", R.drawable.comp_original, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(TRIANGLE, ACTIVE) -> it to true
@@ -66,7 +66,7 @@ data class Components(override val name: String, val iconId: Int, val map: Map<S
                 else -> it to false
             }
         }).toMap())
-        private val FIELDS = Components("Fields", R.drawable.comp_fields, (Component.KEYS.map {
+        val FIELDS = Components("Fields", R.drawable.comp_fields, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, AMBIENT) -> it to true
@@ -77,7 +77,20 @@ data class Components(override val name: String, val iconId: Int, val map: Map<S
                 else -> it to false
             }
         }).toMap())
-        private val CIRCLES = Components("Circles", R.drawable.comp_circles, (Component.KEYS.map {
+        val SHAPE_FIELDS = Components("Shape Fields", R.drawable.comp_shape_fields, (Component.KEYS.map {
+            when (it) {
+                Component.createKey(HAND, ACTIVE) -> it to true
+                Component.createKey(HAND, AMBIENT) -> it to true
+                Component.createKey(TRIANGLE, ACTIVE) -> it to true
+                Component.createKey(TRIANGLE, AMBIENT) -> it to true
+                Component.createKey(POINTS, ACTIVE) -> it to true
+                Component.createKey(POINTS, AMBIENT) -> it to true
+                Component.createKey(SHAPE, ACTIVE) -> it to true
+                Component.createKey(SHAPE, AMBIENT) -> it to true
+                else -> it to false
+            }
+        }).toMap())
+        val CIRCLES = Components("Circles", R.drawable.comp_circles, (Component.KEYS.map {
             when (it) {
                 Component.createKey(CIRCLE, ACTIVE) -> it to true
                 Component.createKey(CIRCLE, AMBIENT) -> it to true
@@ -86,7 +99,7 @@ data class Components(override val name: String, val iconId: Int, val map: Map<S
                 else -> it to false
             }
         }).toMap())
-        private val GEOMETRY = Components("Geometry", R.drawable.comp_geometry, (Component.KEYS.map {
+        val GEOMETRY = Components("Geometry", R.drawable.comp_geometry, (Component.KEYS.map {
             when (it) {
                 Component.createKey(HAND, ACTIVE) -> it to true
                 Component.createKey(HAND, ACTIVE) -> it to true
@@ -99,12 +112,11 @@ data class Components(override val name: String, val iconId: Int, val map: Map<S
                 else -> it to false
             }
         }).toMap())
-        val default = INSTANCE
-        val ALL = listOf(POINTS_ONLY, MINIMAL, PLAIN, SHAPES, ORIGINAL, FIELDS, CIRCLES, GEOMETRY)
+        val default = PLAIN
+        val ALL = listOf(POINTS_ONLY, MINIMAL, PLAIN, SHAPES, ORIGINAL, FIELDS, SHAPE_FIELDS, CIRCLES, GEOMETRY)
         fun getByName(name: String): Components = ALL.find { it.name.equals(name) } ?: default
 
         val EXTRA = this::class.java.getPackage().name + "SHARED_THEME"
-
         fun saveComponentStates(theme: Components) {
             val editor = ConfigData.prefs.edit()
             editor.putString(EXTRA, INSTANCE.name)

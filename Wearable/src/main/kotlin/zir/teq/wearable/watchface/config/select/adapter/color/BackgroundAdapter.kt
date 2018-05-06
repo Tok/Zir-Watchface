@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import zir.teq.wearable.watchface.R
-import zir.teq.wearable.watchface.model.ConfigData
 import zir.teq.wearable.watchface.model.RecAdapter
 import zir.teq.wearable.watchface.model.RecHolder
 import zir.teq.wearable.watchface.model.setting.color.Background
@@ -50,9 +49,7 @@ class BackgroundAdapter(
             val background: Background = mOptions[position]
             val activity = view.context as Activity
             if (mPrefString != null && !mPrefString.isEmpty()) {
-                val editor = ConfigData.prefs.edit()
-                editor.putString(mPrefString, background.name)
-                editor.apply()
+                Background.save(background)
                 activity.setResult(Activity.RESULT_OK)
             }
             activity.finish()

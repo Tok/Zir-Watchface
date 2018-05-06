@@ -1,7 +1,11 @@
 package zir.teq.wearable.watchface.model.setting.color
 
+import android.util.Log
 import zir.teq.wearable.watchface.R
 import zir.teq.wearable.watchface.config.general.types.ColorItem
+import zir.teq.wearable.watchface.model.ConfigData
+import zir.teq.wearable.watchface.model.setting.component.Components
+import zir.teq.wearable.watchface.model.types.Component
 
 class BackgroundConfigItem : ColorConfigItem {
     override val pref: String = ColorItem.COLOR_BACKGROUND.pref
@@ -26,11 +30,18 @@ data class Background(val name: String, val id: Int) : ColorConfigItem {
         val FOO_GRAY = Background("Foo Gray", R.color.foo_gray)
         val LIGHT_GRAY = Background("Light Gray", R.color.light_gray)
 
-        val default = BLACK
+        val default = DARKER
         val all = listOf(BLACK, ALMOST_BLACK, VERY_DARK, DARKER, DARK,
                 GRAY, ULTRA_GRAY, DARK_GRAY, FOO_GRAY, LIGHT_GRAY)
 
         fun options() = all.toCollection(ArrayList())
         fun getByName(name: String): Background = all.find { it.name.equals(name) } ?: default
+
+        val EXTRA = this::class.java.getPackage().name + "SHARED_BACKGROUND"
+        fun save(item: Background) {
+            val editor = ConfigData.prefs.edit()
+            editor.putString(EXTRA, item.name)
+            editor.apply()
+        }
     }
 }

@@ -2,11 +2,13 @@ package zir.teq.wearable.watchface
 
 import android.app.Application
 import android.content.Context
+import zir.teq.wearable.watchface.model.setting.Setup
 
 class Zir : Application() {
     override fun onCreate() {
         super.onCreate()
         mAppContext = applicationContext
+        Setup.PLAIN.applySetup()
     }
 
     companion object {
