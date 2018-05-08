@@ -35,7 +35,9 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) : Palett
         val BLUE = Palette("Blue", R.color.dark_blue, R.color.deep_sky_blue)
         val YELLOW = Palette("Yellow", R.color.yellow_dark, R.color.yellow)
         val GREEN = Palette("Green", R.color.dark_green, R.color.green_yellow)
+        val REVERSE_GREEN = Palette("Reverse Green", R.color.green_yellow, R.color.dark_green)
         val PURPLE = Palette("Purple", R.color.indigo, R.color.magenta)
+        val REVERSE_PURPLE = Palette("Reverse Purple", R.color.magenta, R.color.indigo)
         val RED_YELLOW = Palette("Red and Yellow", R.color.red, R.color.yellow)
         val YELLOW_RED = Palette("Yellow and Red", R.color.yellow, R.color.red)
         val PURPLE_GREEN = Palette("Purple and Green", R.color.dark_violet, R.color.lime_green)
@@ -52,7 +54,7 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) : Palett
         val defaultType = DARK
         fun default() = create(defaultType.name)
 
-        val ALL = listOf(DARK, WHITE, RED, BLUE, YELLOW, GREEN, PURPLE,
+        val ALL = listOf(DARK, WHITE, RED, BLUE, YELLOW, GREEN, REVERSE_GREEN, PURPLE, REVERSE_PURPLE,
                 RED_YELLOW, YELLOW_RED, PURPLE_GREEN, GREEN_PURPLE, BLUE_ORANGE, ORANGE_BLUE,
                 ICE, REVERSE_ICE, FIRE, REVERSE_FIRE, GRASS, REVERSE_GRASS)
 
@@ -106,14 +108,16 @@ data class Palette(val name: String, val darkId: Int, val lightId: Int) : Palett
         }
 
         private fun inst() = Paint().apply { isAntiAlias = true; isDither = true }
-        fun preparePaint(@ColorInt col: Int):Paint = inst().apply {
+        fun preparePaint(@ColorInt col: Int): Paint = inst().apply {
             color = col
             strokeCap = Paint.Cap.ROUND
         }
-        private fun prepareMetaPaint(@ColorInt col: Int):Paint = preparePaint(col).apply {
-            style = Paint.Style.FILL
+
+        private fun prepareMetaPaint(@ColorInt col: Int): Paint = preparePaint(col).apply {
+            style = Paint.Style.FILL_AND_STROKE
         }
-        private fun prepareStrokePaint(@ColorInt col: Int):Paint = preparePaint(col).apply {
+
+        private fun prepareStrokePaint(@ColorInt col: Int): Paint = preparePaint(col).apply {
             style = Paint.Style.STROKE
         }
 

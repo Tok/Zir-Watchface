@@ -73,10 +73,10 @@ data class Setup(val code: Int, val name: String, val iconId: Int) {
         }
         val META = Setup(3025, "Meta", R.drawable.setup_meta).apply {
             components = Components.META
-            palette = Palette.BLUE_ORANGE
-            styleAlpha = StyleAlpha._12
-            styleStroke = StyleStroke._13
-            styleGrowth = StyleGrowth._21
+            palette = Palette.GREEN_PURPLE
+            background = Background.LIGHT_GRAY
+            styleStroke = StyleStroke._8
+            styleGrowth = StyleGrowth._13
             isFastUpdate = true
         }
         val DIAMOND = Setup(3030, "Diamond", R.drawable.setup_diamond).apply {

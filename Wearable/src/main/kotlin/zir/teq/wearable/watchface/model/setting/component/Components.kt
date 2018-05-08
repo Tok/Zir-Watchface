@@ -43,6 +43,10 @@ data class Components(val name: String, val map: Map<String, Boolean>) {
         }).toMap())
         val META = Components("Meta", (Component.KEYS.map {
             when (it) {
+                Component.createKey(HAND, ACTIVE) -> it to true
+                Component.createKey(HAND, AMBIENT) -> it to true
+                Component.createKey(TRIANGLE, ACTIVE) -> it to true
+                Component.createKey(TRIANGLE, AMBIENT) -> it to true
                 Component.createKey(POINTS, ACTIVE) -> it to true
                 Component.createKey(POINTS, AMBIENT) -> it to true
                 Component.createKey(METAS, ACTIVE) -> it to true
